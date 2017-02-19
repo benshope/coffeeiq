@@ -1,0 +1,18 @@
+application: coffeeiq-20a9a
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /mail
+  script: main.app
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+- url: /
+  static_dir: static
+
+libraries:
+- name: webapp2
+  version: latest
