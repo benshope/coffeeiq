@@ -1,7 +1,7 @@
 export const firebase = {
-  apiKey: 'AIzaSyCTUERDM-Pchn_UDTsfhVPiwM4TtNIxots',
-  authDomain: 'redux-firebasev3.firebaseapp.com',
-  databaseURL: 'https://redux-firebasev3.firebaseio.com'
+  apiKey: 'AIzaSyDOKiJ_WFx7hAPE7aBmGuz3Vm8uI8KJu9o',
+  authDomain: 'coffeeiq-20a9a.firebaseapp.com',
+  databaseURL: 'https://coffeeiq-20a9a.firebaseio.com/'
 }
 
 export const fbPaths = {
