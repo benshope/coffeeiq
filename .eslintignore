@@ -1,4 +1,0 @@
-examples/**
-coverage/**
-node_modules/**
-*.spec.js
