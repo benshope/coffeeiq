@@ -1,11 +1,11 @@
 {
-  "name": "todo-react-redux",
-  "version": "0.6.0",
-  "description": "Todo app with React, Redux, and Firebase",
-  "homepage": "https://github.com/r-park/todo-react-redux",
+  "name": "CoffeeIQ",
+  "version": "0.0.1",
+  "description": "CoffeeIQ app with React, Redux, and Firebase",
+  "homepage": "https://www.coffeeiq.us",
   "repository": {
     "type": "git",
-    "url": "https://github.com/r-park/todo-react-redux.git"
+    "url": "https://github.com/lexishanson/coffeeiq.git"
   },
   "author": {
     "name": "Richard Park",
