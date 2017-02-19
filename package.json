@@ -1,7 +1,7 @@
 {
   "name": "CoffeeIQ",
   "version": "0.0.1",
-  "description": "CoffeeIQ app with React, Redux, and Firebase",
+  "description": "CoffeeIQ makes it easier for teammates to connect with one another through automatically-scheduled coffee breaks",
   "homepage": "https://www.coffeeiq.us",
   "repository": {
     "type": "git",
