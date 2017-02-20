@@ -2,11 +2,11 @@
 # Directories
 #---------------------------------
 **/node_modules/
-frontend/target/
-frontend/tmp/
-frontend/app/
-frontend/build/
-frontend/dist/
+target/
+tmp/
+app/
+build/
+dist/
 
 
 #---------------------------------

@@ -1,4 +1,0 @@
-cron:
-- description: daily summary job
-  url: /mail
-  schedule: every 60 minutes
