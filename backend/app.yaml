@@ -1,12 +1,13 @@
+application: coffeeiq-20a9a
+version: 1
 runtime: python27
 api_version: 1
 threadsafe: true
-service: backend
 
 handlers:
-- url: /.*
+- url: /mail
   script: main.app
 
-env_variables:
-  # Replace with your Firebase project ID.
-  FIREBASE_PROJECT_ID: 'coffeeiq-20a9a'
+libraries:
+- name: webapp2
+  version: latest
