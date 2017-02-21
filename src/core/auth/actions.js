@@ -41,11 +41,15 @@ export function signInWithGithub() {
   return authenticate(new firebase.auth.GithubAuthProvider());
 }
 
-
 export function signInWithGoogle() {
-  return authenticate(new firebase.auth.GoogleAuthProvider());
+  let provider = new firebase.auth.GoogleAuthProvider();
+  // TODO: Perhaps we will not ask regular users to 
+  // read or manage their calendars
+  // but just in case, here is the readonly scope:
+  // https://www.googleapis.com/auth/calendar.readonly  
+  provider.addScope('https://www.googleapis.com/auth/calendar');
+  return authenticate(provider);
 }
-
 
 export function signInWithTwitter() {
   return authenticate(new firebase.auth.TwitterAuthProvider());

@@ -27,6 +27,12 @@ export class Tasks extends Component {
     updateTask: PropTypes.func.isRequired
   };
 
+  // OAuth 2.0 client IDs
+  // 465420138559-9t00723j037iq50cijdghbad0s1qajlr.apps.googleusercontent.com
+
+  // Browser API Key
+  // AIzaSyDOKiJ_WFx7hAPE7aBmGuz3Vm8uI8KJu9o 
+
   componentWillMount() {
     this.props.loadTasks();
     this.props.filterTasks(this.props.location.query.filter);
