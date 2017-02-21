@@ -37,22 +37,14 @@ export function signInSuccess(result) {
   };
 }
 
-export function signInWithGithub() {
-  return authenticate(new firebase.auth.GithubAuthProvider());
-}
-
 export function signInWithGoogle() {
   let provider = new firebase.auth.GoogleAuthProvider();
-  // TODO: Perhaps we will not ask regular users to 
+  // TODO: Perhaps we will not ask regular users to
   // read or manage their calendars
   // but just in case, here is the readonly scope:
-  // https://www.googleapis.com/auth/calendar.readonly  
+  // https://www.googleapis.com/auth/calendar.readonly
   provider.addScope('https://www.googleapis.com/auth/calendar');
   return authenticate(provider);
-}
-
-export function signInWithTwitter() {
-  return authenticate(new firebase.auth.TwitterAuthProvider());
 }
 
 export function signOut() {
