@@ -21,6 +21,14 @@ export function createTask(title) {
   };
 }
 
+export function sendCalendarInvites() {
+  console.log('SEND CALENDAR INVITES', gapi);
+  return {
+    type: 'derp',
+    payload: 'yeeeee'
+  };
+}
+
 export function createTaskError(error) {
   return {
     type: CREATE_TASK_ERROR,

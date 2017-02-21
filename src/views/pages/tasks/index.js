@@ -21,6 +21,7 @@ export class Tasks extends Component {
     loadTasks: PropTypes.func.isRequired,
     location: PropTypes.object.isRequired,
     notification: PropTypes.object.isRequired,
+    sendCalendarInvites: PropTypes.func.isRequired,
     tasks: PropTypes.instanceOf(List).isRequired,
     undeleteTask: PropTypes.func.isRequired,
     unloadTasks: PropTypes.func.isRequired,
@@ -31,7 +32,7 @@ export class Tasks extends Component {
   // 465420138559-9t00723j037iq50cijdghbad0s1qajlr.apps.googleusercontent.com
 
   // Browser API Key
-  // AIzaSyDOKiJ_WFx7hAPE7aBmGuz3Vm8uI8KJu9o 
+  // AIzaSyDOKiJ_WFx7hAPE7aBmGuz3Vm8uI8KJu9o
 
   componentWillMount() {
     this.props.loadTasks();
@@ -64,6 +65,9 @@ export class Tasks extends Component {
   render() {
     return (
       <div className="g-row">
+        <button onClick={this.props.sendCalendarInvites}>
+          Send Calendar Invites
+        </button>
         <div className="g-col">
           <TaskForm createTask={this.props.createTask} />
         </div>
