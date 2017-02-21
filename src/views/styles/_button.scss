@@ -18,3 +18,19 @@
   width: 40px;
   height: 40px;
 }
+
+.calendar_invite_button {
+  margin-bottom: 10px;
+  border: 1px solid #555;
+  width: 50%;
+  height: 48px;
+  font-family: inherit;
+  font-size: rem(18px);
+  line-height: 48px;
+  color: #999;
+
+    &:hover {
+      border: 2px solid #aaa;
+      line-height: 46px;
+    }
+  }

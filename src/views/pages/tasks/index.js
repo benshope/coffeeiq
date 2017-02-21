@@ -65,7 +65,7 @@ export class Tasks extends Component {
   render() {
     return (
       <div className="g-row">
-        <button onClick={this.props.sendCalendarInvites}>
+        <button className="btn calendar_invite_button" onClick={this.props.sendCalendarInvites}>
           Send Calendar Invites
         </button>
         <div className="g-col">
