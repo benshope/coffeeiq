@@ -10,7 +10,8 @@ import {
   UNDELETE_TASK_ERROR,
   UNLOAD_TASKS_SUCCESS,
   UPDATE_TASK_ERROR,
-  UPDATE_TASK_SUCCESS
+  UPDATE_TASK_SUCCESS,
+  SEND_CALENDAR_INVITES
 } from './action-types';
 
 
@@ -21,11 +22,42 @@ export function createTask(title) {
   };
 }
 
+const sendRequest = (
+  type,
+  url,
+  data,
+  config
+) => {
+  console.log('send request called');
+  var headers = new Headers();
+  headers.set('Content-Type', 'application/json;charset=UTF-8');
+  headers.set('Authorization', config.Authorization);
+  return fetch(new Request(
+    url,
+    {
+      body: JSON.stringify(data),
+      cache: 'no-cache',
+      credentials: 'include',
+      headers: headers,
+      type: type
+      // mode: 'cors'
+    }));
+};
+
 export function sendCalendarInvites() {
-  console.log('SEND CALENDAR INVITES', gapi);
+  var headers = {
+    Authorization: 'Bearer ', // + payload.accessToken,
+    noXsrfToken: true
+  };
+  sendRequest(
+    'GET',
+    'https://www.googleapis.com/calendar/v3/calendars/main/events',
+    undefined,
+    headers).then(
+      () => { console.log('SUCCESS'); },
+      () => { console.log('ERROR'); });
   return {
-    type: 'derp',
-    payload: 'yeeeee'
+    type: SEND_CALENDAR_INVITES
   };
 }
 
