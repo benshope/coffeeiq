@@ -1,6 +1,7 @@
 export const firebaseConfig = {
-  apiKey: 'AIzaSyDOKiJ_WFx7hAPE7aBmGuz3Vm8uI8KJu9o',
-  authDomain: 'coffeeiq-20a9a.firebaseapp.com',
-  databaseURL: 'https://coffeeiq-20a9a.firebaseio.com',
-  storageBucket: 'coffeeiq-20a9a.appspot.com'
+  apiKey: 'AIzaSyAnqY2lv5g1DsCieEWPPfnnXzUfXlNOUC4',
+  authDomain: 'coffeeiq-3d16b.firebaseapp.com',
+  databaseURL: 'https://coffeeiq-3d16b.firebaseio.com',
+  storageBucket: 'coffeeiq-3d16b.appspot.com',
+  messagingSenderId: '109223590360'
 };
