@@ -1,3 +1,4 @@
+import thunk from 'redux-thunk';
 import {
   applyMiddleware,
   compose,
@@ -6,23 +7,11 @@ import {
 import {
   createEpicMiddleware
 } from 'redux-observable';
-import {
-  rootEpic,
-  rootReducer
-} from './reducers';
+import rootReducer from './reducers';
+import rootEpic from './epics';
 
 export default (initialState = {}) => {
-
   let epicMiddleware = createEpicMiddleware(rootEpic);
-
-  // if (process.env.NODE_ENV !== 'production') {
-  //   // configure redux-devtools-extension
-  //   // @see https://github.com/zalmoxisus/redux-devtools-extension
-  //   const devToolsExtension = window.devToolsExtension;
-  //   if (typeof devToolsExtension === 'function') {
-  //     epicMiddleware = compose(epicMiddleware, devToolsExtension());
-  //   }
-  // }
 
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -31,13 +20,13 @@ export default (initialState = {}) => {
   const store = createStore(
     rootReducer,
     initialState,
-    composeEnhancers(applyMiddleware(epicMiddleware)));
+    composeEnhancers(applyMiddleware(epicMiddleware), applyMiddleware(thunk)));
 
-  // if (module.hot) {
-  //   module.hot.accept('./reducers', () => {
-  //     store.replaceReducer(require('./reducers').rootReducer);
-  //   });
-  // }
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      store.replaceReducer(require('./reducers').default);
+    });
+  }
 
   return store;
 };

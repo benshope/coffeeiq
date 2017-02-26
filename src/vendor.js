@@ -9,6 +9,7 @@ import 'react-redux';
 import 'react-router';
 import 'react-router-redux';
 import 'redux';
+import 'redux-thunk';
 import 'redux-observable';
 import 'rxjs';
 
