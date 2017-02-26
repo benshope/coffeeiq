@@ -1,8 +1,15 @@
+const path = require('path');
+
 const autoprefixer = require('autoprefixer');
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
-const webpack = require('webpack');
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 
 
@@ -23,28 +30,66 @@ const PORT = 3000;
 //  LOADERS
 //---------------------------------------------------------
 const loaders = {
-  js: {test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
-  scss: {test: /\.scss$/, loader: 'style!css!postcss!sass'}
+  componentStyles: {
+    test: /\.scss$/,
+    loader: 'raw!postcss!sass',
+    exclude: path.resolve('src/common/styles')
+  },
+  sharedStyles: {
+    test: /\.scss$/,
+    loader: 'style!css!postcss!sass',
+    include: path.resolve('src/common/styles')
+  },
+  html: {
+    test: /\.html$/,
+    loader: 'raw'
+  },
+  typescript: {
+    test: /\.ts$/,
+    loader: 'ts',
+    exclude: /node_modules/
+  }
 };
 
 
 //=========================================================
 //  CONFIG
 //---------------------------------------------------------
-const config = {};
-module.exports = config;
+const config = module.exports = {};
 
 
 config.resolve = {
-  extensions: ['', '.js'],
-  modulesDirectories: ['node_modules'],
-  root: path.resolve('.')
+  extensions: ['.ts', '.js'],
+  modules: [
+    path.resolve('.'),
+    'node_modules'
+  ]
+};
+
+config.module = {
+  loaders: [
+    loaders.typescript,
+    loaders.html,
+    loaders.componentStyles
+  ]
 };
 
 config.plugins = [
-  new webpack.DefinePlugin({
+  new DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
-  })
+  }),
+  new LoaderOptionsPlugin({
+    debug: false,
+    minimize: ENV_PRODUCTION
+  }),
+
+  // Fix for angular2 critical dependency warning
+  // https://github.com/r-park/todo-angular2-firebase/issues/96
+  new ContextReplacementPlugin(
+    // The (\\|\/) piece accounts for path separators in *nix and Windows
+    /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+    path.resolve('src')
+  )
 ];
 
 config.postcss = [
@@ -63,7 +108,9 @@ config.sassLoader = {
 //-------------------------------------
 if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
   config.entry = {
-    main: ['./src/main.js']
+    main: ['./src/main.ts'],
+    polyfills: './src/polyfills.ts',
+    vendor: './src/vendor.ts'
   };
 
   config.output = {
@@ -73,6 +120,13 @@ if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
   };
 
   config.plugins.push(
+    new CommonsChunkPlugin({
+      name: ['vendor', 'polyfills'],
+      minChunks: Infinity
+    }),
+    new CopyWebpackPlugin([
+      {from: './assets/favicons', to: '.'}
+    ]),
     new HtmlWebpackPlugin({
       chunkSortMode: 'dependency',
       filename: 'index.html',
@@ -90,31 +144,15 @@ if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
 if (ENV_DEVELOPMENT) {
   config.devtool = 'cheap-module-source-map';
 
-  config.entry.main.unshift(
-    `webpack-dev-server/client?http://${HOST}:${PORT}`,
-    'webpack/hot/only-dev-server',
-    'react-hot-loader/patch',
-    'babel-polyfill'
-  );
+  config.module.loaders.push(loaders.sharedStyles);
 
-  config.module = {
-    loaders: [
-      loaders.js,
-      loaders.scss
-    ]
-  };
-
-  config.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
-  );
+  config.plugins.push(new ProgressPlugin());
 
   config.devServer = {
     contentBase: './src',
     historyApiFallback: true,
     host: HOST,
-    hot: true,
     port: PORT,
-    publicPath: config.output.publicPath,
     stats: {
       cached: true,
       cachedAssets: true,
@@ -136,32 +174,29 @@ if (ENV_DEVELOPMENT) {
 if (ENV_PRODUCTION) {
   config.devtool = 'source-map';
 
-  config.entry.vendor = './src/vendor.js';
-
   config.output.filename = '[name].[chunkhash].js';
 
-  config.module = {
-    loaders: [
-      loaders.js,
-      {test: /\.scss$/, loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass')}
-    ]
-  };
+  config.module.loaders.push({
+    test: /\.scss$/,
+    loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass'),
+    include: path.resolve('src/common/styles')
+  });
 
   config.plugins.push(
     new WebpackMd5Hash(),
     new ExtractTextPlugin('styles.[contenthash].css'),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
-    }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: true,
+    // TODO: DedupePlugin is broken on webpack2-beta22
+    // new webpack.optimize.DedupePlugin(),
+    new UglifyJsPlugin({
+      comments: false,
       compress: {
         dead_code: true, // eslint-disable-line camelcase
         screw_ie8: true, // eslint-disable-line camelcase
         unused: true,
         warnings: false
+      },
+      mangle: {
+        screw_ie8: true  // eslint-disable-line camelcase
       }
     })
   );
@@ -174,10 +209,5 @@ if (ENV_PRODUCTION) {
 if (ENV_TEST) {
   config.devtool = 'inline-source-map';
 
-  config.module = {
-    loaders: [
-      loaders.js,
-      loaders.scss
-    ]
-  };
+  config.module.loaders.push(loaders.sharedStyles);
 }

@@ -6,18 +6,14 @@ const logger = require('winston');
 //  SETUP
 //---------------------------------------------------------
 const PROJECT_ROOT_DIR = process.cwd();
-const STATIC_DIR = `${PROJECT_ROOT_DIR}/target`;
-
-const HOST = '0.0.0.0';
-const PORT = 3000;
 
 const app = express();
 
-app.set('host', process.env.HOST || 'localhost');
-app.set('port', process.env.PORT || 3000);
+app.set('host', '0.0.0.0');
+app.set('port', 3001);
 
 app.use(require('morgan')('dev'));
-app.use(express.static(STATIC_DIR));
+app.use(express.static(`${PROJECT_ROOT_DIR}/target`));
 
 
 //=========================================================
@@ -26,7 +22,7 @@ app.use(express.static(STATIC_DIR));
 const router = new express.Router();
 
 router.get('*', (req, res) => {
-  res.sendFile(`${STATIC_DIR}/index.html`);
+  res.sendFile(`${PROJECT_ROOT_DIR}/target/index.html`);
 });
 
 app.use(router);
@@ -35,11 +31,11 @@ app.use(router);
 //=========================================================
 //  START SERVER
 //---------------------------------------------------------
-app.listen(PORT, HOST, error => {
+app.listen(app.get('port'), app.get('host'), error => {
   if (error) {
     logger.error(error);
   }
   else {
-    logger.info(`Server listening @ ${HOST}:${PORT}`);
+    logger.info(`Server listening @ ${app.get('host')}:${app.get('port')}`);
   }
 });

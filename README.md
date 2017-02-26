@@ -1,41 +1,36 @@
-[![CircleCI](https://circleci.com/gh/r-park/todo-react-redux.svg?style=shield&circle-token=6caf8c493bd66544717ff9a47ae01d8be036e53c)](https://circleci.com/gh/r-park/todo-react-redux)
+[![CircleCI](https://circleci.com/gh/r-park/todo-angular2-firebase.svg?style=shield&circle-token=7f6c19e82f8464c0dc18797b6146767f66d49f90)](https://circleci.com/gh/r-park/todo-angular2-firebase)
 
 
-# Todo app with React, Redux, and Firebase
-A simple Todo app example with **undelete** capability — built with React, Redux, and Firebase.
+# Todo app with Angular2, AngularFire2, and Firebase SDK 3
+A simple Todo app example built with **Angular2** and **AngularFire2**. The app features a **Firebase** backend with **OAuth** authentication. Try the demo at <a href="https://ng2-todo-app.firebaseapp.com" target="_blank">ng2-todo-app.firebaseapp.com</a>.
 
-Try the demo at https://todo-react-redux.firebaseapp.com.
-
-A version of this app built with [redux-saga middleware](https://github.com/yelouafi/redux-saga) is available [here](https://github.com/r-park/todo-redux-saga).
-
-
-## Stack
-
-- React
-- React-Hot-Loader `3.0.0-beta.5`
-- React-Redux
-- React-Router
-- React-Router-Redux
-- Redux
-- Redux-Thunk
-- Redux-Devtools-Extension for Chrome
-- Firebase SDK 3 with OAuth authentication
-- Babel
-- Immutable
-- Reselect
+- Angular2 `2.2.0`
+- Angular2 Router `3.2.0`
+- AngularFire2 `2.0.0-beta.5`
+- Firebase SDK 3
+  - JSON Datastore
+  - OAuth authentication with GitHub, Google, and Twitter
+  - Hosting
+- RxJS
 - SASS
+- Typescript
 - Webpack
+  - Inlines external SCSS files
+  - Inlines external HTML templates
+  - Bundles and minifies release builds
+  - Injects style and script tags into index.html
 
 
 Quick Start
 -----------
 
 ```shell
-$ git clone https://github.com/r-park/todo-react-redux.git
-$ cd todo-react-redux
+$ git clone https://github.com/r-park/todo-angular2-firebase.git
+$ cd todo-angular2-firebase
 $ npm install
 $ npm start
 ```
+
 
 ## Deploying to Firebase
 #### Prerequisites:
@@ -54,7 +49,7 @@ $ npm start
 }
 ```
 ```javascript
-// src/core/firebase/config.js
+// src/firebase/index.ts
 
 export const firebaseConfig = {
   apiKey: 'your api key',
@@ -78,14 +73,16 @@ $ firebase deploy
 ```
 
 
-NPM Commands
-------------
+Commands
+--------
 
 |Script|Description|
 |---|---|
-|npm start|Start webpack development server @ **localhost:3000**|
-|npm run build|Lint, test, and build the application to **./target**|
-|npm run lint|Lint **.js** files|
-|npm run server|Start express server @ **localhost:3000** to serve build artifacts from **./target** (must run **npm run build** first)|
-|npm test|Run unit tests with Karma and Jasmine|
-|npm run test:watch|Run unit tests with Karma and Jasmine; watch for changes to re-run tests|
+|`npm start`|Start webpack development server @ `localhost:3000`|
+|`npm run build`|Lint, test, and build the application to `./target`|
+|`npm run lint`|Lint `.ts` and `.js` files|
+|`npm run lint:js`|Lint `.js` files with eslint|
+|`npm run lint:ts`|Lint `.ts` files with tslint|
+|`npm run server`|Start express server @ `localhost:3001` to serve built artifacts from `./target` (must run `npm run build` first)|
+|`npm test`|Run unit tests with Karma and Jasmine|
+|`npm run test:watch`|Run unit tests with Karma and Jasmine; watch for changes to re-run tests|
