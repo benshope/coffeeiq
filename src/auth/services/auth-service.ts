@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthProviders, AuthMethods, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
+import { AuthProviders, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
 
 
 @Injectable()
