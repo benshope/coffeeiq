@@ -56,7 +56,7 @@ export class TasksComponent {
       'https://www.googleapis.com/gmail/v1/' + endpoint,
       { headers: headers }
     ).map(response => response.json())
-    .map(console.log);
+    .subscribe(console.log, console.error);
   }
 
   // public sendRequest = (
