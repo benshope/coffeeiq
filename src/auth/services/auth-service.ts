@@ -23,7 +23,11 @@ export class AuthService {
   signIn(provider: number): firebase.Promise<FirebaseAuthState> {
     return this.auth$.login({provider, scope: [
         'https://www.googleapis.com/auth/calendar'
-      ]}, )
+      ]})
+      .then((x: any) => {
+        console.log('authorized', x);
+        localStorage.setItem('accessToken', x.google.accessToken);
+      })
       .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
   }
 

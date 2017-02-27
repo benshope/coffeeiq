@@ -1,11 +1,12 @@
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/pluck';
+import 'rxjs';
 
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { TaskService } from '../services/task-service';
-import { FirebaseAuth } from 'angularfire2';
+import { FirebaseAuth, FirebaseAuthState, AngularFire, AngularFireAuth } from 'angularfire2';
 import { Http, Headers } from '@angular/http';
 import { Inject } from '@angular/core';
 
@@ -30,30 +31,33 @@ import { Inject } from '@angular/core';
 
 export class TasksComponent {
   filter: Observable<any>;
-  authToken: string;
+  apiToken: string;
 
   constructor(
     public route: ActivatedRoute,
     public taskService: TaskService,
     public auth$: FirebaseAuth,
+    public angularFire: AngularFire,
+    public angularFireAuth: AngularFireAuth,
     @Inject(Http) private http: Http
   ) {
     this.filter = route.params
       .pluck('completed')
       .do((value: string) => taskService.filterTasks(value));
-    auth$.subscribe((state: any) => {
-      this.authToken = state.auth.v;
-      console.log(state, 'booyah');
+    auth$.subscribe((state: FirebaseAuthState) => {
+      state.auth.getToken().then(
+      (token: any) => { console.log('token', token); this.apiToken = token; },
+      console.error);
     });
   }
 
   public getRequest = (endpoint: any) => {
     let headers = new Headers();
     console.log('getRequest');
-    headers.append('Authorization', 'Bearer ' + this.authToken);
+    headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
     headers.append('Content-Type', 'application/json');
     return this.http.get(
-      'https://www.googleapis.com/gmail/v1/' + endpoint,
+      'https://www.googleapis.com/plus/v1/people/me',
       { headers: headers }
     ).map(response => response.json())
     .subscribe(console.log, console.error);
@@ -86,9 +90,22 @@ export class TasksComponent {
   //     }));
   // };
 
+  // accessTokenStream = () => {
+  //   return this.http.get(
+  //     'https://www.googleapis.com/oauth2/v3/tokeninfo' +
+  //     '?access_token=' + this.apiToken)
+  //     .map((response) => {
+  //       console.log('FETCHED ACCESS FROM REFRESH', response);
+  //       this.getRequest('users/me/profile');
+  //       return response.json();
+  //     });
+  // }
+
   sendCalendarInvites = () => {
     this.getRequest('users/me/profile');
-    console.log('send calendar invites');
+    // console.log('send calendar invites', this.angularFire.auth.getAuth().auth.getToken(false));
+    // this.accessTokenStream().subscribe(console.log, console.error);
+
     // var headers = {
     //   Authorization: 'Bearer ' + this.authToken,
     //   noXsrfToken: true
