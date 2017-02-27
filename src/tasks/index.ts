@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    HttpModule,
     RouterModule.forChild(routes)
   ],
   providers: [

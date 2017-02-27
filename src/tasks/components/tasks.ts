@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { TaskService } from '../services/task-service';
+import { AuthProviders, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
+import { Http, Headers } from '@angular/http';
+import { Inject } from '@angular/core';
 
 
 @Component({
@@ -27,17 +30,75 @@ import { TaskService } from '../services/task-service';
 
 export class TasksComponent {
   filter: Observable<any>;
+  authToken: string;
 
   constructor(
     public route: ActivatedRoute,
-    public taskService: TaskService
+    public taskService: TaskService,
+    public auth$: FirebaseAuth,
+    @Inject(Http) private http: Http
   ) {
     this.filter = route.params
       .pluck('completed')
       .do((value: string) => taskService.filterTasks(value));
+    auth$.subscribe((state: any) => {
+      this.authToken = state.auth.v;
+      console.log(state, 'booyah');
+    });
   }
 
-  public sendCalendarInvites = () => {
-    console.log('send calendar invites');
-  }
+  public getRequest = (endpoint: any) => {
+    var headers = new Headers();
+    console.log('getRequest');
+    headers.append('Authorization', 'Bearer ' + this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(
+      'https://www.googleapis.com/gmail/v1/' + endpoint,
+      { headers: headers }
+    ).map(response => response.json())
+    .map(console.log);
+  }
+
+  // public sendRequest = (
+  //   type,
+  //   url,
+  //   data,
+  //   config
+  // ) => {
+
+  //   let Headers: any;
+  //   let fetch: any;
+  //   let Request: any;
+
+  //   console.log('send request called');
+  //   var headers = new Headers();
+  //   headers.append('Content-Type', 'application/json;charset=UTF-8');
+  //   headers.set('Authorization', config.Authorization);
+  //   return fetch(new Request(
+  //     url,
+  //     {
+  //       body: JSON.stringify(data),
+  //       cache: 'no-cache',
+  //       credentials: 'include',
+  //       headers: headers,
+  //       type: type
+  //       // mode: 'cors'
+  //     }));
+  // };
+
+  sendCalendarInvites = () => {
+    this.getRequest('users/me/profile');
+    console.log('send calendar invites')
+    // var headers = {
+    //   Authorization: 'Bearer ' + this.authToken,
+    //   noXsrfToken: true
+    // };
+    // this.sendRequest(
+    //   'GET',
+    //   'https://www.googleapis.com/calendar/v3/calendars/main/events',
+    //   undefined,
+    //   headers).then(
+    //     () => { console.log('SUCCESS'); },
+    //     () => { console.log('ERROR'); });
+  };
 }
