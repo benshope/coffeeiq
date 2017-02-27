@@ -18,7 +18,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
         name="title"
         placeholder="What needs to be done?"
         required
-        type="text">
+        type="text"
+      >
     </form>
   `
 })

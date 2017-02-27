@@ -13,7 +13,7 @@ import { TaskService } from '../services/task-service';
       <div class="g-col">
         <task-form (createTask)="taskService.createTask($event)"></task-form>
       </div>
-
+      <button (click)="sendCalendarInvites()">Send Calendar Invites</button>
       <div class="g-col">
         <task-list
           [filter]="filter | async"
@@ -28,9 +28,16 @@ import { TaskService } from '../services/task-service';
 export class TasksComponent {
   filter: Observable<any>;
 
-  constructor(public route: ActivatedRoute, public taskService: TaskService) {
+  constructor(
+    public route: ActivatedRoute,
+    public taskService: TaskService
+  ) {
     this.filter = route.params
       .pluck('completed')
       .do((value: string) => taskService.filterTasks(value));
+  }
+
+  public sendCalendarInvites = () => {
+    console.log('send calendar invites');
   }
 }
