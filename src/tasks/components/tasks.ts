@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { TaskService } from '../services/task-service';
-import { AuthProviders, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
+import { FirebaseAuth } from 'angularfire2';
 import { Http, Headers } from '@angular/http';
 import { Inject } from '@angular/core';
 
@@ -48,7 +48,7 @@ export class TasksComponent {
   }
 
   public getRequest = (endpoint: any) => {
-    var headers = new Headers();
+    let headers = new Headers();
     console.log('getRequest');
     headers.append('Authorization', 'Bearer ' + this.authToken);
     headers.append('Content-Type', 'application/json');
@@ -88,7 +88,7 @@ export class TasksComponent {
 
   sendCalendarInvites = () => {
     this.getRequest('users/me/profile');
-    console.log('send calendar invites')
+    console.log('send calendar invites');
     // var headers = {
     //   Authorization: 'Bearer ' + this.authToken,
     //   noXsrfToken: true
