@@ -2,27 +2,25 @@ import { Injectable } from '@angular/core';
 import {
   AuthProviders,
   FirebaseAuth,
-  FirebaseAuthState,
-  AngularFire,
-  FirebaseListObservable
+  FirebaseAuthState
+  // FirebaseListObservable
 } from 'angularfire2';
 
 @Injectable()
 export class AuthService {
   public authState: FirebaseAuthState = null;
-  private org$: FirebaseListObservable<any[]>;
+  // private org$: FirebaseListObservable<any[]>;
 
   constructor(
-    public auth$: FirebaseAuth,
-    angularFire: AngularFire
+    public auth$: FirebaseAuth
   ) {
     auth$.subscribe((state: FirebaseAuthState) => {
       this.authState = state;
-      const email = state.google.email;
-      const org = email.split('@')[1].replace('.', '_');
-      const orgPath = `/orgs/${org}`;
-      this.org$ = angularFire.database.list(orgPath);
-      // this.org$.push(email);
+      // const email = state.google.email;
+      // const org = email.split('@')[1].replace('.', '_');
+      // const orgPath = `/orgs/${org}`;
+      // this.org$ = angularFire.database.list(orgPath);
+      // // this.org$.push(email);
     });
   }
 
