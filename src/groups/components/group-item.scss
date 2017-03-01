@@ -121,20 +121,20 @@
   }
 
   .group-item--completed & {
-    color: #666;
+    color: white;
   }
 
-  .group-item--completed &:after {
-    width: 100%;
-  }
+  // .group-item--completed &:after {
+  //   width: 100%;
+  // }
 
   .group-item--completed.group-item--status-updated & {
     animation: fade-title 120ms ease-in-out;
   }
 
-  .group-item--completed.group-item--status-updated &:after {
-    animation: strike-title 180ms ease-in-out;
-  }
+  // .group-item--completed.group-item--status-updated &:after {
+  //   animation: strike-title 180ms ease-in-out;
+  // }
 }
 
 
