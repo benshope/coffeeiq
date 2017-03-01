@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ITask } from '../models/task';
+import { IGroup } from '../models/group';
 
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'task-item',
+  selector: 'group-item',
   styles: [
-    require('./task-item.scss')
+    require('./group-item.scss')
   ],
-  template: require('./task-item.html')
+  template: require('./group-item.html')
 })
 
-export class TaskItemComponent {
-  @Input() task: ITask;
+export class GroupItemComponent {
+  @Input() group: IGroup;
   @Output() remove = new EventEmitter(false);
   @Output() update = new EventEmitter(false);
 
@@ -21,13 +21,13 @@ export class TaskItemComponent {
 
   editTitle(): void {
     this.editing = true;
-    this.title = this.task.title;
+    this.title = this.group.title;
   }
 
   saveTitle(): void {
     if (this.editing) {
       const title: string = this.title.trim();
-      if (title.length && title !== this.task.title) {
+      if (title.length && title !== this.group.title) {
         this.update.emit({title});
       }
       this.stopEditing();
@@ -40,7 +40,7 @@ export class TaskItemComponent {
 
   toggleStatus(): void {
     this.update.emit({
-      completed: !this.task.completed
+      completed: !this.group.completed
     });
   }
 }

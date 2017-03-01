@@ -6,26 +6,26 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '../auth';
 
-import { TaskFormComponent } from './components/task-form';
-import { TaskItemComponent } from './components/task-item';
-import { TaskListComponent } from './components/task-list';
-import { TasksComponent } from './components/tasks';
+import { GroupFormComponent } from './components/group-form';
+import { GroupItemComponent } from './components/group-item';
+import { GroupListComponent } from './components/group-list';
+import { GroupsComponent } from './components/groups';
 import { AutoFocusDirective } from './directives/autofocus-directive';
-import { TaskService } from './services/task-service';
+import { GroupService } from './services/group-service';
 
 
 const routes: Routes = [
-  {path: 'tasks', component: TasksComponent, canActivate: [AuthGuard]}
+  {path: 'groups', component: GroupsComponent, canActivate: [AuthGuard]}
 ];
 
 
 @NgModule({
   declarations: [
     AutoFocusDirective,
-    TaskFormComponent,
-    TaskItemComponent,
-    TaskListComponent,
-    TasksComponent
+    GroupFormComponent,
+    GroupItemComponent,
+    GroupListComponent,
+    GroupsComponent
   ],
   imports: [
     CommonModule,
@@ -34,10 +34,10 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [
-    TaskService
+    GroupService
   ]
 })
 
-export class TasksModule {}
+export class GroupsModule {}
 
-export { TaskService };
+export { GroupService };

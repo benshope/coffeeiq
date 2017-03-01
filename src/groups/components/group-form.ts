@@ -3,18 +3,18 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'task-form',
+  selector: 'group-form',
   styles: [
-    require('./task-form.scss')
+    require('./group-form.scss')
   ],
   template: `
-    <form class="task-form" (ngSubmit)="submit()" novalidate>
+    <form class="group-form" (ngSubmit)="submit()" novalidate>
       <input
         [(ngModel)]="title"
         (keyup.escape)="clear()"
         autocomplete="off"
         autofocus
-        class="task-form__input"
+        class="group-form__input"
         name="title"
         placeholder="What needs to be done?"
         required
@@ -24,8 +24,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
   `
 })
 
-export class TaskFormComponent {
-  @Output() createTask = new EventEmitter(false);
+export class GroupFormComponent {
+  @Output() createGroup = new EventEmitter(false);
 
   title: string = '';
 
@@ -36,7 +36,7 @@ export class TaskFormComponent {
   submit(): void {
     const title: string = this.title.trim();
     if (title.length) {
-      this.createTask.emit(title);
+      this.createGroup.emit(title);
     }
     this.clear();
   }
