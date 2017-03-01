@@ -16,7 +16,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
         autofocus
         class="group-form__input"
         name="title"
-        placeholder="What needs to be done?"
+        placeholder="Create a new group..."
         required
         type="text"
       >
