@@ -11,9 +11,22 @@ import { IGroup } from '../models/group';
   ],
   template: `
     <ul class="group-filters">
-      <li><a [class.active]="!filter" [routerLink]="['/groups']">View All</a></li>
-      <li><a [class.active]="filter === 'false'" [routerLink]="['/groups', {completed: false}]">Active</a></li>
-      <li><a [class.active]="filter === 'true'" [routerLink]="['/groups', {completed: true}]">Completed</a></li>
+      <li>
+        <a
+          [class.active]="!filter"
+          [routerLink]="['/groups']"
+        >
+          All Groups
+        </a>
+      </li>
+      <li>
+        <a
+          [class.active]="filter === 'true'"
+          [routerLink]="['/groups', {completed: true}]"
+        >
+          My Groups
+        </a>
+      </li>
     </ul>
 
     <div class="group-list">

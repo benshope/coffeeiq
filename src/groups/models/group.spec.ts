@@ -7,8 +7,8 @@ describe('groups/', () => {
       expect(new Group('test').title).toBe('test');
     });
 
-    it('should set completed to false by default', () => {
-      expect(new Group('test').completed).toBe(false);
+    it('should set members to an empty array by default', () => {
+      expect(new Group('test').members).toBe([]);
     });
   });
 });
