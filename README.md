@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/bb/benshope/coffeeiq.svg?style=shield&circle-token=7f6c19e82f8464c0dc18797b6146767f66d49f90)](https://circleci.com/bb/benshope/coffeeiq)
+[![CircleCI](https://circleci.com/bb/benshope/coffeeiq.svg?style=shield&circle-token=520c5f98bda3f7f45656e8de7c96f37e4b03c138)](https://circleci.com/bb/benshope/coffeeiq)
 
 # CoffeeIQ
 
