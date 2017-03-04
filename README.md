@@ -20,12 +20,12 @@ Quick Start
 
 #### Run:
 ```shell
-$ npm start
+npm start
 ```
 
 #### Test, Build, and Deploy:
 ```shell
-$ npm test
-$ npm run build
-$ firebase deploy
+npm test
+npm run build
+firebase deploy
 ```
