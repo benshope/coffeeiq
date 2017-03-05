@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/bb/benshope/coffeeiq.svg?style=svg&circle-token=520c5f98bda3f7f45656e8de7c96f37e4b03c138)](https://circleci.com/bb/benshope/coffeeiq)
 
+## [Trello Board](https://trello.com/b/HSWaybK6/coffeeiq)
+
 # CoffeeIQ
 
 ## TODO
