@@ -18,17 +18,23 @@ export class GroupItemComponent {
 
   editing: boolean = false;
   title: string = '';
+  location: string = '';
 
   editTitle(): void {
     this.editing = true;
     this.title = this.group.title;
+    this.location = this.group.location;
   }
 
   saveTitle(): void {
     if (this.editing) {
       const title: string = this.title.trim();
-      if (title.length && title !== this.group.title) {
-        this.update.emit({title});
+      const location: string = this.location.trim();
+      const titleAndLocationExist = title.length && location.length;
+      const titleIsNew = title.length && title !== this.group.title;
+      const locationIsNew = location.length && location !== this.group.location;
+      if (titleAndLocationExist && (titleIsNew || locationIsNew)) {
+        this.update.emit({title, location});
       }
       this.stopEditing();
     }

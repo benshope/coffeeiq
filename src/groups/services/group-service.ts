@@ -55,8 +55,8 @@ export class GroupService {
     }
   }
 
-  createGroup(title: string): firebase.Promise<any> {
-    return this.groups$.push(new Group(title));
+  createGroup(props: any): firebase.Promise<any> {
+    return this.groups$.push(new Group(props.title, props.location));
   }
 
   removeGroup(group: IGroup): firebase.Promise<any> {
