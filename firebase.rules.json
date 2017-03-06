@@ -16,7 +16,12 @@
         },
         "members": {
           "$member": {
-            ".write": "$member === auth.uid"
+            ".write": "$member === auth.uid",
+            "groups": {
+              "$group": {
+                ".validate":"newData.child('name').isString()"
+              }
+            }
           }
         }
       }
