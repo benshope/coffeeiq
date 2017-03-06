@@ -6,11 +6,20 @@
         ".write": "auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true",
         "groups": {
           "$group": {
-            ".indexOn": ["members"]
+            ".indexOn": ["members"],
+            "members": {
+              "$member": {
+                ".write": "$member === auth.uid"
+              }
+            }
+          }
+        },
+        "members": {
+          "$member": {
+            ".write": "$member === auth.uid"
           }
         }
       }
     }
   }
 }
-
