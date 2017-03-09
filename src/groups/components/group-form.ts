@@ -9,6 +9,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
   ],
   template: `
     <form class="group-form" (ngSubmit)="submit()" novalidate>
+      <input style="width:0; visibility:hidden" type="submit">
       <input
         [(ngModel)]="title"
         (keyup.escape)="clear()"
@@ -20,6 +21,16 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
         required
         type="text"
       >
+      <input
+        [(ngModel)]="location"
+        (keyup.escape)="clear()"
+        autocomplete="off"
+        class="group-form__input"
+        name="location"
+        placeholder="Location - where should coffee meetings happen?"
+        required
+        type="text"
+      >
     </form>
   `
 })
@@ -28,15 +39,19 @@ export class GroupFormComponent {
   @Output() createGroup = new EventEmitter(false);
 
   title: string = '';
+  location: string = '';
 
   clear(): void {
     this.title = '';
+    this.location = '';
   }
 
   submit(): void {
     const title: string = this.title.trim();
-    if (title.length) {
-      this.createGroup.emit(title);
+    const location: string = this.location.trim();
+    console.log('submit', title, location);
+    if (title.length && location.length) {
+      this.createGroup.emit({title, location});
     }
     this.clear();
   }
