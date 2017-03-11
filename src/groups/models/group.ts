@@ -2,23 +2,19 @@
 
 export interface IGroup {
   $key?: string;
-  completed: boolean;
-  members: string[];
   createdAt: number;
-  title: string;
+  name: string;
   location: string;
+  memberIds: string[];
 }
 
 export class Group implements IGroup {
-  completed: boolean = false;
-  members: string[] = [];
   createdAt: number = firebase.database['ServerValue']['TIMESTAMP'];
-  title: string;
+  name: string;
   location: string;
-
-  constructor(title: string, location: string) {
-    console.log('class created', title, location);
-    this.title = title;
+  memberIds: string[] = [];
+  constructor(name: string, location: string) {
+    this.name = name;
     this.location = location;
   }
 }

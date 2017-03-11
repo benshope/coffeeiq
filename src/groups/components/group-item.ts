@@ -17,24 +17,24 @@ export class GroupItemComponent {
   @Output() update = new EventEmitter(false);
 
   editing: boolean = false;
-  title: string = '';
+  name: string = '';
   location: string = '';
 
   editTitle(): void {
     this.editing = true;
-    this.title = this.group.title;
+    this.name = this.group.name;
     this.location = this.group.location;
   }
 
   saveTitle(): void {
     if (this.editing) {
-      const title: string = this.title.trim();
+      const name: string = this.name.trim();
       const location: string = this.location.trim();
-      const titleAndLocationExist = title.length && location.length;
-      const titleIsNew = title.length && title !== this.group.title;
+      const nameAndLocationExist = name.length && location.length;
+      const nameIsNew = name.length && name !== this.group.name;
       const locationIsNew = location.length && location !== this.group.location;
-      if (titleAndLocationExist && (titleIsNew || locationIsNew)) {
-        this.update.emit({title, location});
+      if (nameAndLocationExist && (nameIsNew || locationIsNew)) {
+        this.update.emit({name, location});
       }
       this.stopEditing();
     }
@@ -46,7 +46,7 @@ export class GroupItemComponent {
 
   toggleStatus(): void {
     this.update.emit({
-      completed: !this.group.completed
+      // completed: !this.group.completed
     });
   }
 }

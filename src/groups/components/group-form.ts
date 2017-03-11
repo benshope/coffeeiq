@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'group-form',
@@ -11,13 +10,13 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
     <form class="group-form" (ngSubmit)="submit()" novalidate>
       <input style="width:0; visibility:hidden" type="submit">
       <input
-        [(ngModel)]="title"
+        [(ngModel)]="name"
         (keyup.escape)="clear()"
         autocomplete="off"
         autofocus
         class="group-form__input"
-        name="title"
-        placeholder="Create a new group..."
+        name="name"
+        placeholder="Group name..."
         required
         type="text"
       >
@@ -27,7 +26,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
         autocomplete="off"
         class="group-form__input"
         name="location"
-        placeholder="Location - where should coffee meetings happen?"
+        placeholder="Group location..."
         required
         type="text"
       >
@@ -38,20 +37,19 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
 export class GroupFormComponent {
   @Output() createGroup = new EventEmitter(false);
 
-  title: string = '';
+  name: string = '';
   location: string = '';
 
   clear(): void {
-    this.title = '';
+    this.name = '';
     this.location = '';
   }
 
   submit(): void {
-    const title: string = this.title.trim();
+    const name: string = this.name.trim();
     const location: string = this.location.trim();
-    console.log('submit', title, location);
-    if (title.length && location.length) {
-      this.createGroup.emit({title, location});
+    if (name.length && location.length) {
+      this.createGroup.emit({name, location});
     }
     this.clear();
   }

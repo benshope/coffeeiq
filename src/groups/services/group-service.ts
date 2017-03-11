@@ -2,11 +2,19 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/switchMap';
 
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import {
+  AngularFire,
+  FirebaseListObservable
+} from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { AuthService } from '../../auth';
 import { IGroup, Group } from '../models/group';
+import {
+  IMember,
+  Member
+} from '../models/member';
+
 import { Http, Headers } from '@angular/http';
 import { Inject } from '@angular/core';
 
@@ -17,6 +25,7 @@ export class GroupService {
   private filter$: ReplaySubject<any> = new ReplaySubject(1);
   private filteredGroups$: FirebaseListObservable<IGroup[]>;
   private groups$: FirebaseListObservable<IGroup[]>;
+  public members$: FirebaseListObservable<IMember[]>;
 
   constructor(
     af: AngularFire,
@@ -25,19 +34,23 @@ export class GroupService {
   ) {
     const email = auth.authState.google.email;
     const org = email.split('@')[1].replace('.', '_');
-    const path = `orgs/${org}/groups`;
+    const groupPath = `orgs/${org}/groups`;
 
-    this.groups$ = af.database.list(path);
-
-    this.filteredGroups$ = af.database.list(path, {query: {
+    this.members$ = af.database.list(`orgs/${org}/members`);
+    console.log('auth', auth);
+    this.members$.update(auth.id, new Member(
+      auth.authState.google.email,
+      auth.authState.google.displayName));
+    this.groups$ = af.database.list(groupPath);
+    this.filteredGroups$ = af.database.list(groupPath, {query: {
       orderByChild: 'completed',
       equalTo: this.filter$
     }});
 
     this.visibleGroups$ = this.filter$
-      .switchMap(filter => filter === null ? this.groups$ : this.filteredGroups$);
+      .switchMap(filter => filter === null ?
+        this.groups$ : this.filteredGroups$);
   }
-
 
   filterGroups(filter: string): void {
     switch (filter) {
@@ -56,7 +69,8 @@ export class GroupService {
   }
 
   createGroup(props: any): firebase.Promise<any> {
-    return this.groups$.push(new Group(props.title, props.location));
+    return this.groups$.push(
+      new Group(props.name, props.location));
   }
 
   removeGroup(group: IGroup): firebase.Promise<any> {
@@ -69,10 +83,12 @@ export class GroupService {
 
   sendCalendarInvites = () => {
     let headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+    headers.append('Authorization', 'Bearer ' +
+      localStorage.getItem('accessToken'));
     headers.append('Content-Type', 'application/json');
     return this.http.post(
-      'https://www.googleapis.com/calendar/v3/calendars/primary/events?sendNotifications=true',
+      'https://www.googleapis.com/calendar/v3' +
+        '/calendars/primary/events?sendNotifications=true',
       {
         attachments: [],
         location: 'The bedroom of Lexis',

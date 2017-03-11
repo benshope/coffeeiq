@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FirebaseListObservable } from 'angularfire2';
 import { IGroup } from '../models/group';
+import { IMember } from '../models/member';
 
 
 @Component({
@@ -42,6 +43,7 @@ import { IGroup } from '../models/group';
 export class GroupListComponent {
   @Input() filter: string;
   @Input() groups: FirebaseListObservable<IGroup[]>;
+  @Input() members: FirebaseListObservable<IMember[]>;
 
   @Output() remove = new EventEmitter(false);
   @Output() update = new EventEmitter(false);

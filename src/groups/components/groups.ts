@@ -13,6 +13,7 @@ import { GroupService } from '../services/group-service';
       <div class="g-col">
         <group-form (createGroup)="groupService.createGroup($event)"></group-form>
       </div>
+      {{groupService.members$ | async}}
       <!-- TODO: *ngIf user is admin
       <button
         (click)="groupService.sendCalendarInvites()"
@@ -23,6 +24,7 @@ import { GroupService } from '../services/group-service';
       <div class="g-col">
         <group-list
           [filter]="filter | async"
+          [members]="groupService.members$"
           [groups]="groupService.visibleGroups$"
           (remove)="groupService.removeGroup($event)"
           (update)="groupService.updateGroup($event.group, $event.changes)"></group-list>

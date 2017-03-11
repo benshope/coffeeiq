@@ -18,18 +18,18 @@
       *ngIf="!editing"
       class="group-item__title"
       tabindex="0">
-      {{ group.title }}
+      {{ group.name }}
     </div>
 
     <form class="group-form" *ngIf="editing" (ngSubmit)="saveTitle()" novalidate>
       <input
-        [(ngModel)]="title"
+        [(ngModel)]="name"
         (blur)="stopEditing()"
         (keyup.escape)="stopEditing()"
         autocomplete="off"
         autoFocus
         class="group-item__input"
-        name="title"
+        name="name"
         type="text">
     </form>
   </div>
