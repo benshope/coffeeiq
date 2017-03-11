@@ -20,6 +20,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
         required
         type="text"
       >
+      <span class="between-inputs">
+        @
+      </span>
       <input
         [(ngModel)]="location"
         (keyup.escape)="clear()"

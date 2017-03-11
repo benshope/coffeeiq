@@ -18,19 +18,39 @@
       *ngIf="!editing"
       class="group-item__title"
       tabindex="0">
-      {{ group.name }}
+      {{ group.name }} at {{ group.location }}
     </div>
 
-    <form class="group-form" *ngIf="editing" (ngSubmit)="saveTitle()" novalidate>
+    <form
+      class="group-form"
+      *ngIf="editing"
+      (ngSubmit)="saveTitle()"
+      (blur)="stopEditing()"
+      novalidate
+    >
+      <input style="width:0; visibility:hidden" type="submit">
       <input
         [(ngModel)]="name"
-        (blur)="stopEditing()"
         (keyup.escape)="stopEditing()"
         autocomplete="off"
         autoFocus
         class="group-item__input"
         name="name"
-        type="text">
+        placeholder="Group name"
+        type="text"
+      >
+      <span class="between-inputs">
+        @
+      </span>
+      <input
+        [(ngModel)]="location"
+        (keyup.escape)="stopEditing()"
+        autocomplete="off"
+        class="group-item__input"
+        name="location"
+        placeholder="Group location..."
+        type="text"
+      >
     </form>
   </div>
 
