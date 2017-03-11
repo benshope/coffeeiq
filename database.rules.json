@@ -17,7 +17,7 @@
           "$memberId": {
             ".write": "$memberId === auth.uid",
             "groupIds": {
-              ".read": "$memberId === auth.uid",
+              ".read": "$memberId === auth.uid"
             }
           }
         }
