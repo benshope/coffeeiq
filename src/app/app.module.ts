@@ -29,14 +29,13 @@ import { reducer } from './reducers';
 import { schema } from './db';
 
 
-
 @NgModule({
   imports: [
     CommonModule,
     BrowserModule,
     MaterialModule,
     ComponentsModule,
-    RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(routes, { useHash: false }),
 
     /**
      * StoreModule.provideStore is imported once in the root module, accepting a reducer

@@ -12,11 +12,11 @@ export const routes: Routes = [
     component: CollectionPageComponent
   },
   {
-    path: 'book/find',
+    path: 'groups/list',
     component: FindBookPageComponent
   },
   {
-    path: 'book/:id',
+    path: 'groups/:id',
     canActivate: [ BookExistsGuard ],
     component: ViewBookPageComponent
   },
