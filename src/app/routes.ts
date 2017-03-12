@@ -6,11 +6,12 @@ import { ViewGroupPageComponent } from './containers/view-group-page';
 import { CollectionPageComponent } from './containers/collection-page';
 import { NotFoundPageComponent } from './containers/not-found-page';
 import { PricingPageComponent } from './containers/pricing-page';
+import { HomePageComponent } from './containers/home-page';
 
 export const routes: Routes = [
   {
     path: '',
-    component: CollectionPageComponent
+    component: HomePageComponent
   },
     {
     path: 'pricing',

@@ -8,15 +8,17 @@ import {
 } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { AuthService } from './auth-service';
-import { IGroup, Group } from '../models/group';
+import { Http, Headers } from '@angular/http';
+import { Inject } from '@angular/core';
+
+import {
+  IGroup,
+  Group
+} from '../models/group';
 import {
   IMember,
   Member
 } from '../models/member';
-
-import { Http, Headers } from '@angular/http';
-import { Inject } from '@angular/core';
 
 @Injectable()
 export class GroupService {
@@ -28,28 +30,32 @@ export class GroupService {
   public members$: FirebaseListObservable<IMember[]>;
 
   constructor(
-    af: AngularFire,
-    auth: AuthService,
+    angularFire: AngularFire,
     @Inject(Http) private http: Http
   ) {
-    const email = auth.authState.google.email;
-    const org = email.split('@')[1].replace('.', '_');
-    const groupPath = `orgs/${org}/groups`;
+    angularFire.auth.subscribe((authState) => {
+      if (authState.uid) {
+        const email = authState.google.email;
+        const org = email.split('@')[1].replace('.', '_');
+        const groupPath = `orgs/${org}/groups`;
 
-    this.members$ = af.database.list(`orgs/${org}/members`);
-    console.log('auth', auth);
-    this.members$.update(auth.id, new Member(
-      auth.authState.google.email,
-      auth.authState.google.displayName));
-    this.groups$ = af.database.list(groupPath);
-    this.filteredGroups$ = af.database.list(groupPath, {query: {
-      orderByChild: 'completed',
-      equalTo: this.filter$
-    }});
+        this.members$ = angularFire.database.list(`orgs/${org}/members`);
 
-    this.visibleGroups$ = this.filter$
-      .switchMap(filter => filter === null ?
-        this.groups$ : this.filteredGroups$);
+        this.members$.update(authState.uid, new Member(
+          authState.google.email,
+          authState.google.displayName));
+
+        this.groups$ = angularFire.database.list(groupPath);
+        this.filteredGroups$ = angularFire.database.list(groupPath, {query: {
+          orderByChild: 'completed',
+          equalTo: this.filter$
+        }});
+
+        this.visibleGroups$ = this.filter$
+          .switchMap(filter => filter === null ?
+            this.groups$ : this.filteredGroups$);
+      }
+    });
   }
 
   filterGroups(filter: string): void {
@@ -68,17 +74,17 @@ export class GroupService {
     }
   }
 
-  createGroup(props: any): Promise<any> {
-    return this.groups$.push(
+  createGroup(props: any): void {
+    this.groups$.push(
       new Group(props.name, props.location));
   }
 
-  removeGroup(group: IGroup): Promise<any> {
-    return this.groups$.remove(group.$key);
+  removeGroup(group: IGroup): void {
+    this.groups$.remove(group.$key);
   }
 
-  updateGroup(group: IGroup, changes: any): Promise<any> {
-    return this.groups$.update(group.$key, changes);
+  updateGroup(group: IGroup, changes: any): void {
+    this.groups$.update(group.$key, changes);
   }
 
   sendCalendarInvites = () => {
@@ -110,5 +116,5 @@ export class GroupService {
       },
       { headers: headers })
         .map(response => response.json());
-  };
+  }
 }

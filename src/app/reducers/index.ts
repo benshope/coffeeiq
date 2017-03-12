@@ -37,6 +37,7 @@ import { combineReducers } from '@ngrx/store';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
+import * as fromAuth from './auth';
 import * as fromSearch from './search';
 import * as fromGroups from './groups';
 import * as fromCollection from './collection';
@@ -48,6 +49,7 @@ import * as fromLayout from './layout';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface State {
+  auth: fromAuth.State;
   search: fromSearch.State;
   groups: fromGroups.State;
   collection: fromCollection.State;
@@ -64,6 +66,7 @@ export interface State {
  * the result from right to left.
  */
 const reducers = {
+  auth: fromAuth.reducer,
   search: fromSearch.reducer,
   groups: fromGroups.reducer,
   collection: fromCollection.reducer,

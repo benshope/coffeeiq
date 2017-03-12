@@ -1,3 +1,4 @@
+import { ModuleWithProviders } from '@angular/core';
 import { AngularFireModule, AuthMethods } from 'angularfire2';
 
 
@@ -14,4 +15,6 @@ const firebaseAuthConfig = {
   remember: 'default'
 };
 
-export const FirebaseModule = AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig);
+export const FirebaseModule = AngularFireModule.initializeApp(
+  firebaseConfig,
+  firebaseAuthConfig);

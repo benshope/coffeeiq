@@ -1,3 +1,11 @@
+export interface IGroup {
+  $key?: string;
+  createdAt: number;
+  name: string;
+  location: string;
+  memberIds: string[];
+}
+
 export interface Group {
   id: string;
   volumeInfo: {

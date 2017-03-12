@@ -4,15 +4,17 @@ import 'rxjs/add/operator/take';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../services/auth-service';
-
+import { AngularFire } from 'angularfire2';
 
 @Injectable()
 export class UnauthGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private angularFire: AngularFire,
+    private router: Router
+  ) {}
 
   canActivate(): Observable<boolean> {
-    return this.auth.auth$
+    return this.angularFire.auth
       .take(1)
       .map(authState => !authState)
       .do(unauthenticated => {

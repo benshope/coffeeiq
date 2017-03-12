@@ -18,7 +18,11 @@
     "target": "es5",
     "skipLibCheck": true,
     "types": [
-      "hammerjs"
+      "hammerjs",
+      "firebase"
+    ],
+    "typeRoots": [
+      "../node_modules/@types"
     ]
   },
   "exclude": [

@@ -11,6 +11,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MaterialModule } from '@angular/material';
 
 import { ComponentsModule } from './components';
+import { AuthEffects } from './effects/auth';
 import { GroupEffects } from './effects/group';
 import { CollectionEffects } from './effects/collection';
 import { GroupExistsGuard } from './guards/group-exists';
@@ -26,9 +27,10 @@ import { SelectedGroupPageComponent } from './containers/selected-group-page';
 import { CollectionPageComponent } from './containers/collection-page';
 import { NotFoundPageComponent } from './containers/not-found-page';
 import { PricingPageComponent } from './containers/pricing-page';
+import { HomePageComponent } from './containers/home-page';
+
 
 import { GoogleGroupsService } from './services/google-groups';
-import { AuthService } from './services/auth-service';
 
 import { routes } from './routes';
 import { reducer } from './reducers';
@@ -76,6 +78,7 @@ import { schema } from './db';
      *
      * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
      */
+    EffectsModule.run(AuthEffects),
     EffectsModule.run(GroupEffects),
     EffectsModule.run(CollectionEffects),
 
@@ -88,6 +91,7 @@ import { schema } from './db';
   ],
   declarations: [
     AppComponent,
+    HomePageComponent,
     FindGroupPageComponent,
     SelectedGroupPageComponent,
     ViewGroupPageComponent,
@@ -97,10 +101,9 @@ import { schema } from './db';
   ],
   providers: [
     GroupExistsGuard,
-    GoogleGroupsService
+    GoogleGroupsService,
     AuthGuard,
-    UnauthGuard,
-    AuthService
+    UnauthGuard
   ],
   bootstrap: [
     AppComponent

@@ -8,13 +8,24 @@ import * as fromRoot from '../reducers';
 import * as group from '../actions/group';
 import { Group } from '../models/group';
 
+import * as auth from '../actions/auth';
+
 
 @Component({
   selector: 'bc-find-group-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-group-search [query]="searchQuery$ | async" [searching]="loading$ | async" (search)="search($event)"></bc-group-search>
-    <bc-group-preview-list [groups]="groups$ | async"></bc-group-preview-list>
+    <button>Log In With Google</button>
+    <bc-group-search
+      [query]="searchQuery$ | async"
+      [searching]="loading$ | async"
+      (search)="search($event)"
+    >
+    </bc-group-search>
+    <bc-group-preview-list
+      [groups]="groups$ | async"
+    >
+    </bc-group-preview-list>
   `
 })
 export class FindGroupPageComponent {
