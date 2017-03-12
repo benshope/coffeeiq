@@ -21,6 +21,7 @@ import { ViewGroupPageComponent } from './containers/view-group-page';
 import { SelectedGroupPageComponent } from './containers/selected-group-page';
 import { CollectionPageComponent } from './containers/collection-page';
 import { NotFoundPageComponent } from './containers/not-found-page';
+import { PricingPageComponent } from './containers/pricing-page';
 
 import { GoogleGroupsService } from './services/google-groups';
 
@@ -85,7 +86,8 @@ import { schema } from './db';
     SelectedGroupPageComponent,
     ViewGroupPageComponent,
     CollectionPageComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    PricingPageComponent
   ],
   providers: [
     GroupExistsGuard,
