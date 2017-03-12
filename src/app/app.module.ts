@@ -14,6 +14,10 @@ import { ComponentsModule } from './components';
 import { GroupEffects } from './effects/group';
 import { CollectionEffects } from './effects/collection';
 import { GroupExistsGuard } from './guards/group-exists';
+import { AuthGuard } from './guards/auth-guard';
+import { UnauthGuard } from './guards/unauth-guard';
+
+import { FirebaseModule } from './firebase';
 
 import { AppComponent } from './containers/app';
 import { FindGroupPageComponent } from './containers/find-group-page';
@@ -24,6 +28,7 @@ import { NotFoundPageComponent } from './containers/not-found-page';
 import { PricingPageComponent } from './containers/pricing-page';
 
 import { GoogleGroupsService } from './services/google-groups';
+import { AuthService } from './services/auth-service';
 
 import { routes } from './routes';
 import { reducer } from './reducers';
@@ -79,6 +84,7 @@ import { schema } from './db';
      * service available.
      */
     DBModule.provideDB(schema),
+    FirebaseModule,
   ],
   declarations: [
     AppComponent,
@@ -92,6 +98,9 @@ import { schema } from './db';
   providers: [
     GroupExistsGuard,
     GoogleGroupsService
+    AuthGuard,
+    UnauthGuard,
+    AuthService
   ],
   bootstrap: [
     AppComponent
