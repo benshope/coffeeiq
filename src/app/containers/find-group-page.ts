@@ -8,14 +8,11 @@ import * as fromRoot from '../reducers';
 import * as group from '../actions/group';
 import { Group } from '../models/group';
 
-import * as auth from '../actions/auth';
-
 
 @Component({
   selector: 'bc-find-group-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button>Log In With Google</button>
     <bc-group-search
       [query]="searchQuery$ | async"
       [searching]="loading$ | async"
