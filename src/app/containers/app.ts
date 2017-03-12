@@ -14,14 +14,14 @@ import * as layout from '../actions/layout';
     <bc-layout>
       <bc-sidenav [open]="showSidenav$ | async">
         <bc-nav-item (activate)="closeSidenav()" routerLink="/" icon="group" hint="View your group collection">
-          My Collection
+          Home
         </bc-nav-item>
         <bc-nav-item (activate)="closeSidenav()" routerLink="/group/find" icon="search" hint="Find your next group!">
           Browse Groups
         </bc-nav-item>
       </bc-sidenav>
       <bc-toolbar (openMenu)="openSidenav()">
-        Group Collection
+        CoffeeIQ
       </bc-toolbar>
 
       <router-outlet></router-outlet>
