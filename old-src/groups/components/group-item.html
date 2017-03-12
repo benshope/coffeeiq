@@ -1,0 +1,83 @@
+<div
+  [ngClass]="{'group-item--completed': group.completed, 'group-item--editing': editing}"
+  class="group-item"
+  tabindex="0">
+
+  <div class="cell">
+    <button
+      *ngIf="!editing"
+      (click)="toggleStatus()"
+      aria-label="Mark group as completed"
+      class="group-item__button"
+      type="button">
+      <span class="icon material-icons" [ngClass]="{'icon--active': group.completed}">done</span>
+    </button>
+  </div>
+  <div class="cell">
+    <div
+      *ngIf="!editing"
+      class="group-item__title"
+      tabindex="0">
+      {{ group.name }} at {{ group.location }}
+    </div>
+
+    <form
+      class="group-form"
+      *ngIf="editing"
+      (ngSubmit)="saveTitle()"
+      (blur)="stopEditing()"
+      novalidate
+    >
+      <input style="width:0; visibility:hidden" type="submit">
+      <input
+        [(ngModel)]="name"
+        (keyup.escape)="stopEditing()"
+        autocomplete="off"
+        autoFocus
+        class="group-item__input"
+        name="name"
+        placeholder="Group name"
+        type="text"
+      >
+      <span class="between-inputs">
+        @
+      </span>
+      <input
+        [(ngModel)]="location"
+        (keyup.escape)="stopEditing()"
+        autocomplete="off"
+        class="group-item__input"
+        name="location"
+        placeholder="Group location..."
+        type="text"
+      >
+    </form>
+  </div>
+
+  <div class="cell">
+    <button
+      *ngIf="editing"
+      (click)="stopEditing()"
+      aria-label="Cancel editing"
+      class="group-item__button"
+      type="button">
+      <span class="icon material-icons">&#xe14c;</span>
+    </button>
+    <button
+      *ngIf="!editing"
+      (click)="editTitle()"
+      aria-label="Edit group title"
+      class="group-item__button"
+      type="button">
+      <span class="icon material-icons">edit</span>
+    </button>
+    <button
+      *ngIf="!editing"
+      (click)="remove.emit()"
+      aria-label="Delete group"
+      class="group-item__button"
+      type="button">
+      <span class="icon material-icons">delete</span>
+    </button>
+  </div>
+</div>
