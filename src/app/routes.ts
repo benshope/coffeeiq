@@ -12,7 +12,7 @@ export const routes: Routes = [
     component: CollectionPageComponent
   },
   {
-    path: 'groups/list',
+    path: 'group/find',
     component: FindGroupPageComponent
   },
   {
