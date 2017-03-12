@@ -1,4 +1,4 @@
-import * as book from '../actions/book';
+import * as group from '../actions/group';
 
 
 export interface State {
@@ -13,9 +13,9 @@ const initialState: State = {
   query: ''
 };
 
-export function reducer(state = initialState, action: book.Actions): State {
+export function reducer(state = initialState, action: group.Actions): State {
   switch (action.type) {
-    case book.ActionTypes.SEARCH: {
+    case group.ActionTypes.SEARCH: {
       const query = action.payload;
 
       if (query === '') {
@@ -32,11 +32,11 @@ export function reducer(state = initialState, action: book.Actions): State {
       });
     }
 
-    case book.ActionTypes.SEARCH_COMPLETE: {
-      const books = action.payload;
+    case group.ActionTypes.SEARCH_COMPLETE: {
+      const groups = action.payload;
 
       return {
-        ids: books.map(book => book.id),
+        ids: groups.map(group => group.id),
         loading: false,
         query: state.query
       };

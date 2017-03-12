@@ -4,7 +4,7 @@ import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
 import { TestBed } from '@angular/core/testing';
 import { CollectionEffects } from './collection';
 import { Database } from '@ngrx/db';
-import { Book } from '../models/book';
+import { Group } from '../models/group';
 import * as collection from '../actions/collection';
 import { Observable } from 'rxjs/Observable';
 
@@ -34,21 +34,21 @@ describe('CollectionEffects', () => {
     it('should call db.open when initially subscribed to', () => {
       const {db, collectionEffects} = setup();
       collectionEffects.openDB$.subscribe();
-      expect(db.open).toHaveBeenCalledWith('books_app');
+      expect(db.open).toHaveBeenCalledWith('groups_app');
     });
   });
 
   describe('loadCollection$', () => {
-    it('should return a collection.LoadSuccessAction, with the books, on success', () => {
-      const book1 = {id: '111', volumeInfo: {}} as Book;
-      const book2 = {id: '222', volumeInfo: {}} as Book;
+    it('should return a collection.LoadSuccessAction, with the groups, on success', () => {
+      const group1 = {id: '111', volumeInfo: {}} as Group;
+      const group2 = {id: '222', volumeInfo: {}} as Group;
 
       const {db, runner, collectionEffects} = setup();
 
-      const booksObservable = Observable.of(book1, book2);
-      db.query.and.returnValue(booksObservable);
+      const groupsObservable = Observable.of(group1, group2);
+      db.query.and.returnValue(groupsObservable);
 
-      const expectedResult = new collection.LoadSuccessAction([book1, book2]);
+      const expectedResult = new collection.LoadSuccessAction([group1, group2]);
 
       runner.queue(new collection.LoadAction());
 
@@ -73,69 +73,69 @@ describe('CollectionEffects', () => {
     });
   });
 
-  describe('addBookToCollection$', () => {
-    it('should return a collection.AddBookSuccessAction, with the book, on success', () => {
-      const book = {id: '111', volumeInfo: {}} as Book;
+  describe('addGroupToCollection$', () => {
+    it('should return a collection.AddGroupSuccessAction, with the group, on success', () => {
+      const group = {id: '111', volumeInfo: {}} as Group;
 
       const {db, runner, collectionEffects} = setup();
       db.insert.and.returnValue(Observable.of({}));
 
-      const expectedResult = new collection.AddBookSuccessAction(book);
+      const expectedResult = new collection.AddGroupSuccessAction(group);
 
-      runner.queue(new collection.AddBookAction(book));
+      runner.queue(new collection.AddGroupAction(group));
 
-      collectionEffects.addBookToCollection$.subscribe(result => {
+      collectionEffects.addGroupToCollection$.subscribe(result => {
         expect(result).toEqual(expectedResult);
-        expect(db.insert).toHaveBeenCalledWith('books', [book]);
+        expect(db.insert).toHaveBeenCalledWith('groups', [group]);
       });
     });
 
-    it('should return a collection.AddBookFailAction, with the book, when the db insert throws', () => {
-      const book = {id: '111', volumeInfo: {}} as Book;
+    it('should return a collection.AddGroupFailAction, with the group, when the db insert throws', () => {
+      const group = {id: '111', volumeInfo: {}} as Group;
 
       const {db, runner, collectionEffects} = setup();
       db.insert.and.returnValue(Observable.throw(new Error()));
 
-      const expectedResult = new collection.AddBookFailAction(book);
+      const expectedResult = new collection.AddGroupFailAction(group);
 
-      runner.queue(new collection.AddBookAction(book));
+      runner.queue(new collection.AddGroupAction(group));
 
-      collectionEffects.addBookToCollection$.subscribe(result => {
+      collectionEffects.addGroupToCollection$.subscribe(result => {
         expect(result).toEqual(expectedResult);
-        expect(db.insert).toHaveBeenCalledWith('books', [book]);
+        expect(db.insert).toHaveBeenCalledWith('groups', [group]);
       });
     });
 
-    describe('removeBookFromCollection$', () => {
-      it('should return a collection.RemoveBookSuccessAction, with the book, on success', () => {
-        const book = {id: '111', volumeInfo: {}} as Book;
+    describe('removeGroupFromCollection$', () => {
+      it('should return a collection.RemoveGroupSuccessAction, with the group, on success', () => {
+        const group = {id: '111', volumeInfo: {}} as Group;
 
         const {db, runner, collectionEffects} = setup();
         db.executeWrite.and.returnValue(Observable.of({}));
 
-        const expectedResult = new collection.RemoveBookSuccessAction(book);
+        const expectedResult = new collection.RemoveGroupSuccessAction(group);
 
-        runner.queue(new collection.RemoveBookAction(book));
+        runner.queue(new collection.RemoveGroupAction(group));
 
-        collectionEffects.removeBookFromCollection$.subscribe(result => {
+        collectionEffects.removeGroupFromCollection$.subscribe(result => {
           expect(result).toEqual(expectedResult);
-          expect(db.executeWrite).toHaveBeenCalledWith('books', 'delete', ['111']);
+          expect(db.executeWrite).toHaveBeenCalledWith('groups', 'delete', ['111']);
         });
       });
 
-      it('should return a collection.RemoveBookFailAction, with the book, when the db insert throws', () => {
-        const book = {id: '111', volumeInfo: {}} as Book;
+      it('should return a collection.RemoveGroupFailAction, with the group, when the db insert throws', () => {
+        const group = {id: '111', volumeInfo: {}} as Group;
 
         const {db, runner, collectionEffects} = setup();
         db.executeWrite.and.returnValue(Observable.throw(new Error()));
 
-        const expectedResult = new collection.RemoveBookFailAction(book);
+        const expectedResult = new collection.RemoveGroupFailAction(group);
 
-        runner.queue(new collection.RemoveBookAction(book));
+        runner.queue(new collection.RemoveGroupAction(group));
 
-        collectionEffects.removeBookFromCollection$.subscribe(result => {
+        collectionEffects.removeGroupFromCollection$.subscribe(result => {
           expect(result).toEqual(expectedResult);
-          expect(db.executeWrite).toHaveBeenCalledWith('books', 'delete', ['111']);
+          expect(db.executeWrite).toHaveBeenCalledWith('groups', 'delete', ['111']);
         });
       });
     });

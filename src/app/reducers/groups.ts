@@ -1,63 +1,63 @@
 import { createSelector } from 'reselect';
-import { Book } from '../models/book';
-import * as book from '../actions/book';
+import { Group } from '../models/group';
+import * as group from '../actions/group';
 import * as collection from '../actions/collection';
 
 
 export interface State {
   ids: string[];
-  entities: { [id: string]: Book };
-  selectedBookId: string | null;
+  entities: { [id: string]: Group };
+  selectedGroupId: string | null;
 };
 
 export const initialState: State = {
   ids: [],
   entities: {},
-  selectedBookId: null,
+  selectedGroupId: null,
 };
 
-export function reducer(state = initialState, action: book.Actions | collection.Actions): State {
+export function reducer(state = initialState, action: group.Actions | collection.Actions): State {
   switch (action.type) {
-    case book.ActionTypes.SEARCH_COMPLETE:
+    case group.ActionTypes.SEARCH_COMPLETE:
     case collection.ActionTypes.LOAD_SUCCESS: {
-      const books = action.payload;
-      const newBooks = books.filter(book => !state.entities[book.id]);
+      const groups = action.payload;
+      const newGroups = groups.filter(group => !state.entities[group.id]);
 
-      const newBookIds = newBooks.map(book => book.id);
-      const newBookEntities = newBooks.reduce((entities: { [id: string]: Book }, book: Book) => {
+      const newGroupIds = newGroups.map(group => group.id);
+      const newGroupEntities = newGroups.reduce((entities: { [id: string]: Group }, group: Group) => {
         return Object.assign(entities, {
-          [book.id]: book
+          [group.id]: group
         });
       }, {});
 
       return {
-        ids: [ ...state.ids, ...newBookIds ],
-        entities: Object.assign({}, state.entities, newBookEntities),
-        selectedBookId: state.selectedBookId
+        ids: [ ...state.ids, ...newGroupIds ],
+        entities: Object.assign({}, state.entities, newGroupEntities),
+        selectedGroupId: state.selectedGroupId
       };
     }
 
-    case book.ActionTypes.LOAD: {
-      const book = action.payload;
+    case group.ActionTypes.LOAD: {
+      const group = action.payload;
 
-      if (state.ids.indexOf(book.id) > -1) {
+      if (state.ids.indexOf(group.id) > -1) {
         return state;
       }
 
       return {
-        ids: [ ...state.ids, book.id ],
+        ids: [ ...state.ids, group.id ],
         entities: Object.assign({}, state.entities, {
-          [book.id]: book
+          [group.id]: group
         }),
-        selectedBookId: state.selectedBookId
+        selectedGroupId: state.selectedGroupId
       };
     }
 
-    case book.ActionTypes.SELECT: {
+    case group.ActionTypes.SELECT: {
       return {
         ids: state.ids,
         entities: state.entities,
-        selectedBookId: action.payload
+        selectedGroupId: action.payload
       };
     }
 
@@ -80,7 +80,7 @@ export const getEntities = (state: State) => state.entities;
 
 export const getIds = (state: State) => state.ids;
 
-export const getSelectedId = (state: State) => state.selectedBookId;
+export const getSelectedId = (state: State) => state.selectedGroupId;
 
 export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
   return entities[selectedId];

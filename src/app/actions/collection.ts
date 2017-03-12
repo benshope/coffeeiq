@@ -1,15 +1,15 @@
 import { Action } from '@ngrx/store';
-import { Book } from '../models/book';
+import { Group } from '../models/group';
 import { type } from '../util';
 
 
 export const ActionTypes = {
-  ADD_BOOK:             type('[Collection] Add Book'),
-  ADD_BOOK_SUCCESS:     type('[Collection] Add Book Success'),
-  ADD_BOOK_FAIL:        type('[Collection] Add Book Fail'),
-  REMOVE_BOOK:          type('[Collection] Remove Book'),
-  REMOVE_BOOK_SUCCESS:  type('[Collection] Remove Book Success'),
-  REMOVE_BOOK_FAIL:     type('[Collection] Remove Book Fail'),
+  ADD_GROUP:             type('[Collection] Add Group'),
+  ADD_GROUP_SUCCESS:     type('[Collection] Add Group Success'),
+  ADD_GROUP_FAIL:        type('[Collection] Add Group Fail'),
+  REMOVE_GROUP:          type('[Collection] Remove Group'),
+  REMOVE_GROUP_SUCCESS:  type('[Collection] Remove Group Success'),
+  REMOVE_GROUP_FAIL:     type('[Collection] Remove Group Fail'),
   LOAD:                 type('[Collection] Load'),
   LOAD_SUCCESS:         type('[Collection] Load Success'),
   LOAD_FAIL:            type('[Collection] Load Fail'),
@@ -17,46 +17,46 @@ export const ActionTypes = {
 
 
 /**
- * Add Book to Collection Actions
+ * Add Group to Collection Actions
  */
-export class AddBookAction implements Action {
-  type = ActionTypes.ADD_BOOK;
+export class AddGroupAction implements Action {
+  type = ActionTypes.ADD_GROUP;
 
-  constructor(public payload: Book) { }
+  constructor(public payload: Group) { }
 }
 
-export class AddBookSuccessAction implements Action {
-  type = ActionTypes.ADD_BOOK_SUCCESS;
+export class AddGroupSuccessAction implements Action {
+  type = ActionTypes.ADD_GROUP_SUCCESS;
 
-  constructor(public payload: Book) { }
+  constructor(public payload: Group) { }
 }
 
-export class AddBookFailAction implements Action {
-  type = ActionTypes.ADD_BOOK_FAIL;
+export class AddGroupFailAction implements Action {
+  type = ActionTypes.ADD_GROUP_FAIL;
 
-  constructor(public payload: Book) { }
+  constructor(public payload: Group) { }
 }
 
 
 /**
- * Remove Book from Collection Actions
+ * Remove Group from Collection Actions
  */
-export class RemoveBookAction implements Action {
-  type = ActionTypes.REMOVE_BOOK;
+export class RemoveGroupAction implements Action {
+  type = ActionTypes.REMOVE_GROUP;
 
-  constructor(public payload: Book) { }
+  constructor(public payload: Group) { }
 }
 
-export class RemoveBookSuccessAction implements Action {
-  type = ActionTypes.REMOVE_BOOK_SUCCESS;
+export class RemoveGroupSuccessAction implements Action {
+  type = ActionTypes.REMOVE_GROUP_SUCCESS;
 
-  constructor(public payload: Book) { }
+  constructor(public payload: Group) { }
 }
 
-export class RemoveBookFailAction implements Action {
-  type = ActionTypes.REMOVE_BOOK_FAIL;
+export class RemoveGroupFailAction implements Action {
+  type = ActionTypes.REMOVE_GROUP_FAIL;
 
-  constructor(public payload: Book) { }
+  constructor(public payload: Group) { }
 }
 
 /**
@@ -71,7 +71,7 @@ export class LoadAction implements Action {
 export class LoadSuccessAction implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
-  constructor(public payload: Book[]) { }
+  constructor(public payload: Group[]) { }
 }
 
 export class LoadFailAction implements Action {
@@ -82,12 +82,12 @@ export class LoadFailAction implements Action {
 
 
 export type Actions
-  = AddBookAction
-  | AddBookSuccessAction
-  | AddBookFailAction
-  | RemoveBookAction
-  | RemoveBookSuccessAction
-  | RemoveBookFailAction
+  = AddGroupAction
+  | AddGroupSuccessAction
+  | AddGroupFailAction
+  | RemoveGroupAction
+  | RemoveGroupSuccessAction
+  | RemoveGroupFailAction
   | LoadAction
   | LoadSuccessAction
   | LoadFailAction;

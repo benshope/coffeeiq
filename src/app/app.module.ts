@@ -11,18 +11,18 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MaterialModule } from '@angular/material';
 
 import { ComponentsModule } from './components';
-import { BookEffects } from './effects/book';
+import { GroupEffects } from './effects/group';
 import { CollectionEffects } from './effects/collection';
-import { BookExistsGuard } from './guards/book-exists';
+import { GroupExistsGuard } from './guards/group-exists';
 
 import { AppComponent } from './containers/app';
-import { FindBookPageComponent } from './containers/find-book-page';
-import { ViewBookPageComponent } from './containers/view-book-page';
-import { SelectedBookPageComponent } from './containers/selected-book-page';
+import { FindGroupPageComponent } from './containers/find-group-page';
+import { ViewGroupPageComponent } from './containers/view-group-page';
+import { SelectedGroupPageComponent } from './containers/selected-group-page';
 import { CollectionPageComponent } from './containers/collection-page';
 import { NotFoundPageComponent } from './containers/not-found-page';
 
-import { GoogleBooksService } from './services/google-books';
+import { GoogleGroupsService } from './services/google-groups';
 
 import { routes } from './routes';
 import { reducer } from './reducers';
@@ -70,7 +70,7 @@ import { schema } from './db';
      *
      * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
      */
-    EffectsModule.run(BookEffects),
+    EffectsModule.run(GroupEffects),
     EffectsModule.run(CollectionEffects),
 
     /**
@@ -81,15 +81,15 @@ import { schema } from './db';
   ],
   declarations: [
     AppComponent,
-    FindBookPageComponent,
-    SelectedBookPageComponent,
-    ViewBookPageComponent,
+    FindGroupPageComponent,
+    SelectedGroupPageComponent,
+    ViewGroupPageComponent,
     CollectionPageComponent,
     NotFoundPageComponent
   ],
   providers: [
-    BookExistsGuard,
-    GoogleBooksService
+    GroupExistsGuard,
+    GoogleGroupsService
   ],
   bootstrap: [
     AppComponent

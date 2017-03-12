@@ -6,9 +6,9 @@ import { DBSchema } from '@ngrx/db';
  */
 export const schema: DBSchema = {
   version: 1,
-  name: 'books_app',
+  name: 'groups_app',
   stores: {
-    books: {
+    groups: {
       autoIncrement: true,
       primaryKey: 'id'
     }

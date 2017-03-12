@@ -13,7 +13,7 @@ import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
 
 import * as collection from '../actions/collection';
-import { Book } from '../models/book';
+import { Group } from '../models/group';
 
 
 @Injectable()
@@ -31,7 +31,7 @@ export class CollectionEffects {
    */
   @Effect({ dispatch: false })
   openDB$: Observable<any> = defer(() => {
-    return this.db.open('books_app');
+    return this.db.open('groups_app');
   });
 
   /**
@@ -43,31 +43,31 @@ export class CollectionEffects {
     .ofType(collection.ActionTypes.LOAD)
     .startWith(new collection.LoadAction())
     .switchMap(() =>
-      this.db.query('books')
+      this.db.query('groups')
         .toArray()
-        .map((books: Book[]) => new collection.LoadSuccessAction(books))
+        .map((groups: Group[]) => new collection.LoadSuccessAction(groups))
         .catch(error => of(new collection.LoadFailAction(error)))
     );
 
   @Effect()
-  addBookToCollection$: Observable<Action> = this.actions$
-    .ofType(collection.ActionTypes.ADD_BOOK)
-    .map((action: collection.AddBookAction) => action.payload)
-    .mergeMap(book =>
-      this.db.insert('books', [ book ])
-        .map(() => new collection.AddBookSuccessAction(book))
-        .catch(() => of(new collection.AddBookFailAction(book)))
+  addGroupToCollection$: Observable<Action> = this.actions$
+    .ofType(collection.ActionTypes.ADD_GROUP)
+    .map((action: collection.AddGroupAction) => action.payload)
+    .mergeMap(group =>
+      this.db.insert('groups', [ group ])
+        .map(() => new collection.AddGroupSuccessAction(group))
+        .catch(() => of(new collection.AddGroupFailAction(group)))
     );
 
 
   @Effect()
-  removeBookFromCollection$: Observable<Action> = this.actions$
-    .ofType(collection.ActionTypes.REMOVE_BOOK)
-    .map((action: collection.RemoveBookAction) => action.payload)
-    .mergeMap(book =>
-      this.db.executeWrite('books', 'delete', [ book.id ])
-        .map(() => new collection.RemoveBookSuccessAction(book))
-        .catch(() => of(new collection.RemoveBookFailAction(book)))
+  removeGroupFromCollection$: Observable<Action> = this.actions$
+    .ofType(collection.ActionTypes.REMOVE_GROUP)
+    .map((action: collection.RemoveGroupAction) => action.payload)
+    .mergeMap(group =>
+      this.db.executeWrite('groups', 'delete', [ group.id ])
+        .map(() => new collection.RemoveGroupSuccessAction(group))
+        .catch(() => of(new collection.RemoveGroupFailAction(group)))
     );
 
     constructor(private actions$: Actions, private db: Database) { }

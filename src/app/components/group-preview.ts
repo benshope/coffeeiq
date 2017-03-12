@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Book } from '../models/book';
+import { Group } from '../models/group';
 
 
 @Component({
-  selector: 'bc-book-preview',
+  selector: 'bc-group-preview',
   template: `
-    <a [routerLink]="['/book', id]">
+    <a [routerLink]="['/group', id]">
       <md-card>
         <md-card-title-group>
           <img md-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
@@ -16,7 +16,7 @@ import { Book } from '../models/book';
           <p *ngIf="description">{{ description | bcEllipsis }}</p>
         </md-card-content>
         <md-card-footer>
-          <bc-book-authors [book]="book"></bc-book-authors>
+          <bc-group-authors [group]="group"></bc-group-authors>
         </md-card-footer>
       </md-card>
     </a>
@@ -63,28 +63,28 @@ import { Book } from '../models/book';
     }
   `]
 })
-export class BookPreviewComponent {
-  @Input() book: Book;
+export class GroupPreviewComponent {
+  @Input() group: Group;
 
   get id() {
-    return this.book.id;
+    return this.group.id;
   }
 
   get title() {
-    return this.book.volumeInfo.title;
+    return this.group.volumeInfo.title;
   }
 
   get subtitle() {
-    return this.book.volumeInfo.subtitle;
+    return this.group.volumeInfo.subtitle;
   }
 
   get description() {
-    return this.book.volumeInfo.description;
+    return this.group.volumeInfo.description;
   }
 
   get thumbnail(): string | boolean {
-    if (this.book.volumeInfo.imageLinks) {
-      return this.book.volumeInfo.imageLinks.smallThumbnail;
+    if (this.group.volumeInfo.imageLinks) {
+      return this.group.volumeInfo.imageLinks.smallThumbnail;
     }
 
     return false;

@@ -11,9 +11,9 @@ import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { GoogleBooksService } from '../services/google-books';
+import { GoogleGroupsService } from '../services/google-groups';
 import * as fromRoot from '../reducers';
-import * as book from '../actions/book';
+import * as group from '../actions/group';
 
 
 /**
@@ -22,10 +22,10 @@ import * as book from '../actions/book';
  * to activate this route. Guards must return an observable of true or false.
  */
 @Injectable()
-export class BookExistsGuard implements CanActivate {
+export class GroupExistsGuard implements CanActivate {
   constructor(
     private store: Store<fromRoot.State>,
-    private googleBooks: GoogleBooksService,
+    private googleGroups: GoogleGroupsService,
     private router: Router
   ) { }
 
@@ -41,24 +41,24 @@ export class BookExistsGuard implements CanActivate {
   }
 
   /**
-   * This method checks if a book with the given ID is already registered
+   * This method checks if a group with the given ID is already registered
    * in the Store
    */
-  hasBookInStore(id: string): Observable<boolean> {
-    return this.store.select(fromRoot.getBookEntities)
+  hasGroupInStore(id: string): Observable<boolean> {
+    return this.store.select(fromRoot.getGroupEntities)
       .map(entities => !!entities[id])
       .take(1);
   }
 
   /**
-   * This method loads a book with the given ID from the API and caches
+   * This method loads a group with the given ID from the API and caches
    * it in the store, returning `true` or `false` if it was found.
    */
-  hasBookInApi(id: string): Observable<boolean> {
-    return this.googleBooks.retrieveBook(id)
-      .map(bookEntity => new book.LoadAction(bookEntity))
-      .do((action: book.LoadAction) => this.store.dispatch(action))
-      .map(book => !!book)
+  hasGroupInApi(id: string): Observable<boolean> {
+    return this.googleGroups.retrieveGroup(id)
+      .map(groupEntity => new group.LoadAction(groupEntity))
+      .do((action: group.LoadAction) => this.store.dispatch(action))
+      .map(group => !!group)
       .catch(() => {
         this.router.navigate(['/404']);
         return of(false);
@@ -66,18 +66,18 @@ export class BookExistsGuard implements CanActivate {
   }
 
   /**
-   * `hasBook` composes `hasBookInStore` and `hasBookInApi`. It first checks
-   * if the book is in store, and if not it then checks if it is in the
+   * `hasGroup` composes `hasGroupInStore` and `hasGroupInApi`. It first checks
+   * if the group is in store, and if not it then checks if it is in the
    * API.
    */
-  hasBook(id: string): Observable<boolean> {
-    return this.hasBookInStore(id)
+  hasGroup(id: string): Observable<boolean> {
+    return this.hasGroupInStore(id)
       .switchMap(inStore => {
         if (inStore) {
           return of(inStore);
         }
 
-        return this.hasBookInApi(id);
+        return this.hasGroupInApi(id);
       });
   }
 
@@ -85,7 +85,7 @@ export class BookExistsGuard implements CanActivate {
    * This is the actual method the router will call when our guard is run.
    *
    * Our guard waits for the collection to load, then it checks if we need
-   * to request a book from the API or if we already have it in our cache.
+   * to request a group from the API or if we already have it in our cache.
    * If it finds it in the cache or in the API, it returns an Observable
    * of `true` and the route is rendered successfully.
    *
@@ -96,6 +96,6 @@ export class BookExistsGuard implements CanActivate {
    */
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.waitForCollectionToLoad()
-      .switchMap(() => this.hasBook(route.params['id']));
+      .switchMap(() => this.hasGroup(route.params['id']));
   }
 }

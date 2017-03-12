@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../reducers';
-import { Book } from '../models/book';
+import { Group } from '../models/group';
 
 
 @Component({
@@ -15,7 +15,7 @@ import { Book } from '../models/book';
       <md-card-title>My Collection</md-card-title>
     </md-card>
 
-    <bc-book-preview-list [books]="books$ | async"></bc-book-preview-list>
+    <bc-group-preview-list [groups]="groups$ | async"></bc-group-preview-list>
   `,
   /**
    * Container components are permitted to have just enough styles
@@ -31,9 +31,9 @@ import { Book } from '../models/book';
   `]
 })
 export class CollectionPageComponent {
-  books$: Observable<Book[]>;
+  groups$: Observable<Group[]>;
 
   constructor(store: Store<fromRoot.State>) {
-    this.books$ = store.select(fromRoot.getBookCollection);
+    this.groups$ = store.select(fromRoot.getGroupCollection);
   }
 }

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Book } from '../models/book';
+import { Group } from '../models/group';
 import { type } from '../util';
 
 /**
@@ -11,10 +11,10 @@ import { type } from '../util';
  * action types in the application are unique.
  */
 export const ActionTypes = {
-  SEARCH:           type('[Book] Search'),
-  SEARCH_COMPLETE:  type('[Book] Search Complete'),
-  LOAD:             type('[Book] Load'),
-  SELECT:           type('[Book] Select'),
+  SEARCH:           type('[Group] Search'),
+  SEARCH_COMPLETE:  type('[Group] Search Complete'),
+  LOAD:             type('[Group] Load'),
+  SELECT:           type('[Group] Select'),
 };
 
 
@@ -23,7 +23,7 @@ export const ActionTypes = {
  * payload. Expressing actions as classes enables powerful
  * type checking in reducer functions.
  *
- * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
+ * See Discriminated Unions: https://www.typescriptlang.org/docs/handgroup/advanced-types.html#discriminated-unions
  */
 export class SearchAction implements Action {
   type = ActionTypes.SEARCH;
@@ -34,13 +34,13 @@ export class SearchAction implements Action {
 export class SearchCompleteAction implements Action {
   type = ActionTypes.SEARCH_COMPLETE;
 
-  constructor(public payload: Book[]) { }
+  constructor(public payload: Group[]) { }
 }
 
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;
 
-  constructor(public payload: Book) { }
+  constructor(public payload: Group) { }
 }
 
 export class SelectAction implements Action {

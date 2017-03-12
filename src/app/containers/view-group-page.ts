@@ -6,32 +6,32 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as fromRoot from '../reducers';
-import * as book from '../actions/book';
+import * as group from '../actions/group';
 
 /**
  * Note: Container components are also reusable. Whether or not
  * a component is a presentation component or a container
  * component is an implementation detail.
  *
- * The View Book Page's responsibility is to map router params
- * to a 'Select' book action. Actually showing the selected
- * book remains a responsibility of the
- * SelectedBookPageComponent
+ * The View Group Page's responsibility is to map router params
+ * to a 'Select' group action. Actually showing the selected
+ * group remains a responsibility of the
+ * SelectedGroupPageComponent
  */
 @Component({
-  selector: 'bc-view-book-page',
+  selector: 'bc-view-group-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-selected-book-page></bc-selected-book-page>
+    <bc-selected-group-page></bc-selected-group-page>
   `
 })
-export class ViewBookPageComponent implements OnDestroy {
+export class ViewGroupPageComponent implements OnDestroy {
   actionsSubscription: Subscription;
 
   constructor(store: Store<fromRoot.State>, route: ActivatedRoute) {
     this.actionsSubscription = route.params
       .select<string>('id')
-      .map(id => new book.SelectAction(id))
+      .map(id => new group.SelectAction(id))
       .subscribe(store);
   }
 

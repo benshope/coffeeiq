@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
  * takes a value and chains it through every composed function, returning
  * the output.
  *
- * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
+ * More: https://drboolean.gitgroups.io/mostly-adequate-guide/content/ch5.html
  */
 import { compose } from '@ngrx/core/compose';
 
@@ -38,7 +38,7 @@ import { combineReducers } from '@ngrx/store';
  * notation packages up all of the exports into a single object.
  */
 import * as fromSearch from './search';
-import * as fromBooks from './books';
+import * as fromGroups from './groups';
 import * as fromCollection from './collection';
 import * as fromLayout from './layout';
 
@@ -49,7 +49,7 @@ import * as fromLayout from './layout';
  */
 export interface State {
   search: fromSearch.State;
-  books: fromBooks.State;
+  groups: fromGroups.State;
   collection: fromCollection.State;
   layout: fromLayout.State;
   router: fromRouter.RouterState;
@@ -65,7 +65,7 @@ export interface State {
  */
 const reducers = {
   search: fromSearch.reducer,
-  books: fromBooks.reducer,
+  groups: fromGroups.reducer,
   collection: fromCollection.reducer,
   layout: fromLayout.reducer,
   router: fromRouter.routerReducer,
@@ -86,19 +86,19 @@ export function reducer(state: any, action: any) {
 /**
  * A selector function is a map function factory. We pass it parameters and it
  * returns a function that maps from the larger state tree into a smaller
- * piece of state. This selector simply selects the `books` state.
+ * piece of state. This selector simply selects the `groups` state.
  *
  * Selectors are used with the `select` operator.
  *
  * ```ts
  * class MyComponent {
  * 	constructor(state$: Observable<State>) {
- * 	  this.booksState$ = state$.select(getBooksState);
+ * 	  this.groupsState$ = state$.select(getGroupsState);
  * 	}
  * }
  * ```
  */
-export const getBooksState = (state: State) => state.books;
+export const getGroupsState = (state: State) => state.groups;
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -110,29 +110,29 @@ export const getBooksState = (state: State) => state.books;
  * The created selectors can also be composed together to select different
  * pieces of state.
  */
- export const getBookEntities = createSelector(getBooksState, fromBooks.getEntities);
- export const getBookIds = createSelector(getBooksState, fromBooks.getIds);
- export const getSelectedBookId = createSelector(getBooksState, fromBooks.getSelectedId);
- export const getSelectedBook = createSelector(getBooksState, fromBooks.getSelected);
+ export const getGroupEntities = createSelector(getGroupsState, fromGroups.getEntities);
+ export const getGroupIds = createSelector(getGroupsState, fromGroups.getIds);
+ export const getSelectedGroupId = createSelector(getGroupsState, fromGroups.getSelectedId);
+ export const getSelectedGroup = createSelector(getGroupsState, fromGroups.getSelected);
 
 
 /**
- * Just like with the books selectors, we also have to compose the search
+ * Just like with the groups selectors, we also have to compose the search
  * reducer's and collection reducer's selectors.
  */
 export const getSearchState = (state: State) => state.search;
 
-export const getSearchBookIds = createSelector(getSearchState, fromSearch.getIds);
+export const getSearchGroupIds = createSelector(getSearchState, fromSearch.getIds);
 export const getSearchQuery = createSelector(getSearchState, fromSearch.getQuery);
 export const getSearchLoading = createSelector(getSearchState, fromSearch.getLoading);
 
 
 /**
  * Some selector functions create joins across parts of state. This selector
- * composes the search result IDs to return an array of books in the store.
+ * composes the search result IDs to return an array of groups in the store.
  */
-export const getSearchResults = createSelector(getBookEntities, getSearchBookIds, (books, searchIds) => {
-  return searchIds.map(id => books[id]);
+export const getSearchResults = createSelector(getGroupEntities, getSearchGroupIds, (groups, searchIds) => {
+  return searchIds.map(id => groups[id]);
 });
 
 
@@ -141,13 +141,13 @@ export const getCollectionState = (state: State) => state.collection;
 
 export const getCollectionLoaded = createSelector(getCollectionState, fromCollection.getLoaded);
 export const getCollectionLoading = createSelector(getCollectionState, fromCollection.getLoading);
-export const getCollectionBookIds = createSelector(getCollectionState, fromCollection.getIds);
+export const getCollectionGroupIds = createSelector(getCollectionState, fromCollection.getIds);
 
-export const getBookCollection = createSelector(getBookEntities, getCollectionBookIds, (entities, ids) => {
+export const getGroupCollection = createSelector(getGroupEntities, getCollectionGroupIds, (entities, ids) => {
   return ids.map(id => entities[id]);
 });
 
-export const isSelectedBookInCollection = createSelector(getCollectionBookIds, getSelectedBookId, (ids, selected) => {
+export const isSelectedGroupInCollection = createSelector(getCollectionGroupIds, getSelectedGroupId, (ids, selected) => {
   return ids.indexOf(selected) > -1;
 });
 

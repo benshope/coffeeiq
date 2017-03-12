@@ -11,8 +11,8 @@ import { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 
-import { GoogleBooksService } from '../services/google-books';
-import * as book from '../actions/book';
+import { GoogleGroupsService } from '../services/google-groups';
+import * as group from '../actions/group';
 
 
 /**
@@ -33,11 +33,11 @@ import * as book from '../actions/book';
  */
 
 @Injectable()
-export class BookEffects {
+export class GroupEffects {
 
   @Effect()
   search$: Observable<Action> = this.actions$
-    .ofType(book.ActionTypes.SEARCH)
+    .ofType(group.ActionTypes.SEARCH)
     .debounceTime(300)
     .map(toPayload)
     .switchMap(query => {
@@ -45,13 +45,13 @@ export class BookEffects {
         return empty();
       }
 
-      const nextSearch$ = this.actions$.ofType(book.ActionTypes.SEARCH).skip(1);
+      const nextSearch$ = this.actions$.ofType(group.ActionTypes.SEARCH).skip(1);
 
-      return this.googleBooks.searchBooks(query)
+      return this.googleGroups.searchGroups(query)
         .takeUntil(nextSearch$)
-        .map(books => new book.SearchCompleteAction(books))
-        .catch(() => of(new book.SearchCompleteAction([])));
+        .map(groups => new group.SearchCompleteAction(groups))
+        .catch(() => of(new group.SearchCompleteAction([])));
     });
 
-    constructor(private actions$: Actions, private googleBooks: GoogleBooksService) { }
+    constructor(private actions$: Actions, private googleGroups: GoogleGroupsService) { }
 }

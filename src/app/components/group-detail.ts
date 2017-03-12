@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Book } from '../models/book';
+import { Group } from '../models/group';
 
 
 @Component({
-  selector: 'bc-book-detail',
+  selector: 'bc-group-detail',
   template: `
-    <md-card *ngIf="book">
+    <md-card *ngIf="group">
       <md-card-title-group>
         <md-card-title>{{ title }}</md-card-title>
         <md-card-subtitle *ngIf="subtitle">{{ subtitle }}</md-card-subtitle>
@@ -15,15 +15,15 @@ import { Book } from '../models/book';
         <p [innerHtml]="description"></p>
       </md-card-content>
       <md-card-footer class="footer">
-        <bc-book-authors [book]="book"></bc-book-authors>
+        <bc-group-authors [group]="group"></bc-group-authors>
       </md-card-footer>
       <md-card-actions align="start">
-        <button md-raised-button color="warn" *ngIf="inCollection" (click)="remove.emit(book)">
-        Remove Book from Collection
+        <button md-raised-button color="warn" *ngIf="inCollection" (click)="remove.emit(group)">
+        Remove Group from Collection
         </button>
 
-        <button md-raised-button color="primary" *ngIf="!inCollection" (click)="add.emit(book)">
-        Add Book to Collection
+        <button md-raised-button color="primary" *ngIf="!inCollection" (click)="add.emit(group)">
+        Add Group to Collection
         </button>
       </md-card-actions>
     </md-card>
@@ -58,7 +58,7 @@ import { Book } from '../models/book';
     }
   `]
 })
-export class BookDetailComponent {
+export class GroupDetailComponent {
   /**
    * Presentational components receieve data through @Input() and communicate events
    * through @Output() but generally maintain no internal state of their
@@ -67,33 +67,33 @@ export class BookDetailComponent {
    *
    * More on 'smart' and 'presentational' components: https://gist.github.com/btroncone/a6e4347326749f938510#utilizing-container-components
    */
-  @Input() book: Book;
+  @Input() group: Group;
   @Input() inCollection: boolean;
-  @Output() add = new EventEmitter<Book>();
-  @Output() remove = new EventEmitter<Book>();
+  @Output() add = new EventEmitter<Group>();
+  @Output() remove = new EventEmitter<Group>();
 
 
   /**
    * Tip: Utilize getters to keep templates clean
    */
   get id() {
-    return this.book.id;
+    return this.group.id;
   }
 
   get title() {
-    return this.book.volumeInfo.title;
+    return this.group.volumeInfo.title;
   }
 
   get subtitle() {
-    return this.book.volumeInfo.subtitle;
+    return this.group.volumeInfo.subtitle;
   }
 
   get description() {
-    return this.book.volumeInfo.description;
+    return this.group.volumeInfo.description;
   }
 
   get thumbnail() {
-    return this.book.volumeInfo.imageLinks
-      && this.book.volumeInfo.imageLinks.smallThumbnail;
+    return this.group.volumeInfo.imageLinks
+      && this.group.volumeInfo.imageLinks.smallThumbnail;
   }
 }

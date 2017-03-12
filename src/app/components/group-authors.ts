@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
-import { Book } from '../models/book';
+import { Group } from '../models/group';
 
 
 @Component({
-  selector: 'bc-book-authors',
+  selector: 'bc-group-authors',
   template: `
     <h5 md-subheader>Written By:</h5>
     <span>
@@ -17,10 +17,10 @@ import { Book } from '../models/book';
     }
   `]
 })
-export class BookAuthorsComponent {
-  @Input() book: Book;
+export class GroupAuthorsComponent {
+  @Input() group: Group;
 
   get authors() {
-    return this.book.volumeInfo.authors;
+    return this.group.volumeInfo.authors;
   }
 }

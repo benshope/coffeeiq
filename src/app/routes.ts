@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 
-import { BookExistsGuard } from './guards/book-exists';
-import { FindBookPageComponent } from './containers/find-book-page';
-import { ViewBookPageComponent } from './containers/view-book-page';
+import { GroupExistsGuard } from './guards/group-exists';
+import { FindGroupPageComponent } from './containers/find-group-page';
+import { ViewGroupPageComponent } from './containers/view-group-page';
 import { CollectionPageComponent } from './containers/collection-page';
 import { NotFoundPageComponent } from './containers/not-found-page';
 
@@ -13,12 +13,12 @@ export const routes: Routes = [
   },
   {
     path: 'groups/list',
-    component: FindBookPageComponent
+    component: FindGroupPageComponent
   },
   {
     path: 'groups/:id',
-    canActivate: [ BookExistsGuard ],
-    component: ViewBookPageComponent
+    canActivate: [ GroupExistsGuard ],
+    component: ViewGroupPageComponent
   },
   {
     path: '**',

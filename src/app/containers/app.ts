@@ -13,15 +13,15 @@ import * as layout from '../actions/layout';
   template: `
     <bc-layout>
       <bc-sidenav [open]="showSidenav$ | async">
-        <bc-nav-item (activate)="closeSidenav()" routerLink="/" icon="book" hint="View your book collection">
+        <bc-nav-item (activate)="closeSidenav()" routerLink="/" icon="group" hint="View your group collection">
           My Collection
         </bc-nav-item>
-        <bc-nav-item (activate)="closeSidenav()" routerLink="/book/find" icon="search" hint="Find your next book!">
-          Browse Books
+        <bc-nav-item (activate)="closeSidenav()" routerLink="/group/find" icon="search" hint="Find your next group!">
+          Browse Groups
         </bc-nav-item>
       </bc-sidenav>
       <bc-toolbar (openMenu)="openSidenav()">
-        Book Collection
+        Group Collection
       </bc-toolbar>
 
       <router-outlet></router-outlet>
