@@ -17,7 +17,7 @@ export const routes: Routes = [
     component: PricingPageComponent
   },
   {
-    path: 'groups/list',
+    path: 'group/find',
     component: FindGroupPageComponent
   },
   {
