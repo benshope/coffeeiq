@@ -1,5 +1,5 @@
 import * as group from '../actions/group';
-
+import { Group } from '../models/group';
 
 export interface State {
   ids: string[];
@@ -13,7 +13,7 @@ const initialState: State = {
   query: ''
 };
 
-export function reducer(state = initialState, action: group.Actions): State {
+export function reducer(state = initialState, action: any): State {
   switch (action.type) {
     case group.ActionTypes.SEARCH: {
       const query = action.payload;
@@ -34,9 +34,8 @@ export function reducer(state = initialState, action: group.Actions): State {
 
     case group.ActionTypes.SEARCH_COMPLETE: {
       const groups = action.payload;
-
       return {
-        ids: groups.map(group => group.id),
+        ids: groups.map((group: Group) => group.id),
         loading: false,
         query: state.query
       };

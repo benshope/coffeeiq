@@ -13,7 +13,7 @@ const initialState: State = {
   ids: []
 };
 
-export function reducer(state = initialState, action: collection.Actions): State {
+export function reducer(state = initialState, action: any): State {
   switch (action.type) {
     case collection.ActionTypes.LOAD: {
       return Object.assign({}, state, {
@@ -27,7 +27,7 @@ export function reducer(state = initialState, action: collection.Actions): State
       return {
         loaded: true,
         loading: false,
-        ids: groups.map(group => group.id)
+        ids: groups.map((group: any) => group.id)
       };
     }
 

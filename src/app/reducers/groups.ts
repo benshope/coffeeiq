@@ -16,14 +16,14 @@ export const initialState: State = {
   selectedGroupId: null,
 };
 
-export function reducer(state = initialState, action: group.Actions | collection.Actions): State {
+export function reducer(state = initialState, action: any): State {
   switch (action.type) {
     case group.ActionTypes.SEARCH_COMPLETE:
     case collection.ActionTypes.LOAD_SUCCESS: {
       const groups = action.payload;
-      const newGroups = groups.filter(group => !state.entities[group.id]);
+      const newGroups = groups.filter((group: any) => !state.entities[group.id]);
 
-      const newGroupIds = newGroups.map(group => group.id);
+      const newGroupIds = newGroups.map((group: any) => group.id);
       const newGroupEntities = newGroups.reduce((entities: { [id: string]: Group }, group: Group) => {
         return Object.assign(entities, {
           [group.id]: group
