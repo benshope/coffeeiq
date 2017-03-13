@@ -43,3 +43,109 @@ html {
   -ms-overflow-style: none;
   overflow: auto;
 }
+
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('assets/fonts/gotham/GothamHTF-Medium.otf');
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('assets/fonts/gotham/GothamHTF-Ultra.otf');
+  font-weight: 900;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('assets/fonts/gotham/GothamHTF-Black.otf');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('assets/fonts/gotham/GothamHTF-Bold.otf');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('assets/fonts/gotham/GothamHTF-Book.otf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('assets/fonts/gotham/GothamHTF-Thin.otf');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('assets/fonts/gotham/GothamHTF-Light.otf');
+  font-weight: 200;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('assets/fonts/gotham/GothamHTF-XLight.otf');
+  font-weight: 100;
+}
+.gotham { font-family: 'Gotham', 'Helvetica Neue', sans-serif;}
+
+
+@font-face {
+  font-family: 'Whitney';
+  src: url('assets/fonts/whitney/WhitneyHTF-Medium.otf');
+}
+@font-face {
+  font-family: 'Whitney';
+  src: url('assets/fonts/whitney/WhitneyHTF-Black.otf');
+  font-weight: 900;
+}
+@font-face {
+  font-family: 'Whitney';
+  src: url('assets/fonts/whitney/WhitneyHTF-Bold.otf');
+  font-weight: 800;
+}
+@font-face {
+  font-family: 'Whitney';
+  src: url('assets/fonts/whitney/WhitneyHTF-SemiBold.otf');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Whitney';
+  src: url('assets/fonts/whitney/WhitneyHTF-Book.otf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Whitney';
+  src: url('assets/fonts/whitney/WhitneyHTF-Light.otf');
+  font-weight: 200;
+}
+.whitney { font-family: 'Whitney', RobotoDraft, Roboto, 'Helvetica Neue', sans-serif; }
+
+.text-decoration-none {
+  text-decoration: none;
+  color: inherit;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.font-weight-100 {
+  font-weight: 100;
+}
+
+.font-weight-400 {
+  font-weight: 400;
+}
+
+.font-weight-500 {
+  font-weight: 500;
+}
+
+
+

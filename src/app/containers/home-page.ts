@@ -12,6 +12,7 @@ import * as auth from '../actions/auth';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button (click)="logIn()">Log In</button>
+    <span class="gotham">Gotham</span>
   `
 })
 export class HomePageComponent {
