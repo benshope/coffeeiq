@@ -27,12 +27,25 @@ export class AuthEffects {
           scope: [ 'https://www.googleapis.com/auth/calendar' ]
         }));
     })
-      .mergeMap(x => x)
-      .mergeMap((state: any) => {
-        localStorage.setItem('accessToken', state.google.accessToken);
-        return of(new auth.LogInSuccessAction()); // TODO: set this state
-      })
-      .catch(() => of(new auth.LogInFailAction()));
+    .mergeMap(x => x)
+    .mergeMap((state: any) => {
+      localStorage.setItem('accessToken', state.google.accessToken);
+      return of(new auth.LogInSuccessAction()); // TODO: set this state
+    })
+    .catch(() => of(new auth.LogInFailAction()));
+
+  @Effect()
+  logOut$: Observable<Action> = this.actions$
+    .ofType(auth.ActionTypes.LOG_OUT)
+    .map(() => {
+      return fromPromise(<Promise<any>>this.angularFire.auth.logout());
+    })
+    .mergeMap(x => x)
+    .mergeMap((state: any) => {
+      localStorage.removeItem('accessToken');
+      return of(new auth.LogOutSuccessAction()); // TODO: set this state
+    })
+    .catch(() => of(new auth.LogOutFailAction()));
 
   constructor(
     private actions$: Actions,
