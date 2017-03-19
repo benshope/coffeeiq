@@ -4,52 +4,40 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../reducers';
+import * as auth from '../actions/auth';
 import * as layout from '../actions/layout';
-
 
 @Component({
   selector: 'bc-app',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-layout>
-      <bc-sidenav [open]="showSidenav$ | async">
-        <bc-nav-item (activate)="closeSidenav()" routerLink="/" icon="group" hint="View your group collection">
-          Home
-        </bc-nav-item>
-        <bc-nav-item (activate)="closeSidenav()" routerLink="/group/find" icon="search" hint="Find your next group!">
-          Browse Groups
-        </bc-nav-item>
-      </bc-sidenav>
-      <bc-toolbar (openMenu)="openSidenav()">
+    <div>
+      <bc-toolbar>
         CoffeeIQ
+        <button
+          md-raised-button
+          color="primary"
+          (click)="logOut()"
+        >
+          Log Out
+        </button>
       </bc-toolbar>
-
       <router-outlet></router-outlet>
-    </bc-layout>
+    </div>
   `
 })
 export class AppComponent {
-  showSidenav$: Observable<boolean>;
+  loggedIn$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.State>) {
     /**
      * Selectors can be applied with the `select` operator which passes the state
      * tree to the provided selector
      */
-    this.showSidenav$ = this.store.select(fromRoot.getShowSidenav);
+    this.loggedIn$ = this.store.select(fromRoot.getLoggedIn);
   }
 
-  closeSidenav() {
-    /**
-     * All state updates are handled through dispatched actions in 'container'
-     * components. This provides a clear, reproducible history of state
-     * updates and user interaction through the life of our
-     * application.
-     */
-    this.store.dispatch(new layout.CloseSidenavAction());
-  }
-
-  openSidenav() {
-    this.store.dispatch(new layout.OpenSidenavAction());
+  logOut() {
+    this.store.dispatch(new auth.LogOutAction());
   }
 }

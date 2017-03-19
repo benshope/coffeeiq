@@ -154,6 +154,9 @@ export const isSelectedGroupInCollection = createSelector(getCollectionGroupIds,
   return ids.indexOf(selected) > -1;
 });
 
+export const getAuthState = (state: State) => state.auth;
+export const getLoggedIn = createSelector(getAuthState, fromAuth.getLoggedIn);
+
 /**
  * Layout Reducers
  */

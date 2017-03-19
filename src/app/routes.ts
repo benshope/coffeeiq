@@ -13,13 +13,13 @@ export const routes: Routes = [
     path: '',
     component: HomePageComponent
   },
-    {
+  {
     path: 'pricing',
     component: PricingPageComponent
   },
   {
-    path: 'group/find',
-    component: FindGroupPageComponent
+    path: 'groups',
+    component: CollectionPageComponent
   },
   {
     path: 'groups/:id',

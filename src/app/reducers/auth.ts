@@ -1,6 +1,7 @@
 import * as auth from '../actions/auth';
 
 export interface State {
+  accessToken?: string;
   loggingIn: boolean;
   loggedIn: boolean;
   loggingOut: boolean;
@@ -26,6 +27,7 @@ export function reducer(
   if (action.type === auth.ActionTypes.LOG_IN_SUCCESS) {
     return {
         ...state,
+        accessToken: action.payload,
         loggingIn: false,
         loggedIn: true
       };
@@ -59,3 +61,6 @@ export function reducer(
   }
   return state;
 }
+
+export const getLoggedIn = (state: State) => state.loggedIn;
+

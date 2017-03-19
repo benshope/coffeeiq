@@ -11,17 +11,22 @@ import * as auth from '../actions/auth';
   selector: 'bc-home-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button (click)="logIn()">Log In</button>
-    <span class="gotham">Gotham</span>
+    <md-card>
+      <md-card-title>Welcome To CoffeeIQ</md-card-title>
+      <md-card-content>
+        <p>CoffeeIQ makes it easier for teammates to connect with one another through automatically-scheduled coffee breaks.</p>
+      </md-card-content>
+      <md-card-actions>
+      <button md-raised-button color="primary" (click)="logIn()">Log In</button>
+     </md-card-actions>
+    </md-card>
   `
 })
 export class HomePageComponent {
-
   constructor(private store: Store<fromRoot.State>) {
   }
 
-  logIn() {
-    console.log('logIn');
-    this.store.dispatch(new auth.LogInAction());
+  logIn(admin?: boolean) {
+    this.store.dispatch(new auth.LogInAction(admin));
   }
 }
