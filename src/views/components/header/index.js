@@ -11,9 +11,9 @@ const Header = ({authenticated, signOut}) => {
           <h1 className="header__title">CoffeeIQ</h1>
 
           <ul className="header__actions">
-            {authenticated ? <li><Button onClick={signOut}>Sign out</Button></li> : null}
+            {authenticated ? <li><Button onClick={signOut}>Sign Out</Button></li> : null}
             <li>
-              <a className="link link--github" href="https://github.com/r-park/todo-redux-saga">
+              <a className="link link--github" href="#">
                 <GitHubLogo />
               </a>
             </li>
