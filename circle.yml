@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 6.9.5
+    version: 6.4
 
 dependencies:
   pre:
@@ -8,9 +8,7 @@ dependencies:
 
 test:
   override:
-    - ng lint
-    - ng test --watch false # single test run
-    - ng build --prod
+    - npm run build
 
 deployment:
   production:
