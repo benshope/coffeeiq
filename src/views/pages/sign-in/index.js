@@ -4,7 +4,7 @@ import { authActions } from 'core/auth';
 import Button from 'views/components/button';
 
 
-const SignInPage = ({signInWithGithub, signInWithGoogle, signInWithTwitter}) => {
+const SignInPage = ({signInWithGoogle}) => {
   return (
     <div className="g-row sign-in">
       <div className="g-col">
@@ -16,9 +16,7 @@ const SignInPage = ({signInWithGithub, signInWithGoogle, signInWithTwitter}) => 
 };
 
 SignInPage.propTypes = {
-  signInWithGithub: PropTypes.func.isRequired,
-  signInWithGoogle: PropTypes.func.isRequired,
-  signInWithTwitter: PropTypes.func.isRequired
+  signInWithGoogle: PropTypes.func.isRequired
 };
 
 
@@ -27,9 +25,7 @@ SignInPage.propTypes = {
 //-------------------------------------
 
 const mapDispatchToProps = {
-  signInWithGithub: authActions.signInWithGithub,
-  signInWithGoogle: authActions.signInWithGoogle,
-  signInWithTwitter: authActions.signInWithTwitter
+  signInWithGoogle: authActions.signInWithGoogle
 };
 
 export default connect(

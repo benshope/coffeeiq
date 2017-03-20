@@ -1,7 +1,7 @@
-import firebase from 'firebase';
-import { Observable } from 'rxjs';
+// import firebase from 'firebase';
+// import { Observable } from 'rxjs';
 
-import { firebaseAuth } from 'core/firebase';
+// import { firebaseAuth } from 'core/firebase';
 
 // import {
 //   signInSuccess,

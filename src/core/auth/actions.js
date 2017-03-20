@@ -26,16 +26,8 @@ export const authActions = {
     payload: {authUser}
   }),
 
-  signInWithGithub: () => authActions.signIn(
-    new firebase.auth.GithubAuthProvider()
-  ),
-
   signInWithGoogle: () => authActions.signIn(
     new firebase.auth.GoogleAuthProvider()
-  ),
-
-  signInWithTwitter: () => authActions.signIn(
-    new firebase.auth.TwitterAuthProvider()
   ),
 
   signOut: () => ({
