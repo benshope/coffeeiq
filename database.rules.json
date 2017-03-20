@@ -5,6 +5,29 @@
         ".read": "auth !== null && auth.uid === $uid",
         ".write": "auth !== null && auth.uid === $uid"
       }
+    },
+    "orgs": {
+      "$org": {
+        ".read": "auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true",
+        ".write": "auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true",
+        "groups": {
+          "$group": {
+            "memberIds": {
+              "$memberId": {
+                ".write": "$memberId === auth.uid"
+              }
+            }
+          }
+        },
+        "members": {
+          "$memberId": {
+            ".write": "$memberId === auth.uid",
+            "groupIds": {
+              ".read": "$memberId === auth.uid"
+            }
+          }
+        }
+      }
     }
   }
 }
