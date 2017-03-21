@@ -39,12 +39,12 @@ const updateTask = write.bind(null, taskList, taskList.update, taskActions.updat
 
 function* watchAuthentication() {
   while (true) {
-    let { payload } = yield take(authActions.SIGN_IN_FULFILLED);
+    let { payload } = yield take(authActions.SIGN_IN_SUCCESS);
 
     taskList.path = `tasks/${payload.authUser.uid}`;
     const job = yield fork(read);
 
-    yield take([authActions.SIGN_OUT_FULFILLED]);
+    yield take([authActions.SIGN_OUT_SUCCESS]);
     yield cancel(job);
   }
 }

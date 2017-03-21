@@ -7,7 +7,7 @@ export function initAuth(dispatch) {
     const unsubscribe = firebaseAuth.onAuthStateChanged(
       authUser => {
         if (authUser) {
-          dispatch(authActions.signInFulfilled(authUser));
+          dispatch(authActions.signInSuccess(authUser));
         }
 
         resolve();

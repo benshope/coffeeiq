@@ -23,7 +23,7 @@ rules:
   array-bracket-spacing: 0
   array-callback-return: 0
   arrow-body-style: 0
-  arrow-parens: [2, "as-needed"]
+  arrow-parens: [0, "as-needed"]
   arrow-spacing: [2, {before: true, after: true}]
   accessor-pairs: 0
   block-scoped-var: 0

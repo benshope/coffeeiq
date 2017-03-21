@@ -4,11 +4,11 @@ import firebase from 'firebase';
 export const authActions = {
   SIGN_IN: 'SIGN_IN',
   SIGN_IN_FAILED: 'SIGN_IN_FAILED',
-  SIGN_IN_FULFILLED: 'SIGN_IN_FULFILLED',
+  SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS',
 
   SIGN_OUT: 'SIGN_OUT',
   SIGN_OUT_FAILED: 'SIGN_OUT_FAILED',
-  SIGN_OUT_FULFILLED: 'SIGN_OUT_FULFILLED',
+  SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS',
 
 
   signIn: authProvider => ({
@@ -21,8 +21,8 @@ export const authActions = {
     payload: {error}
   }),
 
-  signInFulfilled: authUser => ({
-    type: authActions.SIGN_IN_FULFILLED,
+  signInSuccess: authUser => ({
+    type: authActions.SIGN_IN_SUCCESS,
     payload: {authUser}
   }),
 
@@ -39,7 +39,7 @@ export const authActions = {
     payload: {error}
   }),
 
-  signOutFulfilled: () => ({
-    type: authActions.SIGN_OUT_FULFILLED
+  signOutSuccess: () => ({
+    type: authActions.SIGN_OUT_SUCCESS
   })
 };

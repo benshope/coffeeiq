@@ -1,95 +1,54 @@
-export const taskEpics = [];
+/* eslint-disable no-constant-condition */
+import { authActions } from 'core/auth';
+import { taskActions } from './actions';
+import { taskList } from './task-list';
 
-// /* eslint-disable no-constant-condition */
-// import { LOCATION_CHANGE } from 'react-router-redux';
-// import { eventChannel } from 'redux-saga';
-// import { call, cancel, fork, put, take } from 'redux-saga/effects';
-// import { authActions } from 'core/auth';
-// import { taskActions } from './actions';
-// import { taskList } from './task-list';
+export const signInSuccessEpic = (action$) => {
+  return action$
+    .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
+    .map((payload) => {
+      console.log(
+        'SIGN_IN_SUCCESS epic called',
+        payload,
+        taskList
+      );
+      taskList.path = `tasks/${payload.payload.authUser.uid}`;
+      // console.log('after taskList.path');
+      return taskList.actionStream();
+    }).flatMap((firebaseAction) => {
+      console.log('firebaseAction', firebaseAction);
+      return firebaseAction;
+    });
+};
 
+export const signOutSuccessEpic = (action$) => {
+  return action$
+    .filter(action => action.type === authActions.SIGN_OUT_SUCCESS)
+    .map(() => { console.log('SIGN_OUT_SUCCESS epic called'); });
+};
 
-// function subscribe() {
-//   return eventChannel(emit => taskList.subscribe(emit));
-// }
+export const createTaskEpic = (action$) => {
+  return action$
+    .filter(action => action.type === taskActions.CREATE_TASK)
+    .map(() => { console.log('CREATE_TASK epic called'); });
+};
 
-// function* read() {
-//   const channel = yield call(subscribe);
-//   while (true) {
-//     let action = yield take(channel);
-//     yield put(action);
-//   }
-// }
+export const updateTaskEpic = (action$) => {
+  return action$
+    .filter(action => action.type === taskActions.UPDATE_TASK)
+    .map(() => { console.log('UPDATE_TASK epic called'); });
+};
 
-// function* write(context, method, onError, ...params) {
-//   try {
-//     yield call([context, method], ...params);
-//   }
-//   catch (error) {
-//     yield put(onError(error));
-//   }
-// }
+export const removeTaskEpic = (action$) => {
+  return action$
+    .filter(action => action.type === taskActions.REMOVE_TASK)
+    .map(() => { console.log('REMOVE_TASK epic called'); });
+};
 
-// const createTask = write.bind(null, taskList, taskList.push, taskActions.createTaskFailed);
-// const removeTask = write.bind(null, taskList, taskList.remove, taskActions.removeTaskFailed);
-// const updateTask = write.bind(null, taskList, taskList.update, taskActions.updateTaskFailed);
-
-
-// //=====================================
-// //  WATCHERS
-// //-------------------------------------
-
-// function* watchAuthentication() {
-//   while (true) {
-//     let { payload } = yield take(authActions.SIGN_IN_FULFILLED);
-
-//     taskList.path = `tasks/${payload.authUser.uid}`;
-//     const job = yield fork(read);
-
-//     yield take([authActions.SIGN_OUT_FULFILLED]);
-//     yield cancel(job);
-//   }
-// }
-
-// function* watchCreateTask() {
-//   while (true) {
-//     let { payload } = yield take(taskActions.CREATE_TASK);
-//     yield fork(createTask, payload.task);
-//   }
-// }
-
-// function* watchLocationChange() {
-//   while (true) {
-//     let { payload } = yield take(LOCATION_CHANGE);
-//     if (payload.pathname === '/') {
-//       yield put(taskActions.filterTasks(payload.query.filter));
-//     }
-//   }
-// }
-
-// function* watchRemoveTask() {
-//   while (true) {
-//     let { payload } = yield take(taskActions.REMOVE_TASK);
-//     yield fork(removeTask, payload.task.key);
-//   }
-// }
-
-// function* watchUpdateTask() {
-//   while (true) {
-//     let { payload } = yield take(taskActions.UPDATE_TASK);
-//     yield fork(updateTask, payload.task.key, payload.changes);
-//   }
-// }
-
-
-// //=====================================
-// //  TASK SAGAS
-// //-------------------------------------
-
-// export const taskEpics = [
-//   fork(watchAuthentication),
-//   fork(watchCreateTask),
-//   fork(watchLocationChange),
-//   fork(watchRemoveTask),
-//   fork(watchUpdateTask)
-// ];
+export const taskEpics = [
+  signInSuccessEpic,
+  signOutSuccessEpic,
+  createTaskEpic,
+  updateTaskEpic,
+  removeTaskEpic
+];

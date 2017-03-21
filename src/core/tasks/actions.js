@@ -1,18 +1,18 @@
 export const taskActions = {
   CREATE_TASK: 'CREATE_TASK',
   CREATE_TASK_FAILED: 'CREATE_TASK_FAILED',
-  CREATE_TASK_FULFILLED: 'CREATE_TASK_FULFILLED',
+  CREATE_TASK_SUCCESS: 'CREATE_TASK_SUCCESS',
 
   REMOVE_TASK: 'REMOVE_TASK',
   REMOVE_TASK_FAILED: 'REMOVE_TASK_FAILED',
-  REMOVE_TASK_FULFILLED: 'REMOVE_TASK_FULFILLED',
+  REMOVE_TASK_SUCCESS: 'REMOVE_TASK_SUCCESS',
 
   UPDATE_TASK: 'UPDATE_TASK',
   UPDATE_TASK_FAILED: 'UPDATE_TASK_FAILED',
-  UPDATE_TASK_FULFILLED: 'UPDATE_TASK_FULFILLED',
+  UPDATE_TASK_SUCCESS: 'UPDATE_TASK_SUCCESS',
 
   FILTER_TASKS: 'FILTER_TASKS',
-  LOAD_TASKS_FULFILLED: 'LOAD_TASKS_FULFILLED',
+  LOAD_TASKS_SUCCESS: 'LOAD_TASKS_SUCCESS',
 
 
   createTask: title => ({
@@ -25,8 +25,8 @@ export const taskActions = {
     payload: {error}
   }),
 
-  createTaskFulfilled: task => ({
-    type: taskActions.CREATE_TASK_FULFILLED,
+  createTaskSuccess: task => ({
+    type: taskActions.CREATE_TASK_SUCCESS,
     payload: {task}
   }),
 
@@ -40,8 +40,8 @@ export const taskActions = {
     payload: {error}
   }),
 
-  removeTaskFulfilled: task => ({
-    type: taskActions.REMOVE_TASK_FULFILLED,
+  removeTaskSuccess: task => ({
+    type: taskActions.REMOVE_TASK_SUCCESS,
     payload: {task}
   }),
 
@@ -55,8 +55,8 @@ export const taskActions = {
     payload: {error}
   }),
 
-  updateTaskFulfilled: task => ({
-    type: taskActions.UPDATE_TASK_FULFILLED,
+  updateTaskSuccess: task => ({
+    type: taskActions.UPDATE_TASK_SUCCESS,
     payload: {task}
   }),
 
@@ -65,8 +65,8 @@ export const taskActions = {
     payload: {filterType}
   }),
 
-  loadTasksFulfilled: tasks => ({
-    type: taskActions.LOAD_TASKS_FULFILLED,
+  loadTasksSuccess: tasks => ({
+    type: taskActions.LOAD_TASKS_SUCCESS,
     payload: {tasks}
   })
 };

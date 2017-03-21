@@ -11,14 +11,14 @@ export const AuthState = new Record({
 
 export function authReducer(state = new AuthState(), {payload, type}) {
   switch (type) {
-    case authActions.SIGN_IN_FULFILLED:
+    case authActions.SIGN_IN_SUCCESS:
       return state.merge({
         authenticated: true,
         uid: payload.uid,
         user: payload
       });
 
-    case authActions.SIGN_OUT_FULFILLED:
+    case authActions.SIGN_OUT_SUCCESS:
       return state.merge({
         authenticated: false,
         uid: null,
