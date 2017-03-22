@@ -11,7 +11,7 @@ export function configureStore() {
   let epicMiddleware = createEpicMiddleware(rootEpic);
   const historyMiddleware = routerMiddleware(createHistory());
 
-  let middleware = applyMiddleware(epicMiddleware, historyMiddleware);
+  let middleware = applyMiddleware(historyMiddleware, epicMiddleware);
 
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||

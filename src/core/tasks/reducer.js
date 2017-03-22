@@ -9,6 +9,7 @@ export const TasksState = new Record({
 
 
 export function tasksReducer(state = new TasksState(), {payload, type}) {
+  console.log('REDUCER: ', payload, type);
   switch (type) {
     case taskActions.LOAD_TASKS_SUCCESS:
       return state.set('list', new List(payload.tasks.reverse()));

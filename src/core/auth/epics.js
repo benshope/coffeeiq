@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-import { push } from 'react-router-redux';
+import { go } from 'react-router-redux';
 import firebase from 'firebase';
 import { Observable } from 'rxjs';
 
@@ -10,42 +10,26 @@ export const signInEpic = (action$) => {
   return action$
     .filter(action => action.type === authActions.SIGN_IN)
     .map(() => {
-      console.log('signInEpic called');
       let provider = new firebase.auth.GoogleAuthProvider();
       provider.addScope('https://www.googleapis.com/auth/calendar');
-      return Observable.fromPromise(firebaseAuth.signInWithPopup(provider)
-          .then(
-            (x) => {
-              console.log('signInSuccess promise');
-              return authActions.signInSuccess(x);
-            },
-            authActions.signInError));
+      let request = firebaseAuth.signInWithPopup(provider)
+          .then(authActions.signInSuccess, authActions.signInError);
+      return Observable.fromPromise(request);
     })
-      .flatMap((action) => {
-        console.log('SHOULD BE ACTION', action);
-        return Observable.of(push('/'));
-      })
-      .catch(console.warn);
+    .flatMap(x => x)
+    .flatMap(x => {
+      console.log('XXX', x);
+      return Observable.from([x, go('/')]);
+    });
 };
 
 export const signOutEpic = (action$) => {
-  return action$
-    .filter(action => action.type === authActions.SIGN_OUT)
+  return action$.filter(action => action.type === authActions.SIGN_OUT)
     .map(() => {
-      console.log('signOutEpic called');
       return Observable.fromPromise(firebaseAuth.signOut()
-        .then(
-          (x) => {
-            console.log('signOutSuccess promise');
-            return authActions.signOutSuccess(x);
-          },
-          authActions.signOutError));
+        .then(authActions.signOutSuccess, authActions.signOutError));
     })
-      .flatMap((action) => {
-        console.log('SHOULD BE ACTION', action);
-        return Observable.of(push('/sign-in'));
-      })
-      .catch(console.warn);
+    .flatMap(x => x);
 };
 
 export const authEpics = [
