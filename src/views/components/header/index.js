@@ -12,14 +12,14 @@ const Header = ({authenticated, signOut}) => {
             <span className="title-text">CoffeeIQ</span>
           </h1>
 
-          <ul className="header__actions">
-            {authenticated ? <li><Button onClick={signOut}>Sign Out</Button></li> : null}
+          {authenticated ? <ul className="header__actions">
+            <li><Button onClick={signOut}>Sign Out</Button></li>
             <li>
               <a className="link link-help" href="#">
                 <Icon name="help" />
               </a>
             </li>
-          </ul>
+          </ul> : null}
         </div>
       </div>
     </header>

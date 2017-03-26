@@ -11,14 +11,13 @@ export const signInEpic = (action$) => {
     .filter(action => action.type === authActions.SIGN_IN)
     .map(() => {
       let provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('https://www.googleapis.com/auth/calendar');
+      // provider.addScope('https://www.googleapis.com/auth/calendar');
       let request = firebaseAuth.signInWithPopup(provider)
           .then(authActions.signInSuccess, authActions.signInError);
       return Observable.fromPromise(request);
     })
     .flatMap(x => x)
     .flatMap(x => {
-      console.log('XXX', x);
       return Observable.from([x, go('/')]);
     });
 };
