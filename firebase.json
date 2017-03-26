@@ -16,7 +16,7 @@
         ]
       },
       {
-        "source": "**/*.@(css|html|js|map)",
+        "source": "**/*.@(css|html|js|map|otf|png|svg)",
         "headers": [
           {"key": "Cache-Control", "value": "max-age=3600"}
         ]

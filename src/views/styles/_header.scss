@@ -16,10 +16,12 @@
   text-rendering: auto;
   transform: translate(0,0);
 
-  &:before {
-    padding-right: 5px;
-    color: #fff;
-    line-height: 20px;
+  .title-icon {
+    position: absolute;
+    top: 8px;
+  }
+  .title-text {
+    margin-left: 35px;
   }
 }
 
@@ -58,8 +60,8 @@
     transform: translate(0, 0);
   }
 
-  .link--github {
-    padding-top: 1px;
+  .link-help {
+    margin-top: -1px;
     width: 22px;
     height: 24px;
   }
