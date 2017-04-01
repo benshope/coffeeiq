@@ -3,14 +3,20 @@ import { taskActions } from './actions';
 
 
 export const TasksState = new Record({
+  newTask: {
+    name: '',
+    location: ''
+  },
   filter: '',
   list: new List()
 });
 
-
 export function tasksReducer(state = new TasksState(), {payload, type}) {
   console.log('REDUCER: ', payload, type);
   switch (type) {
+    case taskActions.UPDATE_NEW_TASK:
+      return state.set('newTask', { ...state.newTask, ...payload });
+
     case taskActions.LOAD_TASKS_SUCCESS:
       return state.set('list', new List(payload.tasks.reverse()));
 

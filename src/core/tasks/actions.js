@@ -1,4 +1,6 @@
 export const taskActions = {
+  UPDATE_NEW_TASK: 'UPDATE_NEW_TASK',
+
   CREATE_TASK: 'CREATE_TASK',
   CREATE_TASK_FAILED: 'CREATE_TASK_FAILED',
   CREATE_TASK_SUCCESS: 'CREATE_TASK_SUCCESS',
@@ -14,6 +16,10 @@ export const taskActions = {
   FILTER_TASKS: 'FILTER_TASKS',
   LOAD_TASKS_SUCCESS: 'LOAD_TASKS_SUCCESS',
 
+  updateNewTask: task => ({
+    type: taskActions.UPDATE_NEW_TASK,
+    payload: task
+  }),
 
   createTask: title => ({
     type: taskActions.CREATE_TASK,

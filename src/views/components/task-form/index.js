@@ -1,57 +1,64 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { taskActions } from 'core/tasks';
 
-
-export class TaskForm extends Component {
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired
+const TaskForm = ({newTask, updateTask, createTask}) => {
+  const handleSubmit = () => {
+    createTask(newTask);
+  };
+  const nameChange = (e) => {
+    updateTask({ name: e.value });
+  };
+  const locationChange = (e) => {
+    updateTask({ location: e.value });
   };
 
-  constructor() {
-    super(...arguments);
+  return (
+    <form
+      className="task-form"
+      onSubmit={handleSubmit}
+      noValidate
+    >
+      <input
+        autoComplete="off"
+        autoFocus
+        className="task-form__input"
+        maxLength="64"
+        onChange={nameChange}
+        placeholder="Coffee Group Name"
+        type="text"
+        value={newTask.name}
+      />
+      <input
+        autoComplete="off"
+        autoFocus
+        className="task-form__input"
+        maxLength="64"
+        onChange={locationChange}
+        placeholder="Meeting Location"
+        type="text"
+        value={newTask.location}
+      />
+    </form>
+  );
+};
 
-    this.state = {title: ''};
+TaskForm.propTypes = {
+  createTask: PropTypes.func.isRequired,
+  newTask: PropTypes.object.isRequired,
+  updateTask: PropTypes.func.isRequired
+};
 
-    this.handleChange = ::this.handleChange;
-    this.handleKeyUp = ::this.handleKeyUp;
-    this.handleSubmit = ::this.handleSubmit;
-  }
+const mapStateToProps = state => ({
+  newTask: state.tasks.newTask
+});
 
-  clearInput() {
-    this.setState({title: ''});
-  }
+const mapDispatchToProps = {
+  createTask: taskActions.createTask,
+  updateTask: taskActions.updateTask
+};
 
-  handleChange(event) {
-    this.setState({title: event.target.value});
-  }
-
-  handleKeyUp(event) {
-    if (event.keyCode === 27) this.clearInput();
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const title = this.state.title.trim();
-    if (title.length) this.props.handleSubmit(title);
-    this.clearInput();
-  }
-
-  render() {
-    return (
-      <form className="task-form" onSubmit={this.handleSubmit} noValidate>
-        <input
-          autoComplete="off"
-          autoFocus
-          className="task-form__input"
-          maxLength="64"
-          onChange={this.handleChange}
-          onKeyUp={this.handleKeyUp}
-          placeholder="Coffee Group Name"
-          type="text"
-          value={this.state.title}
-        />
-      </form>
-    );
-  }
-}
-
-export default TaskForm;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TaskForm);
