@@ -38,7 +38,7 @@ export const taskActions = {
 
   removeTask: task => ({
     type: taskActions.REMOVE_TASK,
-    payload: {task}
+    payload: task
   }),
 
   removeTaskFailed: error => ({
@@ -48,7 +48,7 @@ export const taskActions = {
 
   removeTaskSuccess: task => ({
     type: taskActions.REMOVE_TASK_SUCCESS,
-    payload: {task}
+    payload: task
   }),
 
   updateTask: (task, changes) => ({

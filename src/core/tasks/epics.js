@@ -1,10 +1,10 @@
 /* eslint-disable no-constant-condition */
 import { go } from 'react-router-redux';
+import { Observable } from 'rxjs';
 
 import { authActions } from 'core/auth';
 import { taskActions } from './actions';
 import { taskList } from './task-list';
-// import { firebaseDb } from '../firebase';
 
 export const signInSuccessEpic = (action$) => {
   return action$
@@ -33,25 +33,33 @@ export const signOutSuccessEpic = (action$) => {
     });
 };
 
-export const createTaskEpic = (action$, state) => {
+export const createTaskEpic = (action$) => {
   return action$
     .filter(action => action.type === taskActions.CREATE_TASK)
     .map((action) => {
-      console.log('tasks/epics CREATE_TASK epic called', action, 'STATE', state.getState());
-      return taskList.push({title: action.payload.name, completed: false});
-    });
+      return Observable.fromPromise(taskList.push(action.payload));
+    })
+    .flatMap(x => x);
 };
 
 export const updateTaskEpic = (action$) => {
   return action$
     .filter(action => action.type === taskActions.UPDATE_TASK)
-    .map(() => { console.log('tasks/epics UPDATE_TASK epic called'); });
+    .map((action) => {
+      return Observable.fromPromise(taskList.update(action.payload));
+    })
+    .flatMap(x => x);
 };
 
 export const removeTaskEpic = (action$) => {
   return action$
     .filter(action => action.type === taskActions.REMOVE_TASK)
-    .map(() => { console.log('tasks/epics REMOVE_TASK epic called'); });
+    .map((action) => {
+      console.log('REMOVE: ', action);
+      return Observable.fromPromise(taskList.remove(action.payload)
+        .then(() => taskActions.removeTaskSuccess(action.payload)));
+    })
+    .flatMap(x => x);
 };
 
 export const taskEpics = [

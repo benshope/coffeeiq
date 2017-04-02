@@ -40,7 +40,7 @@ export class TaskItem extends Component {
       const { task } = this.props;
       const title = event.target.value.trim();
 
-      if (title.length && title !== task.title) {
+      if (title.length && title !== task.name) {
         this.props.updateTask(task, {title});
       }
 
@@ -60,7 +60,7 @@ export class TaskItem extends Component {
   renderTitle(task) {
     return (
       <div className="task-item__title" tabIndex="0">
-        {task.title}
+        {task.name} @ {task.location}
       </div>
     );
   }
@@ -71,7 +71,7 @@ export class TaskItem extends Component {
         autoComplete="off"
         autoFocus
         className="task-item__input"
-        defaultValue={task.title}
+        defaultValue={task.name}
         maxLength="64"
         onKeyUp={this.handleKeyUp}
         type="text"
