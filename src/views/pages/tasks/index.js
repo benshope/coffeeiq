@@ -43,7 +43,7 @@ TasksPage.propTypes = {
 //-------------------------------------
 
 const mapStateToProps = state => ({
-  tasks: getVisibleTasks(state)
+  tasks: state.tasks.list
 });
 
 const mapDispatchToProps = {

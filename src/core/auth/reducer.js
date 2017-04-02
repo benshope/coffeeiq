@@ -13,7 +13,7 @@ export function authReducer(state = {...newAuthState}, {payload, type}) {
     case authActions.SIGN_IN_SUCCESS:
       return {
         authenticated: true,
-        uid: payload.uid,
+        uid: payload.authUser.uid,
         user: payload
       };
 
