@@ -4,7 +4,7 @@ import { go } from 'react-router-redux';
 import { authActions } from 'core/auth';
 import { taskActions } from './actions';
 import { taskList } from './task-list';
-import { firebaseDb } from '../firebase';
+// import { firebaseDb } from '../firebase';
 
 export const signInSuccessEpic = (action$) => {
   return action$
