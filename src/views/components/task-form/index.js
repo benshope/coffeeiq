@@ -2,15 +2,17 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { taskActions } from 'core/tasks';
 
-const TaskForm = ({newTask, updateTask, createTask}) => {
+const TaskForm = ({newTask, updateNewTask, createTask}) => {
   const handleSubmit = () => {
     createTask(newTask);
   };
   const nameChange = (e) => {
-    updateTask({ name: e.value });
+    console.log(e.target.value);
+    updateNewTask({ name: e.target.value });
   };
   const locationChange = (e) => {
-    updateTask({ location: e.value });
+    console.log(e.target.value);
+    updateNewTask({ location: e.target.value });
   };
 
   return (
@@ -46,7 +48,7 @@ const TaskForm = ({newTask, updateTask, createTask}) => {
 TaskForm.propTypes = {
   createTask: PropTypes.func.isRequired,
   newTask: PropTypes.object.isRequired,
-  updateTask: PropTypes.func.isRequired
+  updateNewTask: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -55,7 +57,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   createTask: taskActions.createTask,
-  updateTask: taskActions.updateTask
+  updateNewTask: taskActions.updateNewTask
 };
 
 export default connect(
