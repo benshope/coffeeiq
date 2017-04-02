@@ -12,5 +12,5 @@ export function isAuthenticated(state) {
 
 export const getAuth = createSelector(
   state => state.auth,
-  auth => auth.toJS()
+  auth => auth
 );

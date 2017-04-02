@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { taskActions, getVisibleTasks } from 'core/tasks';
@@ -34,7 +33,7 @@ TasksPage.propTypes = {
   filterTasks: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   removeTask: PropTypes.func.isRequired,
-  tasks: PropTypes.instanceOf(List),
+  tasks: PropTypes.array.isRequired,
   updateTask: PropTypes.func.isRequired
 };
 

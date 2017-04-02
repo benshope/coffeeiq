@@ -1,29 +1,24 @@
-import { Record } from 'immutable';
 import { authActions } from './actions';
 
-
-export const AuthState = new Record({
+export const newAuthState = {
   authenticated: false,
   uid: null,
   user: null
-});
+};
 
+export const AuthState = {...newAuthState};
 
-export function authReducer(state = new AuthState(), {payload, type}) {
+export function authReducer(state = {...newAuthState}, {payload, type}) {
   switch (type) {
     case authActions.SIGN_IN_SUCCESS:
-      return state.merge({
+      return {
         authenticated: true,
         uid: payload.uid,
         user: payload
-      });
+      };
 
     case authActions.SIGN_OUT_SUCCESS:
-      return state.merge({
-        authenticated: false,
-        uid: null,
-        user: null
-      });
+      return {...newAuthState};
 
     default:
       return state;

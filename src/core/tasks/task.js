@@ -1,8 +1,10 @@
-import { Record } from 'immutable';
-
-
-export const Task = new Record({
-  completed: false,
-  key: null,
-  title: null
-});
+export class Task {
+  completed: false;
+  key: null;
+  title: null;
+  constructor(attrs) {
+    this.completed = attrs.completed;
+    this.key = attrs.key;
+    this.title = attrs.title;
+  }
+}

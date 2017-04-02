@@ -4,6 +4,7 @@ import { taskActions } from 'core/tasks';
 
 const TaskForm = ({newTask, updateNewTask, createTask}) => {
   const handleSubmit = () => {
+    console.log('handleSubmit');
     createTask(newTask);
   };
   const nameChange = (e) => {
@@ -41,6 +42,7 @@ const TaskForm = ({newTask, updateNewTask, createTask}) => {
         type="text"
         value={newTask.location}
       />
+      <button type="submit" style={{display: 'none'}}></button>
     </form>
   );
 };

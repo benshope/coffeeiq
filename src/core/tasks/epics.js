@@ -4,6 +4,7 @@ import { go } from 'react-router-redux';
 import { authActions } from 'core/auth';
 import { taskActions } from './actions';
 import { taskList } from './task-list';
+import { firebaseDb } from '../firebase';
 
 export const signInSuccessEpic = (action$) => {
   return action$
@@ -32,10 +33,13 @@ export const signOutSuccessEpic = (action$) => {
     });
 };
 
-export const createTaskEpic = (action$) => {
+export const createTaskEpic = (action$, state) => {
   return action$
     .filter(action => action.type === taskActions.CREATE_TASK)
-    .map(() => { console.log('tasks/epics CREATE_TASK epic called'); });
+    .map((action) => {
+      console.log('tasks/epics CREATE_TASK epic called', action, 'STATE', state.getState());
+      return taskList.push({title: action.payload.name, completed: false});
+    });
 };
 
 export const updateTaskEpic = (action$) => {

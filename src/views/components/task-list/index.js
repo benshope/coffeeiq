@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import React, { PropTypes } from 'react';
 import TaskItem from '../task-item';
 
@@ -24,7 +23,7 @@ const TaskList = ({removeTask, tasks, updateTask}) => {
 
 TaskList.propTypes = {
   removeTask: PropTypes.func.isRequired,
-  tasks: PropTypes.instanceOf(List),
+  tasks: PropTypes.array.isRequired,
   updateTask: PropTypes.func.isRequired
 };
 

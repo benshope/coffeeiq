@@ -16,14 +16,14 @@ export const taskActions = {
   FILTER_TASKS: 'FILTER_TASKS',
   LOAD_TASKS_SUCCESS: 'LOAD_TASKS_SUCCESS',
 
-  updateNewTask: task => ({
+  updateNewTask: (task) => ({
     type: taskActions.UPDATE_NEW_TASK,
     payload: task
   }),
 
-  createTask: title => ({
+  createTask: (task) => ({
     type: taskActions.CREATE_TASK,
-    payload: {task: {title, completed: false}}
+    payload: task
   }),
 
   createTaskFailed: error => ({
@@ -33,7 +33,7 @@ export const taskActions = {
 
   createTaskSuccess: task => ({
     type: taskActions.CREATE_TASK_SUCCESS,
-    payload: {task}
+    payload: task
   }),
 
   removeTask: task => ({
