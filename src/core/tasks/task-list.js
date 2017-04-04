@@ -2,8 +2,6 @@ import { FirebaseList } from 'core/firebase';
 import { taskActions } from './actions';
 import { Task } from './task';
 
-
-
 export const taskList = new FirebaseList({
   onAdd: taskActions.createTaskSuccess,
   onChange: taskActions.updateTaskSuccess,

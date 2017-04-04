@@ -7,6 +7,7 @@ const newTask = {
 
 const newTasksState = {
   newTask,
+  taskBeingEdited: null,
   filter: '',
   list: []
 };
@@ -22,7 +23,13 @@ export function tasksReducer(state = {...newTasksState}, {payload, type}) {
   if (type === taskActions.LOAD_TASKS_SUCCESS) {
     return {
       ...state,
-      list: payload.tasks.reverse()
+      list: payload.tasks
+    };
+  }
+  if (type === taskActions.EDIT_TASK) {
+    return {
+      ...state,
+      taskBeingEdited: payload
     };
   }
   if (type === taskActions.CREATE_TASK_SUCCESS) {

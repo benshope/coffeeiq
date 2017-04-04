@@ -2,14 +2,12 @@ import React, { PropTypes } from 'react';
 import TaskItem from '../task-item';
 
 
-const TaskList = ({removeTask, tasks, updateTask}) => {
+const TaskList = ({tasks}) => {
   let taskItems = tasks.map((task, index) => {
     return (
       <TaskItem
-        removeTask={removeTask}
         key={index}
         task={task}
-        updateTask={updateTask}
       />
     );
   });
@@ -22,9 +20,7 @@ const TaskList = ({removeTask, tasks, updateTask}) => {
 };
 
 TaskList.propTypes = {
-  removeTask: PropTypes.func.isRequired,
-  tasks: PropTypes.array.isRequired,
-  updateTask: PropTypes.func.isRequired
+  tasks: PropTypes.array.isRequired
 };
 
 export default TaskList;

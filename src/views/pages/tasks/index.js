@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { taskActions, getVisibleTasks } from 'core/tasks';
+import { taskActions } from 'core/tasks';
 import TaskFilters from 'views/components/task-filters';
 import TaskForm from 'views/components/task-form';
 import TaskList from 'views/components/task-list';
 
 
-const TasksPage = ({createTask, location, removeTask, tasks, updateTask}) => {
+const TasksPage = ({createTask, location, tasks}) => {
   const { filter } = location.query;
 
   return (
@@ -18,10 +18,7 @@ const TasksPage = ({createTask, location, removeTask, tasks, updateTask}) => {
       <div className="g-col">
         <TaskFilters filter={filter} />
         <TaskList
-          filter={filter}
-          removeTask={removeTask}
           tasks={tasks}
-          updateTask={updateTask}
         />
       </div>
     </div>

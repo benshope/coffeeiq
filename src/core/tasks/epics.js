@@ -46,7 +46,7 @@ export const updateTaskEpic = (action$) => {
   return action$
     .filter(action => action.type === taskActions.UPDATE_TASK)
     .map((action) => {
-      return Observable.fromPromise(taskList.update(action.payload));
+        return Observable.fromPromise(taskList.update(action.payload.key, action.payload));
     })
     .flatMap(x => x);
 };

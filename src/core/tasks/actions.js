@@ -9,12 +9,19 @@ export const taskActions = {
   REMOVE_TASK_FAILED: 'REMOVE_TASK_FAILED',
   REMOVE_TASK_SUCCESS: 'REMOVE_TASK_SUCCESS',
 
+  EDIT_TASK: 'EDIT_TASK',
+
   UPDATE_TASK: 'UPDATE_TASK',
   UPDATE_TASK_FAILED: 'UPDATE_TASK_FAILED',
   UPDATE_TASK_SUCCESS: 'UPDATE_TASK_SUCCESS',
 
   FILTER_TASKS: 'FILTER_TASKS',
   LOAD_TASKS_SUCCESS: 'LOAD_TASKS_SUCCESS',
+
+  editTask: task => ({
+    type: taskActions.EDIT_TASK,
+    payload: task
+  }),
 
   updateNewTask: (task) => ({
     type: taskActions.UPDATE_NEW_TASK,

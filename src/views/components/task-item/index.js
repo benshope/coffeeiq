@@ -1,71 +1,63 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+
+import { taskActions } from 'core/tasks';
 import classNames from 'classnames';
 import Button from '../button';
 import Icon from '../icon';
 
+const TaskItem = ({
+  editTask,
+  removeTask,
+  task,
+  taskBeingEdited,
+  updateTask
+}) => {
+  // const update = (updates) => ({
+  //   ...task,
+  //   ...updates
+  // });
 
-export class TaskItem extends Component {
-  constructor() {
-    super(...arguments);
+  const editing = taskBeingEdited && taskBeingEdited.key === task.key;
 
-    this.state = {editing: false};
+  const startEditing = () => editTask(task);
+  const stopEditing = () => editTask({});
 
-    this.edit = ::this.edit;
-    this.handleKeyUp = ::this.handleKeyUp;
-    this.remove = ::this.remove;
-    this.save = ::this.save;
-    this.stopEditing = ::this.stopEditing;
-    this.toggleStatus = ::this.toggleStatus;
-  }
-
-  edit() {
-    this.setState({editing: true});
-  }
-
-  handleKeyUp(event) {
+  const handleKeyUp = (event) => {
     if (event.keyCode === 13) {
-      this.save(event);
+      stopEditing();
     }
-    else if (event.keyCode === 27) {
-      this.stopEditing();
+    if (event.keyCode === 27) {
+      stopEditing();
     }
-  }
+  };
 
-  remove() {
-    this.props.removeTask(this.props.task);
-  }
+  const remove = () => {
+    removeTask(task);
+  };
 
-  save(event) {
-    if (this.state.editing) {
-      const { task } = this.props;
-      const title = event.target.value.trim();
+  // const save = (event) => {
+  //   if (editing) {
+  //     const title = event.target.value.trim();
+  //     if (title.length && title !== task.name) {
+  //       updateTask(task, {title});
+  //     }
+  //   }
+  // };
 
-      if (title.length && title !== task.name) {
-        this.props.updateTask(task, {title});
-      }
+  const toggleStatus = () => {
+    updateTask(task, {completed: !task.completed});
+  };
 
-      this.stopEditing();
-    }
-  }
-
-  stopEditing() {
-    this.setState({editing: false});
-  }
-
-  toggleStatus() {
-    const { task } = this.props;
-    this.props.updateTask(task, {completed: !task.completed});
-  }
-
-  renderTitle(task) {
+  const renderTitle = (task) => {
     return (
       <div className="task-item__title" tabIndex="0">
         {task.name} @ {task.location}
       </div>
     );
-  }
+  };
 
-  renderTitleInput(task) {
+  const renderTitleInput = (task) => {
     return (
       <input
         autoComplete="off"
@@ -73,61 +65,73 @@ export class TaskItem extends Component {
         className="task-item__input"
         defaultValue={task.name}
         maxLength="64"
-        onKeyUp={this.handleKeyUp}
+        onKeyUp={handleKeyUp}
         type="text"
       />
     );
-  }
+  };
 
-  render() {
-    const { editing } = this.state;
-    const { task } = this.props;
+  let containerClasses = classNames('task-item', {
+    'task-item--completed': task.completed,
+    'task-item--editing': editing
+  });
 
-    let containerClasses = classNames('task-item', {
-      'task-item--completed': task.completed,
-      'task-item--editing': editing
-    });
-
-    return (
-      <div className={containerClasses} tabIndex="0">
-        <div className="cell">
-          <Button
-            className={classNames('btn--icon', 'task-item__button', {'active': task.completed, 'hide': editing})}
-            onClick={this.toggleStatus}>
-            <Icon name="done" />
-          </Button>
-        </div>
-
-        <div className="cell">
-          {editing ? this.renderTitleInput(task) : this.renderTitle(task)}
-        </div>
-
-        <div className="cell">
-          <Button
-            className={classNames('btn--icon', 'task-item__button', {'hide': editing})}
-            onClick={this.edit}>
-            <Icon name="mode_edit" />
-          </Button>
-          <Button
-            className={classNames('btn--icon', 'task-item__button', {'hide': !editing})}
-            onClick={this.stopEditing}>
-            <Icon name="clear" />
-          </Button>
-          <Button
-            className={classNames('btn--icon', 'task-item__button', {'hide': editing})}
-            onClick={this.remove}>
-            <Icon name="delete" />
-          </Button>
-        </div>
+  return (
+    <div className={containerClasses} tabIndex="0">
+      <div className="cell">
+        <Button
+          className={
+            classNames('btn--icon', 'task-item__button',
+              {'active': task.completed, 'hide': editing})}
+          onClick={toggleStatus}>
+          <Icon name="done" />
+        </Button>
       </div>
-    );
-  }
-}
+
+      <div className="cell">
+        {editing ? renderTitleInput(task) : renderTitle(task)}
+      </div>
+
+      <div className="cell">
+        <Button
+          className={classNames('btn--icon', 'task-item__button', {'hide': editing})}
+          onClick={startEditing}>
+          <Icon name="mode_edit" />
+        </Button>
+        <Button
+          className={classNames('btn--icon', 'task-item__button', {'hide': !editing})}
+          onClick={stopEditing}>
+          <Icon name="clear" />
+        </Button>
+        <Button
+          className={classNames('btn--icon', 'task-item__button', {'hide': editing})}
+          onClick={remove}>
+          <Icon name="delete" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+const mapStateToProps = state => ({
+  taskBeingEdited: state.tasks.taskBeingEdited
+});
+
+const mapDispatchToProps = {
+  removeTask: taskActions.removeTask,
+  updateTask: taskActions.updateTask,
+  editTask: taskActions.editTask
+};
 
 TaskItem.propTypes = {
+  editTask: PropTypes.func.isRequired,
   removeTask: PropTypes.func.isRequired,
   task: PropTypes.object.isRequired,
+  taskBeingEdited: PropTypes.object,
   updateTask: PropTypes.func.isRequired
 };
 
-export default TaskItem;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TaskItem);

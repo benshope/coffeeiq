@@ -25,7 +25,7 @@ export class FirebaseList {
   remove(task) {
     return new Promise((resolve, reject) => {
       firebaseDb.ref(`${this.path}/${task.key}`)
-        .remove(error => error ? reject(error) : resolve(task));
+        .remove(error => error ? reject(error) : resolve());
     });
   }
 
