@@ -7,7 +7,7 @@ const newTask = {
 
 const newTasksState = {
   newTask,
-  taskBeingEdited: null,
+  taskBeingEdited: undefined,
   filter: '',
   list: []
 };

@@ -2,9 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { taskActions } from 'core/tasks';
 import TaskFilters from 'views/components/task-filters';
-import TaskForm from 'views/components/task-form';
+import TaskForm from 'views/components/task-form/task-form.container';
 import TaskList from 'views/components/task-list';
-
 
 const TasksPage = ({createTask, location, tasks}) => {
   const { filter } = location.query;
@@ -33,7 +32,6 @@ TasksPage.propTypes = {
   tasks: PropTypes.array.isRequired,
   updateTask: PropTypes.func.isRequired
 };
-
 
 //=====================================
 //  CONNECT

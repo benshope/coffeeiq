@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import Button from '../button';
 import Icon from '../icon';
 
+import taskForm from '../task-form/task-form.component';
+
 const TaskItem = ({
   editTask,
   removeTask,
@@ -21,16 +23,7 @@ const TaskItem = ({
   const editing = taskBeingEdited && taskBeingEdited.key === task.key;
 
   const startEditing = () => editTask(task);
-  const stopEditing = () => editTask({});
-
-  const handleKeyUp = (event) => {
-    if (event.keyCode === 13) {
-      stopEditing();
-    }
-    if (event.keyCode === 27) {
-      stopEditing();
-    }
-  };
+  const stopEditing = () => editTask(undefined);
 
   const remove = () => {
     removeTask(task);
@@ -49,7 +42,7 @@ const TaskItem = ({
     updateTask(task, {completed: !task.completed});
   };
 
-  const renderTitle = (task) => {
+  const taskViewer = () => {
     return (
       <div className="task-item__title" tabIndex="0">
         {task.name} @ {task.location}
@@ -57,19 +50,11 @@ const TaskItem = ({
     );
   };
 
-  const renderTitleInput = (task) => {
-    return (
-      <input
-        autoComplete="off"
-        autoFocus
-        className="task-item__input"
-        defaultValue={task.name}
-        maxLength="64"
-        onKeyUp={handleKeyUp}
-        type="text"
-      />
-    );
-  };
+  const taskEditor = () => taskForm({
+    task,
+    onChange: editTask,
+    onSubmit: updateTask
+  });
 
   let containerClasses = classNames('task-item', {
     'task-item--completed': task.completed,
@@ -89,7 +74,7 @@ const TaskItem = ({
       </div>
 
       <div className="cell">
-        {editing ? renderTitleInput(task) : renderTitle(task)}
+        {editing ? taskEditor() : taskViewer()}
       </div>
 
       <div className="cell">

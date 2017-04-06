@@ -1,19 +1,35 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { taskActions } from 'core/tasks';
 
-const TaskForm = ({newTask, updateNewTask, createTask}) => {
+const TaskForm = ({
+  task,
+  onChange,
+  onSubmit,
+  onBlur,
+  onCancel
+}) => {
   const handleSubmit = () => {
     console.log('handleSubmit');
-    createTask(newTask);
+    onSubmit(task);
   };
   const nameChange = (e) => {
     console.log(e.target.value);
-    updateNewTask({ name: e.target.value });
+    onChange({ name: e.target.value });
   };
   const locationChange = (e) => {
     console.log(e.target.value);
-    updateNewTask({ location: e.target.value });
+    onChange({ location: e.target.value });
+  };
+  const handleKeyUp = (event) => {
+    if (onCancel && event.keyCode === 13 || event.keyCode === 27) {
+      onCancel();
+    }
+  };
+
+  const handleBlur = () => {
+    console.log('form blur');
+    if (onBlur) {
+      onBlur();
+    }
   };
 
   return (
@@ -21,26 +37,30 @@ const TaskForm = ({newTask, updateNewTask, createTask}) => {
       className="task-form"
       onSubmit={handleSubmit}
       noValidate
+      onBlur={handleBlur}
     >
       <input
         autoComplete="off"
+        onKeyUp={handleKeyUp}
         autoFocus
         className="task-form__input"
         maxLength="64"
         onChange={nameChange}
         placeholder="Coffee Group Name"
         type="text"
-        value={newTask.name}
+        value={task.name}
       />
+      at
       <input
         autoComplete="off"
+        onKeyUp={handleKeyUp}
         autoFocus
         className="task-form__input"
         maxLength="64"
         onChange={locationChange}
         placeholder="Meeting Location"
         type="text"
-        value={newTask.location}
+        value={task.location}
       />
       <button type="submit" style={{display: 'none'}}></button>
     </form>
@@ -48,21 +68,11 @@ const TaskForm = ({newTask, updateNewTask, createTask}) => {
 };
 
 TaskForm.propTypes = {
-  createTask: PropTypes.func.isRequired,
-  newTask: PropTypes.object.isRequired,
-  updateNewTask: PropTypes.func.isRequired
+  onBlur: PropTypes.func,
+  onCancel: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  task: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  newTask: state.tasks.newTask
-});
-
-const mapDispatchToProps = {
-  createTask: taskActions.createTask,
-  updateNewTask: taskActions.updateNewTask
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TaskForm);
+export default TaskForm;
