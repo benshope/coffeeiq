@@ -24,7 +24,6 @@ const TaskForm = ({
       onCancel();
     }
   };
-
   const handleBlur = () => {
     console.log('form blur');
     if (onBlur) {
