@@ -11,6 +11,8 @@ export const taskActions = {
 
   EDIT_TASK: 'EDIT_TASK',
 
+  TOGGLE_GROUP_MEMBERSHIP: 'TOGGLE_GROUP_MEMBERSHIP',
+
   UPDATE_TASK: 'UPDATE_TASK',
   UPDATE_TASK_FAILED: 'UPDATE_TASK_FAILED',
   UPDATE_TASK_SUCCESS: 'UPDATE_TASK_SUCCESS',
@@ -56,6 +58,11 @@ export const taskActions = {
   removeTaskSuccess: task => ({
     type: taskActions.REMOVE_TASK_SUCCESS,
     payload: task
+  }),
+
+  toggleGroupMembership: (group) => ({
+    type: taskActions.TOGGLE_GROUP_MEMBERSHIP,
+    payload: group
   }),
 
   updateTask: (task, changes) => ({

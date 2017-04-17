@@ -13,6 +13,7 @@ const TaskItem = ({
   removeTask,
   task,
   taskBeingEdited,
+  toggleGroupMembership,
   updateTask
 }) => {
   // const update = (updates) => ({
@@ -27,19 +28,6 @@ const TaskItem = ({
 
   const remove = () => {
     removeTask(task);
-  };
-
-  // const save = (event) => {
-  //   if (editing) {
-  //     const title = event.target.value.trim();
-  //     if (title.length && title !== task.name) {
-  //       updateTask(task, {title});
-  //     }
-  //   }
-  // };
-
-  const toggleStatus = () => {
-    updateTask(task, {completed: !task.completed});
   };
 
   const taskViewer = () => {
@@ -68,15 +56,13 @@ const TaskItem = ({
           className={
             classNames('btn--icon', 'task-item__button',
               {'active': task.completed, 'hide': editing})}
-          onClick={toggleStatus}>
+          onClick={toggleGroupMembership}>
           <Icon name="done" />
         </Button>
       </div>
-
       <div className="cell">
         {editing ? taskEditor() : taskViewer()}
       </div>
-
       <div className="cell">
         <Button
           className={classNames('btn--icon', 'task-item__button', {'hide': editing})}
@@ -105,6 +91,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   removeTask: taskActions.removeTask,
   updateTask: taskActions.updateTask,
+  toggleGroupMembership: taskActions.toggleGroupMembership,
   editTask: taskActions.editTask
 };
 
@@ -113,6 +100,7 @@ TaskItem.propTypes = {
   removeTask: PropTypes.func.isRequired,
   task: PropTypes.object.isRequired,
   taskBeingEdited: PropTypes.object,
+  toggleGroupMembership: PropTypes.func.isRequired,
   updateTask: PropTypes.func.isRequired
 };
 
