@@ -50,7 +50,7 @@ const TaskForm = ({
         type="text"
         value={task.name}
       />
-      at
+      <span className="divider">@</span>
       <input
         autoComplete="off"
         onKeyUp={handleKeyUp}
