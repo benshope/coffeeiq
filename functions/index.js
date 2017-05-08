@@ -21,7 +21,7 @@ const APP_NAME = 'CoffeeIQ';
  * Sends a welcome email to new user.
  */
 // [START onCreateTrigger]
-exports.sendWelcomeEmail = functions.auth.user().onCreate(event => {
+exports.sendWelcomeEmail = functions.auth.user.onCreate(event => {
 // [END onCreateTrigger]
   // [START eventAttributes]
   const user = event.data; // The Firebase user.

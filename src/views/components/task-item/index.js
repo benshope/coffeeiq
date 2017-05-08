@@ -21,6 +21,7 @@ const TaskItem = ({
   //   ...updates
   // });
 
+  const sendInvitesToGroup = () => console.log('button clicked');
   const editing = taskBeingEdited && taskBeingEdited.key === task.key;
 
   const startEditing = () => editTask(task);
@@ -64,6 +65,11 @@ const TaskItem = ({
         {editing ? taskEditor() : taskViewer()}
       </div>
       <div className="cell">
+        <Button
+          className={classNames('task-item__button', {'hide': editing})}
+          onClick={sendInvitesToGroup}>
+          Send Invites to Group
+        </Button>
         <Button
           className={classNames('btn--icon', 'task-item__button', {'hide': editing})}
           onClick={startEditing}>
