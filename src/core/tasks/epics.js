@@ -46,13 +46,13 @@ export const toggleGroupMembershipEpic = (action$, store) => {
   return action$
     .filter((action) => {
       // console.log('TOGGLE EPIC', store.getState(), action);
-      // const uid = store.getState().auth.uid;
-      // const group = action.payload;
-      return false;
-      // action.type === taskActions.TOGGLE_GROUP_MEMBERSHIP
+      return action.type === taskActions.TOGGLE_GROUP_MEMBERSHIP;
     })
     .map((action) => {
-      return Observable.fromPromise(taskList.update(action.payload.key, action.payload));
+      const uid = store.getState().auth.uid;
+      const group = action.payload;
+      return Observable.fromPromise(
+        taskList.addMemberToGroup(group, uid));
     })
     .flatMap(x => x);
 };
