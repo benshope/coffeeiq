@@ -22,9 +22,9 @@ export class FirebaseList {
     });
   }
 
-  remove(task) {
+  remove(group) {
     return new Promise((resolve, reject) => {
-      firebaseDb.ref(`${this.path}/${task.key}`)
+      firebaseDb.ref(`${this.path}/${group.key}`)
         .remove(error => error ? reject(error) : resolve());
     });
   }

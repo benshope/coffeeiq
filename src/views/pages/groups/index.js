@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { taskActions } from 'core/tasks';
-import TaskFilters from 'views/components/task-filters';
-import TaskForm from 'views/components/task-form/task-form.container';
-import TaskList from 'views/components/task-list';
+import { groupActions } from 'core/groups';
+import TaskFilters from 'views/components/group-filters';
+import TaskForm from 'views/components/group-form/group-form.container';
+import TaskList from 'views/components/group-list';
 
-const TasksPage = ({createTask, location, tasks}) => {
+const TasksPage = ({createTask, location, groups}) => {
   const { filter } = location.query;
 
   return (
@@ -17,7 +17,7 @@ const TasksPage = ({createTask, location, tasks}) => {
       <div className="g-col">
         <TaskFilters filter={filter} />
         <TaskList
-          tasks={tasks}
+          groups={groups}
         />
       </div>
     </div>
@@ -29,7 +29,7 @@ TasksPage.propTypes = {
   filterTasks: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   removeTask: PropTypes.func.isRequired,
-  tasks: PropTypes.array.isRequired,
+  groups: PropTypes.array.isRequired,
   updateTask: PropTypes.func.isRequired
 };
 
@@ -38,14 +38,14 @@ TasksPage.propTypes = {
 //-------------------------------------
 
 const mapStateToProps = state => ({
-  tasks: state.tasks.list
+  groups: state.groups.list
 });
 
 const mapDispatchToProps = {
-  createTask: taskActions.createTask,
-  filterTasks: taskActions.filterTasks,
-  removeTask: taskActions.removeTask,
-  updateTask: taskActions.updateTask
+  createTask: groupActions.createTask,
+  filterTasks: groupActions.filterTasks,
+  removeTask: groupActions.removeTask,
+  updateTask: groupActions.updateTask
 };
 
 export default connect(

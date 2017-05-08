@@ -3,12 +3,12 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { eventChannel } from 'redux-saga';
 import { call, cancel, fork, put, take } from 'redux-saga/effects';
 import { authActions } from 'core/auth';
-import { taskActions } from './actions';
-import { taskList } from './task-list';
+import { groupActions } from './actions';
+import { groupList } from './group-list';
 
 
 function subscribe() {
-  return eventChannel(emit => taskList.subscribe(emit));
+  return eventChannel(emit => groupList.subscribe(emit));
 }
 
 function* read() {
@@ -28,9 +28,9 @@ function* write(context, method, onError, ...params) {
   }
 }
 
-const createTask = write.bind(null, taskList, taskList.push, taskActions.createTaskFailed);
-const removeTask = write.bind(null, taskList, taskList.remove, taskActions.removeTaskFailed);
-const updateTask = write.bind(null, taskList, taskList.update, taskActions.updateTaskFailed);
+const createTask = write.bind(null, groupList, groupList.push, groupActions.createTaskFailed);
+const removeTask = write.bind(null, groupList, groupList.remove, groupActions.removeTaskFailed);
+const updateTask = write.bind(null, groupList, groupList.update, groupActions.updateTaskFailed);
 
 
 //=====================================
@@ -41,7 +41,7 @@ function* watchAuthentication() {
   while (true) {
     let { payload } = yield take(authActions.SIGN_IN_SUCCESS);
 
-    taskList.path = `tasks/${payload.authUser.uid}`;
+    groupList.path = `groups/${payload.authUser.uid}`;
     const job = yield fork(read);
 
     yield take([authActions.SIGN_OUT_SUCCESS]);
@@ -51,8 +51,8 @@ function* watchAuthentication() {
 
 function* watchCreateTask() {
   while (true) {
-    let { payload } = yield take(taskActions.CREATE_TASK);
-    yield fork(createTask, payload.task);
+    let { payload } = yield take(groupActions.CREATE_TASK);
+    yield fork(createTask, payload.group);
   }
 }
 
@@ -60,22 +60,22 @@ function* watchLocationChange() {
   while (true) {
     let { payload } = yield take(LOCATION_CHANGE);
     if (payload.pathname === '/') {
-      yield put(taskActions.filterTasks(payload.query.filter));
+      yield put(groupActions.filterTasks(payload.query.filter));
     }
   }
 }
 
 function* watchRemoveTask() {
   while (true) {
-    let { payload } = yield take(taskActions.REMOVE_TASK);
-    yield fork(removeTask, payload.task.key);
+    let { payload } = yield take(groupActions.REMOVE_TASK);
+    yield fork(removeTask, payload.group.key);
   }
 }
 
 function* watchUpdateTask() {
   while (true) {
-    let { payload } = yield take(taskActions.UPDATE_TASK);
-    yield fork(updateTask, payload.task.key, payload.changes);
+    let { payload } = yield take(groupActions.UPDATE_TASK);
+    yield fork(updateTask, payload.group.key, payload.changes);
   }
 }
 
@@ -84,7 +84,7 @@ function* watchUpdateTask() {
 //  TASK SAGAS
 //-------------------------------------
 
-export const taskSagas = [
+export const groupSagas = [
   fork(watchAuthentication),
   fork(watchCreateTask),
   fork(watchLocationChange),

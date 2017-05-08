@@ -1,7 +1,7 @@
 import { isAuthenticated } from 'core/auth';
 import App from './app';
 import SignInPage from './pages/sign-in';
-import TasksPage from './pages/tasks';
+import TasksPage from './pages/groups';
 
 
 export const paths = {

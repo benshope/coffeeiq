@@ -2,7 +2,7 @@
 //  TaskItem
 //---------------------------------------------------------
 
-.task-item {
+.group-item {
   display: flex;
   outline: none;
   border-bottom: 1px dotted #666;
@@ -17,7 +17,7 @@
   }
 }
 
-.task-item--editing {
+.group-item--editing {
   border-bottom: 1px dotted #ccc;
 }
 
@@ -48,7 +48,7 @@
 //=====================================
 //  Buttons
 //-------------------------------------
-.task-item__button {
+.group-item__button {
   margin-left: 5px;
   background: #2a2a2a;
 
@@ -75,7 +75,7 @@
 //=====================================
 //  Title (static)
 //-------------------------------------
-.task-item__title {
+.group-item__title {
   display: inline-block;
   position: relative;
   max-width: 100%;
@@ -95,11 +95,11 @@
     content: '';
   }
 
-  .task-item--completed & {
+  .group-item--completed & {
     color: #666;
   }
 
-  .task-item--completed &:after {
+  .group-item--completed &:after {
     width: 100%;
   }
 }
@@ -108,7 +108,7 @@
 //=====================================
 //  Title (input)
 //-------------------------------------
-.task-item__input {
+.group-item__input {
   outline: none;
   border: 0;
   padding: 0;

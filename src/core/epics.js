@@ -1,12 +1,12 @@
 import { combineEpics } from 'redux-observable';
 
 import { authEpics } from './auth';
-import { taskEpics } from './tasks';
+import { groupEpics } from './groups';
 
 
 const epics = combineEpics(
   ...authEpics,
-  ...taskEpics
+  ...groupEpics
 );
 
 export default epics;

@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 
 export function getTasks(state) {
-  return state.tasks;
+  return state.groups;
 }
 
 export function getTaskFilter(state) {
@@ -21,16 +21,16 @@ export function getTaskList(state) {
 export const getVisibleTasks = createSelector(
   getTaskFilter,
   getTaskList,
-  (filter, taskList) => {
+  (filter, groupList) => {
     switch (filter) {
       case 'active':
-        return taskList.filter(task => !task.completed);
+        return groupList.filter(group => !group.completed);
 
       case 'completed':
-        return taskList.filter(task => task.completed);
+        return groupList.filter(group => group.completed);
 
       default:
-        return taskList;
+        return groupList;
     }
   }
 );

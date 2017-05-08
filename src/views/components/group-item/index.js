@@ -1,53 +1,53 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { taskActions } from 'core/tasks';
+import { groupActions } from 'core/groups';
 import classNames from 'classnames';
 import Button from '../button';
 import Icon from '../icon';
 
-import taskForm from '../task-form/task-form.component';
+import groupForm from '../group-form/group-form.component';
 
 const TaskItem = ({
   editTask,
   removeTask,
-  task,
-  taskBeingEdited,
+  group,
+  groupBeingEdited,
   toggleGroupMembership,
   updateTask
 }) => {
   // const update = (updates) => ({
-  //   ...task,
+  //   ...group,
   //   ...updates
   // });
 
   const sendInvitesToGroup = () => console.log('button clicked');
-  const editing = taskBeingEdited && taskBeingEdited.key === task.key;
+  const editing = groupBeingEdited && groupBeingEdited.key === group.key;
 
-  const startEditing = () => editTask(task);
+  const startEditing = () => editTask(group);
   const stopEditing = () => editTask(undefined);
 
   const remove = () => {
-    removeTask(task);
+    removeTask(group);
   };
 
-  const taskViewer = () => {
+  const groupViewer = () => {
     return (
-      <div className="task-item__title" tabIndex="0">
-        {task.name} @ {task.location}
+      <div className="group-item__title" tabIndex="0">
+        {group.name} @ {group.location}
       </div>
     );
   };
 
-  const taskEditor = () => taskForm({
-    task,
+  const groupEditor = () => groupForm({
+    group,
     onChange: editTask,
     onSubmit: updateTask
   });
 
-  let containerClasses = classNames('task-item', {
-    'task-item--completed': task.completed,
-    'task-item--editing': editing
+  let containerClasses = classNames('group-item', {
+    'group-item--completed': group.completed,
+    'group-item--editing': editing
   });
 
   return (
@@ -55,33 +55,33 @@ const TaskItem = ({
       <div className="cell">
         <Button
           className={
-            classNames('btn--icon', 'task-item__button',
-              {'active': task.completed, 'hide': editing})}
+            classNames('btn--icon', 'group-item__button',
+              {'active': group.completed, 'hide': editing})}
           onClick={toggleGroupMembership}>
           <Icon name="done" />
         </Button>
       </div>
       <div className="cell">
-        {editing ? taskEditor() : taskViewer()}
+        {editing ? groupEditor() : groupViewer()}
       </div>
       <div className="cell">
         <Button
-          className={classNames('task-item__button', {'hide': editing})}
+          className={classNames('group-item__button', {'hide': editing})}
           onClick={sendInvitesToGroup}>
           Send Invites to Group
         </Button>
         <Button
-          className={classNames('btn--icon', 'task-item__button', {'hide': editing})}
+          className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
           onClick={startEditing}>
           <Icon name="mode_edit" />
         </Button>
         <Button
-          className={classNames('btn--icon', 'task-item__button', {'hide': !editing})}
+          className={classNames('btn--icon', 'group-item__button', {'hide': !editing})}
           onClick={stopEditing}>
           <Icon name="clear" />
         </Button>
         <Button
-          className={classNames('btn--icon', 'task-item__button', {'hide': editing})}
+          className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
           onClick={remove}>
           <Icon name="delete" />
         </Button>
@@ -91,21 +91,21 @@ const TaskItem = ({
 };
 
 const mapStateToProps = state => ({
-  taskBeingEdited: state.tasks.taskBeingEdited
+  groupBeingEdited: state.groups.groupBeingEdited
 });
 
 const mapDispatchToProps = {
-  removeTask: taskActions.removeTask,
-  updateTask: taskActions.updateTask,
-  toggleGroupMembership: taskActions.toggleGroupMembership,
-  editTask: taskActions.editTask
+  removeTask: groupActions.removeTask,
+  updateTask: groupActions.updateTask,
+  toggleGroupMembership: groupActions.toggleGroupMembership,
+  editTask: groupActions.editTask
 };
 
 TaskItem.propTypes = {
   editTask: PropTypes.func.isRequired,
   removeTask: PropTypes.func.isRequired,
-  task: PropTypes.object.isRequired,
-  taskBeingEdited: PropTypes.object,
+  group: PropTypes.object.isRequired,
+  groupBeingEdited: PropTypes.object,
   toggleGroupMembership: PropTypes.func.isRequired,
   updateTask: PropTypes.func.isRequired
 };

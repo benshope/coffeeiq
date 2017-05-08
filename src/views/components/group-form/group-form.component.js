@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const TaskForm = ({
-  task,
+  group,
   onChange,
   onSubmit,
   onBlur,
@@ -9,7 +9,7 @@ const TaskForm = ({
 }) => {
   const handleSubmit = () => {
     console.log('handleSubmit');
-    onSubmit(task);
+    onSubmit(group);
   };
   const nameChange = (e) => {
     console.log(e.target.value);
@@ -33,7 +33,7 @@ const TaskForm = ({
 
   return (
     <form
-      className="task-form"
+      className="group-form"
       onSubmit={handleSubmit}
       noValidate
       onBlur={handleBlur}
@@ -42,24 +42,24 @@ const TaskForm = ({
         autoComplete="off"
         onKeyUp={handleKeyUp}
         autoFocus
-        className="task-form__input"
+        className="group-form__input"
         maxLength="64"
         onChange={nameChange}
         placeholder="Coffee Group Name"
         type="text"
-        value={task.name}
+        value={group.name}
       />
       <span className="divider">@</span>
       <input
         autoComplete="off"
         onKeyUp={handleKeyUp}
         autoFocus
-        className="task-form__input"
+        className="group-form__input"
         maxLength="64"
         onChange={locationChange}
         placeholder="Meeting Location"
         type="text"
-        value={task.location}
+        value={group.location}
       />
       <button type="submit" style={{display: 'none'}}></button>
     </form>
@@ -71,7 +71,7 @@ TaskForm.propTypes = {
   onCancel: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  task: PropTypes.object.isRequired
+  group: PropTypes.object.isRequired
 };
 
 export default TaskForm;

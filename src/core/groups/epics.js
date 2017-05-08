@@ -3,8 +3,8 @@ import { go } from 'react-router-redux';
 import { Observable } from 'rxjs';
 
 import { authActions } from 'core/auth';
-import { taskActions } from './actions';
-import { taskList } from './task-list';
+import { groupActions } from './actions';
+import { groupList } from './group-list';
 
 export const signInSuccessEpic = (action$) => {
   return action$
@@ -13,11 +13,11 @@ export const signInSuccessEpic = (action$) => {
       console.log(
         'SIGN_IN_SUCCESS epic called',
         payload,
-        taskList
+        groupList
       );
-      taskList.path = `tasks/${payload.payload.authUser.uid}`;
-      // console.log('after taskList.path');
-      return taskList.actionStream();
+      groupList.path = `groups/${payload.payload.authUser.uid}`;
+      // console.log('after groupList.path');
+      return groupList.actionStream();
     }).flatMap((firebaseAction) => {
       console.log('firebaseAction', firebaseAction);
       return firebaseAction;
@@ -28,16 +28,16 @@ export const signOutSuccessEpic = (action$) => {
   return action$
     .filter(action => action.type === authActions.SIGN_OUT_SUCCESS)
     .map(() => {
-      console.log('tasks/epics SIGN_OUT_SUCCESS epic called');
+      console.log('groups/epics SIGN_OUT_SUCCESS epic called');
       return go('/sign-in');
     });
 };
 
 export const createTaskEpic = (action$) => {
   return action$
-    .filter(action => action.type === taskActions.CREATE_TASK)
+    .filter(action => action.type === groupActions.CREATE_TASK)
     .map((action) => {
-      return Observable.fromPromise(taskList.push(action.payload));
+      return Observable.fromPromise(groupList.push(action.payload));
     })
     .flatMap(x => x);
 };
@@ -45,39 +45,38 @@ export const createTaskEpic = (action$) => {
 export const toggleGroupMembershipEpic = (action$, store) => {
   return action$
     .filter((action) => {
-      // console.log('TOGGLE EPIC', store.getState(), action);
-      return action.type === taskActions.TOGGLE_GROUP_MEMBERSHIP;
+      return action.type === groupActions.TOGGLE_GROUP_MEMBERSHIP;
     })
     .map((action) => {
       const uid = store.getState().auth.uid;
       const group = action.payload;
       return Observable.fromPromise(
-        taskList.addMemberToGroup(group, uid));
+        groupList.addMemberToGroup(group, uid));
     })
     .flatMap(x => x);
 };
 
 export const updateTaskEpic = (action$) => {
   return action$
-    .filter(action => action.type === taskActions.UPDATE_TASK)
+    .filter(action => action.type === groupActions.UPDATE_TASK)
     .map((action) => {
-      return Observable.fromPromise(taskList.update(action.payload.key, action.payload));
+      return Observable.fromPromise(groupList.update(action.payload.key, action.payload));
     })
     .flatMap(x => x);
 };
 
 export const removeTaskEpic = (action$) => {
   return action$
-    .filter(action => action.type === taskActions.REMOVE_TASK)
+    .filter(action => action.type === groupActions.REMOVE_TASK)
     .map((action) => {
       console.log('REMOVE: ', action);
-      return Observable.fromPromise(taskList.remove(action.payload)
-        .then(() => taskActions.removeTaskSuccess(action.payload)));
+      return Observable.fromPromise(groupList.remove(action.payload)
+        .then(() => groupActions.removeTaskSuccess(action.payload)));
     })
     .flatMap(x => x);
 };
 
-export const taskEpics = [
+export const groupEpics = [
   signInSuccessEpic,
   signOutSuccessEpic,
   createTaskEpic,
