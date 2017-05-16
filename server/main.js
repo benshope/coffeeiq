@@ -6,7 +6,7 @@ const logger = require('winston');
 //  SETUP
 //---------------------------------------------------------
 const HOST = '0.0.0.0';
-const PORT = 3000;
+const PORT = 4000;
 
 const ROOT_DIR = process.cwd();
 const TARGET_DIR = `${ROOT_DIR}/target`;
