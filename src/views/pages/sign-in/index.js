@@ -10,7 +10,12 @@ const SignInPage = ({signInWithGoogle}) => {
       <div className="g-row sign-in">
         <div className="g-col">
           <h1 className="sign-in__heading">Meet Your Company</h1>
-          <Button className="sign-in__button" onClick={signInWithGoogle}>Sign In [Google Logo]</Button>
+          <Button
+            className="sign-in__button"
+            onClick={signInWithGoogle}
+          >
+            <img width="25" height="25" src="assets/images/google.svg" /> Sign In
+          </Button>
         </div>
       </div>
       <div className="g-row">
