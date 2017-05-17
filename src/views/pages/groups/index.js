@@ -27,9 +27,9 @@ const GroupsPage = ({createGroup, location, groups}) => {
 GroupsPage.propTypes = {
   createGroup: PropTypes.func.isRequired,
   filterGroups: PropTypes.func.isRequired,
+  groups: PropTypes.array.isRequired,
   location: PropTypes.object.isRequired,
   removeGroup: PropTypes.func.isRequired,
-  groups: PropTypes.array.isRequired,
   updateGroup: PropTypes.func.isRequired
 };
 

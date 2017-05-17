@@ -44,7 +44,6 @@ const GroupForm = ({
         autoFocus
         className="group-form__input"
         maxLength="64"
-        
         onChange={nameChange}
         placeholder="Coffee Group Name"
         type="text"
@@ -68,11 +67,11 @@ const GroupForm = ({
 };
 
 GroupForm.propTypes = {
+  group: PropTypes.object.isRequired,
   onBlur: PropTypes.func,
   onCancel: PropTypes.func,
   onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  group: PropTypes.object.isRequired
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default GroupForm;

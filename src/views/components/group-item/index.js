@@ -1,11 +1,10 @@
+import { groupActions } from 'core/groups';
+import classNames from 'classnames';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { groupActions } from 'core/groups';
-import classNames from 'classnames';
 import Button from '../button';
 import Icon from '../icon';
-
 import groupForm from '../group-form/group-form.component';
 
 const GroupItem = ({
@@ -103,9 +102,9 @@ const mapDispatchToProps = {
 
 GroupItem.propTypes = {
   editGroup: PropTypes.func.isRequired,
-  removeGroup: PropTypes.func.isRequired,
   group: PropTypes.object.isRequired,
   groupBeingEdited: PropTypes.object,
+  removeGroup: PropTypes.func.isRequired,
   toggleGroupMembership: PropTypes.func.isRequired,
   updateGroup: PropTypes.func.isRequired
 };
