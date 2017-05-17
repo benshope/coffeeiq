@@ -1,62 +1,63 @@
+
 export const groupActions = {
-  UPDATE_NEW_TASK: 'UPDATE_NEW_TASK',
+  UPDATE_NEW_GROUP: 'UPDATE_NEW_GROUP',
 
-  CREATE_TASK: 'CREATE_TASK',
-  CREATE_TASK_FAILED: 'CREATE_TASK_FAILED',
-  CREATE_TASK_SUCCESS: 'CREATE_TASK_SUCCESS',
+  CREATE_GROUP: 'CREATE_GROUP',
+  CREATE_GROUP_FAILED: 'CREATE_GROUP_FAILED',
+  CREATE_GROUP_SUCCESS: 'CREATE_GROUP_SUCCESS',
 
-  REMOVE_TASK: 'REMOVE_TASK',
-  REMOVE_TASK_FAILED: 'REMOVE_TASK_FAILED',
-  REMOVE_TASK_SUCCESS: 'REMOVE_TASK_SUCCESS',
+  REMOVE_GROUP: 'REMOVE_GROUP',
+  REMOVE_GROUP_FAILED: 'REMOVE_GROUP_FAILED',
+  REMOVE_GROUP_SUCCESS: 'REMOVE_GROUP_SUCCESS',
 
-  EDIT_TASK: 'EDIT_TASK',
+  EDIT_GROUP: 'EDIT_GROUP',
 
   TOGGLE_GROUP_MEMBERSHIP: 'TOGGLE_GROUP_MEMBERSHIP',
 
-  UPDATE_TASK: 'UPDATE_TASK',
-  UPDATE_TASK_FAILED: 'UPDATE_TASK_FAILED',
-  UPDATE_TASK_SUCCESS: 'UPDATE_TASK_SUCCESS',
+  UPDATE_GROUP: 'UPDATE_GROUP',
+  UPDATE_GROUP_FAILED: 'UPDATE_GROUP_FAILED',
+  UPDATE_GROUP_SUCCESS: 'UPDATE_GROUP_SUCCESS',
 
-  FILTER_TASKS: 'FILTER_TASKS',
-  LOAD_TASKS_SUCCESS: 'LOAD_TASKS_SUCCESS',
+  FILTER_GROUPS: 'FILTER_GROUPS',
+  LOAD_GROUPS_SUCCESS: 'LOAD_GROUPS_SUCCESS',
 
-  editTask: group => ({
-    type: groupActions.EDIT_TASK,
+  editGroup: group => ({
+    type: groupActions.EDIT_GROUP,
     payload: group
   }),
 
-  updateNewTask: (group) => ({
-    type: groupActions.UPDATE_NEW_TASK,
+  updateNewGroup: (group) => ({
+    type: groupActions.UPDATE_NEW_GROUP,
     payload: group
   }),
 
-  createTask: (group) => ({
-    type: groupActions.CREATE_TASK,
+  createGroup: (group) => ({
+    type: groupActions.CREATE_GROUP,
     payload: group
   }),
 
-  createTaskFailed: error => ({
-    type: groupActions.CREATE_TASK_FAILED,
+  createGroupFailed: error => ({
+    type: groupActions.CREATE_GROUP_FAILED,
     payload: {error}
   }),
 
-  createTaskSuccess: group => ({
-    type: groupActions.CREATE_TASK_SUCCESS,
+  createGroupSuccess: group => ({
+    type: groupActions.CREATE_GROUP_SUCCESS,
     payload: group
   }),
 
-  removeTask: group => ({
-    type: groupActions.REMOVE_TASK,
+  removeGroup: group => ({
+    type: groupActions.REMOVE_GROUP,
     payload: group
   }),
 
-  removeTaskFailed: error => ({
-    type: groupActions.REMOVE_TASK_FAILED,
+  removeGroupFailed: error => ({
+    type: groupActions.REMOVE_GROUP_FAILED,
     payload: {error}
   }),
 
-  removeTaskSuccess: group => ({
-    type: groupActions.REMOVE_TASK_SUCCESS,
+  removeGroupSuccess: group => ({
+    type: groupActions.REMOVE_GROUP_SUCCESS,
     payload: group
   }),
 
@@ -65,28 +66,28 @@ export const groupActions = {
     payload: group
   }),
 
-  updateTask: (group, changes) => ({
-    type: groupActions.UPDATE_TASK,
+  updateGroup: (group, changes) => ({
+    type: groupActions.UPDATE_GROUP,
     payload: {group, changes}
   }),
 
-  updateTaskFailed: error => ({
-    type: groupActions.UPDATE_TASK_FAILED,
+  updateGroupFailed: error => ({
+    type: groupActions.UPDATE_GROUP_FAILED,
     payload: {error}
   }),
 
-  updateTaskSuccess: group => ({
-    type: groupActions.UPDATE_TASK_SUCCESS,
+  updateGroupSuccess: group => ({
+    type: groupActions.UPDATE_GROUP_SUCCESS,
     payload: {group}
   }),
 
-  filterTasks: filterType => ({
-    type: groupActions.FILTER_TASKS,
+  filterGroups: filterType => ({
+    type: groupActions.FILTER_GROUPS,
     payload: {filterType}
   }),
 
-  loadTasksSuccess: groups => ({
-    type: groupActions.LOAD_TASKS_SUCCESS,
+  loadGroupsSuccess: groups => ({
+    type: groupActions.LOAD_GROUPS_SUCCESS,
     payload: {groups}
   })
 };

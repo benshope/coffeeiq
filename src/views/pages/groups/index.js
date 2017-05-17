@@ -1,22 +1,22 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { groupActions } from 'core/groups';
-import TaskFilters from 'views/components/group-filters';
-import TaskForm from 'views/components/group-form/group-form.container';
-import TaskList from 'views/components/group-list';
+import GroupFilters from 'views/components/group-filters';
+import GroupForm from 'views/components/group-form/group-form.container';
+import GroupList from 'views/components/group-list';
 
-const TasksPage = ({createTask, location, groups}) => {
+const GroupsPage = ({createGroup, location, groups}) => {
   const { filter } = location.query;
 
   return (
     <div className="g-row">
       <div className="g-col">
-        <TaskForm handleSubmit={createTask} />
+        <GroupForm handleSubmit={createGroup} />
       </div>
 
       <div className="g-col">
-        <TaskFilters filter={filter} />
-        <TaskList
+        <GroupFilters filter={filter} />
+        <GroupList
           groups={groups}
         />
       </div>
@@ -24,13 +24,13 @@ const TasksPage = ({createTask, location, groups}) => {
   );
 };
 
-TasksPage.propTypes = {
-  createTask: PropTypes.func.isRequired,
-  filterTasks: PropTypes.func.isRequired,
+GroupsPage.propTypes = {
+  createGroup: PropTypes.func.isRequired,
+  filterGroups: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
-  removeTask: PropTypes.func.isRequired,
+  removeGroup: PropTypes.func.isRequired,
   groups: PropTypes.array.isRequired,
-  updateTask: PropTypes.func.isRequired
+  updateGroup: PropTypes.func.isRequired
 };
 
 //=====================================
@@ -41,14 +41,15 @@ const mapStateToProps = state => ({
   groups: state.groups.list
 });
 
+
 const mapDispatchToProps = {
-  createTask: groupActions.createTask,
-  filterTasks: groupActions.filterTasks,
-  removeTask: groupActions.removeTask,
-  updateTask: groupActions.updateTask
+  createGroup: groupActions.createGroup,
+  filterGroups: groupActions.filterGroups,
+  removeGroup: groupActions.removeGroup,
+  updateGroup: groupActions.updateGroup
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TasksPage);
+)(GroupsPage);

@@ -1,16 +1,16 @@
 import { createSelector } from 'reselect';
 
 
-export function getTasks(state) {
+export function getGroups(state) {
   return state.groups;
 }
 
-export function getTaskFilter(state) {
-  return getTasks(state).filter;
+export function getGroupFilter(state) {
+  return getGroups(state).filter;
 }
 
-export function getTaskList(state) {
-  return getTasks(state).list;
+export function getGroupList(state) {
+  return getGroups(state).list;
 }
 
 
@@ -18,9 +18,9 @@ export function getTaskList(state) {
 //  MEMOIZED SELECTORS
 //-------------------------------------
 
-export const getVisibleTasks = createSelector(
-  getTaskFilter,
-  getTaskList,
+export const getVisibleGroups = createSelector(
+  getGroupFilter,
+  getGroupList,
   (filter, groupList) => {
     switch (filter) {
       case 'active':

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
-import TaskItem from '../group-item';
+import GroupItem from '../group-item';
 
 
-const TaskList = ({groups}) => {
+const GroupList = ({groups}) => {
   let groupItems = groups.map((group, index) => {
     return (
-      <TaskItem
+      <GroupItem
         key={index}
         group={group}
       />
@@ -19,8 +19,8 @@ const TaskList = ({groups}) => {
   );
 };
 
-TaskList.propTypes = {
+GroupList.propTypes = {
   groups: PropTypes.array.isRequired
 };
 
-export default TaskList;
+export default GroupList;

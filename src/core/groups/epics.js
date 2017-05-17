@@ -33,9 +33,9 @@ export const signOutSuccessEpic = (action$) => {
     });
 };
 
-export const createTaskEpic = (action$) => {
+export const createGroupEpic = (action$) => {
   return action$
-    .filter(action => action.type === groupActions.CREATE_TASK)
+    .filter(action => action.type === groupActions.CREATE_GROUP)
     .map((action) => {
       return Observable.fromPromise(groupList.push(action.payload));
     })
@@ -56,22 +56,22 @@ export const toggleGroupMembershipEpic = (action$, store) => {
     .flatMap(x => x);
 };
 
-export const updateTaskEpic = (action$) => {
+export const updateGroupEpic = (action$) => {
   return action$
-    .filter(action => action.type === groupActions.UPDATE_TASK)
+    .filter(action => action.type === groupActions.UPDATE_GROUP)
     .map((action) => {
       return Observable.fromPromise(groupList.update(action.payload.key, action.payload));
     })
     .flatMap(x => x);
 };
 
-export const removeTaskEpic = (action$) => {
+export const removeGroupEpic = (action$) => {
   return action$
-    .filter(action => action.type === groupActions.REMOVE_TASK)
+    .filter(action => action.type === groupActions.REMOVE_GROUP)
     .map((action) => {
       console.log('REMOVE: ', action);
       return Observable.fromPromise(groupList.remove(action.payload)
-        .then(() => groupActions.removeTaskSuccess(action.payload)));
+        .then(() => groupActions.removeGroupSuccess(action.payload)));
     })
     .flatMap(x => x);
 };
@@ -79,8 +79,8 @@ export const removeTaskEpic = (action$) => {
 export const groupEpics = [
   signInSuccessEpic,
   signOutSuccessEpic,
-  createTaskEpic,
-  updateTaskEpic,
-  removeTaskEpic,
+  createGroupEpic,
+  updateGroupEpic,
+  removeGroupEpic,
   toggleGroupMembershipEpic
 ];

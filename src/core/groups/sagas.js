@@ -28,9 +28,9 @@ function* write(context, method, onError, ...params) {
   }
 }
 
-const createTask = write.bind(null, groupList, groupList.push, groupActions.createTaskFailed);
-const removeTask = write.bind(null, groupList, groupList.remove, groupActions.removeTaskFailed);
-const updateTask = write.bind(null, groupList, groupList.update, groupActions.updateTaskFailed);
+const createGroup = write.bind(null, groupList, groupList.push, groupActions.createGroupFailed);
+const removeGroup = write.bind(null, groupList, groupList.remove, groupActions.removeGroupFailed);
+const updateGroup = write.bind(null, groupList, groupList.update, groupActions.updateGroupFailed);
 
 
 //=====================================
@@ -49,10 +49,10 @@ function* watchAuthentication() {
   }
 }
 
-function* watchCreateTask() {
+function* watchCreateGroup() {
   while (true) {
-    let { payload } = yield take(groupActions.CREATE_TASK);
-    yield fork(createTask, payload.group);
+    let { payload } = yield take(groupActions.CREATE_GROUP);
+    yield fork(createGroup, payload.group);
   }
 }
 
@@ -60,34 +60,34 @@ function* watchLocationChange() {
   while (true) {
     let { payload } = yield take(LOCATION_CHANGE);
     if (payload.pathname === '/') {
-      yield put(groupActions.filterTasks(payload.query.filter));
+      yield put(groupActions.filterGroups(payload.query.filter));
     }
   }
 }
 
-function* watchRemoveTask() {
+function* watchRemoveGroup() {
   while (true) {
-    let { payload } = yield take(groupActions.REMOVE_TASK);
-    yield fork(removeTask, payload.group.key);
+    let { payload } = yield take(groupActions.REMOVE_GROUP);
+    yield fork(removeGroup, payload.group.key);
   }
 }
 
-function* watchUpdateTask() {
+function* watchUpdateGroup() {
   while (true) {
-    let { payload } = yield take(groupActions.UPDATE_TASK);
-    yield fork(updateTask, payload.group.key, payload.changes);
+    let { payload } = yield take(groupActions.UPDATE_GROUP);
+    yield fork(updateGroup, payload.group.key, payload.changes);
   }
 }
 
 
 //=====================================
-//  TASK SAGAS
+//  GROUP SAGAS
 //-------------------------------------
 
 export const groupSagas = [
   fork(watchAuthentication),
-  fork(watchCreateTask),
+  fork(watchCreateGroup),
   fork(watchLocationChange),
-  fork(watchRemoveTask),
-  fork(watchUpdateTask)
+  fork(watchRemoveGroup),
+  fork(watchUpdateGroup)
 ];

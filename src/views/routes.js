@@ -1,13 +1,13 @@
 import { isAuthenticated } from 'core/auth';
 import App from './app';
 import SignInPage from './pages/sign-in';
-import TasksPage from './pages/groups';
+import GroupsPage from './pages/groups';
 
 
 export const paths = {
   ROOT: '/',
   SIGN_IN: '/sign-in',
-  TASKS: '/'
+  GROUPS: '/'
 };
 
 
@@ -22,11 +22,10 @@ const requireAuth = getState => {
 const requireUnauth = getState => {
   return (nextState, replace) => {
     if (isAuthenticated(getState())) {
-      replace(paths.TASKS);
+      replace(paths.GROUPS);
     }
   };
 };
-
 
 export const getRoutes = getState => {
   return {
@@ -35,7 +34,7 @@ export const getRoutes = getState => {
     childRoutes: [
       {
         indexRoute: {
-          component: TasksPage,
+          component: GroupsPage,
           onEnter: requireAuth(getState)
         }
       },
@@ -43,7 +42,12 @@ export const getRoutes = getState => {
         path: paths.SIGN_IN,
         component: SignInPage,
         onEnter: requireUnauth(getState)
-      }
+      },
+      // {
+      //   path: paths.PRICING,
+      //   component: PricingPage,
+      //   onEnter: requireUnauth(getState)
+      // }
     ]
   };
 };

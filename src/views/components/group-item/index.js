@@ -8,13 +8,13 @@ import Icon from '../icon';
 
 import groupForm from '../group-form/group-form.component';
 
-const TaskItem = ({
-  editTask,
-  removeTask,
+const GroupItem = ({
+  editGroup,
+  removeGroup,
   group,
   groupBeingEdited,
   toggleGroupMembership,
-  updateTask
+  updateGroup
 }) => {
   // const update = (updates) => ({
   //   ...group,
@@ -24,11 +24,11 @@ const TaskItem = ({
   const sendInvitesToGroup = () => console.log('button clicked');
   const editing = groupBeingEdited && groupBeingEdited.key === group.key;
 
-  const startEditing = () => editTask(group);
-  const stopEditing = () => editTask(undefined);
+  const startEditing = () => editGroup(group);
+  const stopEditing = () => editGroup(undefined);
 
   const remove = () => {
-    removeTask(group);
+    removeGroup(group);
   };
 
   const groupViewer = () => {
@@ -41,8 +41,8 @@ const TaskItem = ({
 
   const groupEditor = () => groupForm({
     group,
-    onChange: editTask,
-    onSubmit: updateTask
+    onChange: editGroup,
+    onSubmit: updateGroup
   });
 
   let containerClasses = classNames('group-item', {
@@ -95,22 +95,22 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  removeTask: groupActions.removeTask,
-  updateTask: groupActions.updateTask,
+  removeGroup: groupActions.removeGroup,
+  updateGroup: groupActions.updateGroup,
   toggleGroupMembership: groupActions.toggleGroupMembership,
-  editTask: groupActions.editTask
+  editGroup: groupActions.editGroup
 };
 
-TaskItem.propTypes = {
-  editTask: PropTypes.func.isRequired,
-  removeTask: PropTypes.func.isRequired,
+GroupItem.propTypes = {
+  editGroup: PropTypes.func.isRequired,
+  removeGroup: PropTypes.func.isRequired,
   group: PropTypes.object.isRequired,
   groupBeingEdited: PropTypes.object,
   toggleGroupMembership: PropTypes.func.isRequired,
-  updateTask: PropTypes.func.isRequired
+  updateGroup: PropTypes.func.isRequired
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskItem);
+)(GroupItem);

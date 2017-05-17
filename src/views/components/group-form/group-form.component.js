@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const TaskForm = ({
+const GroupForm = ({
   group,
   onChange,
   onSubmit,
@@ -44,6 +44,7 @@ const TaskForm = ({
         autoFocus
         className="group-form__input"
         maxLength="64"
+        
         onChange={nameChange}
         placeholder="Coffee Group Name"
         type="text"
@@ -66,7 +67,7 @@ const TaskForm = ({
   );
 };
 
-TaskForm.propTypes = {
+GroupForm.propTypes = {
   onBlur: PropTypes.func,
   onCancel: PropTypes.func,
   onChange: PropTypes.func.isRequired,
@@ -74,4 +75,4 @@ TaskForm.propTypes = {
   group: PropTypes.object.isRequired
 };
 
-export default TaskForm;
+export default GroupForm;

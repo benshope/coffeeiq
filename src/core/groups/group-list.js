@@ -1,10 +1,10 @@
 import { FirebaseList } from 'core/firebase';
 import { groupActions } from './actions';
-import { Task } from './group';
+import { Group } from './group';
 
 export const groupList = new FirebaseList({
-  onAdd: groupActions.createTaskSuccess,
-  onChange: groupActions.updateTaskSuccess,
-  onLoad: groupActions.loadTasksSuccess,
-  onRemove: groupActions.removeTaskSuccess
-}, Task);
+  onAdd: groupActions.createGroupSuccess,
+  onChange: groupActions.updateGroupSuccess,
+  onLoad: groupActions.loadGroupsSuccess,
+  onRemove: groupActions.removeGroupSuccess
+}, Group);

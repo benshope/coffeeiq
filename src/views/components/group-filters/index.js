@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import classNames from 'classnames';
 
 
-const TaskFilters = ({filter}) => {
+const GroupFilters = ({filter}) => {
   return (
     <ul className="group-filters">
       <li><Link className={classNames({active: !filter})} to="/">View All</Link></li>
@@ -13,8 +13,8 @@ const TaskFilters = ({filter}) => {
   );
 };
 
-TaskFilters.propTypes = {
+GroupFilters.propTypes = {
   filter: PropTypes.string
 };
 
-export default TaskFilters;
+export default GroupFilters;

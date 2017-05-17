@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 import { groupActions } from 'core/groups';
 
-import TaskForm from './group-form.component';
+import GroupForm from './group-form.component';
 
 const mapStateToProps = state => ({
-  group: state.groups.newTask
+  group: state.groups.newGroup
 });
 
 const mapDispatchToProps = {
-  onSubmit: groupActions.createTask,
-  onChange: groupActions.updateNewTask
+  onSubmit: groupActions.createGroup,
+  onChange: groupActions.updateNewGroup
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskForm);
+)(GroupForm);
