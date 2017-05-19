@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+
 import { authActions } from 'core/auth';
 import Button from 'views/components/button';
-
+import Particles from 'views/components/particles';
 
 const SignInPage = ({signInWithGoogle}) => {
   return (
@@ -26,6 +27,7 @@ const SignInPage = ({signInWithGoogle}) => {
           Most importantly, CoffeeIQ is a fun way to make new friends.
         </div>
       </div>
+      <Particles />
     </div>
   );
 };
