@@ -1,12 +1,10 @@
-import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import * as d3 from 'd3';
 
 class Particles extends React.Component {
   componentDidMount() {
     /* D3 code to append elements to this.svg */
-    var canvas = this.canvas,
-        context = this.canvas.getContext("2d"),
+    var context = this.canvas.getContext('2d'),
         width = this.canvas.width,
         height = this.canvas.height,
         radius = 2.5,
@@ -48,12 +46,17 @@ class Particles extends React.Component {
       }
 
       context.globalAlpha = 1;
-
-      for (var i = 0; i < n; ++i) {
-        var p = particles[i];
+      for (var k = 0; k < n; ++k) {
+        var p = particles[k];
         p.y = p.y0 + elapsed * p.v;
-        if (p.y > height + maxDistance) p.x = width * Math.random(), p.y0 -= height + 2 * maxDistance;
-        else if (p.y < -maxDistance) p.x = width * Math.random(), p.y0 += height + 2 * maxDistance;
+        if (p.y > height + maxDistance) {
+          p.x = width * Math.random();
+          p.y0 -= height + 2 * maxDistance;
+        }
+        else if (p.y < -maxDistance) {
+          p.x = width * Math.random();
+          p.y0 += height + 2 * maxDistance;
+        }
         context.beginPath();
         context.arc(p.x, p.y, radius, 0, tau);
         context.fill();
