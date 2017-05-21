@@ -42,7 +42,7 @@ export const getRoutes = getState => {
         path: paths.SIGN_IN,
         component: SignInPage,
         onEnter: requireUnauth(getState)
-      },
+      }
       // {
       //   path: paths.PRICING,
       //   component: PricingPage,
