@@ -8,29 +8,52 @@ class Particles extends React.Component {
         width = this.canvas.width,
         height = this.canvas.height,
         radius = 2.5,
-        minDistance = 80,
-        maxDistance = 100,
+        minDistance = 40,
+        maxDistance = 60,
         minDistance2 = minDistance * minDistance,
         maxDistance2 = maxDistance * maxDistance;
 
     var tau = 2 * Math.PI,
-        n = 100,
+        n = 200,
         particles = new Array(n);
 
     for (var i = 0; i < n; ++i) {
       particles[i] = {
-        x: width * Math.random(),
-        y0: height * Math.random(),
-        v: 0.1 * (Math.random() - 0.5)
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: 0,
+        vy: 0
       };
     }
 
-    d3.timer(function(elapsed) {
+    d3.timer(function() {
+      context.save();
       context.clearRect(0, 0, width, height);
-
       for (var i = 0; i < n; ++i) {
-        for (var j = i + 1; j < n; ++j) {
-          var pi = particles[i],
+        var p = particles[i];
+        p.x += p.vx;
+        if (p.x < -maxDistance) {
+          p.x += width + maxDistance * 2;
+        }
+        else if (p.x > width + maxDistance) {
+          p.x -= width + maxDistance * 2;
+        }
+        p.y += p.vy;
+        if (p.y < -maxDistance) {
+          p.y += height + maxDistance * 2;
+        }
+        else if (p.y > height + maxDistance) {
+          p.y -= height + maxDistance * 2;
+        }
+        p.vx += 0.2 * (Math.random() - 0.5) - 0.01 * p.vx;
+        p.vy += 0.2 * (Math.random() - 0.5) - 0.01 * p.vy;
+        context.beginPath();
+        context.arc(p.x, p.y, radius, 0, tau);
+        context.fill();
+      }
+      for (var z = 0; z < n; ++z) {
+        for (var j = z + 1; j < n; ++j) {
+          var pi = particles[z],
               pj = particles[j],
               dx = pi.x - pj.x,
               dy = pi.y - pj.y,
@@ -44,23 +67,7 @@ class Particles extends React.Component {
           }
         }
       }
-
-      context.globalAlpha = 1;
-      for (var k = 0; k < n; ++k) {
-        var p = particles[k];
-        p.y = p.y0 + elapsed * p.v;
-        if (p.y > height + maxDistance) {
-          p.x = width * Math.random();
-          p.y0 -= height + 2 * maxDistance;
-        }
-        else if (p.y < -maxDistance) {
-          p.x = width * Math.random();
-          p.y0 += height + 2 * maxDistance;
-        }
-        context.beginPath();
-        context.arc(p.x, p.y, radius, 0, tau);
-        context.fill();
-      }
+      context.restore();
     });
   }
 

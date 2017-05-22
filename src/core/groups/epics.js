@@ -13,10 +13,8 @@ export const signInSuccessEpic = (action$) => {
       console.log(
         'SIGN_IN_SUCCESS epic called',
         payload,
-        groupList
-      );
+        groupList);
       groupList.path = `groups/${payload.payload.authUser.uid}`;
-      // console.log('after groupList.path');
       return groupList.actionStream();
     }).flatMap((firebaseAction) => {
       console.log('firebaseAction', firebaseAction);
