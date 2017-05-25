@@ -77,7 +77,7 @@ class Particles extends React.Component {
 
   render() {
     return (
-      <canvas width="960" height="500" ref={(elem) => { this.canvas = elem; }} />
+      <canvas className="particles-canvas" width="960" height="960" ref={(elem) => { this.canvas = elem; }} />
     );
   }
 }

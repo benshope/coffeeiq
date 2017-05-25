@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 
 import { authActions } from 'core/auth';
 import Button from 'views/components/button';
-import Particles from 'views/components/particles';
 
 const SignInPage = ({signInWithGoogle}) => {
   return (
     <div className="home-page">
       <div className="g-row sign-in">
         <div className="g-col">
-          <h1 className="sign-in__heading">Meet Your Company</h1>
+          <h1 className="sign-in__heading">Meet Your Team</h1>
+          <div className="description">
+            CoffeeIQ schedules a quick coffee meeting each week with a random coworker.
+          </div>
           <Button
             className="sign-in__button"
             onClick={signInWithGoogle}
@@ -19,15 +21,6 @@ const SignInPage = ({signInWithGoogle}) => {
           </Button>
         </div>
       </div>
-      <div className="g-row">
-        <div className="g-col">
-          <h2>How It Works</h2>
-          CoffeeIQ schedules a quick coffee meeting each week with a random coworker.
-          This helps you build a network, strengthens company culture, and shares knowledge.
-          Most importantly, CoffeeIQ is a fun way to make new friends.
-        </div>
-      </div>
-      <Particles />
     </div>
   );
 };
@@ -36,6 +29,8 @@ SignInPage.propTypes = {
   signInWithGoogle: PropTypes.func.isRequired
 };
 
+// This helps you build a network, strengthens company culture, and shares knowledge.
+// Most importantly, CoffeeIQ is a fun way to make new friends.
 
 //=====================================
 //  CONNECT

@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+
 import { authActions, getAuth } from 'core/auth';
 import Header from 'views/components/header';
-
+import Particles from 'views/components/particles';
 
 function App({authenticated, children, signOut}) {
   return (
     <div>
+      <Particles />
       <Header
         authenticated={authenticated}
         signOut={signOut}
