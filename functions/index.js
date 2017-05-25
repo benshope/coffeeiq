@@ -21,7 +21,7 @@ const APP_NAME = 'CoffeeIQ';
  * Sends a welcome email to new user.
  */
 // [START onCreateTrigger]
-exports.sendWelcomeEmail = functions.auth.user.onCreate(event => {
+exports.sendWelcomeEmail = functions.auth.user().onCreate(event => {
 // [END onCreateTrigger]
   // [START eventAttributes]
   const user = event.data; // The Firebase user.
@@ -73,7 +73,7 @@ function sendGoodbyEmail(email, displayName) {
   };
 
   // The user unsubscribed to the newsletter.
-  mailOptions.subject = `Bye!`;
+  mailOptions.subject = 'Bye!';
   mailOptions.text = `Hey ${displayName}!, We confirm that we have deleted your ${APP_NAME} account.`;
   return mailTransport.sendMail(mailOptions).then(() => {
     console.log('Account deletion confirmation email sent to:', email);
