@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+
 import Button from '../button';
 import Icon from '../icon';
 
@@ -15,9 +16,9 @@ const Header = ({authenticated, signOut}) => {
           <ul className="header__actions">
             {authenticated ? <li><Button onClick={signOut}>Sign Out</Button></li> : null}
             <li>
-              <a className="link link-help" href="#">
+              {undefined && <a className="link link-help" href="#">
                 <Icon name="help" />
-              </a>
+              </a>}
             </li>
           </ul>
         </div>
