@@ -45,7 +45,7 @@ const GroupForm = ({
         className="group-form__input"
         maxLength="64"
         onChange={nameChange}
-        placeholder="Coffee Group Name"
+        placeholder="Group Name"
         type="text"
         value={group.name}
       />
