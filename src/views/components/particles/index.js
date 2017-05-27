@@ -14,7 +14,7 @@ class Particles extends React.Component {
         maxDistance2 = maxDistance * maxDistance;
 
     var tau = 2 * Math.PI,
-        n = 200,
+        n = 400,
         particles = new Array(n);
 
     for (var i = 0; i < n; ++i) {
@@ -77,7 +77,13 @@ class Particles extends React.Component {
 
   render() {
     return (
-      <canvas className="particles-canvas" width="960" height="960" ref={(elem) => { this.canvas = elem; }} />
+      <div className="particles">
+        <canvas
+          width="960"
+          height="960"
+          ref={(elem) => { this.canvas = elem; }}
+        />
+      </div>
     );
   }
 }
