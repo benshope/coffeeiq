@@ -10,16 +10,14 @@ export const signInSuccessEpic = (action$) => {
   return action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
     .map((payload) => {
-      console.log(
-        'SIGN_IN_SUCCESS epic called',
-        payload,
-        groupList);
+      // console.log(
+      //   'SIGN_IN_SUCCESS epic called',
+      //   payload,
+      //   groupList);
       groupList.path = `groups/${payload.payload.authUser.uid}`;
       return groupList.actionStream();
-    }).flatMap((firebaseAction) => {
-      console.log('firebaseAction', firebaseAction);
-      return firebaseAction;
-    });
+    })
+    .flatMap(x => x);
 };
 
 export const signOutSuccessEpic = (action$) => {

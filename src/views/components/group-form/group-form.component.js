@@ -1,13 +1,15 @@
 import React, { PropTypes } from 'react';
 
 const GroupForm = ({
+  autoFocus,
   group,
   onChange,
   onSubmit,
   onBlur,
   onCancel
 }) => {
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault(); // stops page refresh
     console.log('handleSubmit');
     onSubmit(group);
   };
@@ -41,7 +43,7 @@ const GroupForm = ({
       <input
         autoComplete="off"
         onKeyUp={handleKeyUp}
-        autoFocus
+        autoFocus={autoFocus}
         className="group-form__input"
         maxLength="64"
         onChange={nameChange}
@@ -53,7 +55,6 @@ const GroupForm = ({
       <input
         autoComplete="off"
         onKeyUp={handleKeyUp}
-        autoFocus
         className="group-form__input"
         maxLength="64"
         onChange={locationChange}
@@ -61,12 +62,13 @@ const GroupForm = ({
         type="text"
         value={group.location}
       />
-      <button type="submit" style={{display: 'none'}}></button>
+      <button type="submit" href="" style={{display: 'none'}}></button>
     </form>
   );
 };
 
 GroupForm.propTypes = {
+  autoFocus: PropTypes.bool,
   group: PropTypes.object.isRequired,
   onBlur: PropTypes.func,
   onCancel: PropTypes.func,
