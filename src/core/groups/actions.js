@@ -18,7 +18,6 @@ export const groupActions = {
   UPDATE_GROUP_FAILED: 'UPDATE_GROUP_FAILED',
   UPDATE_GROUP_SUCCESS: 'UPDATE_GROUP_SUCCESS',
 
-  FILTER_GROUPS: 'FILTER_GROUPS',
   LOAD_GROUPS_SUCCESS: 'LOAD_GROUPS_SUCCESS',
 
   editGroup: group => ({
@@ -79,11 +78,6 @@ export const groupActions = {
   updateGroupSuccess: group => ({
     type: groupActions.UPDATE_GROUP_SUCCESS,
     payload: {group}
-  }),
-
-  filterGroups: filterType => ({
-    type: groupActions.FILTER_GROUPS,
-    payload: {filterType}
   }),
 
   loadGroupsSuccess: groups => ({

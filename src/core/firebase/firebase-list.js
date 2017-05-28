@@ -2,17 +2,8 @@ import { Observable } from 'rxjs';
 import { firebaseDb } from './firebase';
 
 export class FirebaseList {
-  constructor(actions, modelClass) {
+  constructor(actions) {
     this._actions = actions;
-    this._modelClass = modelClass;
-  }
-
-  get path() {
-    return this._path;
-  }
-
-  set path(value) {
-    this._path = value;
   }
 
   push(value) {
@@ -42,13 +33,11 @@ export class FirebaseList {
     let list = [];
     return Observable.create((observer) => {
       ref.once('value', () => {
-        console.log('firebase actionStream value');
         initialized = true;
         observer.next(this._actions.onLoad(list));
       });
 
       ref.on('child_added', snapshot => {
-        console.log('firebase actionStream child_added');
         if (initialized) {
           observer.next(this._actions.onAdd(this.unwrapSnapshot(snapshot)));
         }
@@ -68,8 +57,6 @@ export class FirebaseList {
   }
 
   unwrapSnapshot(snapshot) {
-    let attrs = snapshot.val();
-    attrs.key = snapshot.key;
-    return new this._modelClass(attrs);
+    return { key: snapshot.key, ...snapshot.val() };
   }
 }
