@@ -1,4 +1,5 @@
 .particles {
+	filter: blur(4px) invert(80%);
     position: absolute;
     display: flex;
     justify-content: center;

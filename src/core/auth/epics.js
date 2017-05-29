@@ -18,7 +18,7 @@ export const signInEpic = (action$) => {
     })
     .flatMap(x => x)
     .flatMap(x => {
-      return Observable.from([x, go('/')]);
+      return Observable.from([go('/'), x]);
     });
 };
 

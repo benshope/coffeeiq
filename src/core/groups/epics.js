@@ -10,11 +10,12 @@ export const signInSuccessEpic = (action$) => {
   return action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
     .map((payload) => {
-      // console.log(
-      //   'SIGN_IN_SUCCESS epic called',
-      //   payload,
-      //   groupList);
-      groupList.path = `groups/${payload.payload.authUser.uid}`;
+      console.log(
+        'SIGN_IN_SUCCESS epic called',
+        payload,
+        groupList);
+      var orgId = payload.payload.authUser.email.split('@')[1].replace('.', '_');
+      groupList.path = `orgs/${orgId}/groups`;
       return groupList.actionStream();
     })
     .flatMap(x => x);
@@ -33,9 +34,9 @@ export const createGroupEpic = (action$) => {
   return action$
     .filter(action => action.type === groupActions.CREATE_GROUP)
     .map((action) => {
-      return Observable.fromPromise(groupList.push(action.payload));
+      return groupList.push(action.payload);
     })
-    .flatMap(x => x);
+    .filter(() => false);
 };
 
 export const toggleGroupMembershipEpic = (action$, store) => {

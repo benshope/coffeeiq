@@ -65,11 +65,6 @@ const GroupItem = ({
       </div>
       <div className="cell">
         <Button
-          className={classNames('group-item__button', {'hide': editing})}
-          onClick={sendInvitesToGroup}>
-          Send Invites to Group
-        </Button>
-        <Button
           className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
           onClick={startEditing}>
           <Icon name="mode_edit" />
