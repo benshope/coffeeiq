@@ -20,7 +20,6 @@ const GroupItem = ({
   //   ...updates
   // });
 
-  const sendInvitesToGroup = () => console.log('button clicked');
   const editing = groupBeingEdited && groupBeingEdited.key === group.key;
 
   const startEditing = () => editGroup(group);
