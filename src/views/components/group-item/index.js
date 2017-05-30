@@ -8,6 +8,7 @@ import Icon from '../icon';
 import groupForm from '../group-form/group-form.component';
 
 const GroupItem = ({
+  auth,
   editGroup,
   removeGroup,
   group,
@@ -28,6 +29,8 @@ const GroupItem = ({
   const remove = () => {
     removeGroup(group);
   };
+
+  const userInGroup = group.userIds && group.userIds[auth.uid];
 
   const groupViewer = () => {
     return (
@@ -58,6 +61,7 @@ const GroupItem = ({
           onClick={() => toggleGroupMembership(group)}>
           <Icon name="done" />
         </Button>
+        { userInGroup ? 'Join' : 'Leave' }
       </div>
       <div className="cell">
         {editing ? groupEditor() : groupViewer()}
@@ -84,7 +88,8 @@ const GroupItem = ({
 };
 
 const mapStateToProps = state => ({
-  groupBeingEdited: state.groups.groupBeingEdited
+  groupBeingEdited: state.groups.groupBeingEdited,
+  auth: state.auth
 });
 
 const mapDispatchToProps = {
@@ -95,6 +100,7 @@ const mapDispatchToProps = {
 };
 
 GroupItem.propTypes = {
+  auth: PropTypes.object.isRequired,
   editGroup: PropTypes.func.isRequired,
   group: PropTypes.object.isRequired,
   groupBeingEdited: PropTypes.object,
