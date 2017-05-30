@@ -51,17 +51,12 @@ export const toggleGroupMembershipEpic = (action$, store) => {
       const group = action.payload;
       const state = store.getState();
       const auth = state.auth;
-      const user = state.users.list.find((u) => u.key === auth.uid);
+      // const user = state.users.list.find((u) => u.key === auth.uid);
       const toggleOn = !group.userIds || !group.userIds[auth.uid];
-      var newUserIds = {...group.userIds};
-      newUserIds[`${auth.uid}`] = toggleOn;
-      var newGroupIds = {...user.groupIds};
-      newGroupIds[`${group.key}`] = toggleOn;
       var updates = {};
-      updates[`${auth.user.orgId}/groups/${group.key}/userIds`] = newUserIds;
-      updates[`${auth.user.orgId}/users/${auth.uid}/groupIds`] = newGroupIds;
-      console.log('UPDATES: ', updates);
-      return firebaseDb.ref().update(updates);
+      updates[`groups/${group.key}/userIds/${auth.uid}`] = toggleOn;
+      updates[`users/${auth.uid}/groupIds/${group.key}`] = toggleOn;
+      return firebaseDb.ref(`orgs/${auth.user.orgId}`).update(updates);
     })
     .filter(() => false);
 };
