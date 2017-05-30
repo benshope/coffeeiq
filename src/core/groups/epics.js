@@ -1,5 +1,4 @@
 /* eslint-disable no-constant-condition */
-import { go } from 'react-router-redux';
 import { Observable } from 'rxjs';
 
 import { authActions } from 'core/auth';
@@ -12,24 +11,12 @@ export const signInSuccessEpic = (action$) => {
   return action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
     .map((payload) => {
-      console.log(
-        'SIGN_IN_SUCCESS epic called',
-        payload,
-        groupList);
+      // console.log('signInSuccessEpic', payload);
       var orgId = payload.payload.authUser.email.split('@')[1].replace('.', '_');
       groupList.path = `orgs/${orgId}/groups`;
       return groupList.actionStream();
     })
     .flatMap(x => x);
-};
-
-export const signOutSuccessEpic = (action$) => {
-  return action$
-    .filter(action => action.type === authActions.SIGN_OUT_SUCCESS)
-    .map(() => {
-      console.log('groups/epics SIGN_OUT_SUCCESS epic called');
-      return go('/sign-in');
-    });
 };
 
 export const createGroupEpic = (action$) => {
@@ -43,10 +30,7 @@ export const createGroupEpic = (action$) => {
 
 export const toggleGroupMembershipEpic = (action$, store) => {
   return action$
-    .filter((action) => {
-      console.log('toggleGroupMembershipEpic', action);
-      return action.type === groupActions.TOGGLE_GROUP_MEMBERSHIP;
-    })
+    .filter((action) => action.type === groupActions.TOGGLE_GROUP_MEMBERSHIP)
     .map((action) => {
       const group = action.payload;
       const state = store.getState();
@@ -74,7 +58,6 @@ export const removeGroupEpic = (action$) => {
   return action$
     .filter(action => action.type === groupActions.REMOVE_GROUP)
     .map((action) => {
-      console.log('REMOVE: ', action);
       return Observable.fromPromise(groupList.remove(action.payload)
         .then(() => groupActions.removeGroupSuccess(action.payload)));
     })
@@ -83,7 +66,6 @@ export const removeGroupEpic = (action$) => {
 
 export const groupEpics = [
   signInSuccessEpic,
-  signOutSuccessEpic,
   createGroupEpic,
   updateGroupEpic,
   removeGroupEpic,

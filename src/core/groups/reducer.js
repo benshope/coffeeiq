@@ -1,4 +1,4 @@
-import { groupActions } from './actions';
+import { authActions, groupActions } from './actions';
 
 const newGroup = {
   name: '',
@@ -36,7 +36,7 @@ export function groupsReducer(state = {...newGroupsState}, {payload, type}) {
   if (type === groupActions.CREATE_GROUP_SUCCESS) {
     const newState = {
       ...state,
-      list: [...state.list, payload],
+      // list: [...state.list, payload],
       newGroup: {...newGroup}
     };
     console.log('newState', newState);
@@ -63,6 +63,9 @@ export function groupsReducer(state = {...newGroupsState}, {payload, type}) {
         return group.key === payload.group.key ? payload.group : group;
       })
     };
+  }
+  if (type === authActions.SIGN_OUT_SUCCESS) {
+    return {...newGroupsState};
   }
   return state;
 }

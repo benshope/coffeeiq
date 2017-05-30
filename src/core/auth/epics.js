@@ -31,7 +31,14 @@ export const signOutEpic = (action$) => {
     .flatMap(x => x);
 };
 
+export const signOutSuccessEpic = (action$) => {
+  return action$
+    .filter(action => action.type === authActions.SIGN_OUT_SUCCESS)
+    .map(() => go('/sign-in'));
+};
+
 export const authEpics = [
   signInEpic,
-  signOutEpic
+  signOutEpic,
+  signOutSuccessEpic
 ];
