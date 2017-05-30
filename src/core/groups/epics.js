@@ -3,6 +3,8 @@ import { go } from 'react-router-redux';
 import { Observable } from 'rxjs';
 
 import { authActions } from 'core/auth';
+
+import { firebaseDb } from '../firebase';
 import { groupActions } from './actions';
 import { groupList } from './group-list';
 
@@ -42,15 +44,26 @@ export const createGroupEpic = (action$) => {
 export const toggleGroupMembershipEpic = (action$, store) => {
   return action$
     .filter((action) => {
+      console.log('toggleGroupMembershipEpic', action);
       return action.type === groupActions.TOGGLE_GROUP_MEMBERSHIP;
     })
     .map((action) => {
-      const uid = store.getState().auth.uid;
       const group = action.payload;
-      return Observable.fromPromise(
-        groupList.addMemberToGroup(group, uid));
+      const state = store.getState();
+      const auth = state.auth;
+      const user = state.users.list.find((u) => u.key === auth.uid);
+      const toggleOn = !group.userIds || !group.userIds[auth.uid];
+      var newUserIds = {...group.userIds};
+      newUserIds[`${auth.uid}`] = toggleOn;
+      var newGroupIds = {...user.groupIds};
+      newGroupIds[`${group.key}`] = toggleOn;
+      var updates = {};
+      updates[`${auth.user.orgId}/groups/${group.key}/userIds`] = newUserIds;
+      updates[`${auth.user.orgId}/users/${auth.uid}/groupIds`] = newGroupIds;
+      console.log('UPDATES: ', updates);
+      return firebaseDb.ref().update(updates);
     })
-    .flatMap(x => x);
+    .filter(() => false);
 };
 
 export const updateGroupEpic = (action$) => {

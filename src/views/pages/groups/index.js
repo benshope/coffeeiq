@@ -4,17 +4,24 @@ import { groupActions } from 'core/groups';
 import GroupForm from 'views/components/group-form/group-form.container';
 import GroupList from 'views/components/group-list';
 
-const GroupsPage = ({groups}) => {
-  return (
-    <div className="g-row">
-      <div className="g-col">
-        <GroupForm handleSubmit={() => {}} />
-      </div>
+const noCompanyEmailMessage = (user) => (
+  <div className="g-row">
+    <h2>Hi {user.displayName.split(' ')[0] || user.displayName}, you have signed in with Gmail.  Please sign in with your @yourcompany.com email address.  Thanks!</h2>
+  </div>
+);
 
+const GroupsPage = ({groups, user}) => {
+  return user.orgId === 'gmail_com' ? noCompanyEmailMessage(user) : (
+    <div className="g-row">
+      <h2>Hi {user.displayName.split(' ')[0] || user.displayName}, welcome to CoffeeIQ for <span className="capitalize">{user.orgName}</span></h2>
+      <h3>Begin by joining a coffee group below - or make a new group for your team.</h3>
       <div className="g-col">
         <GroupList
           groups={groups}
         />
+      </div>
+      <div className="g-col">
+        <GroupForm />
       </div>
     </div>
   );
@@ -25,7 +32,8 @@ GroupsPage.propTypes = {
   groups: PropTypes.array.isRequired,
   location: PropTypes.object.isRequired,
   removeGroup: PropTypes.func.isRequired,
-  updateGroup: PropTypes.func.isRequired
+  updateGroup: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 //=====================================
@@ -33,7 +41,8 @@ GroupsPage.propTypes = {
 //-------------------------------------
 
 const mapStateToProps = state => ({
-  groups: state.groups.list
+  groups: state.groups.list,
+  user: state.auth.user
 });
 
 

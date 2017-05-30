@@ -14,7 +14,14 @@ export function authReducer(state = {...newAuthState}, {payload, type}) {
       return {
         authenticated: true,
         uid: payload.authUser.uid,
-        user: payload
+        user: {
+          uid: payload.authUser.uid,
+          // photoUrl: payload.authUser.photoUrl,
+          displayName: payload.authUser.displayName,
+          email: payload.authUser.email,
+          orgId: payload.authUser.email.split('@')[1].replace('.', '_'),
+          orgName: payload.authUser.email.split('@')[1].split('.')[0]
+        }
       };
 
     case authActions.SIGN_OUT_SUCCESS:

@@ -55,7 +55,7 @@ const GroupItem = ({
           className={
             classNames('btn--icon', 'group-item__button',
               {'active': group.completed, 'hide': editing})}
-          onClick={toggleGroupMembership}>
+          onClick={() => toggleGroupMembership(group)}>
           <Icon name="done" />
         </Button>
       </div>

@@ -8,15 +8,12 @@ export const userSignInSuccessEpic = (action$) => {
   return action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
     .map((payload) => {
-      console.log(
-        'SIGN_IN_SUCCESS epic called',
-        payload,
-        userList);
       var orgId = payload.payload.authUser.email.split('@')[1].replace('.', '_');
       userList.path = `orgs/${orgId}/users`;
       userList.update(payload.payload.authUser.uid, {
-        name: payload.payload.authUser.name || 'ben',
+        name: payload.payload.authUser.displayName,
         email: payload.payload.authUser.email
+        // photoUrl: payload.payload.authUser.photoUrl
       });
       return userList.actionStream();
     })
