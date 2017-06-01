@@ -38,6 +38,7 @@ export class FirebaseList {
       });
 
       ref.on('child_added', snapshot => {
+        console.log('child_added', snapshot);
         if (initialized) {
           observer.next(this._actions.onAdd(this.unwrapSnapshot(snapshot)));
         }

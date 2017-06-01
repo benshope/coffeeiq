@@ -7,6 +7,7 @@ const newGroup = {
 
 const newGroupsState = {
   newGroup,
+  group$: undefined,
   groupBeingEdited: undefined,
   filter: '',
   list: []

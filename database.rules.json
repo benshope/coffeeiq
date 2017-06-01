@@ -12,18 +12,15 @@
         ".write": "auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true",
         "groups": {
           "$group": {
-            "memberIds": {
-              "$memberId": {
-                ".write": "$memberId === auth.uid"
+            "userIds": {
+              "$userId": {
               }
             }
           }
         },
-        "members": {
-          "$memberId": {
-            ".write": "$memberId === auth.uid",
+        "users": {
+          "$userId": {
             "groupIds": {
-              ".read": "$memberId === auth.uid"
             }
           }
         }

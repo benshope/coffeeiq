@@ -8,6 +8,7 @@ import Icon from '../icon';
 import groupForm from '../group-form/group-form.component';
 
 const GroupItem = ({
+  auth,
   editGroup,
   removeGroup,
   group,
@@ -20,7 +21,6 @@ const GroupItem = ({
   //   ...updates
   // });
 
-  const sendInvitesToGroup = () => console.log('button clicked');
   const editing = groupBeingEdited && groupBeingEdited.key === group.key;
 
   const startEditing = () => editGroup(group);
@@ -29,6 +29,8 @@ const GroupItem = ({
   const remove = () => {
     removeGroup(group);
   };
+
+  const userInGroup = group.userIds && group.userIds[auth.uid];
 
   const groupViewer = () => {
     return (
@@ -56,19 +58,15 @@ const GroupItem = ({
           className={
             classNames('btn--icon', 'group-item__button',
               {'active': group.completed, 'hide': editing})}
-          onClick={toggleGroupMembership}>
+          onClick={() => toggleGroupMembership(group)}>
           <Icon name="done" />
         </Button>
+        { userInGroup ? 'Join' : 'Leave' }
       </div>
       <div className="cell">
         {editing ? groupEditor() : groupViewer()}
       </div>
       <div className="cell">
-        <Button
-          className={classNames('group-item__button', {'hide': editing})}
-          onClick={sendInvitesToGroup}>
-          Send Invites to Group
-        </Button>
         <Button
           className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
           onClick={startEditing}>
@@ -90,7 +88,8 @@ const GroupItem = ({
 };
 
 const mapStateToProps = state => ({
-  groupBeingEdited: state.groups.groupBeingEdited
+  groupBeingEdited: state.groups.groupBeingEdited,
+  auth: state.auth
 });
 
 const mapDispatchToProps = {
@@ -101,6 +100,7 @@ const mapDispatchToProps = {
 };
 
 GroupItem.propTypes = {
+  auth: PropTypes.object.isRequired,
   editGroup: PropTypes.func.isRequired,
   group: PropTypes.object.isRequired,
   groupBeingEdited: PropTypes.object,

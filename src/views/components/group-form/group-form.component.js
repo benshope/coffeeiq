@@ -27,7 +27,6 @@ const GroupForm = ({
     }
   };
   const handleBlur = () => {
-    console.log('form blur');
     if (onBlur) {
       onBlur();
     }

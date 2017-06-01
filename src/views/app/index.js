@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { authActions, getAuth } from 'core/auth';
+import { authActions } from 'core/auth';
 import Header from 'views/components/header';
 import Particles from 'views/components/particles';
 
@@ -30,12 +30,13 @@ App.propTypes = {
 //  CONNECT
 //-------------------------------------
 
-const mapStateToProps = getAuth;
+const mapStateToProps = state => ({
+  authenticated: state.auth.authenticated
+});
 
 const mapDispatchToProps = {
   signOut: authActions.signOut
 };
-
 
 export default connect(
   mapStateToProps,
