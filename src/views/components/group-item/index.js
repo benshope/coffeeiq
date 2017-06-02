@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Button from '../button';
 import Icon from '../icon';
 import groupForm from '../group-form/group-form.component';
+// import helloCloudFuncTest from '../functions';
 
 const GroupItem = ({
   auth,
@@ -70,6 +71,11 @@ const GroupItem = ({
         <Button
           className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
           onClick={startEditing}>
+          <Icon name="event" />
+        </Button>
+        <Button
+          className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
+          onClick={stopEditing}>
           <Icon name="mode_edit" />
         </Button>
         <Button

@@ -50,6 +50,12 @@ exports.sendByeEmail = functions.auth.user().onDelete(event => {
 });
 // [END sendByeEmail]
 
+// [START testTriggerCoffeeIQ]
+exports.helloCloudFuncTest = function helloCloudFuncTest(event, callback) {
+  callback(null, `Hello ${event.data.displayName || 'World'}!`);
+};
+
+// [END testTriggerCoffeeIQ]
 // Sends a welcome email to the given user.
 function sendWelcomeEmail(email, displayName) {
   const mailOptions = {
@@ -79,3 +85,8 @@ function sendGoodbyEmail(email, displayName) {
     console.log('Account deletion confirmation email sent to:', email);
   });
 }
+
+
+
+
+
