@@ -1,4 +1,5 @@
 import { groupActions } from './actions';
+import { authActions } from '../auth/actions';
 
 const newGroup = {
   name: '',
@@ -63,6 +64,9 @@ export function groupsReducer(state = {...newGroupsState}, {payload, type}) {
         return group.key === payload.group.key ? payload.group : group;
       })
     };
+  }
+  if (type === authActions.SIGN_OUT_SUCCESS) {
+    return {...newGroupsState};
   }
   return state;
 }

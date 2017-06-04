@@ -30,10 +30,17 @@ export const signOutEpic = (action$) => {
       return Observable.fromPromise(firebaseAuth.signOut()
         .then(authActions.signOutSuccess, authActions.signOutError));
     })
-    .flatMap(x => x);
+    .flatMap(x => [go('/sign-in'), x]);
+};
+
+export const signOutSuccessEpic = (action$) => {
+  return action$
+    .filter(action => action.type === authActions.SIGN_OUT_SUCCESS)
+    .filter(() => false);
 };
 
 export const authEpics = [
   signInEpic,
-  signOutEpic
+  signOutEpic,
+  signOutSuccessEpic
 ];
