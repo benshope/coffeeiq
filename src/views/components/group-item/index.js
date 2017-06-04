@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Button from '../button';
 import Icon from '../icon';
 import groupForm from '../group-form/group-form.component';
-// import helloCloudFuncTest from '../functions';
+
 
 const GroupItem = ({
   auth,
@@ -22,6 +22,13 @@ const GroupItem = ({
   //   ...updates
   // });
 
+  const sendCalendarInvites = () => {
+    fetch('https://us-central1-coffeeiq-228b6.cloudfunctions.net/invite')
+      .then(
+        (response) => response.json(),
+        console.error
+      );
+  };
   const editing = groupBeingEdited && groupBeingEdited.key === group.key;
 
   const startEditing = () => editGroup(group);
@@ -70,12 +77,12 @@ const GroupItem = ({
       <div className="cell">
         <Button
           className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
-          onClick={startEditing}>
+          onClick={sendCalendarInvites}>
           <Icon name="event" />
         </Button>
         <Button
           className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
-          onClick={stopEditing}>
+          onClick={startEditing}>
           <Icon name="mode_edit" />
         </Button>
         <Button

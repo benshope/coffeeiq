@@ -4,6 +4,8 @@ require('@google-cloud/debug-agent').start({ allowExpressions: true });
 
 const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
+const cors = require('cors')({origin: true});
+
 // Configure the email transport using the default SMTP transport and a GMail account.
 // For other types of transports such as Sendgrid see https://nodemailer.com/transports/
 // TODO: Configure the `gmail.email` and `gmail.password` Google Cloud environment variables.
@@ -50,12 +52,36 @@ exports.sendByeEmail = functions.auth.user().onDelete(event => {
 });
 // [END sendByeEmail]
 
-// [START testTriggerCoffeeIQ]
-exports.helloCloudFuncTest = function helloCloudFuncTest(event, callback) {
-  callback(null, `Hello ${event.data.displayName || 'World'}!`);
-};
 
-// [END testTriggerCoffeeIQ]
+
+
+// [START testTriggerCoffeeIQ]
+exports.invite = functions.https.onRequest((req, res) => {
+  //const user = event.data; // The Firebase user.
+  // const email = user.email; // The email of the user.
+  //const displayName = user.displayName; // The display name of the user.
+  cors(req, res, () => {
+    return console.log('Calendar invite sent', res);
+  });
+});
+
+// // [END testTriggerCoffeeIQ]
+
+// function sendCalendarInvite() {
+//     var headers = {
+//   Authorization: 'Bearer ', // + payload.accessToken,
+//   noXsrfToken: true
+// };
+// sendRequest(
+//   'GET',
+//   'https://www.googleapis.com/calendar/v3/calendars/main/events',
+//   undefined,
+//   headers).then(
+//     () => { console.log('SUCCESS'); },
+//     () => { console.log('ERROR'); });
+
+
+
 // Sends a welcome email to the given user.
 function sendWelcomeEmail(email, displayName) {
   const mailOptions = {

@@ -81,11 +81,24 @@ export const removeGroupEpic = (action$) => {
     .flatMap(x => x);
 };
 
+// export const sendCalendarInvitesEpic = (actions$) => {
+//   return actions$
+//   .filter(action => action.type === groupActions.SEND_CALENDAR_INVITES)
+//   .map(() => {
+//     return fetch('https://us-central1-coffeeiq-228b6.cloudfunctions.net/invite')
+//       .then(
+//         (response) => response.json(),
+//         console.error
+//       );
+//   }).filter(() => false);
+// };
+
 export const groupEpics = [
   signInSuccessEpic,
   signOutSuccessEpic,
   createGroupEpic,
   updateGroupEpic,
   removeGroupEpic,
-  toggleGroupMembershipEpic
+  toggleGroupMembershipEpic,
+  // sendCalendarInvitesEpic
 ];
