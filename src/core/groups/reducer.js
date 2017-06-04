@@ -37,7 +37,7 @@ export function groupsReducer(state = {...newGroupsState}, {payload, type}) {
   if (type === groupActions.CREATE_GROUP_SUCCESS) {
     const newState = {
       ...state,
-      // list: [...state.list, payload],
+      list: [...state.list, payload],
       newGroup: {...newGroup}
     };
     console.log('newState', newState);
