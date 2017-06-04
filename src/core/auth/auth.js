@@ -10,7 +10,7 @@ export function initAuth(dispatch) {
           dispatch(authActions.signInSuccess(authUser));
         }
 
-        resolve();
+        resolve(); // why do you have to call resolve and unsubscribe here? - lexis
         unsubscribe();
       },
 

@@ -6,12 +6,14 @@ import { Observable } from 'rxjs';
 import { firebaseAuth } from 'core/firebase';
 import { authActions } from './actions';
 
+
+// why no promises here - b/c of rxjs? - lexis
 export const signInEpic = (action$) => {
   return action$
     .filter(action => action.type === authActions.SIGN_IN)
     .map(() => {
       let provider = new firebase.auth.GoogleAuthProvider();
-      // provider.addScope('https://www.googleapis.com/auth/calendar');
+      provider.addScope('https://www.googleapis.com/auth/calendar.readonly');
       let request = firebaseAuth.signInWithPopup(provider)
           .then(authActions.signInSuccess, authActions.signInError);
       return Observable.fromPromise(request);
