@@ -1,4 +1,5 @@
-import { authActions, groupActions } from './actions';
+import { groupActions } from './actions';
+import { authActions } from '../auth/actions';
 
 const newGroup = {
   name: '',

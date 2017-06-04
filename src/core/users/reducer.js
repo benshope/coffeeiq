@@ -1,4 +1,5 @@
-import { authActions, userActions } from './actions';
+import { userActions } from './actions';
+import { authActions } from '../auth/actions';
 
 const newUsersState = {
   list: undefined
