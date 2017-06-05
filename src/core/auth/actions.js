@@ -1,6 +1,3 @@
-import firebase from 'firebase';
-
-
 export const authActions = {
   SIGN_IN: 'SIGN_IN',
   SIGN_IN_FAILED: 'SIGN_IN_FAILED',
@@ -11,9 +8,9 @@ export const authActions = {
   SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS',
 
 
-  signIn: authProvider => ({
+  signIn: payload => ({
     type: authActions.SIGN_IN,
-    payload: {authProvider}
+    payload: {isAdmin: payload.isAdmin}
   }),
 
   signInFailed: error => ({
@@ -25,10 +22,6 @@ export const authActions = {
     type: authActions.SIGN_IN_SUCCESS,
     payload: {authUser}
   }),
-
-  signInWithGoogle: () => authActions.signIn(
-    new firebase.auth.GoogleAuthProvider()
-  ),
 
   signOut: () => ({
     type: authActions.SIGN_OUT

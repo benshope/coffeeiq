@@ -14,6 +14,13 @@ export const signInEpic = (action$) => {
     .map(() => {
       let provider = new firebase.auth.GoogleAuthProvider();
       provider.addScope('https://www.googleapis.com/auth/calendar.readonly');
+      provider.setCustomParameters({
+        hd: '*',
+        prompt: 'consent',
+        display: 'popup',
+      //   'include_granted_scopes': 'true',
+        'access_type': 'offline'
+      });
       let request = firebaseAuth.signInWithPopup(provider)
           .then(authActions.signInSuccess, authActions.signInError);
       return Observable.fromPromise(request);
@@ -36,7 +43,17 @@ export const signOutEpic = (action$) => {
 export const signOutSuccessEpic = (action$) => {
   return action$
     .filter(action => action.type === authActions.SIGN_OUT_SUCCESS)
-    .filter(() => false);
+    .filter(() => {
+      localStorage.clear();
+      let cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i];
+        let eqPos = cookie.indexOf('=');
+        let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      }
+      return false;
+    });
 };
 
 export const authEpics = [
