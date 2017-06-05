@@ -15,9 +15,9 @@ const Header = ({authenticated, signOut}) => {
             <span className="title-icon"><Icon name="local_cafe" /></span>
             <span className="title-text">CoffeeIQ</span>
           </h1>
-          <li onClick={goToAbout}>About</li>
           <ul className="header__actions">
             {authenticated ? <li><Button onClick={signOut}>Sign Out</Button></li> : null}
+            {!authenticated ? <li><Button onClick={goToAbout}>About</Button></li> : null}
             <li>
               {undefined && <a className="link link-help" href="#">
                 <Icon name="help" />
