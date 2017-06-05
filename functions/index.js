@@ -96,9 +96,9 @@ const auth = new OAuth2(
 
 // [START testTriggerCoffeeIQ]
 exports.invite = functions.https.onRequest((req, res) => {
-  //const user = event.data; // The Firebase user.
+  // const user = event.data; // The Firebase user.
   // const email = user.email; // The email of the user.
-  //const displayName = user.displayName; // The display name of the user.
+  // const displayName = user.displayName; // The display name of the user.
   cors(req, res, () => {
     events.list({
       auth: auth,

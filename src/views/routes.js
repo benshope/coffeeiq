@@ -2,11 +2,13 @@ import { isAuthenticated } from 'core/auth';
 import App from './app';
 import SignInPage from './pages/sign-in';
 import GroupsPage from './pages/groups';
+import AboutPage from './pages/about';
 
 
 export const paths = {
   ROOT: '/',
   SIGN_IN: '/sign-in',
+  ABOUT: '/about',
   GROUPS: '/'
 };
 
@@ -42,6 +44,10 @@ export const getRoutes = getState => {
         path: paths.SIGN_IN,
         component: SignInPage,
         onEnter: requireUnauth(getState)
+      },
+      {
+        path: paths.ABOUT,
+        component: AboutPage
       }
       // {
       //   path: paths.PRICING,
