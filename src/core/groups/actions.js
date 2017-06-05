@@ -20,6 +20,8 @@ export const groupActions = {
 
   LOAD_GROUPS_SUCCESS: 'LOAD_GROUPS_SUCCESS',
 
+  // SEND_CALENDAR_INVITES: 'SEND_CALENDAR_INVITES',
+
   editGroup: group => ({
     type: groupActions.EDIT_GROUP,
     payload: group
@@ -84,4 +86,5 @@ export const groupActions = {
     type: groupActions.LOAD_GROUPS_SUCCESS,
     payload: {groups}
   })
+
 };
