@@ -18,7 +18,6 @@ export const signInEpic = (action$) => {
         hd: '*',
         prompt: 'consent',
         display: 'popup',
-      //   'include_granted_scopes': 'true',
         'access_type': 'offline'
       });
       let request = firebaseAuth.signInWithPopup(provider)

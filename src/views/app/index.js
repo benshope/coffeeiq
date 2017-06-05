@@ -8,7 +8,7 @@ import Particles from 'views/components/particles';
 function App({authenticated, children, signOut}) {
   return (
     <div>
-      <Particles />
+      {false && <Particles />}
       <Header
         authenticated={authenticated}
         signOut={signOut}

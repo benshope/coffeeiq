@@ -14,13 +14,16 @@
           "$group": {
             "userIds": {
               "$userId": {
+                ".write": "$userId === auth.uid"
               }
             }
           }
         },
         "users": {
           "$userId": {
+            ".write": "$userId === auth.uid",
             "groupIds": {
+              ".read": "$userId === auth.uid"
             }
           }
         }
