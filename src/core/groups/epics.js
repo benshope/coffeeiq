@@ -81,6 +81,6 @@ export const groupEpics = [
   createGroupEpic,
   updateGroupEpic,
   removeGroupEpic,
-  toggleGroupMembershipEpic,
+  toggleGroupMembershipEpic
   // sendCalendarInvitesEpic
 ];
