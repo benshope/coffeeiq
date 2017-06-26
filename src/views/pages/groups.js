@@ -13,8 +13,11 @@ const noCompanyEmailMessage = (user) => (
 const GroupsPage = ({groups, user}) => {
   return user.orgId === 'gmail_com' ? noCompanyEmailMessage(user) : (
     <div className="g-row">
-      <h2>Hi {user.displayName.split(' ')[0] || user.displayName}, welcome to CoffeeIQ for <span className="capitalize">{user.orgName}</span></h2>
-      <h3>Begin by joining a coffee group below - or make a new group for your team.</h3>
+      <div className="g-col">
+        <h3>Hi {user.displayName.split(' ')[0] || user.displayName}, welcome to CoffeeIQ for <span className="capitalize">{user.orgName}.</span>  Begin by joining a coffee group below - or make a new group for your team.</h3>
+        <br>
+        <br>
+      </div>
       <div className="g-col">
         <GroupList
           groups={groups}
