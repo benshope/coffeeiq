@@ -3,11 +3,11 @@
 //---------------------------------------------------------
 
 .group-form {
-  margin: 40px 0 10px;
+  // margin: 40px 0 10px;
   display: flex;
 
   @include media-query(540) {
-    margin: 80px 0 20px;
+    // margin: 80px 0 20px;
   }
 }
 
