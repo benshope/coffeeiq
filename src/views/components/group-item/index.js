@@ -2,6 +2,7 @@ import { groupActions } from 'core/groups';
 import classNames from 'classnames';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { go } from 'react-router-redux';
 
 import Button from '../button';
 import Icon from '../icon';
@@ -12,6 +13,7 @@ const GroupItem = ({
   auth,
   editGroup,
   removeGroup,
+  goToGroup,
   group,
   groupBeingEdited,
   toggleGroupMembership,
@@ -42,7 +44,11 @@ const GroupItem = ({
 
   const groupViewer = () => {
     return (
-      <div className="group-item__title" tabIndex="0">
+      <div
+        className="group-item__title"
+        onClick={() => goToGroup(group)}
+        tabIndex="0"
+      >
         {group.name} @ {group.location}
       </div>
     );
@@ -67,19 +73,18 @@ const GroupItem = ({
             classNames('btn--icon', 'group-item__button',
               {'active': group.completed, 'hide': editing})}
           onClick={() => toggleGroupMembership(group)}>
-          <Icon name="done" />
+          <Icon name={userInGroup ? 'done' : 'close'} />
         </Button>
-        { userInGroup ? 'Join' : 'Leave' }
       </div>
       <div className="cell">
         {editing ? groupEditor() : groupViewer()}
       </div>
       <div className="cell">
-        <Button
+        {false && <Button
           className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
           onClick={sendCalendarInvites}>
           <Icon name="event" />
-        </Button>
+        </Button>}
         <Button
           className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
           onClick={startEditing}>
@@ -106,15 +111,20 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  editGroup: groupActions.editGroup,
+  goToGroup: (group) => {
+    console.log('GOING TO: ', group);
+    return go(`group/${group.key}`);
+  },
   removeGroup: groupActions.removeGroup,
   updateGroup: groupActions.updateGroup,
-  toggleGroupMembership: groupActions.toggleGroupMembership,
-  editGroup: groupActions.editGroup
+  toggleGroupMembership: groupActions.toggleGroupMembership
 };
 
 GroupItem.propTypes = {
   auth: PropTypes.object.isRequired,
   editGroup: PropTypes.func.isRequired,
+  goToGroup: PropTypes.func.isRequired,
   group: PropTypes.object.isRequired,
   groupBeingEdited: PropTypes.object,
   removeGroup: PropTypes.func.isRequired,

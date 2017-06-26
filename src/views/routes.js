@@ -3,13 +3,14 @@ import App from './app';
 import SignInPage from './pages/sign-in';
 import GroupsPage from './pages/groups';
 import AboutPage from './pages/about';
-
+import GroupPage from './pages/group';
 
 export const paths = {
   ROOT: '/',
   SIGN_IN: '/sign-in',
   ABOUT: '/about',
-  GROUPS: '/'
+  GROUPS: '/',
+  GROUP: '/group/:id'
 };
 
 
@@ -48,6 +49,10 @@ export const getRoutes = getState => {
       {
         path: paths.ABOUT,
         component: AboutPage
+      },
+      {
+        path: paths.GROUP,
+        component: GroupPage
       }
       // {
       //   path: paths.PRICING,

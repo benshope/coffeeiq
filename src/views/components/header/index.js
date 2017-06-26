@@ -1,12 +1,8 @@
 import React, { PropTypes } from 'react';
 import Button from '../button';
 import Icon from '../icon';
-import { go } from 'react-router-redux';
 
 const Header = ({authenticated, signOut}) => {
-  const goToAbout = () => {
-    go('/about');
-  };
   return (
     <header className="header">
       <div className="g-row">
@@ -17,7 +13,6 @@ const Header = ({authenticated, signOut}) => {
           </h1>
           <ul className="header__actions">
             {authenticated ? <li><Button onClick={signOut}>Sign Out</Button></li> : null}
-            {!authenticated ? <li><Button onClick={goToAbout}>About</Button></li> : null}
             <li>
               {undefined && <a className="link link-help" href="#">
                 <Icon name="help" />
@@ -32,7 +27,6 @@ const Header = ({authenticated, signOut}) => {
 
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
-  goToAbout: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired
 };
 

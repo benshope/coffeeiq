@@ -15,7 +15,7 @@ const newGroupsState = {
 };
 
 export function groupsReducer(state = {...newGroupsState}, {payload, type}) {
-  console.log('REDUCER: ', payload, type);
+  // console.log('REDUCER: ', payload, type);
   if (type === groupActions.UPDATE_NEW_GROUP) {
     return {
       ...state,
