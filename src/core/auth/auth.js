@@ -1,6 +1,5 @@
-import { firebaseAuth } from 'core/firebase';
-import { authActions } from './actions';
-
+import { firebaseAuth } from "core/firebase";
+import { authActions } from "./actions";
 
 export function initAuth(dispatch) {
   return new Promise((resolve, reject) => {
@@ -13,7 +12,6 @@ export function initAuth(dispatch) {
         resolve(); // why do you have to call resolve and unsubscribe here? - lexis
         unsubscribe();
       },
-
       error => reject(error)
     );
   });

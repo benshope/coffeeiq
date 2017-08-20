@@ -1,5 +1,5 @@
-import { FirebaseList } from 'core/firebase';
-import { groupActions } from './actions';
+import { FirebaseList } from "core/firebase";
+import { groupActions } from "./actions";
 
 export const groupList = new FirebaseList({
   onAdd: groupActions.createGroupSuccess,

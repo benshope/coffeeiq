@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-require('@google-cloud/debug-agent').start({ allowExpressions: true });
+require("@google-cloud/debug-agent").start({ allowExpressions: true });
 
-const functions = require('firebase-functions');
-const cors = require('cors')({origin: true});
-const google = require('googleapis');
+const functions = require("firebase-functions");
+const cors = require("cors")({ origin: true });
+const google = require("googleapis");
 
-const events = google.calendar('v3').events;
+const events = google.calendar("v3").events;
 const OAuth2 = google.auth.OAuth2;
 const auth = new OAuth2(
-  '515941571789-msk9v5lr3q12d9miptrn39ntvom12j3r.apps.googleusercontent.com',
-  'xT6rtV60Mvp7QX7S_BMUdLFO'
+  "515941571789-msk9v5lr3q12d9miptrn39ntvom12j3r.apps.googleusercontent.com",
+  "xT6rtV60Mvp7QX7S_BMUdLFO"
 );
 
 // Configure the email transport using the default SMTP transport and a GMail account.
@@ -24,7 +24,6 @@ const auth = new OAuth2(
 // Your company name to include in the email
 // TODO: Change this to your app or company name to customize the email sent.
 // const APP_NAME = 'CoffeeIQ';
-
 
 // sendCalendarInvites = () => {
 //    let headers = new Headers();
@@ -56,7 +55,6 @@ const auth = new OAuth2(
 //        .subscribe(console.log, console.error);
 //  };
 // }
-
 
 // [START sendWelcomeEmail]
 /**
@@ -92,39 +90,45 @@ const auth = new OAuth2(
 // });
 // // [END sendByeEmail]
 
-
-
 // [START testTriggerCoffeeIQ]
 exports.invite = functions.https.onRequest((req, res) => {
   // const user = event.data; // The Firebase user.
   // const email = user.email; // The email of the user.
   // const displayName = user.displayName; // The display name of the user.
   cors(req, res, () => {
-    events.list({
-      auth: auth,
-      calendarId: 'primary',
-      timeMin: (new Date()).toISOString(),
-      maxResults: 10,
-      singleEvents: true,
-      orderBy: 'startTime'
-    }, function(err, response) {
-      if (err) {
-        console.log('The API returned an error: ' + err);
-        return;
-      }
-      var events = response.items;
-      if (events.length === 0) {
-        console.log('No upcoming events found.');
-      } else {
-        console.log('Upcoming 10 events:');
-        for (var i = 0; i < events.length; i++) {
-          var event = events[i];
-          var start = event.start.dateTime || event.start.date;
-          console.log('%s - %s', start, event.summary);
+    events.list(
+      {
+        auth: auth,
+        calendarId: "primary",
+        timeMin: new Date().toISOString(),
+        maxResults: 10,
+        singleEvents: true,
+        orderBy: "startTime"
+      },
+      function(err, response) {
+        if (err) {
+          console.log("The API returned an error: " + err);
+          return;
+        }
+        var events = response.items;
+        if (events.length === 0) {
+          console.log("No upcoming events found.");
+        } else {
+          console.log("Upcoming 10 events:");
+          for (var i = 0; i < events.length; i++) {
+            var event = events[i];
+            var start = event.start.dateTime || event.start.date;
+            console.log("%s - %s", start, event.summary);
+          }
         }
       }
-    });
-    return console.log(events, functions.config(), functions.config().gmailEmail, functions.config().firebase.apiKey);
+    );
+    return console.log(
+      events,
+      functions.config(),
+      functions.config().gmailEmail,
+      functions.config().firebase.apiKey
+    );
   });
 });
 
@@ -142,8 +146,6 @@ exports.invite = functions.https.onRequest((req, res) => {
 //   headers).then(
 //     () => { console.log('SUCCESS'); },
 //     () => { console.log('ERROR'); });
-
-
 
 // Sends a welcome email to the given user.
 // }

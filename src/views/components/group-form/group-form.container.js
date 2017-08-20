@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
-import { groupActions } from 'core/groups';
+import { connect } from "react-redux";
+import { groupActions } from "core/groups";
 
-import GroupForm from './group-form.component';
+import GroupForm from "./group-form.component";
 
 const mapStateToProps = state => ({
   group: state.groups.newGroup
@@ -12,7 +12,4 @@ const mapDispatchToProps = {
   onChange: groupActions.updateNewGroup
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GroupForm);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupForm);

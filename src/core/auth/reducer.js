@@ -1,4 +1,4 @@
-import { authActions } from './actions';
+import { authActions } from "./actions";
 
 export const newAuthState = {
   authenticated: false,
@@ -6,9 +6,9 @@ export const newAuthState = {
   user: null
 };
 
-export const AuthState = {...newAuthState};
+export const AuthState = { ...newAuthState };
 
-export function authReducer(state = {...newAuthState}, {payload, type}) {
+export function authReducer(state = { ...newAuthState }, { payload, type }) {
   switch (type) {
     case authActions.SIGN_IN_SUCCESS:
       return {
@@ -19,13 +19,13 @@ export function authReducer(state = {...newAuthState}, {payload, type}) {
           // photoUrl: payload.authUser.photoUrl,
           displayName: payload.authUser.displayName,
           email: payload.authUser.email,
-          orgId: payload.authUser.email.split('@')[1].replace('.', '_'),
-          orgName: payload.authUser.email.split('@')[1].split('.')[0]
+          orgId: payload.authUser.email.split("@")[1].replace(".", "_"),
+          orgName: payload.authUser.email.split("@")[1].split(".")[0]
         }
       };
 
     case authActions.SIGN_OUT_SUCCESS:
-      return {...newAuthState};
+      return { ...newAuthState };
 
     default:
       return state;

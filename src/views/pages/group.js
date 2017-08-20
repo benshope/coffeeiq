@@ -16,7 +16,10 @@ const GroupPage = ({
       {user} [remove user]
     </li>
   );
-  const isAdmin = group.admins.includes(user.email) || groups.admins.includes(user.email) || user.isAdmin;
+  const isAdmin =
+    group.admins.includes(user.email) ||
+    groups.admins.includes(user.email) ||
+    user.isAdmin;
 
   return (
     <div className="g-row">

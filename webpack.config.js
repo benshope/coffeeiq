@@ -100,7 +100,11 @@ if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
 if (ENV_DEVELOPMENT) {
   config.devtool = "cheap-module-source-map";
 
-  config.entry.main.unshift("babel-polyfill", "react-hot-loader/patch", "webpack/hot/only-dev-server");
+  config.entry.main.unshift(
+    "babel-polyfill",
+    "react-hot-loader/patch",
+    "webpack/hot/only-dev-server"
+  );
 
   config.module.rules.push(rules.scss);
 

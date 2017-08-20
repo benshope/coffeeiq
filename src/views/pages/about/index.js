@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
 const AboutPage = () => {
   return (
@@ -8,10 +8,11 @@ const AboutPage = () => {
         <div className="g-col">
           <h1 className="about__heading">About</h1>
           <div className="description">
-            CoffeeIQ schedules a quick coffee meeting each week with a random coworker.
-            Selfies hammock meh, seitan hella raclette polaroid slow-carb. VHS bushwick
-            gentrify,fam coloring book letterpress keytar kale chips. Prism flexitarian
-            woke viral etsy. Pork belly portland celiac, biodiesel keytar twee yuccie art party.
+            CoffeeIQ schedules a quick coffee meeting each week with a random
+            coworker. Selfies hammock meh, seitan hella raclette polaroid
+            slow-carb. VHS bushwick gentrify,fam coloring book letterpress
+            keytar kale chips. Prism flexitarian woke viral etsy. Pork belly
+            portland celiac, biodiesel keytar twee yuccie art party.
           </div>
         </div>
       </div>
@@ -21,14 +22,10 @@ const AboutPage = () => {
 
 AboutPage.propTypes = {};
 
-
 //=====================================
 //  CONNECT
 //-------------------------------------
 
 const mapDispatchToProps = {};
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(AboutPage);
+export default connect(null, mapDispatchToProps)(AboutPage);

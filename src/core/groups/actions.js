@@ -1,24 +1,23 @@
-
 export const groupActions = {
-  UPDATE_NEW_GROUP: 'UPDATE_NEW_GROUP',
+  UPDATE_NEW_GROUP: "UPDATE_NEW_GROUP",
 
-  CREATE_GROUP: 'CREATE_GROUP',
-  CREATE_GROUP_FAILED: 'CREATE_GROUP_FAILED',
-  CREATE_GROUP_SUCCESS: 'CREATE_GROUP_SUCCESS',
+  CREATE_GROUP: "CREATE_GROUP",
+  CREATE_GROUP_FAILED: "CREATE_GROUP_FAILED",
+  CREATE_GROUP_SUCCESS: "CREATE_GROUP_SUCCESS",
 
-  REMOVE_GROUP: 'REMOVE_GROUP',
-  REMOVE_GROUP_FAILED: 'REMOVE_GROUP_FAILED',
-  REMOVE_GROUP_SUCCESS: 'REMOVE_GROUP_SUCCESS',
+  REMOVE_GROUP: "REMOVE_GROUP",
+  REMOVE_GROUP_FAILED: "REMOVE_GROUP_FAILED",
+  REMOVE_GROUP_SUCCESS: "REMOVE_GROUP_SUCCESS",
 
-  EDIT_GROUP: 'EDIT_GROUP',
+  EDIT_GROUP: "EDIT_GROUP",
 
-  TOGGLE_GROUP_MEMBERSHIP: 'TOGGLE_GROUP_MEMBERSHIP',
+  TOGGLE_GROUP_MEMBERSHIP: "TOGGLE_GROUP_MEMBERSHIP",
 
-  UPDATE_GROUP: 'UPDATE_GROUP',
-  UPDATE_GROUP_FAILED: 'UPDATE_GROUP_FAILED',
-  UPDATE_GROUP_SUCCESS: 'UPDATE_GROUP_SUCCESS',
+  UPDATE_GROUP: "UPDATE_GROUP",
+  UPDATE_GROUP_FAILED: "UPDATE_GROUP_FAILED",
+  UPDATE_GROUP_SUCCESS: "UPDATE_GROUP_SUCCESS",
 
-  LOAD_GROUPS_SUCCESS: 'LOAD_GROUPS_SUCCESS',
+  LOAD_GROUPS_SUCCESS: "LOAD_GROUPS_SUCCESS",
 
   // SEND_CALENDAR_INVITES: 'SEND_CALENDAR_INVITES',
 
@@ -27,19 +26,19 @@ export const groupActions = {
     payload: group
   }),
 
-  updateNewGroup: (group) => ({
+  updateNewGroup: group => ({
     type: groupActions.UPDATE_NEW_GROUP,
     payload: group
   }),
 
-  createGroup: (group) => ({
+  createGroup: group => ({
     type: groupActions.CREATE_GROUP,
     payload: group
   }),
 
   createGroupFailed: error => ({
     type: groupActions.CREATE_GROUP_FAILED,
-    payload: {error}
+    payload: { error }
   }),
 
   createGroupSuccess: group => ({
@@ -54,7 +53,7 @@ export const groupActions = {
 
   removeGroupFailed: error => ({
     type: groupActions.REMOVE_GROUP_FAILED,
-    payload: {error}
+    payload: { error }
   }),
 
   removeGroupSuccess: group => ({
@@ -62,29 +61,28 @@ export const groupActions = {
     payload: group
   }),
 
-  toggleGroupMembership: (group) => ({
+  toggleGroupMembership: group => ({
     type: groupActions.TOGGLE_GROUP_MEMBERSHIP,
     payload: group
   }),
 
   updateGroup: (group, changes) => ({
     type: groupActions.UPDATE_GROUP,
-    payload: {group, changes}
+    payload: { group, changes }
   }),
 
   updateGroupFailed: error => ({
     type: groupActions.UPDATE_GROUP_FAILED,
-    payload: {error}
+    payload: { error }
   }),
 
   updateGroupSuccess: group => ({
     type: groupActions.UPDATE_GROUP_SUCCESS,
-    payload: {group}
+    payload: { group }
   }),
 
   loadGroupsSuccess: groups => ({
     type: groupActions.LOAD_GROUPS_SUCCESS,
-    payload: {groups}
+    payload: { groups }
   })
-
 };

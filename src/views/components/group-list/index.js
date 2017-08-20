@@ -1,15 +1,9 @@
-import React, { PropTypes } from 'react';
-import GroupItem from '../group-item';
+import React, { PropTypes } from "react";
+import GroupItem from "../group-item";
 
-
-const GroupList = ({groups}) => {
+const GroupList = ({ groups }) => {
   let groupItems = groups.map((group, index) => {
-    return (
-      <GroupItem
-        key={index}
-        group={group}
-      />
-    );
+    return <GroupItem key={index} group={group} />;
   });
 
   return (

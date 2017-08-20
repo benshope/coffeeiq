@@ -1,26 +1,25 @@
 export const authActions = {
-  SIGN_IN: 'SIGN_IN',
-  SIGN_IN_FAILED: 'SIGN_IN_FAILED',
-  SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS',
+  SIGN_IN: "SIGN_IN",
+  SIGN_IN_FAILED: "SIGN_IN_FAILED",
+  SIGN_IN_SUCCESS: "SIGN_IN_SUCCESS",
 
-  SIGN_OUT: 'SIGN_OUT',
-  SIGN_OUT_FAILED: 'SIGN_OUT_FAILED',
-  SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS',
-
+  SIGN_OUT: "SIGN_OUT",
+  SIGN_OUT_FAILED: "SIGN_OUT_FAILED",
+  SIGN_OUT_SUCCESS: "SIGN_OUT_SUCCESS",
 
   signIn: payload => ({
     type: authActions.SIGN_IN,
-    payload: {isAdmin: payload.isAdmin}
+    payload: { isAdmin: payload.isAdmin }
   }),
 
   signInFailed: error => ({
     type: authActions.SIGN_IN_FAILED,
-    payload: {error}
+    payload: { error }
   }),
 
   signInSuccess: authUser => ({
     type: authActions.SIGN_IN_SUCCESS,
-    payload: {authUser}
+    payload: { authUser }
   }),
 
   signOut: () => ({
@@ -29,7 +28,7 @@ export const authActions = {
 
   signOutFailed: error => ({
     type: authActions.SIGN_OUT_FAILED,
-    payload: {error}
+    payload: { error }
   }),
 
   signOutSuccess: () => ({

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from "react";
 
 const GroupForm = ({
   autoFocus,
@@ -8,21 +8,21 @@ const GroupForm = ({
   onBlur,
   onCancel
 }) => {
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault(); // stops page refresh
-    console.log('handleSubmit');
+    console.log("handleSubmit");
     onSubmit(group);
   };
-  const nameChange = (e) => {
+  const nameChange = e => {
     console.log(e.target.value);
     onChange({ name: e.target.value });
   };
-  const locationChange = (e) => {
+  const locationChange = e => {
     console.log(e.target.value);
     onChange({ location: e.target.value });
   };
-  const handleKeyUp = (event) => {
-    if (onCancel && event.keyCode === 13 || event.keyCode === 27) {
+  const handleKeyUp = event => {
+    if ((onCancel && event.keyCode === 13) || event.keyCode === 27) {
       onCancel();
     }
   };
@@ -61,7 +61,7 @@ const GroupForm = ({
         type="text"
         value={group.location}
       />
-      <button type="submit" href="" style={{display: 'none'}}></button>
+      <button type="submit" href="" style={{ display: "none" }} />
     </form>
   );
 };

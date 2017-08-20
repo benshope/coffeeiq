@@ -4,12 +4,10 @@
 
 // const functions = require('firebase-functions');
 
-
 // exports.sendCalendarInvite = functions.https.onRequest((req, res) => {
 //   const user = event.data; // The Firebase user.
 //   const email = user.email; // The email of the user.
 //   const displayName = user.displayName; // The display name of the user.
-
 
 //   console.log('getRequest');
 //   headers.append('Authorization', 'Bearer ' + this.authToken);
@@ -19,8 +17,6 @@
 //     .map(response => response.json())
 //     .map(console.log(email, displayName));
 // });
-
-
 
 // function sendCalendarInvite(email, displayName) {
 //   this.getRequest('users/me/profile');

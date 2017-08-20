@@ -1,13 +1,12 @@
-import { groupActions } from 'core/groups';
-import classNames from 'classnames';
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { go } from 'react-router-redux';
+import { groupActions } from "core/groups";
+import classNames from "classnames";
+import React, { PropTypes } from "react";
+import { connect } from "react-redux";
+import { go } from "react-router-redux";
 
-import Button from '../button';
-import Icon from '../icon';
-import groupForm from '../group-form/group-form.component';
-
+import Button from "../button";
+import Icon from "../icon";
+import groupForm from "../group-form/group-form.component";
 
 const GroupItem = ({
   auth,
@@ -25,11 +24,10 @@ const GroupItem = ({
   // });
 
   const sendCalendarInvites = () => {
-    fetch('https://us-central1-coffeeiq-228b6.cloudfunctions.net/invite')
-      .then(
-        (response) => response.json(),
-        console.error
-      );
+    fetch("https://us-central1-coffeeiq-228b6.cloudfunctions.net/invite").then(
+      response => response.json(),
+      console.error
+    );
   };
   const editing = groupBeingEdited && groupBeingEdited.key === group.key;
 
@@ -54,50 +52,66 @@ const GroupItem = ({
     );
   };
 
-  const groupEditor = () => groupForm({
-    group,
-    onChange: editGroup,
-    onSubmit: updateGroup
-  });
+  const groupEditor = () =>
+    groupForm({
+      group,
+      onChange: editGroup,
+      onSubmit: updateGroup
+    });
 
-  let containerClasses = classNames('group-item', {
-    'group-item--completed': group.completed,
-    'group-item--editing': editing
+  let containerClasses = classNames("group-item", {
+    "group-item--completed": group.completed,
+    "group-item--editing": editing
   });
 
   return (
     <div className={containerClasses} tabIndex="0">
       <div className="cell">
         <Button
-          className={
-            classNames('btn--icon', 'group-item__button',
-              {'active': group.completed, 'hide': editing})}
-          onClick={() => toggleGroupMembership(group)}>
-          <Icon name={userInGroup ? 'done' : 'close'} />
+          className={classNames("btn--icon", "group-item__button", {
+            active: group.completed,
+            hide: editing
+          })}
+          onClick={() => toggleGroupMembership(group)}
+        >
+          <Icon name={userInGroup ? "done" : "close"} />
         </Button>
       </div>
       <div className="cell">
         {editing ? groupEditor() : groupViewer()}
       </div>
       <div className="cell">
-        {false && <Button
-          className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
-          onClick={sendCalendarInvites}>
-          <Icon name="event" />
-        </Button>}
+        {false &&
+          <Button
+            className={classNames("btn--icon", "group-item__button", {
+              hide: editing
+            })}
+            onClick={sendCalendarInvites}
+          >
+            <Icon name="event" />
+          </Button>}
         <Button
-          className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
-          onClick={startEditing}>
+          className={classNames("btn--icon", "group-item__button", {
+            hide: editing
+          })}
+          onClick={startEditing}
+        >
           <Icon name="mode_edit" />
         </Button>
         <Button
-          className={classNames('btn--icon', 'group-item__button', {'hide': !editing})}
-          onClick={stopEditing}>
+          className={classNames("btn--icon", "group-item__button", {
+            hide: !editing
+          })}
+          onClick={stopEditing}
+        >
           <Icon name="clear" />
         </Button>
         <Button
-          className={classNames('btn--icon', 'group-item__button', {'hide': editing})}
-          onClick={remove}>
+          className={classNames("btn--icon", "group-item__button", {
+            hide: editing
+          })}
+          onClick={remove}
+        >
           <Icon name="delete" />
         </Button>
       </div>
@@ -112,8 +126,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   editGroup: groupActions.editGroup,
-  goToGroup: (group) => {
-    console.log('GOING TO: ', group);
+  goToGroup: group => {
+    console.log("GOING TO: ", group);
     return go(`group/${group.key}`);
   },
   removeGroup: groupActions.removeGroup,
@@ -132,7 +146,4 @@ GroupItem.propTypes = {
   updateGroup: PropTypes.func.isRequired
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GroupItem);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupItem);

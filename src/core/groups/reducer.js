@@ -1,20 +1,23 @@
-import { groupActions } from './actions';
-import { authActions } from '../auth/actions';
+import { groupActions } from "./actions";
+import { authActions } from "../auth/actions";
 
 const newGroup = {
-  name: '',
-  location: ''
+  name: "",
+  location: ""
 };
 
 const newGroupsState = {
   newGroup,
   group$: undefined,
   groupBeingEdited: undefined,
-  filter: '',
+  filter: "",
   list: []
 };
 
-export function groupsReducer(state = {...newGroupsState}, {payload, type}) {
+export function groupsReducer(
+  state = { ...newGroupsState },
+  { payload, type }
+) {
   // console.log('REDUCER: ', payload, type);
   if (type === groupActions.UPDATE_NEW_GROUP) {
     return {
@@ -38,15 +41,15 @@ export function groupsReducer(state = {...newGroupsState}, {payload, type}) {
     const newState = {
       ...state,
       list: [...state.list, payload],
-      newGroup: {...newGroup}
+      newGroup: { ...newGroup }
     };
-    console.log('newState', newState);
+    console.log("newState", newState);
     return newState;
   }
   if (type === groupActions.FILTER_GROUPS) {
     return {
       ...state,
-      filter: payload.filterType || ''
+      filter: payload.filterType || ""
     };
   }
   if (type === groupActions.REMOVE_GROUP_SUCCESS) {
@@ -66,7 +69,7 @@ export function groupsReducer(state = {...newGroupsState}, {payload, type}) {
     };
   }
   if (type === authActions.SIGN_OUT_SUCCESS) {
-    return {...newGroupsState};
+    return { ...newGroupsState };
   }
   return state;
 }

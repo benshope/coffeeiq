@@ -1,20 +1,20 @@
 module.exports = config => {
   config.set({
-    frameworks: ['jasmine'],
+    frameworks: ["jasmine"],
 
-    files: ['karma.entry.js'],
+    files: ["karma.entry.js"],
 
     preprocessors: {
-      'karma.entry.js': ['webpack', 'sourcemap']
+      "karma.entry.js": ["webpack", "sourcemap"]
     },
 
-    webpack: require('./webpack.config'),
+    webpack: require("./webpack.config"),
 
     webpackServer: {
       noInfo: true
     },
 
-    reporters: ['dots'],
+    reporters: ["dots"],
 
     logLevel: config.LOG_INFO,
 
@@ -22,6 +22,6 @@ module.exports = config => {
 
     singleRun: false,
 
-    browsers: ['Chrome']
+    browsers: ["Chrome"]
   });
 };

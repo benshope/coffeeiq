@@ -1,5 +1,5 @@
-import { FirebaseList } from 'core/firebase';
-import { userActions } from './actions';
+import { FirebaseList } from "core/firebase";
+import { userActions } from "./actions";
 
 export const userList = new FirebaseList({
   onAdd: userActions.createUserSuccess,

@@ -1,21 +1,21 @@
-import React from 'react';
-import * as d3 from 'd3';
+import React from "react";
+import * as d3 from "d3";
 
 class Particles extends React.Component {
   componentDidMount() {
     /* D3 code to append elements to this.svg */
-    var context = this.canvas.getContext('2d'),
-        width = this.canvas.width,
-        height = this.canvas.height,
-        radius = 2.5,
-        minDistance = 40,
-        maxDistance = 60,
-        minDistance2 = minDistance * minDistance,
-        maxDistance2 = maxDistance * maxDistance;
+    let context = this.canvas.getContext("2d");
+    let width = this.canvas.width;
+    let height = this.canvas.height;
+    let radius = 2.5;
+    let minDistance = 40;
+    let maxDistance = 60;
+    let minDistance2 = minDistance * minDistance;
+    let maxDistance2 = maxDistance * maxDistance;
 
-    var tau = 2 * Math.PI,
-        n = 400,
-        particles = new Array(n);
+    let tau = 2 * Math.PI;
+    let n = 400;
+    let particles = new Array(n);
 
     for (var i = 0; i < n; ++i) {
       particles[i] = {
@@ -34,15 +34,13 @@ class Particles extends React.Component {
         p.x += p.vx;
         if (p.x < -maxDistance) {
           p.x += width + maxDistance * 2;
-        }
-        else if (p.x > width + maxDistance) {
+        } else if (p.x > width + maxDistance) {
           p.x -= width + maxDistance * 2;
         }
         p.y += p.vy;
         if (p.y < -maxDistance) {
           p.y += height + maxDistance * 2;
-        }
-        else if (p.y > height + maxDistance) {
+        } else if (p.y > height + maxDistance) {
           p.y -= height + maxDistance * 2;
         }
         p.vx += 0.2 * (Math.random() - 0.5) - 0.01 * p.vx;
@@ -53,11 +51,11 @@ class Particles extends React.Component {
       }
       for (var z = 0; z < n; ++z) {
         for (var j = z + 1; j < n; ++j) {
-          var pi = particles[z],
-              pj = particles[j],
-              dx = pi.x - pj.x,
-              dy = pi.y - pj.y,
-              d2 = dx * dx + dy * dy;
+          let pi = particles[z];
+          let pj = particles[j];
+          let dx = pi.x - pj.x;
+          let dy = pi.y - pj.y;
+          let d2 = dx * dx + dy * dy;
           if (d2 < maxDistance2) {
             context.globalAlpha = d2 > minDistance2 ? (maxDistance2 - d2) / (maxDistance2 - minDistance2) : 1;
             context.beginPath();
@@ -81,7 +79,9 @@ class Particles extends React.Component {
         <canvas
           width="960"
           height="960"
-          ref={(elem) => { this.canvas = elem; }}
+          ref={elem => {
+            this.canvas = elem;
+          }}
         />
       </div>
     );

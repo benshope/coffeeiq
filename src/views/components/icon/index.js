@@ -1,10 +1,13 @@
-import React, { PropTypes } from 'react';
-import classNames from 'classnames';
+import React, { PropTypes } from "react";
+import classNames from "classnames";
 
-
-const Icon = ({className, name}) => {
-  const cssClasses = classNames('material-icons', className);
-  return <span className={cssClasses}>{name}</span>;
+const Icon = ({ className, name }) => {
+  const cssClasses = classNames("material-icons", className);
+  return (
+    <span className={cssClasses}>
+      {name}
+    </span>
+  );
 };
 
 Icon.propTypes = {
