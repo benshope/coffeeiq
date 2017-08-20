@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { groupActions } from 'core/groups';
+import React, { PropTypes } from "react";
+import { connect } from "react-redux";
+import { groupActions } from "core/groups";
 
 const GroupPage = ({
   id,
@@ -9,18 +9,23 @@ const GroupPage = ({
   // removeGroup,
   // updateGroup
 }) => {
-  console.log('ATTEMPTING TO SHOW GROUP PAGE', id, groups, user);
-  const group = groups.list.find((g) => g.key === id);
-  const users = Object.keys(group.userIds).map((user, index) => (<li key={index}>{user} [remove user]</li>));
+  console.log("ATTEMPTING TO SHOW GROUP PAGE", id, groups, user);
+  const group = groups.list.find(g => g.key === id);
+  const users = Object.keys(group.userIds).map((user, index) =>
+    <li key={index}>
+      {user} [remove user]
+    </li>
+  );
   const isAdmin = group.admins.includes(user.email) || groups.admins.includes(user.email) || user.isAdmin;
 
   return (
     <div className="g-row">
       <h2>{group.name}</h2>
-      {isAdmin && '[delete group]'}
+      {isAdmin && "[delete group]"}
       {users}
       [add users]
-    </div>);
+    </div>
+  );
 };
 
 GroupPage.propTypes = {
@@ -40,7 +45,4 @@ const dispatchProps = {
   updateGroup: groupActions.updateGroup
 };
 
-export default connect(
-  stateProps,
-  dispatchProps
-)(GroupPage);
+export default connect(stateProps, dispatchProps)(GroupPage);

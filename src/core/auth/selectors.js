@@ -1,4 +1,5 @@
+import { createSelector } from "reselect";
 
-export function isAuthenticated(state) {
-  return state.auth.authenticated;
-}
+export const isAuthenticated = createSelector(state => {
+	return state.auth.authenticated;
+}, x => x);

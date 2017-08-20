@@ -207,7 +207,7 @@ rules:
   prefer-spread: 0
   prefer-template: 0
   quote-props: 0
-  quotes: [2, "single"]
+  quotes: [2, "double"]
   radix: 0
   require-jsdoc: 0
   require-yield: 0

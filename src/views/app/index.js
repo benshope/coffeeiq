@@ -1,20 +1,19 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { PropTypes } from "react";
+import { connect } from "react-redux";
 
-import { authActions } from 'core/auth';
-import Header from 'views/components/header';
-import Particles from 'views/components/particles';
+import { authActions } from "core/auth";
+import Header from "views/components/header";
+import Particles from "views/components/particles";
 
-function App({authenticated, children, signOut}) {
+function App({ authenticated, children, signOut }) {
   return (
     <div>
       {false && <Particles />}
-      <Header
-        authenticated={authenticated}
-        signOut={signOut}
-      />
+      <Header authenticated={authenticated} signOut={signOut} />
 
-      <main>{children}</main>
+      <main>
+        {children}
+      </main>
     </div>
   );
 }
@@ -24,7 +23,6 @@ App.propTypes = {
   children: PropTypes.element,
   signOut: PropTypes.func.isRequired
 };
-
 
 //=====================================
 //  CONNECT
@@ -38,7 +36,4 @@ const mapDispatchToProps = {
   signOut: authActions.signOut
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
