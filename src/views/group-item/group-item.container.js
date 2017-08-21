@@ -1,4 +1,7 @@
 import { groupActions } from "core/groups";
+import IconButton from "material-ui/IconButton";
+import Person from "material-ui/svg-icons/social/person";
+import PersonOutline from "material-ui/svg-icons/social/person-outline";
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 import { go } from "react-router-redux";
@@ -9,7 +12,13 @@ const GroupItem = ({ auth, goToGroup, group, toggleGroupMembership }) => {
     <div onClick={() => goToGroup(group)} className="group-item" tabIndex="0">
       <div className="cell">
         <button onClick={() => toggleGroupMembership(group)}>
-          {userInGroup ? "leave" : "join"}
+          {userInGroup
+            ? <IconButton>
+                <Person />
+              </IconButton>
+            : <IconButton>
+                <PersonOutline />
+              </IconButton>}
         </button>
       </div>
       <div className="cell">

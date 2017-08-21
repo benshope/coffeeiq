@@ -34,6 +34,7 @@
     "d3": "~4.9.1",
     "googleapis": "^19.0.0",
     "history": "^4.6.1",
+    "material-ui": "~0.19.0",
     "react": "~15.3.2",
     "react-dom": "~15.3.2",
     "react-redux": "~4.4.5",

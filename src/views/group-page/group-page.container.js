@@ -2,9 +2,9 @@ import { groupActions } from "core/groups";
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 import { go } from "react-router-redux";
-
-import Button from "../button";
-import Icon from "../icon";
+import IconButton from "material-ui/IconButton";
+import Person from "material-ui/svg-icons/social/person";
+import PersonOutline from "material-ui/svg-icons/social/person-outline";
 import GroupForm from "../group-form/group-form.component";
 
 class GroupPage extends React.Component {
@@ -29,9 +29,13 @@ class GroupPage extends React.Component {
     return (
       <div className="group-item" tabIndex="0">
         <div className="cell">
-          <Button className={("btn--icon", "group-item__button")} onClick={this.toggleGroupMembership}>
-            <Icon name={userInGroup ? "done" : "close"} />
-          </Button>
+          {userInGroup
+            ? <IconButton>
+                <Person />
+              </IconButton>
+            : <IconButton>
+                <PersonOutline />
+              </IconButton>}
         </div>
         <div className="cell">
           {this.state.editing
