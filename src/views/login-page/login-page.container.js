@@ -2,21 +2,17 @@ import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 
 import { authActions } from "core/auth";
-import Button from "views/components/button";
+import Button from "views/button";
 
-const SignInPage = ({ signInWithGoogle }) => {
+const SignInPage = ({ signIn }) => {
   return (
     <div className="home-page">
       <div className="g-row sign-in">
         <div className="g-col">
           <h1 className="sign-in__heading">Meet Your Team</h1>
-          <div className="description">
-            CoffeeIQ schedules a quick coffee meeting each week with a random
-            coworker.
-          </div>
-          <Button className="sign-in__button" onClick={signInWithGoogle}>
-            <img width="25" height="25" src="assets/images/google.svg" /> Sign
-            In
+          <div className="description">CoffeeIQ schedules a quick coffee meeting each week with a random coworker.</div>
+          <Button className="sign-in__button" onClick={signIn}>
+            <img width="25" height="25" src="assets/images/google.svg" /> Sign In
           </Button>
         </div>
       </div>
@@ -25,7 +21,7 @@ const SignInPage = ({ signInWithGoogle }) => {
 };
 
 SignInPage.propTypes = {
-  signInWithGoogle: PropTypes.func.isRequired
+  signIn: PropTypes.func.isRequired
 };
 
 // This helps you build a network, strengthens company culture, and shares knowledge.
@@ -36,7 +32,7 @@ SignInPage.propTypes = {
 //-------------------------------------
 
 const mapDispatchToProps = {
-  signInWithGoogle: authActions.signInWithGoogle
+  signIn: authActions.signIn
 };
 
 export default connect(null, mapDispatchToProps)(SignInPage);

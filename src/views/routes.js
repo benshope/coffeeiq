@@ -1,9 +1,9 @@
 import { isAuthenticated } from "core/auth";
-import App from "./app";
-import SignInPage from "./pages/sign-in";
-import GroupsPage from "./pages/groups";
-import AboutPage from "./pages/about";
-import GroupPage from "./pages/group";
+import App from "./app.container";
+import SignInPage from "./login-page/login-page.container";
+import GroupsPage from "./groups-page/groups-page.container";
+import AboutPage from "./about-page/about-page.container";
+import GroupPage from "./group-page/group-page.container";
 
 export const paths = {
   ROOT: "/",

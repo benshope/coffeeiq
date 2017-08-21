@@ -1,8 +1,8 @@
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 import { groupActions } from "core/groups";
-import GroupForm from "views/components/group-form/group-form.container";
-import GroupList from "views/components/group-list";
+import GroupForm from "views/group-form/group-form.container";
+import GroupList from "views/group-list";
 
 const noCompanyEmailMessage = user =>
   <div className="g-row">

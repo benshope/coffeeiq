@@ -2,8 +2,8 @@ import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 
 import { authActions } from "core/auth";
-import Header from "views/components/header";
-import Particles from "views/components/particles";
+import Header from "views/header";
+import Particles from "views/particles";
 
 function App({ authenticated, children, signOut }) {
   return (
