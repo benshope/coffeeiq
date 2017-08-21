@@ -4,7 +4,7 @@ import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import LocalDrink from "material-ui/svg-icons/maps/local-drink";
 
-const Header = ({ authenticated, signOut }) => {
+const Header = ({ authenticated }) => {
   return (
     <AppBar
       title={<span>CoffeeIQ</span>}
