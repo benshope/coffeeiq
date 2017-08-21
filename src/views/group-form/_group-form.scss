@@ -6,24 +6,24 @@
   // margin: 40px 0 10px;
   display: flex;
 
-  @include media-query(540) {
-    // margin: 80px 0 20px;
-  }
+  // @include media-query(540) {
+  //   // margin: 80px 0 20px;
+  // }
 }
 
 .divider {
-    outline: none;
-    border: 0;
-    border-radius: 0;
-    height: 60px;
-    font-family: inherit;
-    font-size: 2rem;
-    font-weight: 300;
-    // color: #fff;
-    padding: 0 10px;
-    padding-top: 9px;
-    background: transparent;
-    -webkit-font-smoothing: antialiased;
+  outline: none;
+  border: 0;
+  border-radius: 0;
+  height: 60px;
+  font-family: inherit;
+  font-size: 2rem;
+  font-weight: 300;
+  // color: #fff;
+  padding: 0 10px;
+  padding-top: 9px;
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
 }
 
 .group-form__input {
@@ -39,10 +39,10 @@
   // color: #fff;
   background: transparent;
 
-  @include media-query(540) {
-    height: 61px;
-    font-size: rem(32px);
-  }
+  // @include media-query(540) {
+  //   height: 61px;
+  //   font-size: rem(32px);
+  // }
 
   &::placeholder {
     color: #999;

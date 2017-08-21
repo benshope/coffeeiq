@@ -13,14 +13,14 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 const rootElement = document.getElementById("root");
 
-function render(Root) {
+const render = Root => {
   ReactDOM.render(
     <AppContainer>
       <Root history={history} store={store} />
     </AppContainer>,
     rootElement
   );
-}
+};
 
 if (module.hot) {
   module.hot.accept("./views/root", () => {

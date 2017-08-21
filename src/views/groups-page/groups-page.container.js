@@ -1,8 +1,6 @@
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
-import { groupActions } from "core/groups";
-import GroupForm from "views/group-form/group-form.container";
-import GroupList from "views/group-list";
+import GroupList from "views/group-list/group-list.container";
 
 const noCompanyEmailMessage = user =>
   <div className="g-row">
@@ -12,7 +10,7 @@ const noCompanyEmailMessage = user =>
     </h2>
   </div>;
 
-const pageComponent = (groups, user) =>
+const pageComponent = user =>
   <div className="g-row">
     <div className="g-col">
       <h3>
@@ -24,39 +22,22 @@ const pageComponent = (groups, user) =>
       <br />
     </div>
     <div className="g-col">
-      <GroupList groups={groups} />
-    </div>
-    <div className="g-col">
-      <GroupForm />
+      <GroupList />
     </div>
   </div>;
 
-const GroupsPage = ({ groups, user }) => {
-  return user.orgId === "gmail_com" ? noCompanyEmailMessage(user) : pageComponent(groups, user);
+const GroupsPage = ({ user }) => {
+  return user.orgId === "gmail_com" ? noCompanyEmailMessage(user) : pageComponent(user);
 };
 
 GroupsPage.propTypes = {
-  createGroup: PropTypes.func.isRequired,
-  groups: PropTypes.array.isRequired,
-  location: PropTypes.object.isRequired,
-  removeGroup: PropTypes.func.isRequired,
-  updateGroup: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
 
-//=====================================
-//  CONNECT
-//-------------------------------------
-
 const mapStateToProps = state => ({
-  groups: state.groups.list,
   user: state.auth.user
 });
 
-const mapDispatchToProps = {
-  createGroup: groupActions.createGroup,
-  removeGroup: groupActions.removeGroup,
-  updateGroup: groupActions.updateGroup
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsPage);

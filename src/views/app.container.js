@@ -5,18 +5,14 @@ import { authActions } from "core/auth";
 import Header from "views/header";
 import Particles from "views/particles";
 
-function App({ authenticated, children, signOut }) {
-  return (
-    <div>
-      {false && <Particles />}
-      <Header authenticated={authenticated} signOut={signOut} />
-
-      <main>
-        {children}
-      </main>
-    </div>
-  );
-}
+const App = ({ authenticated, children, signOut }) =>
+  <div>
+    {false && <Particles />}
+    <Header authenticated={authenticated} signOut={signOut} />
+    <main>
+      {children}
+    </main>
+  </div>;
 
 App.propTypes = {
   authenticated: PropTypes.bool.isRequired,

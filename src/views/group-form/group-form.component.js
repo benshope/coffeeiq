@@ -1,78 +1,94 @@
+import { isEqual } from "lodash";
 import React, { PropTypes } from "react";
 
-const GroupForm = ({
-  autoFocus,
-  group,
-  onChange,
-  onSubmit,
-  onBlur,
-  onCancel
-}) => {
-  const handleSubmit = e => {
-    e.preventDefault(); // stops page refresh
-    console.log("handleSubmit");
-    onSubmit(group);
-  };
-  const nameChange = e => {
-    console.log(e.target.value);
-    onChange({ name: e.target.value });
-  };
-  const locationChange = e => {
-    console.log(e.target.value);
-    onChange({ location: e.target.value });
-  };
-  const handleKeyUp = event => {
-    if ((onCancel && event.keyCode === 13) || event.keyCode === 27) {
-      onCancel();
-    }
-  };
-  const handleBlur = () => {
-    if (onBlur) {
-      onBlur();
-    }
-  };
+class GroupForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.newState();
+  }
 
-  return (
-    <form
-      className="group-form"
-      onSubmit={handleSubmit}
-      noValidate
-      onBlur={handleBlur}
-    >
-      <input
-        autoComplete="off"
-        onKeyUp={handleKeyUp}
-        autoFocus={autoFocus}
-        className="group-form__input"
-        maxLength="64"
-        onChange={nameChange}
-        placeholder="Group Name"
-        type="text"
-        value={group.name}
-      />
-      <span className="divider">@</span>
-      <input
-        autoComplete="off"
-        onKeyUp={handleKeyUp}
-        className="group-form__input"
-        maxLength="64"
-        onChange={locationChange}
-        placeholder="Meeting Location"
-        type="text"
-        value={group.location}
-      />
-      <button type="submit" href="" style={{ display: "none" }} />
-    </form>
-  );
-};
+  newState() {
+    return (
+      this.props.group || {
+        name: "",
+        location: "",
+        members: ""
+      }
+    );
+  }
+
+  updateState(partialState) {
+    this.setState({ ...this.state, ...partialState });
+  }
+
+  onSubmit() {
+    this.props.onChange(this.state);
+  }
+
+  onCancel() {
+    this.setState(this.newState());
+  }
+
+  onNameChange(e) {
+    this.updateState({ name: e.target.value });
+  }
+
+  onLocationChange(e) {
+    this.updateState({ location: e.target.value });
+  }
+
+  onMembersChange(e) {
+    this.updateState({ members: e.target.value });
+  }
+
+  render() {
+    const { name, location, members } = this.state;
+    const group = this.props;
+    const noChanges = isEqual(group, this.state);
+    return (
+      <form className="group-form" onSubmit={this.onSubmit} noValidate>
+        <input
+          autoComplete="off"
+          autoFocus={true}
+          className="group-form-input"
+          maxLength="64"
+          onChange={this.onNameChange}
+          placeholder="Group Name"
+          type="text"
+          value={name}
+        />
+        <span className="divider">@</span>
+        <input
+          autoComplete="off"
+          className="group-form-input"
+          maxLength="64"
+          onChange={this.onLocationChange}
+          placeholder="Meeting Location"
+          type="text"
+          value={location}
+        />
+        <textarea
+          className="group-form-textarea"
+          maxLength="64"
+          onChange={this.onLocationChange}
+          placeholder="TODO: Group Members"
+          type="text"
+          value={members}
+        />
+        <button disabled={noChanges} onClick={this.onCancel}>
+          Cancel
+        </button>
+        <button disabled={noChanges} onClick={this.onSubmit} type="submit">
+          Submit
+        </button>
+      </form>
+    );
+  }
+}
 
 GroupForm.propTypes = {
-  autoFocus: PropTypes.bool,
-  group: PropTypes.object.isRequired,
-  onBlur: PropTypes.func,
-  onCancel: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  group: PropTypes.object,
+  onChange: PropTypes.func.isRequired
 };
 
 export default GroupForm;

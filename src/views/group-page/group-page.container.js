@@ -1,51 +1,70 @@
+import { groupActions } from "core/groups";
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
-import { groupActions } from "core/groups";
+import { go } from "react-router-redux";
 
-const GroupPage = ({
-  id,
-  groups,
-  user
-  // removeGroup,
-  // updateGroup
-}) => {
-  console.log("ATTEMPTING TO SHOW GROUP PAGE", id, groups, user);
-  const group = groups.list.find(g => g.key === id);
-  const users = Object.keys(group.userIds).map((user, index) =>
-    <li key={index}>
-      {user} [remove user]
-    </li>
-  );
-  const isAdmin =
-    group.admins.includes(user.email) ||
-    groups.admins.includes(user.email) ||
-    user.isAdmin;
+import Button from "../button";
+import Icon from "../icon";
+import GroupForm from "../group-form/group-form.component";
 
-  return (
-    <div className="g-row">
-      <h2>{group.name}</h2>
-      {isAdmin && "[delete group]"}
-      {users}
-      [add users]
-    </div>
-  );
+class GroupPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.newState();
+  }
+
+  newState() {
+    return {
+      editing: false
+    };
+  }
+
+  toggleGroupMembership() {
+    this.props.toggleGroupMembership(this.props.group);
+  }
+
+  render() {
+    const { auth, group, updateGroup } = this.props;
+    const userInGroup = group.userIds && group.userIds[auth.uid];
+    return (
+      <div className="group-item" tabIndex="0">
+        <div className="cell">
+          <Button className={("btn--icon", "group-item__button")} onClick={this.toggleGroupMembership}>
+            <Icon name={userInGroup ? "done" : "close"} />
+          </Button>
+        </div>
+        <div className="cell">
+          {this.state.editing
+            ? <GroupForm group={group} onChange={updateGroup} />
+            : <div>
+                {group.name} @ {group.location}
+              </div>}
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = {
+  goToGroup: group => {
+    console.log("TODO: NOT WORKING GOING TO: ", group);
+    return go(`group/${group.key}`);
+  },
+  removeGroup: groupActions.removeGroup,
+  updateGroup: groupActions.updateGroup,
+  toggleGroupMembership: groupActions.toggleGroupMembership
 };
 
 GroupPage.propTypes = {
-  groups: PropTypes.object.isRequired,
-  id: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  goToGroup: PropTypes.func.isRequired,
+  group: PropTypes.object.isRequired,
+  toggleGroupMembership: PropTypes.func.isRequired,
+  updateGroup: PropTypes.func.isRequired
 };
 
-const stateProps = (state, ownProps) => ({
-  id: ownProps.params.id,
-  user: state.auth.user,
-  groups: state.groups
-});
-
-const dispatchProps = {
-  removeGroup: groupActions.removeGroup,
-  updateGroup: groupActions.updateGroup
-};
-
-export default connect(stateProps, dispatchProps)(GroupPage);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupPage);
