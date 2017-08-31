@@ -12,7 +12,7 @@ const SignInPage = ({ signIn }) => {
           <h1 className="sign-in__heading">Meet Your Team</h1>
           <div className="description">CoffeeIQ schedules a quick coffee meeting each week with a random coworker.</div>
           <RaisedButton
-            label="Sign In"
+            label="Sign Up"
             labelPosition="after"
             onClick={signIn}
             primary={true}
