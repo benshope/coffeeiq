@@ -1,6 +1,7 @@
 import React, { PropTypes } from "react";
 
 import AppBar from "material-ui/AppBar";
+import FlatButton from "material-ui/FlatButton";
 import IconButton from "material-ui/IconButton";
 import LocalDrink from "material-ui/svg-icons/maps/local-drink";
 
@@ -19,9 +20,7 @@ const Header = ({ authenticated }) => {
           ? <IconButton>
               <LocalDrink />
             </IconButton>
-          : <IconButton>
-              <LocalDrink />
-            </IconButton>
+          : <FlatButton label="Log In" />
       }
     />
   );

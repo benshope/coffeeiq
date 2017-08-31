@@ -1,3 +1,4 @@
+import RaisedButton from "material-ui/RaisedButton";
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 
@@ -10,9 +11,18 @@ const SignInPage = ({ signIn }) => {
         <div className="g-col">
           <h1 className="sign-in__heading">Meet Your Team</h1>
           <div className="description">CoffeeIQ schedules a quick coffee meeting each week with a random coworker.</div>
-          <button className="sign-in__button" onClick={signIn}>
-            <img width="25" height="25" src="assets/images/google.svg" /> Sign In
-          </button>
+          <RaisedButton
+            label="Sign In"
+            labelPosition="after"
+            onClick={signIn}
+            primary={true}
+            className="signup-button"
+            style={{height: "60px"}}
+            overlayStyle={{padding: "0px 20px"}}
+            labelStyle={{height: "60px"}}
+            buttonStyle={{height: "60px", display: "flex", alignItems: "stretch"}}
+            icon={<img width="25" height="60" src="assets/images/google.svg" />}
+          />
         </div>
       </div>
     </div>
