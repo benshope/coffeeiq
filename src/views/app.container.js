@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 
 import { authActions } from "core/auth";
 import Header from "views/header";
-import Particles from "views/particles";
 
 const muiTheme = getMuiTheme({
   fontFamily: "Helvetica Neue, Roboto, sans-serif",
@@ -55,7 +54,6 @@ const muiTheme = getMuiTheme({
 const App = ({ authenticated, children, signOut }) =>
   <MuiThemeProvider muiTheme={muiTheme}>
   <div className="app-container">
-    {false && <Particles />}
     <div id="stripes">
       <span></span>
       <span></span>
