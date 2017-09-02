@@ -14,15 +14,15 @@ import Particles from "views/particles";
 const muiTheme = getMuiTheme({
   fontFamily: "Helvetica Neue, Roboto, sans-serif",
   palette: {
-    primary1Color: grey300,
+    primary1Color: white,
     primary2Color: cyan700,
     primary3Color: grey400,
-    accent1Color: pinkA200,
-    accent2Color: grey100,
+    accent1Color: grey100,
+    accent2Color: pinkA200,
     accent3Color: grey500,
     textColor: darkBlack,
     alternateTextColor: darkBlack,
-    canvasColor: white,
+    canvasColor: "#f2f2f2",
     borderColor: grey300,
     disabledColor: grey500,
     pickerHeaderColor: cyan500,
@@ -30,18 +30,39 @@ const muiTheme = getMuiTheme({
     shadowColor: fullBlack
   },
   appBar: {
-    height: 60,
-    // color: grey500,
-    textColor: darkBlack
+    height: 80,
+    color: "rgba(0,0,0,0)",
+    textColor: white
     // titleFontWeight: 300
     // padding: spacing.desktopGutter,
+  },
+  paper: {
+    // color: palette.textColor,
+    backgroundColor: cyan500,
+    zDepthShadows: [
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0]
+    ].map(() => (
+      `0 0px 0px black},
+       0 0px 0px black}`
+    ))
   }
 });
 
 const App = ({ authenticated, children, signOut }) =>
   <MuiThemeProvider muiTheme={muiTheme}>
-  <div>
+  <div className="app-container">
     {false && <Particles />}
+    <div id="stripes">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <Header authenticated={authenticated} signOut={signOut} />
     <main>
       {children}

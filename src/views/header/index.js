@@ -2,25 +2,24 @@ import React, { PropTypes } from "react";
 
 import AppBar from "material-ui/AppBar";
 import FlatButton from "material-ui/FlatButton";
+import ExitToApp from "material-ui/svg-icons/action/exit-to-app";
 import IconButton from "material-ui/IconButton";
-import LocalDrink from "material-ui/svg-icons/maps/local-drink";
+import FreeBreakfast from "material-ui/svg-icons/places/free-breakfast";
 
-const Header = ({ authenticated }) => {
+const Header = ({ authenticated, signOut }) => {
   return (
     <AppBar
       title={<span>CoffeeIQ</span>}
       onTitleTouchTap={() => console.log("TODO: go to home")}
       iconElementLeft={
         <IconButton>
-          <LocalDrink />
+          <FreeBreakfast />
         </IconButton>
       }
       iconElementRight={
         authenticated
-          ? <IconButton>
-              <LocalDrink />
-            </IconButton>
-          : <FlatButton label="Log In" />
+          ? <FlatButton label="Log Out" labelPosition="before" onClick={signOut} icon={<ExitToApp style={{transform: "rotate(180deg)"}} />} />
+          : <FlatButton label="Log In" labelPosition="before" onClick={signOut} icon={<ExitToApp />} />
       }
     />
   );
