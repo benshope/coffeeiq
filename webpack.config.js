@@ -9,7 +9,6 @@ const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const ProgressPlugin = require("webpack/lib/ProgressPlugin");
 const UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin");
 const WebpackMd5Hash = require("webpack-md5-hash");
-var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 //=========================================================
 //  VARS
@@ -61,13 +60,7 @@ config.plugins = [
         sourceComments: false
       }
     }
-  }),
-  new CopyWebpackPlugin([
-    {
-      from: "src/assets/",
-      to: "assets/"
-    }
-  ])
+  })
 ];
 
 //=====================================
