@@ -1,4 +1,3 @@
-import RaisedButton from "material-ui/RaisedButton";
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 
