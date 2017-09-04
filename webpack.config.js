@@ -31,8 +31,11 @@ const rules = {
   json: { test: /\.json$/, loader: "json" },
   scss: { test: /\.scss$/, loader: "style!css!postcss!sass" },
   font: {
-    test: /\.(woff|woff2|eot|ttf|otf)$/,
-    loader: "file-loader"
+    test: /\.(jpg|png|svg|woff|woff2|eot|ttf|otf)$/,
+    loader: "url-loader",
+    options: {
+      limit: 25000
+    }
   }
 };
 

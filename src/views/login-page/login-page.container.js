@@ -10,18 +10,31 @@ const SignInPage = ({ signIn }) => {
       <div className="g-row sign-in">
         <div className="g-col">
           <h1 className="sign-in__heading">Meet Your Team</h1>
-          <div className="description">CoffeeIQ schedules a quick coffee meeting each week with a random coworker.</div>
+          <div className="description">
+            CoffeeIQ schedules a quick coffee meeting each week with a random
+            coworker.
+          </div>
           <RaisedButton
             label="Sign Up"
             labelPosition="after"
             onClick={signIn}
             primary={true}
             className="signup-button"
-            style={{height: "60px"}}
-            overlayStyle={{padding: "0px 20px"}}
-            labelStyle={{height: "60px"}}
-            buttonStyle={{height: "60px", display: "flex", alignItems: "stretch"}}
-            icon={<img width="25" height="60" src="assets/images/google.svg" />}
+            style={{ height: "60px" }}
+            overlayStyle={{ padding: "0px 20px" }}
+            labelStyle={{ height: "60px" }}
+            buttonStyle={{
+              height: "60px",
+              display: "flex",
+              alignItems: "stretch"
+            }}
+            icon={
+              <img
+                width="25"
+                height="60"
+                src="../../assets/images/google.svg"
+              />
+            }
           />
         </div>
       </div>
