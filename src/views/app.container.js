@@ -20,7 +20,7 @@ import Header from "views/header";
 import Stripes from "views/stripes";
 
 const muiTheme = getMuiTheme({
-  fontFamily: "Helvetica Neue, Roboto, sans-serif",
+  fontFamily: "Gotham, Helvetica Neue, Roboto, sans-serif",
   palette: {
     primary1Color: white,
     primary2Color: cyan700,
@@ -63,10 +63,12 @@ const muiTheme = getMuiTheme({
 
 const App = ({ authenticated, children, signOut }) => (
   <MuiThemeProvider muiTheme={muiTheme}>
-    <div className="app-container">
+    <div>
       <Stripes />
-      <Header authenticated={authenticated} signOut={signOut} />
-      <main>{children}</main>
+      <div className="app-container">
+        <Header authenticated={authenticated} signOut={signOut} />
+        <main>{children}</main>
+      </div>
     </div>
   </MuiThemeProvider>
 );

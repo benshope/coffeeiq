@@ -9,6 +9,7 @@ const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const ProgressPlugin = require("webpack/lib/ProgressPlugin");
 const UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin");
 const WebpackMd5Hash = require("webpack-md5-hash");
+// var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 //=========================================================
 //  VARS
@@ -28,7 +29,11 @@ const PORT = 4000;
 const rules = {
   js: { test: /\.js$/, exclude: /node_modules/, loader: "babel" },
   json: { test: /\.json$/, loader: "json" },
-  scss: { test: /\.scss$/, loader: "style!css!postcss!sass" }
+  scss: { test: /\.scss$/, loader: "style!css!postcss!sass" },
+  font: {
+    test: /\.(woff|woff2|eot|ttf|otf)$/,
+    loader: "file-loader"
+  }
 };
 
 //=========================================================
@@ -42,7 +47,7 @@ config.resolve = {
 };
 
 config.module = {
-  rules: [rules.js]
+  rules: [rules.js, rules.font]
 };
 
 config.plugins = [
@@ -61,6 +66,12 @@ config.plugins = [
       }
     }
   })
+  // new CopyWebpackPlugin([
+  //   {
+  //     from: "src/views/assets/",
+  //     to: "assets/"
+  //   }
+  // ])
 ];
 
 //=====================================

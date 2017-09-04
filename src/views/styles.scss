@@ -5,60 +5,162 @@
 @import "stripes/stripes";
 @import "group-list/group-list";
 
-
 /* START RESET */
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline; }
+  vertical-align: baseline;
+}
 
 /* HTML5 display-role reset for older browsers */
 
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-  display: block; }
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
 
 body {
-  line-height: 1; }
+  line-height: 1;
+}
 
-ol, ul {
-  list-style: none; }
+ol,
+ul {
+  list-style: none;
+}
 
-blockquote, q {
-  quotes: none; }
+blockquote,
+q {
+  quotes: none;
+}
 
 blockquote {
-  &:before, &:after {
-    content: '';
-    content: none; } }
+  &:before,
+  &:after {
+    content: "";
+    content: none;
+  }
+}
 
 q {
-  &:before, &:after {
-    content: '';
-    content: none; } }
+  &:before,
+  &:after {
+    content: "";
+    content: none;
+  }
+}
 
 table {
   border-collapse: collapse;
-  border-spacing: 0; }
+  border-spacing: 0;
+}
 
 /* END RESET */
 
 body {
-  background: #F5F5F5;
+  background: #f5f5f5;
 }
 
-// .app-container {
-//   max-width: 1040px;
-//   margin-left: auto;
-//   margin-right: auto;
-// }
-
+.app-container {
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 ::selection {
-  background: rgba(200, 200, 255, .1);
+  background: rgba(200, 200, 255, 0.1);
 }
 
 .hide {
@@ -85,77 +187,81 @@ body {
 //  Settings
 //---------------------------------------------------------
 
-// @font-face {
-//   font-family: 'Gotham';
-//   src: url('assets/fonts/gotham/GothamHTF-Medium.otf');
-// }
-// @font-face {
-//   font-family: 'Gotham';
-//   src: url('assets/fonts/gotham/GothamHTF-Ultra.otf');
-//   font-weight: 900;
-// }
-// @font-face {
-//   font-family: 'Gotham';
-//   src: url('assets/fonts/gotham/GothamHTF-Black.otf');
-//   font-weight: 700;
-// }
-// @font-face {
-//   font-family: 'Gotham';
-//   src: url('assets/fonts/gotham/GothamHTF-Bold.otf');
-//   font-weight: 600;
-// }
-// @font-face {
-//   font-family: 'Gotham';
-//   src: url('assets/fonts/gotham/GothamHTF-Book.otf');
-//   font-weight: 400;
-// }
-// @font-face {
-//   font-family: 'Gotham';
-//   src: url('assets/fonts/gotham/GothamHTF-Thin.otf');
-//   font-weight: 300;
-// }
-// @font-face {
-//   font-family: 'Gotham';
-//   src: url('assets/fonts/gotham/GothamHTF-Light.otf');
-//   font-weight: 200;
-// }
-// @font-face {
-//   font-family: 'Gotham';
-//   src: url('assets/fonts/gotham/GothamHTF-XLight.otf');
-//   font-weight: 100;
-// }
-// .gotham { font-family: 'Gotham', 'Helvetica Neue', sans-serif;}
+@font-face {
+  font-family: "Gotham";
+  src: url("../assets/fonts/gotham/GothamHTF-Medium.otf");
+}
+@font-face {
+  font-family: "Gotham";
+  src: url("../assets/fonts/gotham/GothamHTF-Ultra.otf");
+  font-weight: 900;
+}
+@font-face {
+  font-family: "Gotham";
+  src: url("../assets/fonts/gotham/GothamHTF-Black.otf");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Gotham";
+  src: url("../assets/fonts/gotham/GothamHTF-Bold.otf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Gotham";
+  src: url("../assets/fonts/gotham/GothamHTF-Book.otf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Gotham";
+  src: url("../assets/fonts/gotham/GothamHTF-Thin.otf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Gotham";
+  src: url("../assets/fonts/gotham/GothamHTF-Light.otf");
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Gotham";
+  src: url("../assets/fonts/gotham/GothamHTF-XLight.otf");
+  font-weight: 100;
+}
+.gotham {
+  font-family: "Gotham", "Helvetica Neue", sans-serif;
+}
 
-// @font-face {
-//   font-family: 'Whitney';
-//   src: url('assets/fonts/whitney/WhitneyHTF-Medium.otf');
-// }
-// @font-face {
-//   font-family: 'Whitney';
-//   src: url('assets/fonts/whitney/WhitneyHTF-Black.otf');
-//   font-weight: 900;
-// }
-// @font-face {
-//   font-family: 'Whitney';
-//   src: url('assets/fonts/whitney/WhitneyHTF-Bold.otf');
-//   font-weight: 800;
-// }
-// @font-face {
-//   font-family: 'Whitney';
-//   src: url('assets/fonts/whitney/WhitneyHTF-SemiBold.otf');
-//   font-weight: 600;
-// }
-// @font-face {
-//   font-family: 'Whitney';
-//   src: url('assets/fonts/whitney/WhitneyHTF-Book.otf');
-//   font-weight: 400;
-// }
-// @font-face {
-//   font-family: 'Whitney';
-//   src: url('assets/fonts/whitney/WhitneyHTF-Light.otf');
-//   font-weight: 200;
-// }
-// .whitney { font-family: 'Whitney', RobotoDraft, Roboto, 'Helvetica Neue', sans-serif; }
+@font-face {
+  font-family: "Whitney";
+  src: url("../assets/fonts/whitney/WhitneyHTF-Medium.otf");
+}
+@font-face {
+  font-family: "Whitney";
+  src: url("../assets/fonts/whitney/WhitneyHTF-Black.otf");
+  font-weight: 900;
+}
+@font-face {
+  font-family: "Whitney";
+  src: url("../assets/fonts/whitney/WhitneyHTF-Bold.otf");
+  font-weight: 800;
+}
+@font-face {
+  font-family: "Whitney";
+  src: url("../assets/fonts/whitney/WhitneyHTF-SemiBold.otf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Whitney";
+  src: url("../assets/fonts/whitney/WhitneyHTF-Book.otf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Whitney";
+  src: url("../assets/fonts/whitney/WhitneyHTF-Light.otf");
+  font-weight: 200;
+}
+.whitney {
+  font-family: "Whitney", RobotoDraft, Roboto, "Helvetica Neue", sans-serif;
+}
 
 $base-background-color: #f2f2f2 !default;
 $base-font-color: #999 !default;
