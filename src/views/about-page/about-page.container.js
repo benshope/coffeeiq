@@ -7,7 +7,7 @@ const AboutPage = () => {
       <div className="g-row about">
         <div className="g-col">
           <h1 className="about__heading">About</h1>
-          <div className="description">
+                    <div className="description">
             CoffeeIQ schedules a quick coffee meeting each week with a random
             coworker. Selfies hammock meh, seitan hella raclette polaroid
             slow-carb. VHS bushwick gentrify,fam coloring book letterpress
@@ -20,7 +20,7 @@ const AboutPage = () => {
   );
 };
 
-AboutPage.propTypes = {};
+AboutPage.propTypes = {    };
 
 //=====================================
 //  CONNECT

@@ -1,7 +1,15 @@
-import { cyan500, cyan700,
+import {
+  cyan500,
+  cyan700,
   pinkA200,
-  grey100, grey300, grey400, grey500,
-  white, darkBlack, fullBlack } from "material-ui/styles/colors";
+  grey100,
+  grey300,
+  grey400,
+  grey500,
+  white,
+  darkBlack,
+  fullBlack
+} from "material-ui/styles/colors";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import React, { PropTypes } from "react";
@@ -9,7 +17,7 @@ import { connect } from "react-redux";
 
 import { authActions } from "core/auth";
 import Header from "views/header";
-import Stripes from "views/particles";
+import Stripes from "views/stripes";
 
 const muiTheme = getMuiTheme({
   fontFamily: "Helvetica Neue, Roboto, sans-serif",
@@ -45,24 +53,23 @@ const muiTheme = getMuiTheme({
       [0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0]
-    ].map(() => (
-      `0 0px 0px black},
+    ].map(
+      () =>
+        `0 0px 0px black},
        0 0px 0px black}`
-    ))
+    )
   }
 });
 
-const App = ({ authenticated, children, signOut }) =>
+const App = ({ authenticated, children, signOut }) => (
   <MuiThemeProvider muiTheme={muiTheme}>
-  <div className="app-container">
-    <Stripes />
-    <Header authenticated={authenticated} signOut={signOut} />
-    <main>
-      {children}
-    </main>
+    <div className="app-container">
+      <Stripes />
+      <Header authenticated={authenticated} signOut={signOut} />
+      <main>{children}</main>
     </div>
   </MuiThemeProvider>
-;
+);
 
 App.propTypes = {
   authenticated: PropTypes.bool.isRequired,
