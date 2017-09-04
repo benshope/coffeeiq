@@ -6,7 +6,10 @@ import ExitToApp from "material-ui/svg-icons/action/exit-to-app";
 import IconButton from "material-ui/IconButton";
 import FreeBreakfast from "material-ui/svg-icons/places/free-breakfast";
 
-const Header = ({ authenticated, signOut }) => {
+import { connect } from "react-redux";
+import { authActions } from "core/auth";
+
+const Header = ({ authenticated, signOut, signIn }) => {
   return (
     <AppBar
       title={<span>CoffeeIQ</span>}
@@ -17,9 +20,21 @@ const Header = ({ authenticated, signOut }) => {
         </IconButton>
       }
       iconElementRight={
-        authenticated
-          ? <FlatButton label="Log Out" labelPosition="before" onClick={signOut} icon={<ExitToApp style={{transform: "rotate(180deg)"}} />} />
-          : <FlatButton label="Log In" labelPosition="before" onClick={signOut} icon={<ExitToApp />} />
+        authenticated ? (
+          <FlatButton
+            label="Log Out"
+            labelPosition="before"
+            onClick={signOut}
+            icon={<ExitToApp style={{ transform: "rotate(180deg)" }} />}
+          />
+        ) : (
+          <FlatButton
+            label="Log In"
+            labelPosition="before"
+            onClick={signIn}
+            icon={<ExitToApp />}
+          />
+        )
       }
     />
   );
@@ -27,7 +42,17 @@ const Header = ({ authenticated, signOut }) => {
 
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
-  signOut: PropTypes.func.isRequired
+  signOut: PropTypes.func.isRequired,
+  signIn: PropTypes.func.isRequired
 };
 
-export default Header;
+const mapStateToProps = state => ({
+  authenticated: state.auth.authenticated
+});
+
+const mapDispatchToProps = {
+  signOut: authActions.signOut,
+  signIn: authActions.signIn
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

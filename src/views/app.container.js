@@ -13,11 +13,6 @@ import {
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import React, { PropTypes } from "react";
-import { connect } from "react-redux";
-
-import { authActions } from "core/auth";
-import Header from "views/header";
-import Stripes from "views/stripes";
 
 const muiTheme = getMuiTheme({
   fontFamily: "Gotham, Helvetica Neue, Roboto, sans-serif",
@@ -61,34 +56,12 @@ const muiTheme = getMuiTheme({
   }
 });
 
-const App = ({ authenticated, children, signOut }) => (
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <div>
-      <Stripes />
-      <div className="app-container">
-        <Header authenticated={authenticated} signOut={signOut} />
-        <main>{children}</main>
-      </div>
-    </div>
-  </MuiThemeProvider>
+const App = ({ children }) => (
+  <MuiThemeProvider muiTheme={muiTheme}>{children}</MuiThemeProvider>
 );
 
 App.propTypes = {
-  authenticated: PropTypes.bool.isRequired,
-  children: PropTypes.element,
-  signOut: PropTypes.func.isRequired
+  children: PropTypes.element
 };
 
-//=====================================
-//  CONNECT
-//-------------------------------------
-
-const mapStateToProps = state => ({
-  authenticated: state.auth.authenticated
-});
-
-const mapDispatchToProps = {
-  signOut: authActions.signOut
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
