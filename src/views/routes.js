@@ -1,22 +1,22 @@
 import { isAuthenticated } from "core/auth";
 import App from "./app.container";
-import SignInPage from "./login-page/login-page.container";
+import HomePage from "./home-page/home-page.container";
 import GroupsPage from "./groups-page/groups-page.container";
-import AboutPage from "./about-page/about-page.container";
+// import AboutPage from "./about-page/about-page.container";
 import GroupPage from "./group-page/group-page.container";
 
 export const paths = {
   ROOT: "/",
-  SIGN_IN: "/sign-in",
-  ABOUT: "/about",
-  GROUPS: "/",
+  HOME: "/",
+  // ABOUT: "/about",
+  GROUPS: "/groups",
   GROUP: "/group/:id"
 };
 
 const requireAuth = getState => {
   return (nextState, replace) => {
     if (!isAuthenticated(getState())) {
-      replace(paths.SIGN_IN);
+      replace(paths.HOME);
     }
   };
 };
@@ -36,19 +36,19 @@ export const getRoutes = getState => {
     childRoutes: [
       {
         indexRoute: {
-          component: GroupsPage,
-          onEnter: requireAuth(getState)
+          component: HomePage,
+          onEnter: requireUnauth(getState)
         }
       },
       {
-        path: paths.SIGN_IN,
-        component: SignInPage,
-        onEnter: requireUnauth(getState)
+        path: paths.GROUPS,
+        component: GroupsPage,
+        onEnter: requireAuth(getState)
       },
-      {
-        path: paths.ABOUT,
-        component: AboutPage
-      },
+      // {
+      //   path: paths.ABOUT,
+      //   component: AboutPage
+      // },
       {
         path: paths.GROUP,
         component: GroupPage
