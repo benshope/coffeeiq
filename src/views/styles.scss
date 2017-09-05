@@ -149,42 +149,8 @@ table {
 
 /* END RESET */
 
-body {
-  background: #f5f5f5;
-}
-
-.app-container {
-  max-width: 1040px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-::selection {
-  background: rgba(200, 200, 255, 0.1);
-}
-
-.hide {
-  display: none !important;
-}
-
-.capitalize {
-  text-transform: capitalize;
-}
-
 //=========================================================
-//  Grid
-//---------------------------------------------------------
-
-.g-row {
-  // @include grid-row;
-}
-
-.g-col {
-  width: 100%;
-}
-
-//=========================================================
-//  Settings
+//  Fonts
 //---------------------------------------------------------
 
 @font-face {
@@ -265,7 +231,8 @@ body {
 
 $base-background-color: #f2f2f2 !default;
 $base-font-color: #999 !default;
-$base-font-family: Helvetica Neue, Arial, sans-serif !default;
+$base-font-family: "Whitney", Ubuntu, Helvetica Neue, Arial, sans-serif !default;
+$header-font-family: "Gotham", Helvetica Neue, Arial, sans-serif !default;
 $base-font-size: 18px !default;
 $base-line-height: 24px !default;
 
@@ -274,15 +241,35 @@ $base-line-height: 24px !default;
   font-weight: 2;
 }
 
+.app-container {
+  font-family: $base-font-family;
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+button {
   font-weight: 400;
-  font-family: $base-font-family;
+  font-family: $header-font-family;
 }
-//=====================================
-//  Grid
-//-------------------------------------
-$grid-max-width: 810px !default;
+
+body {
+  background: #f5f5f5;
+}
+
+::selection {
+  background: rgba(200, 200, 255, 0.1);
+}
+
+.hide {
+  display: none !important;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}

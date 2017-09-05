@@ -12,14 +12,13 @@ const SignInPage = ({ signIn }) => {
       <div className="app-container">
         <Header />
         <div className="home-page">
-          <h1>Meet Your Team</h1>
+          <h1>Meet your team</h1>
           <div className="description">
-            CoffeeIQ schedules a quick coffee meeting each week with a random
-            coworker.
+            CoffeeIQ schedules a quick coffee meeting each week with a coworker.
           </div>
-          <button onClick={signIn}>
-            Sign Up
+          <button className="signup-button" onClick={signIn}>
             <img width="25" height="60" src="../../assets/images/google.svg" />
+            Sign Up
           </button>
         </div>
       </div>
