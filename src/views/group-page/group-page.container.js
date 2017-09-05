@@ -29,20 +29,24 @@ class GroupPage extends React.Component {
     return (
       <div className="group-item" tabIndex="0">
         <div className="cell">
-          {userInGroup
-            ? <IconButton>
-                <Person />
-              </IconButton>
-            : <IconButton>
-                <PersonOutline />
-              </IconButton>}
+          {userInGroup ? (
+            <IconButton>
+              <Person />
+            </IconButton>
+          ) : (
+            <IconButton>
+              <PersonOutline />
+            </IconButton>
+          )}
         </div>
         <div className="cell">
-          {this.state.editing
-            ? <GroupForm group={group} onChange={updateGroup} />
-            : <div>
-                {group.name} @ {group.location}
-              </div>}
+          {this.state.editing ? (
+            <GroupForm group={group} onChange={updateGroup} />
+          ) : (
+            <div>
+              {group.name} @ {group.location}
+            </div>
+          )}
         </div>
       </div>
     );

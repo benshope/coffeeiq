@@ -1,13 +1,11 @@
-import React, { PropTypes } from "react";
-
+import { authActions } from "core/auth";
 import AppBar from "material-ui/AppBar";
 import FlatButton from "material-ui/FlatButton";
-import ExitToApp from "material-ui/svg-icons/action/exit-to-app";
 import IconButton from "material-ui/IconButton";
+import ExitToApp from "material-ui/svg-icons/action/exit-to-app";
 import FreeBreakfast from "material-ui/svg-icons/places/free-breakfast";
-
+import React, { PropTypes } from "react";
 import { connect } from "react-redux";
-import { authActions } from "core/auth";
 
 const Header = ({ authenticated, signOut, signIn }) => {
   return (
@@ -42,8 +40,8 @@ const Header = ({ authenticated, signOut, signIn }) => {
 
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
-  signOut: PropTypes.func.isRequired,
-  signIn: PropTypes.func.isRequired
+  signIn: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
