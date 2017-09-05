@@ -7,9 +7,9 @@ export const authActions = {
   SIGN_OUT_FAILED: "SIGN_OUT_FAILED",
   SIGN_OUT_SUCCESS: "SIGN_OUT_SUCCESS",
 
-  signIn: payload => ({
+  signIn: ({ isAdmin }) => ({
     type: authActions.SIGN_IN,
-    payload: { isAdmin: payload.isAdmin }
+    payload: { isAdmin }
   }),
 
   signInFailed: error => ({

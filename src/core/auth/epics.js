@@ -6,13 +6,14 @@ import { Observable } from "rxjs";
 import { firebaseAuth } from "core/firebase";
 import { authActions } from "./actions";
 
-// why no promises here - b/c of rxjs? - lexis
-export const signInEpic = action$ => {
-  return action$
+export const signInEpic = action$ =>
+  action$
     .filter(action => action.type === authActions.SIGN_IN)
-    .flatMap(() => {
+    .flatMap(({ payload }) => {
       let provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope("https://www.googleapis.com/auth/calendar.readonly");
+      if (payload.isAdmin) {
+        provider.addScope("https://www.googleapis.com/auth/calendar.readonly");
+      }
       provider.setCustomParameters({
         hd: "*",
         prompt: "consent",
@@ -25,25 +26,20 @@ export const signInEpic = action$ => {
       return request.then(() => go("/"), console.warn);
     })
     .filter(x => x);
-};
 
-export const signOutEpic = action$ => {
-  return action$
+export const signOutEpic = action$ =>
+  action$
     .filter(action => action.type === authActions.SIGN_OUT)
-    .map(() => {
-      return Observable.fromPromise(
-        firebaseAuth
-          .signOut()
-          .then(authActions.signOutSuccess, authActions.signOutError)
-      );
-    })
-    .flatMap(x => [go("/sign-in"), x]);
-};
+    .flatMap(() =>
+      firebaseAuth
+        .signOut()
+        .then(authActions.signOutSuccess, authActions.signOutError)
+    );
 
-export const signOutSuccessEpic = action$ => {
-  return action$
+export const signOutSuccessEpic = action$ =>
+  action$
     .filter(action => action.type === authActions.SIGN_OUT_SUCCESS)
-    .filter(() => {
+    .map(() => {
       localStorage.clear();
       let cookies = document.cookie.split(";");
       for (var i = 0; i < cookies.length; i++) {
@@ -52,8 +48,7 @@ export const signOutSuccessEpic = action$ => {
         let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
       }
-      return false;
+      return go("/sign-in");
     });
-};
 
 export const authEpics = [signInEpic, signOutEpic, signOutSuccessEpic];
