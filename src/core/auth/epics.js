@@ -1,6 +1,7 @@
 /* eslint-disable no-constant-condition */
 import { go } from "react-router-redux";
 import firebase from "firebase";
+import { Observable } from "rxjs";
 
 import { firebaseAuth } from "core/firebase";
 import { authActions } from "./actions";
@@ -32,13 +33,17 @@ export const signOutEpic = action$ =>
     .flatMap(() =>
       firebaseAuth
         .signOut()
-        .then(authActions.signOutSuccess, authActions.signOutError)
-    );
+        .then(
+          x => Observable.from([go("/"), authActions.signOutSuccess(x)]),
+          x => Observable.of(authActions.signOutError(x))
+        )
+    )
+    .flatMap(x => x);
 
 export const signOutSuccessEpic = action$ =>
   action$
     .filter(action => action.type === authActions.SIGN_OUT_SUCCESS)
-    .map(() => {
+    .filter(() => {
       localStorage.clear();
       let cookies = document.cookie.split(";");
       for (var i = 0; i < cookies.length; i++) {
@@ -47,7 +52,6 @@ export const signOutSuccessEpic = action$ =>
         let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
       }
-      return go("/");
     });
 
 export const authEpics = [signInEpic, signOutEpic, signOutSuccessEpic];

@@ -11,17 +11,15 @@ const GroupItem = ({ auth, goToGroup, group, toggleGroupMembership }) => {
   return (
     <div onClick={() => goToGroup(group)} className="group-item" tabIndex="0">
       <div className="cell">
-        <button onClick={() => toggleGroupMembership(group)}>
-          {userInGroup ? (
-            <IconButton>
-              <Person />
-            </IconButton>
-          ) : (
-            <IconButton>
-              <PersonOutline />
-            </IconButton>
-          )}
-        </button>
+        {userInGroup ? (
+          <IconButton onClick={() => toggleGroupMembership(group)}>
+            <Person />
+          </IconButton>
+        ) : (
+          <IconButton onClick={() => toggleGroupMembership(group)}>
+            <PersonOutline />
+          </IconButton>
+        )}
       </div>
       <div className="cell">
         {group.name} @ {group.location}
