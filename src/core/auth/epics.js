@@ -33,25 +33,7 @@ export const signOutEpic = action$ =>
     .flatMap(() =>
       firebaseAuth
         .signOut()
-        .then(
-          x => Observable.from([go("/"), authActions.signOutSuccess(x)]),
-          x => Observable.of(authActions.signOutError(x))
-        )
-    )
-    .flatMap(x => x);
+        .then(x => go("/"), x => authActions.signOutError(x))
+    );
 
-export const signOutSuccessEpic = action$ =>
-  action$
-    .filter(action => action.type === authActions.SIGN_OUT_SUCCESS)
-    .filter(() => {
-      localStorage.clear();
-      let cookies = document.cookie.split(";");
-      for (var i = 0; i < cookies.length; i++) {
-        let cookie = cookies[i];
-        let eqPos = cookie.indexOf("=");
-        let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      }
-    });
-
-export const authEpics = [signInEpic, signOutEpic, signOutSuccessEpic];
+export const authEpics = [signInEpic, signOutEpic];

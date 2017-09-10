@@ -1,15 +1,22 @@
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 import Header from "views/header";
-import Stripes from "views/stripes";
 
 import { authActions } from "core/auth";
 
 const SignInPage = ({ signIn }) => {
   return (
     <div>
-      <Stripes />
-      <div className="app-container">
+      <div className="home-page-stripes-container">
+        <div id="stripes">
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
+      <div className="iq-app-container">
         <Header />
         <div className="home-page">
           <h1>Meet your team</h1>

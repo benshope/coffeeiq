@@ -24,7 +24,7 @@ export function authReducer(state = { ...newAuthState }, { payload, type }) {
         }
       };
 
-    case authActions.SIGN_OUT_SUCCESS:
+    case authActions.SIGN_OUT:
       return { ...newAuthState };
 
     default:
