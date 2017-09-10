@@ -1,6 +1,6 @@
 {
   "database": {
-    "rules": "database.rules.json"
+    "rules": "firebase.rules.json"
   },
 
   "hosting": {
@@ -9,21 +9,17 @@
       {
         "source": "**/*",
         "headers": [
-          {"key": "X-Content-Type-Options", "value": "nosniff"},
-          {"key": "X-Frame-Options", "value": "DENY"},
-          {"key": "X-UA-Compatible", "value": "ie=edge"},
-          {"key": "X-XSS-Protection", "value": "1; mode=block"}
+          { "key": "X-Content-Type-Options", "value": "nosniff" },
+          { "key": "X-Frame-Options", "value": "DENY" },
+          { "key": "X-UA-Compatible", "value": "ie=edge" },
+          { "key": "X-XSS-Protection", "value": "1; mode=block" }
         ]
       },
       {
         "source": "**/*.@(css|html|js|map|otf|png|svg)",
-        "headers": [
-          {"key": "Cache-Control", "value": "max-age=3600"}
-        ]
+        "headers": [{ "key": "Cache-Control", "value": "max-age=3600" }]
       }
     ],
-    "rewrites": [
-      {"source": "**", "destination": "/index.html"}
-    ]
+    "rewrites": [{ "source": "**", "destination": "/index.html" }]
   }
 }

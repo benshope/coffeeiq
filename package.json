@@ -1,7 +1,8 @@
 {
   "name": "CoffeeIQ",
   "version": "0.0.1",
-  "description": "CoffeeIQ makes it easier for teammates to connect with one another through automatically-scheduled coffee breaks",
+  "description":
+    "CoffeeIQ makes it easier for teammates to connect with one another through automatically-scheduled coffee breaks",
   "homepage": "https://www.coffeeiq.org",
   "repository": {
     "type": "git",
@@ -19,10 +20,12 @@
   "scripts": {
     "eject": "react-scripts eject",
     "build": "run-s build.css build.js",
-    "build.css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "build.css":
+      "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "build.js": "cross-env NODE_PATH=. react-scripts build",
     "start": "run-p start.css start.js",
-    "start.css": "npm run build.css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start.css":
+      "npm run build.css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start.js": "cross-env NODE_PATH=. react-scripts start",
     "test": "cross-env NODE_PATH=. react-scripts test --env=jsdom",
     "test.ci": "cross-env CI=true NODE_PATH=. react-scripts test --env=jsdom"
@@ -42,7 +45,6 @@
     "react-scripts": "1.0.10",
     "redux": "^3.7.1",
     "redux-observable": "^0.16.0",
-    "redux-saga": "^0.15.4",
     "reselect": "^3.0.1",
     "rxjs": "^5.4.3"
   },
@@ -50,7 +52,6 @@
     "cross-env": "^5.0.1",
     "enzyme": "^2.9.1",
     "firebase-tools": "^3.9.1",
-    "minx": "r-park/minx.git",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.0.2",
     "react-test-renderer": "^15.6.1"

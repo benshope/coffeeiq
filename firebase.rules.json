@@ -8,8 +8,10 @@
     },
     "orgs": {
       "$org": {
-        ".read": "auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true",
-        ".write": "auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true",
+        ".read":
+          "auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true",
+        ".write":
+          "auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true",
         "groups": {
           "$group": {
             "userIds": {

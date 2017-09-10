@@ -1,28 +1,28 @@
-import { routerMiddleware } from 'react-router-redux';
-import { applyMiddleware, compose, createStore } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import history from './history';
-import reducers from './reducers';
-import sagas from './sagas';
-
+import { routerMiddleware } from "react-router-redux";
+import { applyMiddleware, compose, createStore } from "redux";
+import { createEpicMiddleware } from "redux-observable";
+import epics from "./epics";
+import history from "./history";
+import reducers from "./reducers";
 
 export default function configureStore() {
-  const sagaMiddleware = createSagaMiddleware();
-  let middleware = applyMiddleware(sagaMiddleware, routerMiddleware(history));
+  let epicMiddleware = createEpicMiddleware(epics);
+  let middleware = applyMiddleware(epicMiddleware, routerMiddleware(history));
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     const devToolsExtension = window.devToolsExtension;
-    if (typeof devToolsExtension === 'function') {
+    if (typeof devToolsExtension === "function") {
       middleware = compose(middleware, devToolsExtension());
     }
   }
 
   const store = createStore(reducers, middleware);
-  sagaMiddleware.run(sagas);
+  // sagaMiddleware.run(sagas);
+  // TODO: do I need to do anything with epics here?
 
   if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      store.replaceReducer(require('./reducers').default);
+    module.hot.accept("./reducers", () => {
+      store.replaceReducer(require("./reducers").default);
     });
   }
 
