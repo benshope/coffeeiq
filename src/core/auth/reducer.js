@@ -16,7 +16,7 @@ export function authReducer(state = { ...newAuthState }, { payload, type }) {
         uid: payload.authUser.uid,
         user: {
           uid: payload.authUser.uid,
-          // photoUrl: payload.authUser.photoUrl,
+          photoUrl: payload.authUser.photoUrl,
           displayName: payload.authUser.displayName,
           email: payload.authUser.email,
           orgId: payload.authUser.email.split("@")[1].replace(".", "_"),
@@ -25,7 +25,13 @@ export function authReducer(state = { ...newAuthState }, { payload, type }) {
       };
 
     case authActions.SIGN_OUT:
+      return { ...state, loggingOut: true };
+
+    case authActions.SIGN_OUT_SUCCESS:
       return { ...newAuthState };
+
+    case authActions.SIGN_OUT_ERROR:
+      return { ...state, loggingOut: false };
 
     default:
       return state;

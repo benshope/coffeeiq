@@ -1,16 +1,7 @@
 import { groupActions } from "./actions";
 import { authActions } from "../auth/actions";
 
-const newGroup = {
-  name: "",
-  location: ""
-};
-
 const newGroupsState = {
-  newGroup,
-  group$: undefined,
-  groupBeingEdited: undefined,
-  filter: "",
   list: []
 };
 
@@ -18,13 +9,6 @@ export function groupsReducer(
   state = { ...newGroupsState },
   { payload, type }
 ) {
-  // console.log('REDUCER: ', payload, type);
-  if (type === groupActions.UPDATE_NEW_GROUP) {
-    return {
-      ...state,
-      newGroup: { ...state.newGroup, ...payload }
-    };
-  }
   if (type === groupActions.LOAD_GROUPS_SUCCESS) {
     return {
       ...state,
@@ -40,10 +24,8 @@ export function groupsReducer(
   if (type === groupActions.CREATE_GROUP_SUCCESS) {
     const newState = {
       ...state,
-      list: [...state.list, payload],
-      newGroup: { ...newGroup }
+      list: [...state.list, payload]
     };
-    console.log("newState", newState);
     return newState;
   }
   if (type === groupActions.FILTER_GROUPS) {

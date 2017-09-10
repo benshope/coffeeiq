@@ -8,8 +8,7 @@ export function initAuth(dispatch) {
         if (authUser) {
           dispatch(authActions.signInSuccess(authUser));
         }
-
-        resolve(); // why do you have to call resolve and unsubscribe here? - lexis
+        resolve();
         unsubscribe();
       },
       error => reject(error)

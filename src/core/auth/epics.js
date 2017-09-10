@@ -31,9 +31,16 @@ export const signOutEpic = action$ =>
   action$
     .filter(action => action.type === authActions.SIGN_OUT)
     .flatMap(() =>
-      firebaseAuth
-        .signOut()
-        .then(x => go("/"), x => authActions.signOutError(x))
-    );
+      Observable.from([
+        Observable.of(go("/")),
+        firebaseAuth
+          .signOut()
+          .then(
+            x => authActions.signOutSuccess(x),
+            x => authActions.signOutError(x)
+          )
+      ])
+    )
+    .flatMap(x => x);
 
 export const authEpics = [signInEpic, signOutEpic];

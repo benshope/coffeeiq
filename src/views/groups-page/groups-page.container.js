@@ -4,7 +4,7 @@ import GroupList from "views/group-list/group-list.container";
 import Header from "views/header";
 
 const GroupsPage = ({ groups, user }) => {
-  const isGmailAccount = user.orgId === "gmail_com";
+  const isGmailAccount = user && user.orgId === "gmail_com";
   const gmailAccountErrorMessage = () => (
     <h2>
       Hi {user.displayName.split(" ")[0] || user.displayName}, you have signed
@@ -13,38 +13,40 @@ const GroupsPage = ({ groups, user }) => {
     </h2>
   );
   return (
-    <div className="groups-page">
-      <div className="groups-page-stripes-container">
-        <div className="stripes">
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
+    user && (
+      <div className="groups-page">
+        <div className="groups-page-stripes-container">
+          <div className="stripes">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
         </div>
-      </div>
-      <div className="iq-app-container">
-        <Header />
-        <div className="iq-content-container">
-          {isGmailAccount ? (
-            gmailAccountErrorMessage()
-          ) : (
-            <div>
-              <div className="iq-margin-bottom">
-                <h3>
-                  Hi {user.displayName.split(" ")[0] || user.displayName},
-                  welcome to CoffeeIQ for{" "}
-                  <span className="capitalize">{user.orgName}.</span> Begin by
-                  joining a coffee group below - or make a new group for your
-                  team.
-                </h3>
+        <div className="iq-app-container">
+          <Header />
+          <div className="iq-content-container">
+            {isGmailAccount ? (
+              gmailAccountErrorMessage()
+            ) : (
+              <div>
+                <div className="iq-margin-bottom">
+                  <h3>
+                    Hi {user.displayName.split(" ")[0] || user.displayName},
+                    welcome to CoffeeIQ for{" "}
+                    <span className="capitalize">{user.orgName}.</span> Begin by
+                    joining {groups.length > 1 ? "a" : "the"} coffee group below
+                    - or make a new group for your team.
+                  </h3>
+                </div>
+                <GroupList />
               </div>
-              <GroupList />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 
