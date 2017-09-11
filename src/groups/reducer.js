@@ -34,7 +34,7 @@ export function groupsReducer(
       filter: payload.filterType || ""
     };
   }
-  if (type === groupActions.REMOVE_GROUP_SUCCESS) {
+  if (type === groupActions.DELETE_GROUP_SUCCESS) {
     return {
       ...state,
       list: state.list.filter(group => {

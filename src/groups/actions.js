@@ -1,34 +1,23 @@
 export const groupActions = {
-  UPDATE_NEW_GROUP: "UPDATE_NEW_GROUP",
+  LOAD_GROUPS_SUCCESS: "LOAD_GROUPS_SUCCESS", // TODO: change 'load' to 'get'
 
   CREATE_GROUP: "CREATE_GROUP",
   CREATE_GROUP_FAILED: "CREATE_GROUP_FAILED",
   CREATE_GROUP_SUCCESS: "CREATE_GROUP_SUCCESS",
 
-  REMOVE_GROUP: "REMOVE_GROUP",
-  REMOVE_GROUP_FAILED: "REMOVE_GROUP_FAILED",
-  REMOVE_GROUP_SUCCESS: "REMOVE_GROUP_SUCCESS",
-
-  EDIT_GROUP: "EDIT_GROUP",
-
-  TOGGLE_GROUP_MEMBERSHIP: "TOGGLE_GROUP_MEMBERSHIP",
+  DELETE_GROUP: "DELETE_GROUP", // TODO: change 'delete' to 'delete'
+  DELETE_GROUP_FAILED: "DELETE_GROUP_FAILED",
+  DELETE_GROUP_SUCCESS: "DELETE_GROUP_SUCCESS",
 
   UPDATE_GROUP: "UPDATE_GROUP",
   UPDATE_GROUP_FAILED: "UPDATE_GROUP_FAILED",
   UPDATE_GROUP_SUCCESS: "UPDATE_GROUP_SUCCESS",
 
-  LOAD_GROUPS_SUCCESS: "LOAD_GROUPS_SUCCESS",
+  TOGGLE_GROUP_MEMBERSHIP: "TOGGLE_GROUP_MEMBERSHIP",
 
-  // SEND_CALENDAR_INVITES: 'SEND_CALENDAR_INVITES',
-
-  editGroup: group => ({
-    type: groupActions.EDIT_GROUP,
-    payload: group
-  }),
-
-  updateNewGroup: group => ({
-    type: groupActions.UPDATE_NEW_GROUP,
-    payload: group
+  getGroupsSuccess: groups => ({
+    type: groupActions.LOAD_GROUPS_SUCCESS,
+    payload: { groups }
   }),
 
   createGroup: group => ({
@@ -46,23 +35,18 @@ export const groupActions = {
     payload: group
   }),
 
-  removeGroup: group => ({
-    type: groupActions.REMOVE_GROUP,
+  deleteGroup: group => ({
+    type: groupActions.DELETE_GROUP,
     payload: group
   }),
 
-  removeGroupFailed: error => ({
-    type: groupActions.REMOVE_GROUP_FAILED,
+  deleteGroupFailed: error => ({
+    type: groupActions.DELETE_GROUP_FAILED,
     payload: { error }
   }),
 
-  removeGroupSuccess: group => ({
-    type: groupActions.REMOVE_GROUP_SUCCESS,
-    payload: group
-  }),
-
-  toggleGroupMembership: group => ({
-    type: groupActions.TOGGLE_GROUP_MEMBERSHIP,
+  deleteGroupSuccess: group => ({
+    type: groupActions.DELETE_GROUP_SUCCESS,
     payload: group
   }),
 
@@ -81,8 +65,8 @@ export const groupActions = {
     payload: { group }
   }),
 
-  loadGroupsSuccess: groups => ({
-    type: groupActions.LOAD_GROUPS_SUCCESS,
-    payload: { groups }
+  toggleGroupMembership: group => ({
+    type: groupActions.TOGGLE_GROUP_MEMBERSHIP,
+    payload: group
   })
 };

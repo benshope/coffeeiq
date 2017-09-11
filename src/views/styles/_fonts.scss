@@ -4,41 +4,49 @@
 
 @font-face {
   font-family: "Gotham";
-  src: url("../../assets/fonts/gotham/GothamHTF-Medium.otf");
+  src: local("Gotham"),
+    url("../../assets/fonts/gotham/GothamHTF-Medium.otf") format("otf");
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../../assets/fonts/gotham/GothamHTF-Ultra.otf");
+  src: local("Gotham"),
+    url("../../assets/fonts/gotham/GothamHTF-Ultra.otf") format("otf");
   font-weight: 900;
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../../assets/fonts/gotham/GothamHTF-Black.otf");
+  src: local("Gotham"),
+    url("../../assets/fonts/gotham/GothamHTF-Black.otf") format("otf");
   font-weight: 700;
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../../assets/fonts/gotham/GothamHTF-Bold.otf");
+  src: local("Gotham"),
+    url("../../assets/fonts/gotham/GothamHTF-Bold.otf") format("otf");
   font-weight: 600;
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../../assets/fonts/gotham/GothamHTF-Book.otf");
+  src: local("Gotham"),
+    url("../../assets/fonts/gotham/GothamHTF-Book.otf") format("otf");
   font-weight: 400;
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../../assets/fonts/gotham/GothamHTF-Thin.otf");
+  src: local("Gotham"),
+    url("../../assets/fonts/gotham/GothamHTF-Thin.otf") format("otf");
   font-weight: 300;
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../../assets/fonts/gotham/GothamHTF-Light.otf");
+  src: local("Gotham"),
+    url("../../assets/fonts/gotham/GothamHTF-Light.otf") format("otf");
   font-weight: 200;
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../../assets/fonts/gotham/GothamHTF-XLight.otf");
+  src: local("Gotham"),
+    url("../../assets/fonts/gotham/GothamHTF-XLight.otf") format("otf");
   font-weight: 100;
 }
 .gotham {
@@ -47,39 +55,45 @@
 
 @font-face {
   font-family: "Whitney";
-  src: url("../../assets/fonts/whitney/WhitneyHTF-Medium.otf");
+  src: local("Whitney"),
+    url("../../assets/fonts/whitney/WhitneyHTF-Medium.otf") format("otf");
 }
 @font-face {
   font-family: "Whitney";
-  src: url("../../assets/fonts/whitney/WhitneyHTF-Black.otf");
+  src: local("Whitney"),
+    url("../../assets/fonts/whitney/WhitneyHTF-Black.otf") format("otf");
   font-weight: 900;
 }
 @font-face {
   font-family: "Whitney";
-  src: url("../../assets/fonts/whitney/WhitneyHTF-Bold.otf");
+  src: local("Whitney"),
+    url("../../assets/fonts/whitney/WhitneyHTF-Bold.otf") format("otf");
   font-weight: 800;
 }
 @font-face {
   font-family: "Whitney";
-  src: url("../../assets/fonts/whitney/WhitneyHTF-SemiBold.otf");
+  src: local("Whitney"),
+    url("../../assets/fonts/whitney/WhitneyHTF-SemiBold.otf") format("otf");
   font-weight: 600;
 }
 @font-face {
   font-family: "Whitney";
-  src: url("../../assets/fonts/whitney/WhitneyHTF-Book.otf");
+  src: local("Whitney"),
+    url("../../assets/fonts/whitney/WhitneyHTF-Book.otf") format("otf");
   font-weight: 400;
 }
 @font-face {
   font-family: "Whitney";
-  src: url("../../assets/fonts/whitney/WhitneyHTF-Light.otf");
+  src: local("Whitney"),
+    url("../../assets/fonts/whitney/WhitneyHTF-Light.otf") format("otf");
   font-weight: 200;
 }
 .whitney {
   font-family: "Whitney", RobotoDraft, Roboto, "Helvetica Neue", sans-serif;
 }
 
-$base-font-family: "Whitney", Ubuntu, Helvetica Neue, Arial, sans-serif !default;
-$header-font-family: "Gotham", Helvetica Neue, Arial, sans-serif !default;
+$base-font-family: "Whitney", Ubuntu, Helvetica Neue, Arial, sans-serif;
+$header-font-family: "Gotham", Helvetica Neue, Arial, sans-serif;
 
 * {
   font-family: $base-font-family;

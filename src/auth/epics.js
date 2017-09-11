@@ -1,9 +1,10 @@
 /* eslint-disable no-constant-condition */
-import { go } from "react-router-redux";
+// import { go } from "react-router-redux";
 import firebase from "firebase";
 import { Observable } from "rxjs";
+import history from "src/history";
 
-import { firebaseAuth } from "core/firebase";
+import { firebaseAuth } from "src/firebase";
 import { authActions } from "./actions";
 
 export const signInEpic = action$ =>
@@ -20,19 +21,25 @@ export const signInEpic = action$ =>
         display: "popup",
         access_type: "offline" // eslint-disable-line camelcase
       });
-      let request = firebaseAuth
+      return firebaseAuth
         .signInWithPopup(provider)
-        .then(authActions.signInSuccess, authActions.signInError);
-      return request.then(() => go("/groups"), console.warn);
+        .then(
+          x =>
+            Observable.from([
+              authActions.signInSuccess(x),
+              history.push("/groups")
+            ]),
+          x => Observable.of(authActions.signInError(x))
+        );
     })
-    .filter(x => x);
+    .flatMap(x => x);
 
 export const signOutEpic = action$ =>
   action$
     .filter(action => action.type === authActions.SIGN_OUT)
     .flatMap(() =>
       Observable.from([
-        Observable.of(go("/")),
+        Observable.of(history.replace("/")),
         firebaseAuth
           .signOut()
           .then(
