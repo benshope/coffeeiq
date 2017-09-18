@@ -5,6 +5,7 @@ const newGroupsState = {
   list: []
 };
 
+// TODO: use an object with functions as a case switch
 export function groupsReducer(
   state = { ...newGroupsState },
   { payload, type }
