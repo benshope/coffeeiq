@@ -6,55 +6,46 @@ import { authActions } from "src/auth";
 import { firebaseDb } from "../firebase";
 import { groupActions } from "./actions";
 
-let firebaseRefObserver;
-const firebaseRef$ = Observable.create(observer => {
-  latestRefObserver = observer;
-}).last();
-
-export const signInSuccessEpic = action$ => {
-  return action$
+export const signInSuccessEpic = action$ =>
+  action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
-    .filter(payload => {
-      var orgId = payload.payload.authUser.email
-        .split("@")[1]
-        .replace(".", "_");
-      firebaseRefObserver.next(firebaseDb.ref(`orgs/${orgId}/groups`));
-    });
-};
-
-export const groupsUpdatesEpic = () =>
-  firebaseRef$.flatMap(ref => {
-    const unwrap = snapshot => ({ key: snapshot.key, value: snapshot.val() });
-    return Observable.create(observer => {
-      ref.once("value", value => {
-        console.log("VALUE ON GROUPS REF", value);
-        observer.next(groupActions.getGroupsSuccess([]));
+    .map(({ payload }) => {
+      var orgId = payload.user.email.split("@")[1].replace(".", "_");
+      return firebaseDb.ref(`orgs/${orgId}/groups`);
+    })
+    .flatMap(ref => {
+      const unwrap = snapshot => ({ key: snapshot.key, value: snapshot.val() });
+      return Observable.create(observer => {
+        ref.once("value", x =>
+          observer.next(groupActions.getGroupsSuccess(unwrap(x)))
+        );
+        ref.on("child_added", x =>
+          observer.next(groupActions.createGroupSuccess(unwrap(x)))
+        );
+        ref.on("child_changed", x =>
+          observer.next(groupActions.updateGroupSuccess(unwrap(x)))
+        );
+        ref.on("child_removed", x =>
+          observer.next(groupActions.deleteGroupSuccess(unwrap(x)))
+        );
       });
-      ref.on("child_added", snapshot =>
-        observer.next(groupActions.createGroupSuccess(unwrap(snapshot)))
-      );
-      ref.on("child_changed", snapshot =>
-        observer.next(groupActions.updateGroupSuccess(unwrap(snapshot)))
-      );
-      ref.on("child_deleted", snapshot =>
-        observer.next(groupActions.deleteGroupSuccess(unwrap(snapshot)))
+    });
+
+export const createGroupEpic = (action$, store) =>
+  action$
+    .filter(action => action.type === groupActions.CREATE_GROUP)
+    .flatMap(({ payload }) => {
+      const orgId = store.getState().auth.user.orgId;
+      return new Promise((resolve, reject) =>
+        firebaseDb
+          .ref(`orgs/${orgId}/groups`)
+          .push(payload, error => (error ? reject(error) : resolve(payload)))
+          .then(
+            (() => groupActions.createGroupSuccess(payload),
+            error => groupActions.createGroupError(error))
+          )
       );
     });
-  });
-
-// export const createGroupEpic = action$ => {
-//   return combineLatest(
-//     action$.filter(action => action.type === groupActions.CREATE_GROUP),
-//     firebaseRef$
-//   ).flatMap(({ action, ref }) => {
-//     return new Promise((resolve, reject) =>
-//       ref.push(value, error => (error ? reject(error) : resolve()))
-//     ).then(
-//       (() => groupActions.createGroupSuccess(action),
-//       error => groupActions.createGroupError(error))
-//     );
-//   });
-// };
 
 // export const toggleGroupMembershipEpic = (action$, store) => {
 //   return action$
@@ -98,10 +89,10 @@ export const groupsUpdatesEpic = () =>
 // };
 
 export const groupEpics = [
-  listActionsEpic,
-  signInSuccessEpic
-  // createGroupEpic,
+  // groupUpdatesEpic,
+  createGroupEpic,
   // updateGroupEpic,
   // deleteGroupEpic,
+  signInSuccessEpic
   // toggleGroupMembershipEpic
 ];

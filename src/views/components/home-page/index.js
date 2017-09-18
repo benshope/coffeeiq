@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
-
+import { withRouter } from "react-router-dom";
 import { authActions } from "src/auth";
 
-const SignInPage = ({ signIn }) => {
+const HomePage = ({ signIn }) => {
   return (
     <div>
       <div className="home-page-stripes-container">
@@ -37,7 +37,7 @@ const SignInPage = ({ signIn }) => {
   );
 };
 
-SignInPage.propTypes = {
+HomePage.propTypes = {
   signIn: PropTypes.func.isRequired
 };
 
@@ -52,4 +52,4 @@ const mapDispatchToProps = {
   signIn: authActions.signIn
 };
 
-export default connect(null, mapDispatchToProps)(SignInPage);
+export default withRouter(connect(null, mapDispatchToProps)(HomePage));

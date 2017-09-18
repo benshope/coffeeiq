@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { authActions } from "src/auth";
+import { authActions, isAuthenticated } from "src/auth";
 import Header from "./components/header";
 import RequireAuthRoute from "./components/require-auth-route";
 import RequireUnauthRoute from "./components/require-unauth-route";
@@ -14,16 +14,16 @@ const App = ({ authenticated, signOut }) => (
   <div>
     <Header authenticated={authenticated} signOut={signOut} />
     <main>
-      <RequireAuthRoute
-        authenticated={authenticated}
-        exact
-        path="/groups"
-        component={GroupsPage}
-      />
       <RequireUnauthRoute
         authenticated={authenticated}
+        exact
         path="/"
         component={HomePage}
+      />
+      <RequireAuthRoute
+        authenticated={authenticated}
+        path="/groups"
+        component={GroupsPage}
       />
     </main>
   </div>
@@ -39,7 +39,7 @@ App.propTypes = {
 //-------------------------------------
 
 const mapStateToProps = state => ({
-  authenticated: state.auth.authenticated
+  authenticated: isAuthenticated(state)
 });
 
 const mapDispatchToProps = {

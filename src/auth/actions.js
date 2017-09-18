@@ -17,9 +17,9 @@ export const authActions = {
     payload: { error }
   }),
 
-  signInSuccess: authUser => ({
+  signInSuccess: payload => ({
     type: authActions.SIGN_IN_SUCCESS,
-    payload: { authUser }
+    payload
   }),
 
   signOut: () => ({

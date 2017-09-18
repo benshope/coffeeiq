@@ -9,7 +9,8 @@ export function groupsReducer(
   state = { ...newGroupsState },
   { payload, type }
 ) {
-  if (type === groupActions.LOAD_GROUPS_SUCCESS) {
+  // console.log("ACTION", type, payload);
+  if (type === groupActions.GET_GROUPS_SUCCESS) {
     return {
       ...state,
       list: payload.groups

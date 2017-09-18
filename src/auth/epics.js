@@ -1,8 +1,7 @@
 /* eslint-disable no-constant-condition */
-// import { go } from "react-router-redux";
 import firebase from "firebase";
-import { Observable } from "rxjs";
-import history from "src/history";
+// import { Observable } from "rxjs";
+// import history from "src/history";
 
 import { firebaseAuth } from "src/firebase";
 import { authActions } from "./actions";
@@ -24,30 +23,21 @@ export const signInEpic = action$ =>
       return firebaseAuth
         .signInWithPopup(provider)
         .then(
-          x =>
-            Observable.from([
-              authActions.signInSuccess(x),
-              history.push("/groups")
-            ]),
-          x => Observable.of(authActions.signInError(x))
+          x => authActions.signInSuccess(x),
+          x => authActions.signInError(x)
         );
-    })
-    .flatMap(x => x);
+    });
 
 export const signOutEpic = action$ =>
   action$
     .filter(action => action.type === authActions.SIGN_OUT)
     .flatMap(() =>
-      Observable.from([
-        Observable.of(history.replace("/")),
-        firebaseAuth
-          .signOut()
-          .then(
-            x => authActions.signOutSuccess(x),
-            x => authActions.signOutError(x)
-          )
-      ])
-    )
-    .flatMap(x => x);
+      firebaseAuth
+        .signOut()
+        .then(
+          x => authActions.signOutSuccess(x),
+          x => authActions.signOutError(x)
+        )
+    );
 
 export const authEpics = [signInEpic, signOutEpic];

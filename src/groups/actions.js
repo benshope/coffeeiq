@@ -1,11 +1,11 @@
 export const groupActions = {
-  LOAD_GROUPS_SUCCESS: "LOAD_GROUPS_SUCCESS", // TODO: change 'load' to 'get'
+  GET_GROUPS_SUCCESS: "GET_GROUPS_SUCCESS",
 
   CREATE_GROUP: "CREATE_GROUP",
   CREATE_GROUP_FAILED: "CREATE_GROUP_FAILED",
   CREATE_GROUP_SUCCESS: "CREATE_GROUP_SUCCESS",
 
-  DELETE_GROUP: "DELETE_GROUP", // TODO: change 'delete' to 'delete'
+  DELETE_GROUP: "DELETE_GROUP",
   DELETE_GROUP_FAILED: "DELETE_GROUP_FAILED",
   DELETE_GROUP_SUCCESS: "DELETE_GROUP_SUCCESS",
 
@@ -16,7 +16,7 @@ export const groupActions = {
   TOGGLE_GROUP_MEMBERSHIP: "TOGGLE_GROUP_MEMBERSHIP",
 
   getGroupsSuccess: groups => ({
-    type: groupActions.LOAD_GROUPS_SUCCESS,
+    type: groupActions.GET_GROUPS_SUCCESS,
     payload: { groups }
   }),
 

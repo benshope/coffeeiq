@@ -4,9 +4,9 @@ import { authActions } from "./actions";
 export function initAuth(dispatch) {
   return new Promise((resolve, reject) => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(
-      authUser => {
-        if (authUser) {
-          dispatch(authActions.signInSuccess(authUser));
+      user => {
+        if (user) {
+          dispatch(authActions.signInSuccess({ user }));
         }
         resolve();
         unsubscribe();
