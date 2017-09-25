@@ -20,8 +20,7 @@
   "scripts": {
     "eject": "react-scripts eject",
     "build": "run-s build.css build.js",
-    "build.css":
-      "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "build.css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "build.js": "cross-env NODE_PATH=. react-scripts build",
     "start": "run-p start.css start.js",
     "start.css":
@@ -49,6 +48,12 @@
     "rxjs": "^5.4.3"
   },
   "devDependencies": {
+    "babel-eslint": "~8.0.0",
+    "eslint": "~4.7.2",
+    "eslint-plugin-react": "~7.3.0",
+    "husky": "~0.14.3",
+    "lint-staged": "~4.2.3",
+    "prettier": "~1.7.0",
     "cross-env": "^5.0.1",
     "enzyme": "^2.9.1",
     "firebase-tools": "^3.9.1",
