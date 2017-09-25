@@ -4,19 +4,14 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 // import GroupList from "../group-list/group-list.container";
 
-const GroupsPage = ({
-  // groups,
-  user
-}) => {
+const GroupsPage = ({ groups, user }) => {
   const isGmailAccount = user && user.orgId === "gmail_com";
   const gmailAccountErrorMessage = () => (
     <h2>
-      Hi {user.displayName.split(" ")[0] || user.displayName}, you have signed
-      in with Gmail. Please sign in with your @yourcompany.com email address.
-      Thanks!
+      Hi {user.displayName.split(" ")[0] || user.displayName}, you have signed in with Gmail. Please sign in with your
+      @yourcompany.com email address. Thanks!
     </h2>
   );
-  // {groups.length > 1 ? "a" : "the"}
   // <GroupList />
   return (
     user && (
@@ -29,11 +24,9 @@ const GroupsPage = ({
               <div>
                 <div className="iq-margin-bottom">
                   <h3>
-                    Hi {user.displayName.split(" ")[0] || user.displayName},
-                    welcome to CoffeeIQ for{" "}
-                    <span className="capitalize">{user.orgName}.</span> Begin by
-                    joining ___ coffee group below - or make a new group for
-                    your team.
+                    Hi {user.displayName.split(" ")[0] || user.displayName}, welcome to CoffeeIQ for{" "}
+                    <span className="capitalize">{user.orgName}.</span> Begin by joining{" "}
+                    {groups.length > 1 ? "a" : "the"} coffee group below - or make a new group for your team.
                   </h3>
                 </div>
                 _________
@@ -47,17 +40,15 @@ const GroupsPage = ({
 };
 
 GroupsPage.propTypes = {
-  // groups: PropTypes.array.isRequired,
+  groups: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  // groups: state.groups.list,
+  groups: state.groups.list,
   user: state.auth.user
 });
 
 const mapDispatchToProps = {};
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(GroupsPage)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GroupsPage));
