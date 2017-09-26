@@ -1,8 +1,7 @@
 {
   "name": "CoffeeIQ",
   "version": "0.0.1",
-  "description":
-    "CoffeeIQ makes it easier for teammates to connect with one another through automatically-scheduled coffee breaks",
+  "description": "CoffeeIQ makes it easier for teammates to connect with one another through automatically-scheduled coffee breaks",
   "homepage": "https://www.coffeeiq.org",
   "repository": {
     "type": "git",
@@ -23,8 +22,7 @@
     "build.css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "build.js": "cross-env NODE_PATH=. react-scripts build",
     "start": "run-p start.css start.js",
-    "start.css":
-      "npm run build.css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start.css": "npm run build.css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start.js": "cross-env NODE_PATH=. react-scripts start",
     "test": "cross-env NODE_PATH=. react-scripts test --env=jsdom",
     "test.ci": "cross-env CI=true NODE_PATH=. react-scripts test --env=jsdom"
@@ -34,6 +32,7 @@
     "firebase": "^4.1.3",
     "history": "^4.6.3",
     "immutable": "^3.8.1",
+    "lodash": "~4.17.4",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-// import GroupList from "../group-list/group-list.container";
+import { orgSelectors } from "src/org";
+import GroupList from "../group-list/group-list.container";
 
 const GroupsPage = ({ groups, user }) => {
   const isGmailAccount = user && user.orgId === "gmail_com";
@@ -12,7 +13,6 @@ const GroupsPage = ({ groups, user }) => {
       @yourcompany.com email address. Thanks!
     </h2>
   );
-  // <GroupList />
   return (
     user && (
       <div className="groups-page">
@@ -26,13 +26,13 @@ const GroupsPage = ({ groups, user }) => {
                   <h3>
                     Hi {user.displayName.split(" ")[0] || user.displayName}, welcome to CoffeeIQ for{" "}
                     <span className="capitalize">{user.orgName}.</span> Begin by joining{" "}
-                    {(groups && groups.length) > 1 ? "a" : "the"} coffee group below - or make a new group for your
-                    team.
+                    {groups.length > 1 ? "a" : "the"} coffee group below - or make a new group for your team.
                   </h3>
                 </div>
               </div>
             )}
           </div>
+          <GroupList />
         </div>
       </div>
     )
@@ -40,12 +40,12 @@ const GroupsPage = ({ groups, user }) => {
 };
 
 GroupsPage.propTypes = {
-  groups: PropTypes.array,
+  groups: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  groups: state.org.groups,
+  groups: orgSelectors.selectGroups(state),
   user: state.auth.user
 });
 

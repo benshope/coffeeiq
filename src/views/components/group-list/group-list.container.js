@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
+import { orgSelectors } from "src/org";
 import GroupItem from "../group-item/group-item.container";
 
 const GroupList = ({ groups }) => (
@@ -10,11 +11,11 @@ const GroupList = ({ groups }) => (
 );
 
 GroupList.propTypes = {
-	groups: PropTypes.object.isRequired
+	groups: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
-	groups: state.org.groups
+	groups: orgSelectors.selectGroups(state)
 });
 
 const mapDispatchToProps = {};
