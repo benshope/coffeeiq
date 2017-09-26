@@ -26,10 +26,10 @@ const GroupsPage = ({ groups, user }) => {
                   <h3>
                     Hi {user.displayName.split(" ")[0] || user.displayName}, welcome to CoffeeIQ for{" "}
                     <span className="capitalize">{user.orgName}.</span> Begin by joining{" "}
-                    {groups.length > 1 ? "a" : "the"} coffee group below - or make a new group for your team.
+                    {(groups && groups.length) > 1 ? "a" : "the"} coffee group below - or make a new group for your
+                    team.
                   </h3>
                 </div>
-                _________
               </div>
             )}
           </div>
@@ -40,12 +40,12 @@ const GroupsPage = ({ groups, user }) => {
 };
 
 GroupsPage.propTypes = {
-  groups: PropTypes.array.isRequired,
+  groups: PropTypes.array,
   user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  groups: state.groups.list,
+  groups: state.org.groups,
   user: state.auth.user
 });
 

@@ -4,19 +4,17 @@ import { connect } from "react-redux";
 import GroupItem from "../group-item/group-item.container";
 
 const GroupList = ({ groups }) => (
-  <div className="group-list">
-    {groups &&
-      groups.length &&
-      groups.map((group, i) => <GroupItem key={i} group={group} />)}
-  </div>
+	<div className="group-list">
+		{groups && groups.length && groups.map((group, i) => <GroupItem key={i} group={group} />)}
+	</div>
 );
 
 GroupList.propTypes = {
-  groups: PropTypes.array.isRequired
+	groups: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  groups: state.groups.list
+	groups: state.org.groups
 });
 
 const mapDispatchToProps = {};

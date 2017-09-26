@@ -1,4 +1,4 @@
-import { groupActions } from "src/groups";
+import { orgActions } from "src/org";
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
@@ -10,15 +10,13 @@ const GroupItem = ({ auth, goToGroup, group, toggleGroupMembership }) => {
     <div onClick={() => goToGroup(group)} className="group-item" tabIndex="0">
       <div className="cell">
         {userInGroup ? (
-          <button onClick={() => toggleGroupMembership(group)}>
-            You are a member
-          </button>
+          <button onClick={() => toggleGroupMembership(group)}>You are a member</button>
         ) : (
           <button onClick={() => toggleGroupMembership(group)}>Join</button>
         )}
       </div>
       <div className="cell">
-        {group.name} @ {group.location}
+        {group.value.name} @ {group.value.location}
       </div>
     </div>
   );
@@ -33,7 +31,7 @@ const mapDispatchToProps = {
     console.log("TODO: NOT WORKING GOING TO: ", group);
     // return go(`group/${group.key}`);
   },
-  toggleGroupMembership: groupActions.toggleGroupMembership
+  toggleGroupMembership: orgActions.toggleGroupMembership
 };
 
 GroupItem.propTypes = {

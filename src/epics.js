@@ -1,8 +1,8 @@
 import { combineEpics } from "redux-observable";
 
 import { authEpics } from "./auth";
-import { groupEpics } from "./groups";
+import { orgEpics } from "./org";
 
-const epics = combineEpics(...authEpics, ...groupEpics);
+const epics = combineEpics(...authEpics, ...orgEpics);
 
 export default epics;
