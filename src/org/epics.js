@@ -14,25 +14,39 @@ export const signInSuccessEpic = action$ =>
       return firebaseDb.ref(`orgs/${orgId}`);
     })
     .flatMap(ref => {
-      const unwrap = snapshot => ({ path: snapshot.key, value: snapshot.val() });
+      const unwrap = snapshot => ({
+        path: snapshot.key,
+        value: snapshot.val()
+      });
       return Observable.create(observer => {
-        ref.once("value", x => observer.next(orgActions.value(x.val())));
-        ref.on("child_added", x => observer.next(orgActions.childAdded(unwrap(x))));
-        ref.on("child_changed", x => observer.next(orgActions.childChanged(unwrap(x))));
-        ref.on("child_removed", x => observer.next(orgActions.childRemoved(unwrap(x))));
+        ref.once("value", x => observer.next(orgActions.onValue(x.val())));
+        ref.on("child_added", x =>
+          observer.next(orgActions.onChildAdded(unwrap(x)))
+        );
+        ref.on("child_changed", x =>
+          observer.next(orgActions.onChildChanged(unwrap(x)))
+        );
+        ref.on("child_removed", x =>
+          observer.next(orgActions.onChildRemoved(unwrap(x)))
+        );
       });
     });
 
 export const createGroupEpic = (action$, store) =>
-  action$.filter(action => action.type === orgActionTypes.CREATE_GROUP).flatMap(({ payload }) => {
-    const orgId = store.getState().auth.user.orgId;
-    return new Promise((resolve, reject) =>
-      firebaseDb
-        .ref(`orgs/${orgId}/groups`)
-        .push(payload, error => (error ? reject(error) : resolve(payload)))
-        .then((() => orgActions.createGroupSuccess(payload), error => orgActions.createGroupError(error)))
-    );
-  });
+  action$
+    .filter(action => action.type === orgActionTypes.CREATE_GROUP)
+    .flatMap(({ payload }) => {
+      const orgId = store.getState().auth.user.orgId;
+      return new Promise((resolve, reject) =>
+        firebaseDb
+          .ref(`orgs/${orgId}/groups`)
+          .push(payload, error => (error ? reject(error) : resolve(payload)))
+          .then(
+            (() => orgActions.createGroupSuccess(payload),
+            error => orgActions.createGroupError(error))
+          )
+      );
+    });
 
 // export const toggleGroupMembershipEpic = (action$, store) => {
 //   return action$
