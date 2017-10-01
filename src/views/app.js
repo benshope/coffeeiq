@@ -8,23 +8,16 @@ import Header from "./components/header";
 import RequireAuthRoute from "./components/require-auth-route";
 import RequireUnauthRoute from "./components/require-unauth-route";
 import HomePage from "./components/home-page";
+import GroupPage from "./components/group-page";
 import GroupsPage from "./components/groups-page";
 
 const App = ({ authenticated, signOut }) => (
   <div>
     <Header authenticated={authenticated} signOut={signOut} />
     <main>
-      <RequireUnauthRoute
-        authenticated={authenticated}
-        exact
-        path="/"
-        component={HomePage}
-      />
-      <RequireAuthRoute
-        authenticated={authenticated}
-        path="/groups"
-        component={GroupsPage}
-      />
+      <RequireUnauthRoute authenticated={authenticated} exact path="/" component={HomePage} />
+      <RequireAuthRoute authenticated={authenticated} path="/groups" component={GroupsPage} />
+      <RequireAuthRoute authenticated={authenticated} path="/group/(:group)" component={GroupPage} />
     </main>
   </div>
 );
