@@ -3,7 +3,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { orgSelectors } from "src/org";
-import GroupList from "../group-list/group-list.container";
 
 const GroupsPage = ({ group, users, auth }) => {
   const goToUser = console.log;
