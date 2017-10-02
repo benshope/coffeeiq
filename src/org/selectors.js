@@ -1,4 +1,4 @@
-import { createSelector } from "reselect";
+// import { createSelector } from "reselect";
 
 // export function getTasks(state) {
 //   return state.tasks;
@@ -33,13 +33,13 @@ import { createSelector } from "reselect";
 //   }
 // );
 
-export const selectGroups = createSelector(
-	state => state.org.groups,
-	groups => (groups ? Object.keys(groups) : []).map(key => ({ key, value: groups[key] }))
-);
+// export const selectGroups = createSelector(
+// 	state => state.org.groups,
+// 	groups => (groups ? Object.keys(groups) : []).map(key => ({ key, value: groups[key] }))
+// );
 
 export const orgSelectors = {
-	selectGroups
+	// selectGroups
 };
 
 export default orgSelectors;

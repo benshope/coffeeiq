@@ -30,7 +30,7 @@ GroupPage.propTypes = {
   groups: PropTypes.object,
   user: PropTypes.object.isRequired,
   users: PropTypes.object,
-  goToGroups: PropTypes.func.isRequired
+  toggleGroupMembership: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
