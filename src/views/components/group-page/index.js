@@ -1,34 +1,28 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { push } from "react-router-redux";
+import { Link, withRouter } from "react-router-dom";
+import { orgActions } from "src/org";
 
-const GroupPage = props => {
-  const { groups, users, user, match, goToGroups } = props;
+const GroupPage = ({ groups, users, user, match, toggleGroupMembership }) => {
   const group = groups && groups[match.params.groupId];
-  const goToUser = console.log;
-  const toggleUserMembership = console.log;
-  console.log("PROPS:", props);
   return (
-    <div>
-      <a onClick={goToGroups}>Back</a>
-      {(group && (
-        <div className="group-page">
-          <button onClick={() => toggleUserMembership(user.uid)}>
-            {(group.userIds || {})[user.uid] ? "Join" : "Leave"}
-          </button>
-          {group.name} @ {group.location}
-          <ul className="user-list">
-            {Object.keys(group.userIds).map((uid, i) => (
-              <li key={uid} onClick={() => goToUser(uid)} className="user-item">
+    (group && (
+      <div className="group-page">
+        <Link to="/groups">Back</Link>
+        <button onClick={() => toggleGroupMembership(user.uid)}>{group.userIds[user.uid] ? "Join" : "Leave"}</button>
+        {group.name} @ {group.location}
+        <ul className="user-list">
+          {Object.keys(group.userIds).map((uid, i) => (
+            <Link to={`/user/${uid}`}>
+              <li key={uid} className="user-item">
                 {users[uid].name} - {users[uid].email}
               </li>
-            ))}
-          </ul>
-        </div>
-      )) || <div>{match.params.groupId}</div>}
-    </div>
+            </Link>
+          ))}
+        </ul>
+      </div>
+    )) || <div>Loading...</div>
   );
 };
 
@@ -46,7 +40,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  goToGroups: () => push(`/groups`)
+  toggleGroupMembership: orgActions.toggleGroupMembership
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GroupPage));
