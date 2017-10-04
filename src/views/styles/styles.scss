@@ -1,4 +1,10 @@
-@import "./reset", "./fonts", "./app", "./../components/header/header";
+@import "./reset",
+    "./fonts",
+    "./app",
+    "./../components/header/header",
+    "./../components/group-list/group-list",
+    "./../components/groups-page/groups-page",
+    "./../components/group-page/group-page";
 
 html {
     overflow-y: scroll;
@@ -11,10 +17,6 @@ body {
 a {
     color: inherit;
     text-decoration: none;
-}
-
-::selection {
-    // background: rgba(200, 200, 255, 0.1);
 }
 
 ul {

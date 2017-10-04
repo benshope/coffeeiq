@@ -14,7 +14,9 @@ const GroupList = ({ auth, groups, toggleGroupMembership }) => (
             <button onClick={() => toggleGroupMembership(group)}>
               {(group.userIds || {})[auth.uid] ? "Join" : "Leave"}
             </button>
-            {group.name} @ {group.location}
+            <span className="group-title">
+              {group.name} @ {group.location}
+            </span>
           </li>
         </Link>
       );

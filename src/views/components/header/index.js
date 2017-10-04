@@ -5,10 +5,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Header = ({ authenticated, signOut, signIn }) => {
+  const headerTitle = <span className="header-title">CoffeeIQ</span>;
   return (
     <div className="header-container">
       <div className="header">
-        <span className="header-title">CoffeeIQ</span>
+        {authenticated ? <Link to="/groups">{headerTitle}</Link> : { headerTitle }}
         {!authenticated ? (
           <ul className="header-buttons">
             <li onClick={signIn}>Log In</li>
@@ -17,6 +18,9 @@ const Header = ({ authenticated, signOut, signIn }) => {
           <ul className="header-buttons">
             <Link to="/groups">
               <li>Groups</li>
+            </Link>
+            <Link to="/users">
+              <li>Users</li>
             </Link>
             <li onClick={signOut}>Log Out</li>
           </ul>

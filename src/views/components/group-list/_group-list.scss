@@ -1,7 +1,15 @@
-//=========================================================
-//  GroupList
-//---------------------------------------------------------
-
 .group-list {
-  border-top: 1px dotted #666;
+    .group-item {
+        padding: 0.5em 0;
+        .group-title {
+            margin-left: 1em;
+        }
+        transition: all 0.1s ease-in-out 0s;
+        &:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        &:active {
+            background: rgba(0, 0, 0, 0.2);
+        }
+    }
 }

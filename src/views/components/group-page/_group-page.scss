@@ -1,0 +1,12 @@
+.group-page {
+	.user-item {
+		padding: 0.5em 0;
+		transition: all 0.1s ease-in-out 0s;
+		&:hover {
+			background: rgba(0, 0, 0, 0.1);
+		}
+		&:active {
+			background: rgba(0, 0, 0, 0.2);
+		}
+	}
+}

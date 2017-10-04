@@ -9,9 +9,14 @@ const GroupPage = ({ groups, users, user, match, toggleGroupMembership }) => {
   return (
     (group && (
       <div className="group-page">
-        <Link to="/groups">Back</Link>
-        <button onClick={() => toggleGroupMembership(user.uid)}>{group.userIds[user.uid] ? "Join" : "Leave"}</button>
-        {group.name} @ {group.location}
+        <Link to="/groups">
+          <button>{`Back`}</button>
+        </Link>
+        <h1>
+          {group.name} @ {group.location}{" "}
+          <button onClick={() => toggleGroupMembership(user.uid)}>{group.userIds[user.uid] ? "Join" : "Leave"}</button>
+        </h1>
+        <h3>Members:</h3>
         <ul className="user-list">
           {Object.keys(group.userIds).map((uid, i) => (
             <Link to={`/user/${uid}`}>
