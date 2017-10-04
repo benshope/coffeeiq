@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { authActions } from "src/auth";
+import googleLogo from "src/assets/images/google.svg";
 
 const HomePage = ({ signIn }) => {
   return (
@@ -19,16 +20,9 @@ const HomePage = ({ signIn }) => {
       <div className="iq-app-container">
         <div className="home-page">
           <h1>Meet your team</h1>
-          <div className="description">
-            CoffeeIQ schedules a quick coffee meeting each week with a coworker.
-          </div>
+          <div className="description">CoffeeIQ schedules a quick coffee meeting each week with a coworker.</div>
           <button className="signup-button" onClick={signIn}>
-            <img
-              alt="google-logo"
-              width="25"
-              height="60"
-              src="../../assets/images/google.svg"
-            />
+            <img alt="google-logo" width="25" height="25" src={googleLogo} />
             Sign Up
           </button>
         </div>

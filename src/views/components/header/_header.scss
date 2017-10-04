@@ -12,29 +12,31 @@
         display: flex;
         justify-content: space-between;
     }
-    ul {
-        list-style-type: none;
-        li {
-            cursor: pointer;
-            padding: 0 1rem;
-            border-left: 1px solid gray;
-            &:hover {
-                background: rgba(0, 0, 0, 0.1);
-            }
-            &:active {
-                background: rgba(0, 0, 0, 0.2);
-            }
+
+    li {
+        cursor: pointer;
+        padding: 0 1rem;
+        // border-left: 1px solid gray;
+        background: rgba(0, 0, 0, 0);
+        transition: all 0.1s ease-in-out 0s;
+        &:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        &:active {
+            background: rgba(0, 0, 0, 0.2);
         }
     }
 }
 
-.app-container {
+.header-container {
+    flex-basis: 100%;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    .page-container,
-    .header-container {
-        flex-basis: 100%;
+    margin-bottom: 2rem;
+    .header {
         max-width: 520px;
+        .header-buttons {
+            display: flex;
+        }
     }
 }
