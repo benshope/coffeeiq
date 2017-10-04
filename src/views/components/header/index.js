@@ -9,7 +9,7 @@ const Header = ({ authenticated, signOut, signIn }) => {
   return (
     <div className="header-container">
       <div className="header">
-        {authenticated ? <Link to="/groups">{headerTitle}</Link> : { headerTitle }}
+        {authenticated ? <Link to="/groups">{headerTitle}</Link> : headerTitle}
         {!authenticated ? (
           <ul className="header-buttons">
             <li onClick={signIn}>Log In</li>
