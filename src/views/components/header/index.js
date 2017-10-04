@@ -2,21 +2,27 @@ import PropTypes from "prop-types";
 import { authActions } from "src/auth";
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Header = ({ authenticated, signOut, signIn }) => {
   return (
-    <header className="header">
-      <h1 className="header-title">CoffeeIQ</h1>
-      <ul className="header-buttons">
-        <li>
-          {authenticated ? (
-            <button onClick={signOut}>Log Out</button>
-          ) : (
-            <button onClick={signIn}>Log In</button>
-          )}
-        </li>
-      </ul>
-    </header>
+    <div className="header-container">
+      <div className="header">
+        <span className="header-title">CoffeeIQ</span>
+        {!authenticated ? (
+          <ul className="header-buttons">
+            <li onClick={signIn}>Log In</li>
+          </ul>
+        ) : (
+          <ul className="header-buttons">
+            <Link to="/groups">
+              <li>Groups</li>
+            </Link>
+            <li onClick={signOut}>Log Out</li>
+          </ul>
+        )}
+      </div>
+    </div>
   );
 };
 

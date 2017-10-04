@@ -10,15 +10,15 @@ const GroupsPage = ({ groups, user }) => {
   const orgName = capitalize(user.orgName);
   const welcomeMessage = () =>
     groups && (
-      <h2>
+      <div className="welcome-message">
         Hi {firstName}, welcome to CoffeeIQ for {orgName}. Begin by joining{" "}
         {Object.keys(groups).length > 1 ? "a" : "the"} coffee group below - or make a new group for your team.
-      </h2>
+      </div>
     );
   const errorMessage = () => (
-    <h2>
+    <div className="welcome-message">
       Hi {firstName}, you have signed in with Gmail. Please sign in with your @yourcompany.com email address. Thanks!
-    </h2>
+    </div>
   );
   return (
     <div className="groups-page">

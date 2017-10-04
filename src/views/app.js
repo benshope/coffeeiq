@@ -10,11 +10,12 @@ import RequireUnauthRoute from "./components/require-unauth-route";
 import HomePage from "./components/home-page";
 import GroupPage from "./components/group-page";
 import GroupsPage from "./components/groups-page";
+import "./styles/styles.css";
 
 const App = ({ authenticated, signOut }) => (
-  <div>
+  <div className="app-container">
     <Header authenticated={authenticated} signOut={signOut} />
-    <main>
+    <main className="page-container">
       <RequireUnauthRoute authenticated={authenticated} exact path="/" component={HomePage} />
       <RequireAuthRoute authenticated={authenticated} path="/groups" component={GroupsPage} />
       <RequireAuthRoute authenticated={authenticated} path="/group/:groupId" component={GroupPage} />
