@@ -9,8 +9,8 @@ const GroupList = ({ auth, groups, toggleGroupMembership }) => (
     {Object.keys(groups).map((key, i) => {
       const group = groups[key];
       return (
-        <Link to={`/group/${key}`}>
-          <li key={group.key} className="group-item">
+        <Link key={key} to={`/group/${key}`}>
+          <li className="group-item">
             <button onClick={() => toggleGroupMembership(group)}>
               {(group.userIds || {})[auth.uid] ? "Join" : "Leave"}
             </button>

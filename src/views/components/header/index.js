@@ -8,6 +8,15 @@ const Header = ({ authenticated, signOut, signIn }) => {
   const headerTitle = <span className="header-title">CoffeeIQ</span>;
   return (
     <div className="header-container">
+      <div className="stripes-container">
+        <div id="stripes">
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
       <div className="header">
         {authenticated ? <Link to="/groups">{headerTitle}</Link> : headerTitle}
         {!authenticated ? (

@@ -12,15 +12,12 @@
           { "key": "X-Frame-Options", "value": "DENY" },
           { "key": "X-UA-Compatible", "value": "ie=edge" },
           { "key": "X-XSS-Protection", "value": "1; mode=block" },
-          {
-            "key": "Cache-Control",
-            "value": "max-age=3600"
-          }
+          { "key": "Cache-Control", "value": "max-age=7200" }
         ]
       },
       {
         "source": "**/*.@(css|html|js|map|otf|png|svg)",
-        "headers": [{ "key": "Cache-Control", "value": "max-age=3600" }]
+        "headers": [{ "key": "Cache-Control", "value": "max-age=7200" }]
       }
     ],
     "rewrites": [{ "source": "**", "destination": "/index.html" }]

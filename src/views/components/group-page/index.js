@@ -19,8 +19,8 @@ const GroupPage = ({ groups, users, user, match, toggleGroupMembership }) => {
         <h3>Members:</h3>
         <ul className="user-list">
           {Object.keys(group.userIds).map((uid, i) => (
-            <Link to={`/user/${uid}`}>
-              <li key={uid} className="user-item">
+            <Link key={uid} to={`/user/${uid}`}>
+              <li className="user-item">
                 {users[uid].name} - {users[uid].email}
               </li>
             </Link>

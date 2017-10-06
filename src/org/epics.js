@@ -20,50 +20,39 @@ export const signInSuccessEpic = action$ =>
       });
       return Observable.create(observer => {
         ref.once("value", x => observer.next(orgActions.onValue(x.val())));
-        ref.on("child_added", x =>
-          observer.next(orgActions.onChildAdded(unwrap(x)))
-        );
-        ref.on("child_changed", x =>
-          observer.next(orgActions.onChildChanged(unwrap(x)))
-        );
-        ref.on("child_removed", x =>
-          observer.next(orgActions.onChildRemoved(unwrap(x)))
-        );
+        ref.on("child_added", x => observer.next(orgActions.onChildAdded(unwrap(x))));
+        ref.on("child_changed", x => observer.next(orgActions.onChildChanged(unwrap(x))));
+        ref.on("child_removed", x => observer.next(orgActions.onChildRemoved(unwrap(x))));
       });
     });
 
 export const createGroupEpic = (action$, store) =>
-  action$
-    .filter(action => action.type === orgActionTypes.CREATE_GROUP)
-    .flatMap(({ payload }) => {
-      const orgId = store.getState().auth.user.orgId;
-      return new Promise((resolve, reject) =>
-        firebaseDb
-          .ref(`orgs/${orgId}/groups`)
-          .push(payload, error => (error ? reject(error) : resolve(payload)))
-          .then(
-            (() => orgActions.createGroupSuccess(payload),
-            error => orgActions.createGroupError(error))
-          )
-      );
-    });
+  action$.filter(action => action.type === orgActionTypes.CREATE_GROUP).flatMap(({ payload }) => {
+    const orgId = store.getState().auth.user.orgId;
+    return new Promise((resolve, reject) =>
+      firebaseDb
+        .ref(`orgs/${orgId}/groups`)
+        .push(payload, error => (error ? reject(error) : resolve(payload)))
+        .then((() => orgActions.createGroupSuccess(payload), error => orgActions.createGroupError(error)))
+    );
+  });
 
-// export const toggleGroupMembershipEpic = (action$, store) => {
-//   return action$
-//     .filter(action => action.type === orgActions.TOGGLE_GROUP_MEMBERSHIP)
-//     .map(action => {
-//       const group = action.payload;
-//       const state = store.getState();
-//       const auth = state.auth;
-//       // const user = state.users.list.find((u) => u.key === auth.uid);
-//       const toggleOn = !group.userIds || !group.userIds[auth.uid];
-//       var updates = {};
-//       updates[`groups/${group.key}/userIds/${auth.uid}`] = toggleOn;
-//       updates[`users/${auth.uid}/groupIds/${group.key}`] = toggleOn;
-//       return firebaseDb.ref(`orgs/${auth.user.orgId}`).update(updates);
-//     })
-//     .filter(() => false);
-// };
+export const toggleGroupMembershipEpic = (action$, store) => {
+  return action$
+    .filter(action => action.type === orgActions.TOGGLE_GROUP_MEMBERSHIP)
+    .map(({ payload }) => {
+      const group = payload;
+      const state = store.getState();
+      const auth = state.auth;
+      // const user = state.users.list.find((u) => u.key === auth.uid);
+      const toggleOn = !group.userIds || !group.userIds[auth.uid];
+      var updates = {};
+      updates[`groups/${group.key}/userIds/${auth.uid}`] = toggleOn;
+      updates[`users/${auth.uid}/groupIds/${group.key}`] = toggleOn;
+      return firebaseDb.ref(`orgs/${auth.user.orgId}`).update(updates);
+    })
+    .filter(() => false);
+};
 
 // export const updateGroupEpic = action$ => {
 //   return action$
@@ -94,6 +83,6 @@ export const orgEpics = [
   // groupUpdatesEpic,
   // updateGroupEpic,
   // deleteGroupEpic,
-  signInSuccessEpic
-  // toggleGroupMembershipEpic
+  signInSuccessEpic,
+  toggleGroupMembershipEpic
 ];
