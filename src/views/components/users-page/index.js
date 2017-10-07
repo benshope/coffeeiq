@@ -8,7 +8,7 @@ import UserList from "../user-list/user-list.container";
 const UsersPage = ({ auth }) => {
 	return (
 		<div className="users-page">
-			<h2>Users</h2>
+			<h1>Users</h1>
 			<UserList />
 		</div>
 	);
