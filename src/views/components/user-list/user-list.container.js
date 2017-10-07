@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { orgActions } from "src/org";
+// import { orgActions } from "src/org";
 
 const UserList = ({ auth, uids, users }) => (
   <ul className="user-list">

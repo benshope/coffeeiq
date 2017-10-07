@@ -1,4 +1,4 @@
-import { capitalize } from "lodash";
+// import { capitalize } from "lodash";
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";

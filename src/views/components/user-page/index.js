@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { orgActions } from "src/org";
 
 const UserPage = ({ users, groups, match, toggleMembership }) => {
