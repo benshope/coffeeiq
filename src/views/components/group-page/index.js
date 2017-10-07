@@ -7,7 +7,7 @@ import { orgActions } from "src/org";
 const GroupPage = ({ groups, users, auth, match, toggleMembership }) => {
   const group = groups && groups[match.params.groupId];
   return (
-    (group && (
+    ((group && users) && (
       <div className="group-page">
         <h1>
           {group.name} @ {group.location}{" "}
