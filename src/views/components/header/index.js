@@ -20,9 +20,9 @@ const Header = ({ authenticated, signOut, signIn }) => {
       <div className="header">
         {authenticated ? <Link to="/groups">{headerTitle}</Link> : headerTitle}
         {!authenticated ? (
-          <ul className="header-buttons">
-            <li onClick={signIn}>Log In</li>
-          </ul>
+          <div className="header-buttons">
+            <a onClick={signIn}>Log In</a>
+          </div>
         ) : (
           <div className="header-buttons">
             <NavLink activeClassName="selected" to="/groups">
