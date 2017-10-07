@@ -36,7 +36,7 @@ export const orgActions = {
   updateGroup: action(orgActionTypes.UPDATE_GROUP),
   updateGroupFailed: action(orgActionTypes.UPDATE_GROUP_FAILED),
   updateGroupSuccess: action(orgActionTypes.UPDATE_GROUP_SUCCESS),
-  toggleGroupMembership: action(orgActionTypes.TOGGLE_GROUP_MEMBERSHIP)
+  toggleMembership: action(orgActionTypes.TOGGLE_GROUP_MEMBERSHIP)
 };
 
 export default orgActions;

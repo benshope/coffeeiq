@@ -24,7 +24,7 @@ const GroupsPage = ({ groups, user }) => {
     <div className="groups-page">
       {user.orgId === "gmail_com" && errorMessage()}
       {welcomeMessage()}
-      <h3>Groups:</h3>
+      <h2>Groups</h2>
       <GroupList />
     </div>
   );

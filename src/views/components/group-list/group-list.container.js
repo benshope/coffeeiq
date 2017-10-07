@@ -4,14 +4,14 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { orgActions } from "src/org";
 
-const GroupList = ({ auth, groups, toggleGroupMembership }) => (
+const GroupList = ({ auth, groups, toggleMembership }) => (
   <ul className="group-list">
     {Object.keys(groups).map((key, i) => {
       const group = groups[key];
       return (
         <Link key={key} to={`/group/${key}`}>
           <li className="group-item">
-            <button onClick={() => toggleGroupMembership(group)}>
+            <button onClick={() => toggleMembership(group)}>
               {(group.userIds || {})[auth.uid] ? "Join" : "Leave"}
             </button>
             <span className="group-title">
@@ -27,7 +27,7 @@ const GroupList = ({ auth, groups, toggleGroupMembership }) => (
 GroupList.propTypes = {
   groups: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  toggleGroupMembership: PropTypes.func.isRequired
+  toggleMembership: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  toggleGroupMembership: orgActions.toggleGroupMembership
+  toggleMembership: orgActions.toggleMembership
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupList);

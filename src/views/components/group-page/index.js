@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { orgActions } from "src/org";
 
-const GroupPage = ({ groups, users, user, match, toggleGroupMembership }) => {
+const GroupPage = ({ groups, users, user, match, toggleMembership }) => {
   const group = groups && groups[match.params.groupId];
   return (
     (group && (
@@ -14,7 +14,7 @@ const GroupPage = ({ groups, users, user, match, toggleGroupMembership }) => {
         </Link>
         <h1>
           {group.name} @ {group.location}{" "}
-          <button onClick={() => toggleGroupMembership(user.uid)}>{group.userIds[user.uid] ? "Join" : "Leave"}</button>
+          <button onClick={() => toggleMembership(user.uid)}>{group.userIds[user.uid] ? "Join" : "Leave"}</button>
         </h1>
         <h3>Members:</h3>
         <ul className="user-list">
@@ -35,7 +35,7 @@ GroupPage.propTypes = {
   groups: PropTypes.object,
   user: PropTypes.object.isRequired,
   users: PropTypes.object,
-  toggleGroupMembership: PropTypes.func.isRequired
+  toggleMembership: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -45,7 +45,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  toggleGroupMembership: orgActions.toggleGroupMembership
+  toggleMembership: orgActions.toggleMembership
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GroupPage));

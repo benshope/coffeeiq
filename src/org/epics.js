@@ -37,7 +37,7 @@ export const createGroupEpic = (action$, store) =>
     );
   });
 
-export const toggleGroupMembershipEpic = (action$, store) => {
+export const toggleMembershipEpic = (action$, store) => {
   return action$
     .filter(action => action.type === orgActions.TOGGLE_GROUP_MEMBERSHIP)
     .map(({ payload }) => {
@@ -84,5 +84,5 @@ export const orgEpics = [
   // updateGroupEpic,
   // deleteGroupEpic,
   signInSuccessEpic,
-  toggleGroupMembershipEpic
+  toggleMembershipEpic
 ];
