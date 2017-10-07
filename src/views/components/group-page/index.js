@@ -4,14 +4,14 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { orgActions } from "src/org";
 
-const GroupPage = ({ groups, users, user, match, toggleMembership }) => {
+const GroupPage = ({ groups, users, auth, match, toggleMembership }) => {
   const group = groups && groups[match.params.groupId];
   return (
     (group && (
       <div className="group-page">
         <h1>
           {group.name} @ {group.location}{" "}
-          <button onClick={() => toggleMembership(user.uid)}>{group.userIds[user.uid] ? "Join" : "Leave"}</button>
+          <button onClick={() => toggleMembership(auth.user.uid)}>{(group.userIds || {})[auth.user.uid] ? "Join" : "Leave"}</button>
         </h1>
         <h3>Members:</h3>
         <ul className="user-list">
@@ -30,7 +30,7 @@ const GroupPage = ({ groups, users, user, match, toggleMembership }) => {
 
 GroupPage.propTypes = {
   groups: PropTypes.object,
-  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   users: PropTypes.object,
   toggleMembership: PropTypes.func.isRequired
 };
@@ -38,8 +38,7 @@ GroupPage.propTypes = {
 const mapStateToProps = state => ({
   groups: state.org.groups,
   users: state.org.users,
-  user: state.auth
-});
+  auth: state.auth
 
 const mapDispatchToProps = {
   toggleMembership: orgActions.toggleMembership
