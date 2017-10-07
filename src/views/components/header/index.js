@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { authActions } from "src/auth";
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 
 const Header = ({ authenticated, signOut, signIn }) => {
   const headerTitle = <span className="header-title">CoffeeIQ</span>;
@@ -24,15 +24,15 @@ const Header = ({ authenticated, signOut, signIn }) => {
             <li onClick={signIn}>Log In</li>
           </ul>
         ) : (
-          <ul className="header-buttons">
-            <Link to="/groups">
-              <li>Groups</li>
-            </Link>
-            <Link to="/users">
-              <li>Users</li>
-            </Link>
-            <li onClick={signOut}>Log Out</li>
-          </ul>
+          <div className="header-buttons">
+            <NavLink activeClassName="selected" to="/groups">
+              Groups
+            </NavLink>
+            <NavLink activeClassName="selected" to="/users">
+              Users
+            </NavLink>
+            <a onClick={signOut}>Log Out</a>
+          </div>
         )}
       </div>
     </div>
@@ -54,4 +54,4 @@ const mapDispatchToProps = {
   signIn: authActions.signIn
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
