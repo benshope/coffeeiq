@@ -29,13 +29,16 @@ const GroupPage = ({ groups, users, auth, match, toggleMembership }) => {
           </button>
           <h3>{realUserIds.length} Members</h3>
           <ul className="user-list">
-            {realUserIds.map((userId, i) => (
-              <Link key={userId} to={`/user/${userId}`}>
-                <li className="user-item">
-                  {users[userId].name} - {users[userId].email}
-                </li>
-              </Link>
-            ))}
+            {realUserIds.map((userId, i) => {
+              const user = users[userId] || {};
+              return (
+                <Link key={userId} to={`/user/${userId}`}>
+                  <li className="user-item">
+                    {user.name} - {user.email}
+                  </li>
+                </Link>
+              );
+            })}
           </ul>
         </div>
       )) || <div>Loading...</div>
