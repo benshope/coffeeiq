@@ -6,18 +6,30 @@ import { orgActions } from "src/org";
 
 const GroupPage = ({ groups, users, auth, match, toggleMembership }) => {
   const group = groups && groups[match.params.groupId];
-  const userIds = group.userIds || {};
+  const userIds = (group && group.userIds) || {};
+  const realUserIds = Object.keys(userIds).filter(userId => userIds[userId]);
   return (
     (group &&
       users && (
         <div className="group-page">
           <h1>
-            {group.name} @ {group.location}{" "}
-            <button onClick={() => toggleMembership(auth.user.uid)}>{userIds[auth.user.uid] ? "Join" : "Leave"}</button>
+            {group.name} @ {group.location}
           </h1>
-          <h3>Members:</h3>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleMembership({
+                groupId: match.params.groupId,
+                userId: auth.user.uid
+              });
+            }}
+          >
+            {(userIds || {})[auth.uid] ? "Leave" : "Join"}
+          </button>
+          <h3>{realUserIds.length} Members</h3>
           <ul className="user-list">
-            {Object.keys(userIds).map((userId, i) => (
+            {realUserIds.map((userId, i) => (
               <Link key={userId} to={`/user/${userId}`}>
                 <li className="user-item">
                   {users[userId].name} - {users[userId].email}

@@ -6,17 +6,25 @@ import { orgActions } from "src/org";
 
 const GroupList = ({ auth, groups, toggleMembership }) => (
   <ul className="group-list">
-    {Object.keys(groups).map((key, i) => {
-      const group = groups[key];
+    {Object.keys(groups).map((groupId, i) => {
+      const group = groups[groupId];
+      const userIds = group.userIds || {};
       return (
-        <Link key={key} to={`/group/${key}`}>
+        <Link key={groupId} to={`/group/${groupId}`}>
           <li className="group-item">
-            <button onClick={() => toggleMembership(group)}>
-              {(group.userIds || {})[auth.uid] ? "Join" : "Leave"}
+            <button
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMembership({ groupId, userId: auth.user.uid });
+              }}
+            >
+              {userIds[auth.uid] ? "Leave" : "Join"}
             </button>
             <span className="group-title">
               {group.name} @ {group.location}
             </span>
+            <span>Members: {Object.keys(group.userIds).filter(userId => userIds[userId]).length}</span>
           </li>
         </Link>
       );

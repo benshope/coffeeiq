@@ -39,17 +39,16 @@ export const createGroupEpic = (action$, store) =>
 
 export const toggleMembershipEpic = (action$, store) => {
   return action$
-    .filter(action => action.type === orgActions.TOGGLE_GROUP_MEMBERSHIP)
+    .filter(action => action.type === orgActionTypes.TOGGLE_GROUP_MEMBERSHIP)
     .map(({ payload }) => {
-      const group = payload;
       const state = store.getState();
-      const auth = state.auth;
-      // const user = state.users.list.find((u) => u.key === auth.uid);
-      const toggleOn = !group.userIds || !group.userIds[auth.uid];
+      const group = state.org.groups[payload.groupId];
+      const toggleOn = !group.userIds || !group.userIds[payload.userId];
       var updates = {};
-      updates[`groups/${group.key}/userIds/${auth.uid}`] = toggleOn;
-      updates[`users/${auth.uid}/groupIds/${group.key}`] = toggleOn;
-      return firebaseDb.ref(`orgs/${auth.user.orgId}`).update(updates);
+      updates[`groups/${payload.groupId}/userIds/${payload.userId}`] = toggleOn;
+      console.log("TOGGLING GROUP", toggleOn);
+      // updates[`users/${payload.userId}/groupIds/${payload.groupId}`] = toggleOn;
+      return firebaseDb.ref(`orgs/${state.auth.user.orgId}`).update(updates);
     })
     .filter(() => false);
 };
