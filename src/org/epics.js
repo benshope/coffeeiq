@@ -33,7 +33,7 @@ export const createGroupEpic = (action$, store) =>
       firebaseDb
         .ref(`orgs/${orgId}/groups`)
         .push(payload, error => (error ? reject(error) : resolve(payload)))
-        .then((() => orgActions.createGroupSuccess(payload), error => orgActions.createGroupError(error)))
+        .then((() => orgActions.createGroupSuccess(payload), error => orgActions.createGroupFailed(error)))
     );
   });
 

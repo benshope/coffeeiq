@@ -1,25 +1,70 @@
+import { isEqual } from "lodash";
 import PropTypes from "prop-types";
 import { orgActions } from "src/org";
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-// TODO: make stateful component
-const GroupForm = ({ group, createGroup, updateGroup }) => {
-  return <div className="header-container">Group Form Here</div>;
-};
+class GroupForm extends React.Component {
+    constructor({ group }) {
+        super();
+        this.state = { group: { ...(group || { name: "", location: "" }) } };
+    }
+
+    updateName = e => {
+        const value = e.target.value;
+        this.setState(state => ({
+            ...state,
+            group: {
+                ...state.group,
+                name: value
+            }
+        }));
+    };
+
+    updateLocation = e => {
+        const value = e.target.value;
+        this.setState(state => ({
+            ...state,
+            group: {
+                ...state.group,
+                location: value
+            }
+        }));
+    };
+
+    render() {
+        const group = this.state.group;
+        const { groups, groupId, createGroup, updateGroup } = this.props;
+        return (
+            <div className="header-container">
+                <input placeholder="Name..." value={group.name} onChange={this.updateName} />
+                <input placeholder="Location..." value={group.location} onChange={this.updateLocation} />
+                <button
+                    onClick={() => (groupId ? updateGroup : createGroup)(this.state.group)}
+                    disabled={!group.name || !group.location || isEqual(this.state.group, groups[groupId] || {})}
+                >
+                    {groupId ? `Update` : `Create`}
+                </button>
+            </div>
+        );
+    }
+}
 
 GroupForm.propTypes = {
-  createGroup: PropTypes.func.isRequired,
-  group: PropTypes.object,
-  updateGroup: PropTypes.func.isRequired
+    createGroup: PropTypes.func.isRequired,
+    groupId: PropTypes.string,
+    updateGroup: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    auth: state.auth,
+    groups: state.org.groups || {}
+});
 
 const mapDispatchToProps = {
-  createGroup: orgActions.createGroup,
-  updateGroup: orgActions.updateGroup
+    createGroup: orgActions.createGroup,
+    updateGroup: orgActions.updateGroup
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupForm);

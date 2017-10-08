@@ -4,6 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import GroupList from "../group-list/group-list.container";
+import GroupForm from "../group-form";
 
 const GroupsPage = ({ groups, user }) => {
   const firstName = capitalize(user.displayName.split(" ")[0]) || user.email;
@@ -26,6 +27,7 @@ const GroupsPage = ({ groups, user }) => {
       {welcomeMessage()}
       <h1>Groups</h1>
       <GroupList />
+      <GroupForm />
     </div>
   );
 };
