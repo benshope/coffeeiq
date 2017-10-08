@@ -31,7 +31,7 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
               <span className="group-title">
                 {group.name} @ {group.location}
               </span>
-              <span>Members: {Object.keys(group.userIds).filter(userId => userIds[userId]).length}</span>
+              <span>Members: {Object.keys(userIds).filter(userId => userIds[userId]).length}</span>
             </li>
           </Link>
         );
