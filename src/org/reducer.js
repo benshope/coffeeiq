@@ -2,7 +2,7 @@
 import { orgActionTypes } from "./actions";
 import { authActions } from "../auth/actions";
 
-const newState = {};
+const newState = { users: {}, groups: {} };
 
 const stateFunctions = {
     [orgActionTypes.ON_ORG_VALUE]: (state, payload) => payload,
