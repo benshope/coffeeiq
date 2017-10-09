@@ -6,7 +6,7 @@ import { notificationsActions } from "src/notifications";
 const Notifications = ({ notifications, deleteNotification }) => (
   <ul className="notification-list">
     {notifications.map((notification, i) => (
-      <li className={`notification-item ${notification.type}`} key={notification.id}>
+      <li className={`notification-item ${notification.type.toLowerCase()}`} key={notification.id}>
         <span className="notification-message">{notification.message}</span>{" "}
         <div className="demo">
           <svg className="progress" width="120" height="120" viewBox="0 0 120 120">
