@@ -1,14 +1,27 @@
-import { notificationActionTypes } from "./actions";
+import { notificationsActionTypes } from "./actions";
 
-const newState = [];
+const notificationTypes = {
+	SUCCESS: "SUCCESS",
+	ERROR: "ERROR"
+};
+
+const newState = [
+	{ id: "merp", message: "derp", type: notificationTypes.SUCCESS },
+	{ id: "merppp", message: "derppppp", type: notificationTypes.SUCCESS },
+	{
+		id: "merpppid",
+		message: "YEEEeeeeeeeeeeeeeeeEEEEEEEEeeeeeeelk elkjelkj elkejlekjelkjelkjelkejlkejelkje",
+		type: notificationTypes.ERROR
+	}
+];
 
 const stateFunctions = {
-	[notificationActionTypes.CREATE_NOTIFICATION]: (state, payload) => [...state, notification],
-	[notificationActionTypes.DELETE_NOTIFICATION]: (state, payload) =>
+	[notificationsActionTypes.CREATE_NOTIFICATION]: (state, payload) => [...state, payload],
+	[notificationsActionTypes.DELETE_NOTIFICATION]: (state, payload) =>
 		state.filter(notification => notification !== payload)
 };
 
-export const notificationReducer = (state = [...newState], { payload, type }) =>
+export const notificationsReducer = (state = [...newState], { payload, type }) =>
 	(stateFunctions[type] || (state => state))(state, payload);
 
-export default notificationReducer;
+export default notificationsReducer;

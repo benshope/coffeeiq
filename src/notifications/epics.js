@@ -6,7 +6,9 @@ const DEFAULT_NOTIFICATION_DURATION = 3000;
 export const createNotificationEpic = (action$, store) =>
   action$.filter(action => action.type === notificationActions.REQUEST_CREATE_NOTIFICATION).map(({ payload }) =>
     notificationActions.createNotification({
-      id: uuid.v4(), // TODO: set to random
+      id: Math.random()
+        .toString(36)
+        .substring(7), // TODO: set to random
       duration: DEFAULT_NOTIFICATION_DURATION, // will be overwritten by a duration passed in the payload
       ...payload
     })

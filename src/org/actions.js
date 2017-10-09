@@ -21,8 +21,8 @@ export const orgActionTypes = {
   TOGGLE_GROUP_MEMBERSHIP: "TOGGLE_GROUP_MEMBERSHIP"
 };
 
-// what should go in the place of the action function?
 export const orgActions = {
+  ...orgActionTypes,
   onValue: action(orgActionTypes.ON_ORG_VALUE),
   onChildAdded: action(orgActionTypes.ON_ORG_CHILD_ADDED),
   onChildChanged: action(orgActionTypes.ON_ORG_CHILD_CHANGED),

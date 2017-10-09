@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 
 import { authActions, isAuthenticated } from "src/auth";
 import Header from "./components/header";
+import Notifications from "./components/notifications";
 import RequireAuthRoute from "./components/require-auth-route";
 import RequireUnauthRoute from "./components/require-unauth-route";
 import HomePage from "./components/home-page";
@@ -16,6 +17,7 @@ import "./styles/styles.css";
 
 const App = ({ authenticated, signOut }) => (
   <div className="app-container">
+    <Notifications />
     <Header authenticated={authenticated} signOut={signOut} />
     <main className="page-container">
       <RequireUnauthRoute authenticated={authenticated} exact path="/" component={HomePage} />
