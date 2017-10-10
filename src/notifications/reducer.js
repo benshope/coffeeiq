@@ -14,7 +14,7 @@ const newState = [
 const stateFunctions = {
     [notificationsActionTypes.CREATE_NOTIFICATION]: (state, payload) => [...state, payload],
     [notificationsActionTypes.DELETE_NOTIFICATION]: (state, payload) =>
-        state.filter(notification => notification !== payload)
+        state.filter(notification => notification.id !== payload)
 };
 
 export const notificationsReducer = (state = [...newState], { payload, type }) =>

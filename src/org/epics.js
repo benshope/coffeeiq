@@ -42,40 +42,46 @@ export const toggleMembershipEpic = (action$, store) => {
 };
 
 export const createGroupEpic = (action$, store) =>
-  action$.filter(action => action.type === orgActionTypes.CREATE_GROUP).flatMap(({ payload }) => {
-    const orgId = store.getState().auth.user.orgId;
-    return new Promise((resolve, reject) =>
-      firebaseDb
-        .ref(`orgs/${orgId}/groups`)
-        .push(payload, error => (error ? reject(error) : resolve(payload)))
-        .then((() => orgActions.createGroupSuccess(payload), error => orgActions.createGroupFailed(error)))
-    );
-  });
+  action$
+    .filter(action => action.type === orgActionTypes.CREATE_GROUP)
+    .flatMap(({ payload }) => {
+      const orgId = store.getState().auth.user.orgId;
+      return new Promise((resolve, reject) =>
+        firebaseDb.ref(`orgs/${orgId}/groups`).push(payload, error => (error ? reject(error) : resolve(payload)))
+      );
+    })
+    .map(payload => orgActions.createGroupSuccess(payload))
+    .catch(error => orgActions.createGroupFailed(error));
 
-export const updateGroupEpic = (action$, store) =>
-  action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP).flatMap(({ payload }) => {
-    const orgId = store.getState().auth.user.orgId;
-    return new Promise((resolve, reject) =>
-      firebaseDb
-        .ref(`orgs/${orgId}/groups/${payload.key}`)
-        .update(payload.value, error => (error ? reject(error) : resolve(payload)))
-        .then((() => orgActions.updateGroupSuccess(payload), error => orgActions.updateGroupFailed(error)))
-    );
-  });
+// export const updateGroupEpic = (action$, store) =>
+//   action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP).flatMap(({ payload }) => {
+//     const orgId = store.getState().auth.user.orgId;
+//     return new Promise((resolve, reject) =>
+//       firebaseDb
+//         .ref(`orgs/${orgId}/groups/${payload.key}`)
+//         .update(payload.value, error => (error ? reject(error) : resolve(payload)))
+//         .then((() => orgActions.updateGroupSuccess(payload), error => orgActions.updateGroupFailed(error)))
+//     );
+//   });
 
-export const deleteGroupEpic = (action$, store) =>
-  action$.filter(action => action.type === orgActionTypes.DELETE_GROUP).flatMap(({ payload }) => {
-    const orgId = store.getState().auth.user.orgId;
-    const groups = {
-      ...store.getState().org.groups,
-      [payload]: undefined
-    };
-    return new Promise((resolve, reject) =>
-      firebaseDb
-        .ref(`orgs/${orgId}/groups`)
-        .set(groups, error => (error ? reject(error) : resolve(payload)))
-        .then((() => orgActions.deleteGroupSuccess(payload), error => orgActions.deleteGroupFailed(error)))
-    );
-  });
+// export const deleteGroupEpic = (action$, store) =>
+//   action$.filter(action => action.type === orgActionTypes.DELETE_GROUP).flatMap(({ payload }) => {
+//     const orgId = store.getState().auth.user.orgId;
+//     const groups = {
+//       ...store.getState().org.groups,
+//       [payload]: undefined
+//     };
+//     return new Promise((resolve, reject) =>
+//       firebaseDb
+//         .ref(`orgs/${orgId}/groups`)
+//         .set(groups, error => (error ? reject(error) : resolve(payload)))
+//         .then((() => orgActions.deleteGroupSuccess(payload), error => orgActions.deleteGroupFailed(error)))
+//     );
+//   });
 
-export const orgEpics = [createGroupEpic, updateGroupEpic, deleteGroupEpic, signInSuccessEpic, toggleMembershipEpic];
+export const orgEpics = [
+  createGroupEpic,
+  // updateGroupEpic, deleteGroupEpic,
+  signInSuccessEpic,
+  toggleMembershipEpic
+];
