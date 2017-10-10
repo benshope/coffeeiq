@@ -16,11 +16,9 @@ const Notifications = ({ notifications, deleteNotification }) => (
             </svg>
           </div>
         </div>
-        {undefined && (
-          <a className="delete-notification" onClick={() => deleteNotification(notification.id)}>
-            X
-          </a>
-        )}
+        <a className="delete-notification" onClick={() => deleteNotification(notification.id)}>
+          ×
+        </a>
       </li>
     ))}
   </ul>

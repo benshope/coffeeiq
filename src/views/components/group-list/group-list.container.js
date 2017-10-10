@@ -4,22 +4,26 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { orgActions } from "src/org";
 
-const numUserIds = group => {
-  const userIds = group.userIds || {};
-  return Object.keys(userIds).filter(userId => userIds[userId]).length;
-};
+// const numUserIds = group => {
+//   const userIds = group.userIds || {};
+//   return Object.keys(userIds).filter(userId => userIds[userId]).length;
+// };
 
 const GroupList = ({ auth, groups, toggleMembership }) => (
   <ul className="group-list">
     {Object.keys(groups)
-      .sort((x, y) => numUserIds(groups[y]) - numUserIds(groups[x]))
+      // .sort((x, y) => numUserIds(groups[y]) - numUserIds(groups[x]))
       .map((groupId, i) => {
         const group = groups[groupId];
         const userIds = group.userIds || {};
         return (
           <Link key={groupId} to={`/group/${groupId}`}>
             <li className="group-item">
-              <span className="join-leave-button-wrapper">
+              <div className="group-title">
+                {group.name} @ {group.location}{" "}
+                <span className="member-count">{Object.keys(userIds).filter(userId => userIds[userId]).length}</span>
+              </div>
+              <div className="join-leave-button-wrapper">
                 <button
                   className="join-leave-button"
                   onClick={e => {
@@ -30,11 +34,7 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
                 >
                   {userIds[auth.uid] ? "Leave" : "Join"}
                 </button>
-              </span>
-              <span className="group-title">
-                {group.name} @ {group.location}
-              </span>
-              <span>Members: {Object.keys(userIds).filter(userId => userIds[userId]).length}</span>
+              </div>
             </li>
           </Link>
         );

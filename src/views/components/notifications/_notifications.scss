@@ -28,6 +28,19 @@ $pi: 3.14159265358979;
     }
     .delete-notification {
       flex-shrink: 0;
+      font-weight: 600;
+      font-size: 1.5em;
+      line-height: 0.5em;
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.2);
+      transition: all 0.1s ease-in-out 0s;
+      &:hover {
+        color: rgba(0, 0, 0, 0.4);
+      }
+      &:active,
+      &:focus {
+        color: rgba(255, 255, 255, 0.6);
+      }
     }
   }
   .loader-container {
