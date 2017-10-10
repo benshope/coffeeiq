@@ -9,7 +9,7 @@ export const createNotificationEpic = (action$, store) =>
       id: Math.random()
         .toString(36)
         .substring(7), // TODO: set to random
-      type: "SUCCESS",
+      type: notificationTypes.SUCCESS,
       duration: DEFAULT_NOTIFICATION_DURATION, // will be overwritten by a duration passed in the payload
       ...payload
     })

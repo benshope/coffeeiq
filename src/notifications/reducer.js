@@ -5,7 +5,8 @@ const newState = [
     { id: "merppp", message: "derppppp", type: notificationTypes.SUCCESS },
     {
         id: "merpppid",
-        message: "YEEEeeeeeeeeeeeeeeeEEEEEEEEeeeeeeelk elkjelkj elkejlekjelkjelkjelkejlkejelkje",
+        message:
+            "YEEEeeeeeeeeeeeeeeeEEdf sfdfd sf sfsdfsfsdf sf ds fs df fsdEEEEEEeeeeeeelk elkjelkj elkejlekjelkjelkjelkejlkejelkje",
         type: notificationTypes.ERROR
     }
 ];
