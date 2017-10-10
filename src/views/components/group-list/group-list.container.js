@@ -19,15 +19,18 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
         return (
           <Link key={groupId} to={`/group/${groupId}`}>
             <li className="group-item">
-              <button
-                onClick={e => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  toggleMembership({ groupId, userId: auth.user.uid });
-                }}
-              >
-                {userIds[auth.uid] ? "Leave" : "Join"}
-              </button>
+              <span className="join-leave-button-wrapper">
+                <button
+                  className="join-leave-button"
+                  onClick={e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleMembership({ groupId, userId: auth.user.uid });
+                  }}
+                >
+                  {userIds[auth.uid] ? "Leave" : "Join"}
+                </button>
+              </span>
               <span className="group-title">
                 {group.name} @ {group.location}
               </span>

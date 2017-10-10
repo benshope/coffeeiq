@@ -4,6 +4,9 @@
         .group-title {
             margin-left: 1em;
         }
+        .join-leave-button-wrapper {
+            min-width: 5em;
+        }
         transition: all 0.1s ease-in-out 0s;
         &:hover {
             background: rgba(0, 0, 0, 0.1);

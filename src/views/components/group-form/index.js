@@ -37,10 +37,16 @@ class GroupForm extends React.Component {
         const group = this.state.group;
         const { groups, groupId, createGroup, updateGroup } = this.props;
         return (
-            <div className="header-container">
-                <input placeholder="Name..." value={group.name} onChange={this.updateName} />
-                <input placeholder="Location..." value={group.location} onChange={this.updateLocation} />
+            <div className="group-form">
+                <input className="group-input" placeholder="Name..." value={group.name} onChange={this.updateName} />
+                <input
+                    className="group-input"
+                    placeholder="Location..."
+                    value={group.location}
+                    onChange={this.updateLocation}
+                />
                 <button
+                    className="create-or-update-button"
                     onClick={() => (groupId ? updateGroup : createGroup)(this.state.group)}
                     disabled={!group.name || !group.location || isEqual(this.state.group, groups[groupId] || {})}
                 >

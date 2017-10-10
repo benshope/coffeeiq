@@ -4,6 +4,7 @@
     "./../components/header/header",
     "./../components/home-page/home-page",
     "./../components/group-list/group-list",
+    "./../components/group-form/group-form",
     "./../components/groups-page/groups-page",
     "./../components/group-page/group-page",
     "./../components/notifications/notifications",
@@ -41,5 +42,22 @@ button {
     }
     &:active {
         background: rgba(0, 0, 0, 0.3);
+    }
+}
+
+input {
+    padding: 1em;
+    border: none;
+    outline: none;
+    border-radius: 0.2em;
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+    transition: all 0.1s ease-in-out 0s;
+    &:hover {
+        background: rgba(255, 255, 255, 0.9);
+    }
+    &:active,
+    &:focus {
+        background: rgba(255, 255, 255, 1);
     }
 }
