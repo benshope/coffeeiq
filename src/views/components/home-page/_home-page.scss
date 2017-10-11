@@ -33,8 +33,11 @@
       // background-color: #f2f2f2;
     }
     &:active {
-      color: #343434;
-      background-color: #c0c0c0;
+      // background: rgba(0, 0, 0, 0.4);
+      // color: #343434;
+      // color: white;
+      // box-shadow: none;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     }
   }
 }

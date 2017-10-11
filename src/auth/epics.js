@@ -27,7 +27,7 @@ export const signInEpic = action$ =>
 // TODO: this should be in a firebase function
 export const updateUserEpic = action$ =>
   action$
-    .filter(action => action.type === authActions.UPDATE_USER)
+    .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
     .map(
       ({ payload }) =>
         new Promise((resolve, reject) =>
