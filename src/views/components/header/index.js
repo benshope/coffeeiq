@@ -58,7 +58,7 @@ Header.propTypes = {
 
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated,
-  userId: state.auth.user && state.auth.user.uid
+  userId: state.auth.uid
 });
 
 const mapDispatchToProps = {

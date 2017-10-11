@@ -11,10 +11,7 @@ import { notificationsActions } from "../notifications/actions";
 export const signInSuccessEpic = action$ =>
   action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
-    .map(({ payload }) => {
-      var orgId = payload.user.email.split("@")[1].replace(".", "_");
-      return firebaseDb.ref(`orgs/${orgId}`);
-    })
+    .map(({ payload }) => firebaseDb.ref(`orgs/${payload.orgId}`))
     .flatMap(ref => {
       const unwrap = snapshot => ({
         path: snapshot.key,
@@ -38,7 +35,7 @@ export const toggleMembershipEpic = (action$, store) => {
       var updates = {};
       updates[`groups/${payload.groupId}/userIds/${payload.userId}`] = toggleOn;
       updates[`users/${payload.userId}/groupIds/${payload.groupId}`] = toggleOn;
-      return firebaseDb.ref(`orgs/${state.auth.user.orgId}`).update(updates);
+      return firebaseDb.ref(`orgs/${state.auth.orgId}`).update(updates);
     })
     .filter(() => false);
 };
@@ -47,7 +44,7 @@ export const createGroupEpic = (action$, store) =>
   action$
     .filter(action => action.type === orgActionTypes.CREATE_GROUP)
     .flatMap(({ payload }) => {
-      const orgId = store.getState().auth.user.orgId;
+      const orgId = store.getState().auth.orgId;
       return new Promise((resolve, reject) =>
         firebaseDb.ref(`orgs/${orgId}/groups`).push(payload, error => (error ? reject(error) : resolve(payload)))
       );
@@ -62,7 +59,7 @@ export const createGroupSuccessEpic = (action$, store) =>
 
 // export const updateGroupEpic = (action$, store) =>
 //   action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP).flatMap(({ payload }) => {
-//     const orgId = store.getState().auth.user.orgId;
+//     const orgId = store.getState().auth.orgId;
 //     return new Promise((resolve, reject) =>
 //       firebaseDb
 //         .ref(`orgs/${orgId}/groups/${payload.key}`)
@@ -83,9 +80,7 @@ export const deleteGroupEpic = (action$, store) =>
         updates[`users/${userId}/groupIds`] = omit(state.org.users[userId].groupIds || {}, groupId);
       });
       return new Promise((resolve, reject) =>
-        firebaseDb
-          .ref(`orgs/${state.auth.user.orgId}`)
-          .update(updates, error => (error ? reject(error) : resolve(groupId)))
+        firebaseDb.ref(`orgs/${state.auth.orgId}`).update(updates, error => (error ? reject(error) : resolve(groupId)))
       );
     })
     .map(groupId => orgActions.deleteGroupSuccess(groupId))

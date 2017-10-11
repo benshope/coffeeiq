@@ -11,7 +11,7 @@ const UserList = ({ auth, uids, users }) => (
       return (
         <Link key={uid} to={`/user/${uid}`}>
           <li className="user-item">
-            <b>{user.name}</b> - {user.email}
+            <b>{user.displayName}</b> - {user.email}
           </li>
         </Link>
       );

@@ -1,37 +1,49 @@
-export const authActions = {
+const action = type => payload => ({ type, payload });
+
+const authActionTypes = {
   SIGN_IN: "SIGN_IN",
   SIGN_IN_FAILED: "SIGN_IN_FAILED",
   SIGN_IN_SUCCESS: "SIGN_IN_SUCCESS",
 
+  UPDATE_USER_SUCCESS: "UPDATE_USER_SUCCESS",
+  UPDATE_USER_FAILED: "UPDATE_USER_FAILED",
+
   SIGN_OUT: "SIGN_OUT",
   SIGN_OUT_FAILED: "SIGN_OUT_FAILED",
-  SIGN_OUT_SUCCESS: "SIGN_OUT_SUCCESS",
+  SIGN_OUT_SUCCESS: "SIGN_OUT_SUCCESS"
+};
+
+export const authActions = {
+  ...authActionTypes,
+
+  updateUserSuccess: action(authActionTypes.UPDATE_USER_SUCCESS),
+  updateUserFailed: action(authActionTypes.UPDATE_USER_FAILED),
 
   signIn: ({ isAdmin }) => ({
-    type: authActions.SIGN_IN,
+    type: authActionTypes.SIGN_IN,
     payload: { isAdmin }
   }),
 
   signInFailed: error => ({
-    type: authActions.SIGN_IN_FAILED,
+    type: authActionTypes.SIGN_IN_FAILED,
     payload: { error }
   }),
 
   signInSuccess: payload => ({
-    type: authActions.SIGN_IN_SUCCESS,
+    type: authActionTypes.SIGN_IN_SUCCESS,
     payload
   }),
 
   signOut: () => ({
-    type: authActions.SIGN_OUT
+    type: authActionTypes.SIGN_OUT
   }),
 
   signOutFailed: error => ({
-    type: authActions.SIGN_OUT_FAILED,
+    type: authActionTypes.SIGN_OUT_FAILED,
     payload: { error }
   }),
 
   signOutSuccess: () => ({
-    type: authActions.SIGN_OUT_SUCCESS
+    type: authActionTypes.SIGN_OUT_SUCCESS
   })
 };

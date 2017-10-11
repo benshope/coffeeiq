@@ -6,9 +6,9 @@ import { withRouter } from "react-router-dom";
 import GroupList from "../group-list/group-list.container";
 import GroupForm from "../group-form";
 
-const GroupsPage = ({ groups, user }) => {
-  const firstName = capitalize(user.displayName.split(" ")[0]) || user.email;
-  const orgName = capitalize(user.orgName);
+const GroupsPage = ({ groups, auth }) => {
+  const firstName = capitalize(auth.displayName.split(" ")[0]) || auth.email;
+  const orgName = capitalize(auth.orgName);
   const welcomeMessage = () =>
     groups && (
       <div className="welcome-message">
@@ -23,7 +23,7 @@ const GroupsPage = ({ groups, user }) => {
   );
   return (
     <div className="groups-page">
-      {user.orgId === "gmail_com" && errorMessage()}
+      {auth.orgId === "gmail_com" && errorMessage()}
       {welcomeMessage()}
       <h1>Groups</h1>
       <GroupList />
@@ -34,12 +34,12 @@ const GroupsPage = ({ groups, user }) => {
 
 GroupsPage.propTypes = {
   groups: PropTypes.object,
-  user: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   groups: state.org.groups,
-  user: state.auth.user
+  auth: state.auth
 });
 
 const mapDispatchToProps = {};

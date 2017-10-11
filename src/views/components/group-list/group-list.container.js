@@ -30,7 +30,7 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
                   onClick={e => {
                     e.preventDefault();
                     e.stopPropagation();
-                    toggleMembership({ groupId, userId: auth.user.uid });
+                    toggleMembership({ groupId, userId: auth.uid });
                   }}
                 >
                   {userIds[auth.uid] ? "Leave" : "Join"}

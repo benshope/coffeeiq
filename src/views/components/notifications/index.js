@@ -8,17 +8,20 @@ const Notifications = ({ notifications, deleteNotification }) => (
     {notifications.map((notification, i) => (
       <li className={`notification-item ${notification.type.toLowerCase()}`} key={notification.id}>
         <span className="notification-message">{notification.message}</span>{" "}
-        <div className="loader-container">
-          <div className="loader">
-            <svg className="progress" width="24" height="24" viewBox="0 0 24 24">
-              <circle className="progress__meter" cx="12" cy="12" r="6" strokeWidth="3" />
-              <circle className="progress__value" cx="12" cy="12" r="6" strokeWidth="3" />
-            </svg>
+        {notification.duration ? (
+          <div className="loader-container">
+            <div className="loader">
+              <svg className="progress" width="24" height="24" viewBox="0 0 24 24">
+                <circle className="progress__meter" cx="12" cy="12" r="6" strokeWidth="3" />
+                <circle className="progress__value" cx="12" cy="12" r="6" strokeWidth="3" />
+              </svg>
+            </div>
           </div>
-        </div>
-        <a className="delete-notification" onClick={() => deleteNotification(notification.id)}>
-          ×
-        </a>
+        ) : (
+          <a className="delete-notification" onClick={() => deleteNotification(notification.id)}>
+            ×
+          </a>
+        )}
       </li>
     ))}
   </ul>

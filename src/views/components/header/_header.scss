@@ -19,9 +19,9 @@
                 &.selected {
                     background: rgba(0, 0, 0, 0.2);
                 }
+                border-radius: 0 0 $iq-border-radius $iq-border-radius;
                 cursor: pointer;
                 padding: 0 1rem;
-                // border-left: 1px solid gray;
                 background: rgba(0, 0, 0, 0);
                 transition: background 0.1s ease-in-out 0s;
                 &:hover {

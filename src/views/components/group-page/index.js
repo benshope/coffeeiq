@@ -12,37 +12,46 @@ const GroupPage = ({ auth, deleteGroup, match, groups, users, toggleMembership }
     (group &&
       users && (
         <div className="group-page">
-          <h1>
-            {group.name} @ {group.location}
-          </h1>
-          <button
-            className="delete-group-button"
-            onClick={e =>
-              window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
-              deleteGroup(match.params.groupId)}
-          >
-            <span role="img" aria-label="trash">
-              🗑️
-            </span>
-          </button>
-          <button
-            onClick={e => {
-              toggleMembership({
-                groupId: match.params.groupId,
-                userId: auth.user.uid
-              });
-            }}
-          >
-            {(userIds || {})[auth.uid] ? "Leave" : "Join"}
-          </button>
-          <h3>{realUserIds.length} Members</h3>
+          <div className="group-page-header">
+            <div className="group-page-title">
+              <h1>{group.name}</h1>
+            </div>
+            <button
+              className="membership-button"
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMembership({
+                  groupId: match.params.groupId,
+                  userId: auth.uid
+                });
+              }}
+            >
+              {(userIds || {})[auth.uid] ? "Leave" : "Join"}
+            </button>
+            <button
+              className="delete-group-button"
+              onClick={e =>
+                window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
+                deleteGroup(match.params.groupId)}
+            >
+              <span role="img" aria-label="trash">
+                🗑️
+              </span>
+            </button>
+          </div>
+          <h3>
+            {realUserIds.length} Members meeting at {group.location}
+          </h3>
           <ul className="user-list">
             {realUserIds.map((userId, i) => {
               const user = users[userId] || {};
               return (
                 <Link key={userId} to={`/user/${userId}`}>
                   <li className="user-item">
-                    {user.name} - {user.email}
+                    <span className="user-description">
+                      {user.name} - {user.email}
+                    </span>
                   </li>
                 </Link>
               );
