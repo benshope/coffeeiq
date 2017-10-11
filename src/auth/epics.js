@@ -29,6 +29,7 @@ export const signInEpic = action$ =>
       .then(payload => authActions.signInSuccess(userFromPayload(payload)), x => authActions.signInFailed(x));
   });
 
+// TODO: this should be in a firebase function
 export const updateUserEpic = action$ =>
   action$
     .filter(action => action.type === authActions.UPDATE_USER)
