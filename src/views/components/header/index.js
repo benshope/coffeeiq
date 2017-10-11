@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
 
 const Header = ({ authenticated, signOut, signIn, userId }) => {
-  const headerTitle = <span className="header-title">CoffeeIQ</span>;
+  const headerTitle = <span className="header-title">☕ CoffeeIQ</span>;
   return (
     <div className="header-container">
       <div className="stripes-container">
