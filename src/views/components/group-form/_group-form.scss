@@ -1,10 +1,11 @@
 .group-form {
-    display: flex;
-    .group-input {
-        flex-grow: 1;
-        margin-right: 0.5em;
-    }
-    .create-or-update-button {
-        padding: 1em;
-    }
+	display: flex;
+	.group-input {
+		flex-grow: 1;
+		margin-right: 0.5em;
+		padding: 0.75em 1em;
+	}
+	.create-or-update-button {
+		padding: 0.75em 1em;
+	}
 }
