@@ -6,6 +6,7 @@ import { authActions } from "src/auth";
 
 import { firebaseDb } from "../firebase";
 import { orgActions, orgActionTypes } from "./actions";
+import { notificationsActions } from "../notifications/actions";
 
 export const signInSuccessEpic = action$ =>
   action$
@@ -54,6 +55,11 @@ export const createGroupEpic = (action$, store) =>
     .map(payload => orgActions.createGroupSuccess(payload))
     .catch(error => Observable.of(orgActions.createGroupFailed(error)));
 
+export const createGroupSuccessEpic = (action$, store) =>
+  action$
+    .filter(action => action.type === orgActionTypes.CREATE_GROUP_SUCCESS)
+    .map(({ payload }) => notificationsActions.requestCreateNotification({ message: "Group created" }));
+
 // export const updateGroupEpic = (action$, store) =>
 //   action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP).flatMap(({ payload }) => {
 //     const orgId = store.getState().auth.user.orgId;
@@ -85,10 +91,17 @@ export const deleteGroupEpic = (action$, store) =>
     .map(groupId => orgActions.deleteGroupSuccess(groupId))
     .catch(error => Observable.of(orgActions.deleteGroupFailed(error)));
 
+export const deleteGroupSuccessEpic = (action$, store) =>
+  action$
+    .filter(action => action.type === orgActionTypes.DELETE_GROUP_SUCCESS)
+    .map(({ payload }) => notificationsActions.requestCreateNotification({ message: "Group deleted" }));
+
 export const orgEpics = [
   createGroupEpic,
+  createGroupSuccessEpic,
   // updateGroupEpic,
   deleteGroupEpic,
+  deleteGroupSuccessEpic,
   signInSuccessEpic,
   toggleMembershipEpic
 ];
