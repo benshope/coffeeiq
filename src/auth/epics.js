@@ -9,6 +9,7 @@ import { userFromPayload } from "./utils";
 export const signInEpic = action$ =>
   action$.filter(action => action.type === authActions.SIGN_IN).flatMap(({ payload }) => {
     let provider = new firebase.auth.GoogleAuthProvider();
+    // TODO: add admin login page
     if (payload.isAdmin) {
       provider.addScope("https://www.googleapis.com/auth/calendar.readonly");
     }

@@ -9,10 +9,10 @@ const UserPage = ({ users, groups, match, toggleMembership }) => {
   return (
     (user && (
       <div className="user-page">
-        <h1>{user.name}</h1>
+        <h1>{user.displayName}</h1>
         <div>{user.email}</div>
-        <div>TODO: Picture here</div>
-        <div>TODO: List of user's groups</div>
+        <img className="user-image" alt="user" src={user.photoURL} />
+        <h3>Groups</h3>
       </div>
     )) || <div>Loading...</div>
   );

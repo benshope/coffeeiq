@@ -50,7 +50,7 @@ const GroupPage = ({ auth, deleteGroup, match, groups, users, toggleMembership }
                 <Link key={userId} to={`/user/${userId}`}>
                   <li className="user-item">
                     <span className="user-description">
-                      {user.name} - {user.email}
+                      {user.displayName} - {user.email}
                     </span>
                   </li>
                 </Link>
