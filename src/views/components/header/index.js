@@ -32,9 +32,16 @@ const Header = ({ authenticated, signOut, signIn, userId }) => {
               Users
             </NavLink>
             <NavLink activeClassName="selected" to={`/user/${userId}`}>
-              👻
+              <span role="img" aria-label="ghost">
+                👻
+              </span>
             </NavLink>
-            <a onClick={signOut}>🚪 Log Out</a>
+            <a onClick={signOut}>
+              <span role="img" aria-label="door">
+                🚪
+              </span>{" "}
+              Log Out
+            </a>
           </div>
         )}
       </div>

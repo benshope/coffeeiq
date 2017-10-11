@@ -21,7 +21,9 @@ const GroupPage = ({ auth, deleteGroup, match, groups, users, toggleMembership }
               window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
               deleteGroup(match.params.groupId)}
           >
-            🗑️
+            <span role="img" aria-label="trash">
+              🗑️
+            </span>
           </button>
           <button
             onClick={e => {
