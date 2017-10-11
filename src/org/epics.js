@@ -1,4 +1,5 @@
 /* eslint-disable no-constant-condition */
+import { omit } from "lodash";
 import { Observable } from "rxjs";
 
 import { authActions } from "src/auth";
@@ -51,7 +52,7 @@ export const createGroupEpic = (action$, store) =>
       );
     })
     .map(payload => orgActions.createGroupSuccess(payload))
-    .catch(error => orgActions.createGroupFailed(error));
+    .catch(error => Observable.of(orgActions.createGroupFailed(error)));
 
 // export const updateGroupEpic = (action$, store) =>
 //   action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP).flatMap(({ payload }) => {
@@ -64,24 +65,30 @@ export const createGroupEpic = (action$, store) =>
 //     );
 //   });
 
-// export const deleteGroupEpic = (action$, store) =>
-//   action$.filter(action => action.type === orgActionTypes.DELETE_GROUP).flatMap(({ payload }) => {
-//     const orgId = store.getState().auth.user.orgId;
-//     const groups = {
-//       ...store.getState().org.groups,
-//       [payload]: undefined
-//     };
-//     return new Promise((resolve, reject) =>
-//       firebaseDb
-//         .ref(`orgs/${orgId}/groups`)
-//         .set(groups, error => (error ? reject(error) : resolve(payload)))
-//         .then((() => orgActions.deleteGroupSuccess(payload), error => orgActions.deleteGroupFailed(error)))
-//     );
-//   });
+export const deleteGroupEpic = (action$, store) =>
+  action$
+    .filter(action => action.type === orgActionTypes.DELETE_GROUP)
+    .flatMap(({ payload }) => {
+      const groupId = payload;
+      const state = store.getState();
+      let updates = {};
+      updates[`groups`] = omit(state.org.groups, groupId);
+      Object.keys(state.org.groups[groupId].userIds || {}).forEach(userId => {
+        updates[`users/${userId}/groupIds`] = omit(state.org.users[userId].groupIds || {}, groupId);
+      });
+      return new Promise((resolve, reject) =>
+        firebaseDb
+          .ref(`orgs/${state.auth.user.orgId}`)
+          .update(updates, error => (error ? reject(error) : resolve(groupId)))
+      );
+    })
+    .map(groupId => orgActions.deleteGroupSuccess(groupId))
+    .catch(error => Observable.of(orgActions.deleteGroupFailed(error)));
 
 export const orgEpics = [
   createGroupEpic,
-  // updateGroupEpic, deleteGroupEpic,
+  // updateGroupEpic,
+  deleteGroupEpic,
   signInSuccessEpic,
   toggleMembershipEpic
 ];

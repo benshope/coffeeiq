@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { orgActions } from "src/org";
 
-const GroupPage = ({ groups, users, auth, match, toggleMembership }) => {
+const GroupPage = ({ auth, deleteGroup, match, groups, users, toggleMembership }) => {
   const group = groups && groups[match.params.groupId];
   const userIds = (group && group.userIds) || {};
   const realUserIds = Object.keys(userIds).filter(userId => userIds[userId]);
@@ -15,10 +15,9 @@ const GroupPage = ({ groups, users, auth, match, toggleMembership }) => {
           <h1>
             {group.name} @ {group.location}
           </h1>
+          <button onClick={e => deleteGroup(match.params.groupId)}>Delete Group</button>
           <button
             onClick={e => {
-              e.preventDefault();
-              e.stopPropagation();
               toggleMembership({
                 groupId: match.params.groupId,
                 userId: auth.user.uid
@@ -46,19 +45,21 @@ const GroupPage = ({ groups, users, auth, match, toggleMembership }) => {
 };
 
 GroupPage.propTypes = {
-  groups: PropTypes.object,
   auth: PropTypes.object.isRequired,
+  deleteGroup: PropTypes.func.isRequired,
+  groups: PropTypes.object,
   users: PropTypes.object,
   toggleMembership: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   groups: state.org.groups,
-  users: state.org.users,
-  auth: state.auth
+  users: state.org.users
 });
 
 const mapDispatchToProps = {
+  deleteGroup: orgActions.deleteGroup,
   toggleMembership: orgActions.toggleMembership
 };
 
