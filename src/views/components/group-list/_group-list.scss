@@ -6,6 +6,17 @@
         .group-title {
             flex-grow: 1;
             padding-top: 0.5em;
+            color: rgba(255, 255, 255, 0.8);
+
+            &:hover {
+                // font-weight: 600;
+                color: rgba(255, 255, 255, 1);
+                // background: rgba(0, 0, 0, 0.1);
+            }
+            &:active {
+                color: black;
+                // background: rgba(0, 0, 0, 0.2);
+            }
             // margin-left: 1em;
         }
         .member-count {
@@ -16,11 +27,5 @@
             // flex-basis: 5em;
         }
         transition: all 0.1s ease-in-out 0s;
-        &:hover {
-            background: rgba(0, 0, 0, 0.1);
-        }
-        &:active {
-            background: rgba(0, 0, 0, 0.2);
-        }
     }
 }

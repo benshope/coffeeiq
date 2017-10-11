@@ -23,6 +23,7 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
                 {group.name} @ {group.location}{" "}
                 <span className="member-count">{Object.keys(userIds).filter(userId => userIds[userId]).length}</span>
               </div>
+
               <div className="join-leave-button-wrapper">
                 <button
                   className="join-leave-button"

@@ -4,7 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
 
-const Header = ({ authenticated, signOut, signIn }) => {
+const Header = ({ authenticated, signOut, signIn, userId }) => {
   const headerTitle = <span className="header-title">CoffeeIQ</span>;
   return (
     <div className="header-container">
@@ -31,7 +31,10 @@ const Header = ({ authenticated, signOut, signIn }) => {
             <NavLink activeClassName="selected" to="/users">
               Users
             </NavLink>
-            <a onClick={signOut}>Log Out</a>
+            <NavLink activeClassName="selected" to={`/user/${userId}`}>
+              👻
+            </NavLink>
+            <a onClick={signOut}>🚪 Log Out</a>
           </div>
         )}
       </div>
@@ -42,11 +45,13 @@ const Header = ({ authenticated, signOut, signIn }) => {
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
   signIn: PropTypes.func.isRequired,
-  signOut: PropTypes.func.isRequired
+  signOut: PropTypes.func.isRequired,
+  userId: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-  authenticated: state.auth.authenticated
+  authenticated: state.auth.authenticated,
+  userId: state.auth.user && state.auth.user.uid
 });
 
 const mapDispatchToProps = {

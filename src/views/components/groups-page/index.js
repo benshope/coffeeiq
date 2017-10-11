@@ -13,7 +13,7 @@ const GroupsPage = ({ groups, user }) => {
     groups && (
       <div className="welcome-message">
         Hi {firstName}, welcome to CoffeeIQ for {orgName}. Begin by joining{" "}
-        {Object.keys(groups).length > 1 ? "a" : "the"} coffee group below - or make a new group for your team.
+        {Object.keys(groups).length > 1 ? "a" : "the"} coffee group below or make a new group for your team.
       </div>
     );
   const errorMessage = () => (

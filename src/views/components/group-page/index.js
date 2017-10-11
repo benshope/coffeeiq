@@ -15,7 +15,14 @@ const GroupPage = ({ auth, deleteGroup, match, groups, users, toggleMembership }
           <h1>
             {group.name} @ {group.location}
           </h1>
-          <button onClick={e => deleteGroup(match.params.groupId)}>Delete Group</button>
+          <button
+            className="delete-group-button"
+            onClick={e =>
+              window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
+              deleteGroup(match.params.groupId)}
+          >
+            🗑️
+          </button>
           <button
             onClick={e => {
               toggleMembership({
