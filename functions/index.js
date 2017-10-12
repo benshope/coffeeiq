@@ -13,7 +13,7 @@ const mailTransport = nodemailer.createTransport(
 
 // Sends an email confirmation when a user changes his mailing list subscription.
 exports.sendInviteEmail = functions.database
-  .ref("/org/{orgId}/invites/{inviteId}")
+  .ref("/org/{orgId}/invites")
   .onCreate(event => {
     const snapshot = event.data;
     const val = snapshot.val();
