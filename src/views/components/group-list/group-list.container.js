@@ -10,7 +10,7 @@ import { orgActions } from "src/org";
 // };
 
 const GroupList = ({ auth, groups, toggleMembership }) => (
-  <ul className="group-list">
+  <ul className="item-list group-list">
     {Object.keys(groups)
       // .sort((x, y) => numUserIds(groups[y]) - numUserIds(groups[x]))
       .map((groupId, i) => {
@@ -18,12 +18,11 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
         const userIds = group.userIds || {};
         return (
           <Link key={groupId} to={`/group/${groupId}`}>
-            <li className="group-item">
-              <div className="group-title">
+            <li className="item">
+              <div className="item-title">
                 {group.name} @ {group.location}{" "}
                 <div className="member-count">{Object.keys(userIds).filter(userId => userIds[userId]).length}</div>
               </div>
-
               <div className="join-leave-button-wrapper">
                 <button
                   className="join-leave-button"

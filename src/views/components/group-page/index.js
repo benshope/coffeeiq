@@ -29,20 +29,21 @@ const GroupPage = ({ auth, deleteGroup, match, groups, users, toggleMembership }
             >
               {(userIds || {})[auth.uid] ? "Leave" : "Join"}
             </button>
-            <button
-              className="delete-group-button"
-              onClick={e =>
-                window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
-                deleteGroup(match.params.groupId)}
-            >
-              <span role="img" aria-label="trash">
-                🗑️
-              </span>
-            </button>
+            <Link to="/groups">
+              <button
+                className="delete-group-button"
+                onClick={e =>
+                  window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
+                  deleteGroup(match.params.groupId)}
+              >
+                <span role="img" aria-label="trash">
+                  🗑️
+                </span>
+              </button>
+            </Link>
           </div>
-          <h3>
-            {realUserIds.length} Members meeting at {group.location}
-          </h3>
+          <div>Meeting at {group.location}</div>
+          <h3>{realUserIds.length} Members</h3>
           <ul className="user-list">
             {realUserIds.map((userId, i) => {
               const user = users[userId] || {};

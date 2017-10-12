@@ -1,6 +1,7 @@
 /* eslint-disable no-constant-condition */
 import { omit } from "lodash";
 import { Observable } from "rxjs";
+import { push } from "react-router-redux";
 
 import { authActions } from "src/auth";
 
@@ -44,9 +45,13 @@ export const createGroupEpic = (action$, store) =>
   action$
     .filter(action => action.type === orgActionTypes.CREATE_GROUP)
     .flatMap(({ payload }) => {
-      const orgId = store.getState().auth.orgId;
+      const state = store.getState();
+      const orgId = state.auth.orgId;
       return new Promise((resolve, reject) =>
-        firebaseDb.ref(`orgs/${orgId}/groups`).push(payload, error => (error ? reject(error) : resolve(payload)))
+        firebaseDb
+          .ref(`orgs/${orgId}/groups`)
+          .push(payload, error => error && reject(error))
+          .then(snap => resolve(snap.key))
       );
     })
     .map(payload => orgActions.createGroupSuccess(payload))
@@ -55,7 +60,12 @@ export const createGroupEpic = (action$, store) =>
 export const createGroupSuccessEpic = (action$, store) =>
   action$
     .filter(action => action.type === orgActionTypes.CREATE_GROUP_SUCCESS)
-    .map(({ payload }) => notificationsActions.requestCreateNotification({ message: "Group created" }));
+    .flatMap(({ payload }) =>
+      Observable.from([
+        notificationsActions.requestCreateNotification({ message: "Group created" }),
+        push(`/group/${payload}`)
+      ])
+    );
 
 // export const updateGroupEpic = (action$, store) =>
 //   action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP).flatMap(({ payload }) => {
@@ -89,7 +99,9 @@ export const deleteGroupEpic = (action$, store) =>
 export const deleteGroupSuccessEpic = (action$, store) =>
   action$
     .filter(action => action.type === orgActionTypes.DELETE_GROUP_SUCCESS)
-    .map(({ payload }) => notificationsActions.requestCreateNotification({ message: "Group deleted" }));
+    .flatMap(({ payload }) =>
+      Observable.from([push("/groups"), notificationsActions.requestCreateNotification({ message: "Group deleted" })])
+    );
 
 export const orgEpics = [
   createGroupEpic,
