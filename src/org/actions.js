@@ -6,6 +6,10 @@ export const orgActionTypes = {
   ON_ORG_CHILD_CHANGED: "ON_ORG_CHILD_CHANGED",
   ON_ORG_CHILD_REMOVED: "ON_ORG_CHILD_REMOVED",
 
+  CREATE_INVITE: "CREATE_INVITE",
+  CREATE_INVITE_FAILED: "CREATE_INVITE_FAILED",
+  CREATE_INVITE_SUCCESS: "CREATE_INVITE_SUCCESS",
+
   CREATE_GROUP: "CREATE_GROUP",
   CREATE_GROUP_FAILED: "CREATE_GROUP_FAILED",
   CREATE_GROUP_SUCCESS: "CREATE_GROUP_SUCCESS",
@@ -30,6 +34,9 @@ export const orgActions = {
   createGroup: action(orgActionTypes.CREATE_GROUP),
   createGroupFailed: action(orgActionTypes.CREATE_GROUP_FAILED),
   createGroupSuccess: action(orgActionTypes.CREATE_GROUP_SUCCESS),
+  createInvite: action(orgActionTypes.CREATE_INVITE),
+  createInviteFailed: action(orgActionTypes.CREATE_INVITE_FAILED),
+  createInviteSuccess: action(orgActionTypes.CREATE_INVITE_SUCCESS),
   deleteGroup: action(orgActionTypes.DELETE_GROUP),
   deleteGroupFailed: action(orgActionTypes.DELETE_GROUP_FAILED),
   deleteGroupSuccess: action(orgActionTypes.DELETE_GROUP_SUCCESS),

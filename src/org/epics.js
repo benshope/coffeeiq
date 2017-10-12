@@ -20,9 +20,15 @@ export const signInSuccessEpic = action$ =>
       });
       return Observable.create(observer => {
         ref.once("value", x => observer.next(orgActions.onValue(x.val())));
-        ref.on("child_added", x => observer.next(orgActions.onChildAdded(unwrap(x))));
-        ref.on("child_changed", x => observer.next(orgActions.onChildChanged(unwrap(x))));
-        ref.on("child_removed", x => observer.next(orgActions.onChildRemoved(unwrap(x))));
+        ref.on("child_added", x =>
+          observer.next(orgActions.onChildAdded(unwrap(x)))
+        );
+        ref.on("child_changed", x =>
+          observer.next(orgActions.onChildChanged(unwrap(x)))
+        );
+        ref.on("child_removed", x =>
+          observer.next(orgActions.onChildRemoved(unwrap(x)))
+        );
       });
     });
 
@@ -38,8 +44,27 @@ export const toggleMembershipEpic = (action$, store) => {
       updates[`users/${payload.userId}/groupIds/${payload.groupId}`] = toggleOn;
       return firebaseDb.ref(`orgs/${state.auth.orgId}`).update(updates);
     })
-    .filter(() => false);
+    .filter(() => false); // TODO
 };
+
+export const createInviteEpic = (action$, store) =>
+  action$
+    .filter(action => action.type === orgActionTypes.CREATE_INVITE)
+    .flatMap(({ payload }) => {
+      const state = store.getState();
+      const orgId = state.auth.orgId;
+      return new Promise((resolve, reject) =>
+        firebaseDb
+          .ref(`orgs/${orgId}/invites`)
+          .push(
+            { inviterName: state.auth.displayName, email: payload },
+            error => error && reject(error)
+          )
+          .then(snap => resolve(snap.key))
+      );
+    })
+    .map(payload => orgActions.createInviteSuccess(payload))
+    .catch(error => Observable.of(orgActions.createInviteFailed(error)));
 
 export const createGroupEpic = (action$, store) =>
   action$
@@ -62,7 +87,9 @@ export const createGroupSuccessEpic = (action$, store) =>
     .filter(action => action.type === orgActionTypes.CREATE_GROUP_SUCCESS)
     .flatMap(({ payload }) =>
       Observable.from([
-        notificationsActions.requestCreateNotification({ message: "Group created" }),
+        notificationsActions.requestCreateNotification({
+          message: "Group created"
+        }),
         push(`/group/${payload}`)
       ])
     );
@@ -87,10 +114,15 @@ export const deleteGroupEpic = (action$, store) =>
       let updates = {};
       updates[`groups`] = omit(state.org.groups, groupId);
       Object.keys(state.org.groups[groupId].userIds || {}).forEach(userId => {
-        updates[`users/${userId}/groupIds`] = omit(state.org.users[userId].groupIds || {}, groupId);
+        updates[`users/${userId}/groupIds`] = omit(
+          state.org.users[userId].groupIds || {},
+          groupId
+        );
       });
       return new Promise((resolve, reject) =>
-        firebaseDb.ref(`orgs/${state.auth.orgId}`).update(updates, error => (error ? reject(error) : resolve(groupId)))
+        firebaseDb
+          .ref(`orgs/${state.auth.orgId}`)
+          .update(updates, error => (error ? reject(error) : resolve(groupId)))
       );
     })
     .map(groupId => orgActions.deleteGroupSuccess(groupId))
@@ -100,12 +132,18 @@ export const deleteGroupSuccessEpic = (action$, store) =>
   action$
     .filter(action => action.type === orgActionTypes.DELETE_GROUP_SUCCESS)
     .flatMap(({ payload }) =>
-      Observable.from([push("/groups"), notificationsActions.requestCreateNotification({ message: "Group deleted" })])
+      Observable.from([
+        push("/groups"),
+        notificationsActions.requestCreateNotification({
+          message: "Group deleted"
+        })
+      ])
     );
 
 export const orgEpics = [
   createGroupEpic,
   createGroupSuccessEpic,
+  createInviteEpic,
   // updateGroupEpic,
   deleteGroupEpic,
   deleteGroupSuccessEpic,
