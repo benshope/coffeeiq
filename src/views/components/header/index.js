@@ -4,7 +4,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
 
-const Header = ({ authenticated, signOut, signIn, userId }) => {
+const Header = ({ auth, calendarToken, signOut, signIn }) => {
+  const authenticated = auth.authenticated;
   const headerTitle = <span className="header-title">CoffeeIQ</span>;
   return (
     <div className="header-container">
@@ -31,7 +32,7 @@ const Header = ({ authenticated, signOut, signIn, userId }) => {
             <NavLink activeClassName="selected" to="/users">
               Users
             </NavLink>
-            <NavLink activeClassName="selected" to={`/user/${userId}`}>
+            <NavLink activeClassName="selected" to={`/user/${auth.uid}`}>
               <span role="img" aria-label="ghost">
                 👻
               </span>
@@ -50,20 +51,18 @@ const Header = ({ authenticated, signOut, signIn, userId }) => {
 };
 
 Header.propTypes = {
-  authenticated: PropTypes.bool.isRequired,
+  auth: PropTypes.object.isRequired,
   signIn: PropTypes.func.isRequired,
-  signOut: PropTypes.func.isRequired,
-  userId: PropTypes.string
+  signOut: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  authenticated: state.auth.authenticated,
-  userId: state.auth.uid
+  auth: state.auth
 });
 
 const mapDispatchToProps = {
-  signOut: authActions.signOut,
-  signIn: authActions.signIn
+  signIn: authActions.signIn,
+  signOut: authActions.signOut
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

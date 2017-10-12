@@ -10,7 +10,7 @@ const HomePage = ({ signIn }) => {
     <div className="home-page">
       <h1>Meet your team</h1>
       <div className="description">CoffeeIQ schedules a quick coffee meeting each week with a coworker.</div>
-      <button className="signup-button" onClick={signIn}>
+      <button className="signup-button" onClick={() => signIn(false)}>
         <img alt="google-logo" width="25" height="25" src={googleLogo} />
         Sign Up
       </button>
@@ -22,12 +22,9 @@ HomePage.propTypes = {
   signIn: PropTypes.func.isRequired
 };
 
+// TODO: add more copy
 // This helps you build a network, strengthens company culture, and shares knowledge.
 // Most importantly, CoffeeIQ is a fun way to make new friends.
-
-//=====================================
-//  CONNECT
-//-------------------------------------
 
 const mapDispatchToProps = {
   signIn: authActions.signIn

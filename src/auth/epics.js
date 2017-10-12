@@ -4,14 +4,14 @@ import { Observable } from "rxjs";
 import { firebaseAuth } from "src/firebase";
 import { firebaseDb } from "../firebase";
 import { authActions } from "./actions";
-import { userFromPayload } from "./utils";
+import { userFromResponse } from "./utils";
 
 export const signInEpic = action$ =>
   action$.filter(action => action.type === authActions.SIGN_IN).flatMap(({ payload }) => {
     let provider = new firebase.auth.GoogleAuthProvider();
     // TODO: add admin login page
-    if (payload.isAdmin) {
-      provider.addScope("https://www.googleapis.com/auth/calendar.readonly");
+    if (payload) {
+      provider.addScope("https://www.googleapis.com/auth/calendar");
     }
     provider.setCustomParameters({
       hd: "*",
@@ -21,7 +21,7 @@ export const signInEpic = action$ =>
     });
     return firebaseAuth
       .signInWithPopup(provider)
-      .then(payload => authActions.signInSuccess(userFromPayload(payload)), x => authActions.signInFailed(x));
+      .then(response => authActions.signInSuccess(userFromResponse(response)), x => authActions.signInFailed(x));
   });
 
 // TODO: this should be in a firebase function
