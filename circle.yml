@@ -4,6 +4,7 @@ machine:
 
 dependencies:
   pre:
+    - cd functions && npm i && cd ..
     - rm -rf node_modules
 
 test:
