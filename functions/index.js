@@ -13,24 +13,24 @@ const mailTransport = nodemailer.createTransport(
 
 // Sends an email confirmation when a user changes his mailing list subscription.
 exports.sendInviteEmail = functions.database
-  .ref("/org/{orgId}/invites")
+  .ref("/orgs/{orgId}/invites/{inviteId}")
   .onCreate(event => {
     const snapshot = event.data;
     const val = snapshot.val();
 
     const mailOptions = {
-      from: '"Spammy Corp." <noreply@firebase.com>',
+      from: '"CoffeeIQ" <noreply@coffeeiq.org>',
       to: val.email
     };
 
-    mailOptions.subject = val.inviterName + "has invited you to CoffeeIQ";
-    mailOptions.text = "To sign up, click this link: Yeeeeeeeeee";
+    mailOptions.subject = val.inviterName + " has invited you to CoffeeIQ";
+    mailOptions.text = "To sign up, go to https://coffeeiq.org";
     return mailTransport
       .sendMail(mailOptions)
       .then(() => {
-        console.log("New subscription confirmation email sent to:", val.email);
+        console.log("Invite email sent to:", val.email);
       })
       .catch(error => {
-        console.error("There was an error while sending the email:", error);
+        console.error("Error sending invite email:", error);
       });
   });
