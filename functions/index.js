@@ -21,7 +21,7 @@ const sendEmail = event => {
   };
 
   mailOptions.subject = val.inviterName + " has invited you to CoffeeIQ";
-  mailOptions.text = "To sign up, go to https://coffeeiq.org";
+  mailOptions.text = "To sign up, go to https://coffeeiq.org.";
   return mailTransport
     .sendMail(mailOptions)
     .then(() => {
