@@ -9,7 +9,7 @@ import { firebaseDb } from "../firebase";
 import { orgActions, orgActionTypes } from "./actions";
 import { notificationsActions } from "../notifications/actions";
 
-export const signInSuccessEpic = action$ =>
+export const firebaseUpdatesEpic = action$ =>
   action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
     .map(({ payload }) => firebaseDb.ref(`orgs/${payload.orgId}`))
@@ -163,7 +163,7 @@ export const orgEpics = [
   createInviteEpic,
   deleteGroupEpic,
   deleteGroupSuccessEpic,
-  signInSuccessEpic,
+  firebaseUpdatesEpic,
   updateCalendarAccess,
   updateCalendarAccessErrorEpic,
   updateCalendarAccessSuccessEpic,
