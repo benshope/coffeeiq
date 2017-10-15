@@ -47,16 +47,34 @@ export const createInviteEpic = (action$, store) =>
     .flatMap(({ payload }) => {
       const state = store.getState();
       const orgId = state.auth.orgId;
-      const inviteKey = payload.split('@')[0].replace('.', '_');
+      const inviteKey = payload.split("@")[0].replace(".", "_");
       return new Promise((resolve, reject) =>
         firebaseDb
           .ref(`orgs/${orgId}/invites/${inviteKey}`)
-          .update({ inviterName: state.auth.displayName, lastInviteTime: Date.now().getTime(), email: payload }
-            , error => (error ? reject(error) : resolve(payload)))
+          .update(
+            { inviterName: state.auth.displayName, lastInviteTime: Date.now(), email: payload },
+            error =>
+              error
+                ? reject(orgActions.createInviteFailed({ error, email: payload }))
+                : resolve(orgActions.createInviteSuccess(payload))
+          )
       );
     })
-    .map(payload => orgActions.createInviteSuccess(payload))
-    .catch(error => Observable.of(orgActions.createInviteFailed(error)));
+    .catch(error => Observable.of(orgActions.createInviteFailed({ error })));
+
+export const createInviteErrorEpic = (action$, store) =>
+  action$.filter(action => action.type === orgActions.CREATE_INVITE_FAILED).map(({ payload }) =>
+    notificationsActions.requestCreateErrorNotification({
+      message: `Error inviting ${payload.email}: ${payload.error}`
+    })
+  );
+
+export const createInviteSuccessEpic = (action$, store) =>
+  action$.filter(action => action.type === orgActions.CREATE_INVITE_SUCCESS).map(() =>
+    notificationsActions.requestCreateSuccessNotification({
+      message: "Invite sent"
+    })
+  );
 
 export const createGroupEpic = (action$, store) =>
   action$
@@ -133,8 +151,8 @@ export const updateCalendarAccess = action$ =>
             {
               // TODO: do these expire?
               uid: payload.uid,
-              // createdTime: Date.now().getTime(),
-              // checkedTime: Date.now().getTime(),
+              // createdTime: Date.now(),
+              // checkedTime: Date.now(),
               refreshToken: payload.refreshToken
             },
             error => (error ? reject(error) : resolve(payload))
@@ -162,6 +180,8 @@ export const orgEpics = [
   createGroupEpic,
   createGroupSuccessEpic,
   createInviteEpic,
+  createInviteErrorEpic,
+  createInviteSuccessEpic,
   deleteGroupEpic,
   deleteGroupSuccessEpic,
   firebaseUpdatesEpic,
