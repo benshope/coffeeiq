@@ -5,26 +5,18 @@ import { push } from "react-router-redux";
 
 import { authActions } from "src/auth";
 
-import { firebaseDb } from "../firebase";
+import { firebaseDb, firebaseUpdateActions$ } from "../firebase";
 import { orgActions, orgActionTypes } from "./actions";
 import { notificationsActions } from "../notifications/actions";
 
-export const firebaseUpdatesEpic = action$ =>
-  action$
-    .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
-    .map(({ payload }) => firebaseDb.ref(`orgs/${payload.orgId}`))
-    .flatMap(ref => {
-      const unwrap = snapshot => ({
-        path: snapshot.key,
-        value: snapshot.val()
-      });
-      return Observable.create(observer => {
-        ref.once("value", x => observer.next(orgActions.onValue(x.val())));
-        ref.on("child_added", x => observer.next(orgActions.onChildAdded(unwrap(x))));
-        ref.on("child_changed", x => observer.next(orgActions.onChildChanged(unwrap(x))));
-        ref.on("child_removed", x => observer.next(orgActions.onChildRemoved(unwrap(x))));
-      });
-    });
+export const orgFirebaseUpdatesEpic = action$ =>
+  firebaseUpdateActions$(
+    action$.filter(action => action.type === authActions.SIGN_IN_SUCCESS).map(({ payload }) => firebaseDb.ref("orgs")),
+    orgActions.onValue,
+    orgActions.onChildAdded,
+    orgActions.onChildChanged,
+    orgActions.onChildRemoved
+  );
 
 export const toggleMembershipEpic = (action$, store) => {
   return action$
@@ -187,7 +179,7 @@ export const orgEpics = [
   createInviteSuccessEpic,
   deleteGroupEpic,
   deleteGroupSuccessEpic,
-  firebaseUpdatesEpic,
+  orgFirebaseUpdatesEpic,
   updateCalendarAccess,
   updateCalendarAccessErrorEpic,
   updateCalendarAccessSuccessEpic,
