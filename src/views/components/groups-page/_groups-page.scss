@@ -1,9 +1,42 @@
 .groups-page {
-	.welcome-message {
-		background: rgba(255, 255, 255, 0.8);
-		padding: 1em;
-		color: black;
-		border-radius: 0.2em;
-		margin-bottom: 1em;
-	}
+    .inline-notification {
+        background: rgba(255, 255, 255, 1);
+        padding: 1em;
+        color: black;
+        border-radius: 0.2em;
+        margin-bottom: 1em;
+        .header {
+            padding-bottom: 0.5em;
+        }
+        .footer {
+            padding-top: 1em;
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+            a {
+                padding-top: 0.75em;
+                color: rgba(0, 0, 0, 0.5);
+                transition: $iq-transition;
+                &:hover {
+                    color: rgba(0, 0, 0, 1);
+                }
+                &:active {
+                    color: rgba(0, 0, 0, 0.5);
+                }
+            }
+            button {
+                // TODO: use a filter to wipe out the background
+                color: white;
+                background: rgba(0, 0, 0, 0.5);
+                background: #05d5ff;
+                transition: $iq-transition;
+                &:hover {
+                    background: rgba(0, 0, 0, 0.8);
+                }
+                &:active {
+                    background: rgba(0, 0, 0, 1);
+                }
+            }
+        }
+    }
 }

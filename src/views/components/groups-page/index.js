@@ -12,11 +12,11 @@ const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
   const orgName = capitalize(auth.orgName);
   const activateDomainMessage = () =>
     !calendarToken && (
-      <div className="welcome-message">
-        <h3>Required Setup</h3>
-        Setup Organization: In order for this app to send calendar invites one user at {auth.orgName} must provide
+      <div className="inline-notification">
+        <h3 className="header">Required Setup</h3>
+        In order for this app to send calendar invites one user from {auth.email.split("@")[1] || orgName} must provide
         access to their calendars.
-        <div>
+        <div className="footer">
           <a>Learn More</a>
           <button onClick={() => signIn(true)}>Allow Calendar Access</button>
         </div>
@@ -24,13 +24,13 @@ const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
     );
   const welcomeMessage = () =>
     groups && (
-      <div className="welcome-message">
+      <div className="inline-notification">
         Hi {firstName}, welcome to CoffeeIQ for {orgName}. Begin by joining{" "}
         {Object.keys(groups).length > 1 ? "a" : "the"} coffee group below or make a new group for your team.
       </div>
     );
   const errorMessage = () => (
-    <div className="welcome-message">
+    <div className="inline-notification">
       Hi {firstName}, you have signed in with Gmail. Please sign in with your @yourcompany.com email address. Thanks!
     </div>
   );

@@ -4,16 +4,25 @@ import { notificationsActions, notificationTypes } from "./actions";
 const DEFAULT_NOTIFICATION_DURATION = 3000;
 
 export const requestCreateNotificationEpic = (action$, store) =>
-  action$.filter(action => action.type === notificationsActions.REQUEST_CREATE_NOTIFICATION).map(({ payload }) =>
-    notificationsActions.createNotification({
-      id: Math.random()
-        .toString(36)
-        .substring(7),
-      type: notificationTypes.SUCCESS,
-      duration: DEFAULT_NOTIFICATION_DURATION, // will be overwritten by a duration passed in the payload
-      ...payload
-    })
-  );
+  action$
+    .filter(
+      action =>
+        action.type === notificationsActions.REQUEST_CREATE_SUCCESS_NOTIFICATION ||
+        action.type === notificationsActions.REQUEST_CREATE_ERROR_NOTIFICATION
+    )
+    .map(action =>
+      notificationsActions.createNotification({
+        id: Math.random()
+          .toString(36)
+          .substring(7),
+        type:
+          action.type === notificationsActions.REQUEST_CREATE_SUCCESS_NOTIFICATION
+            ? notificationTypes.SUCCESS
+            : notificationTypes.ERROR,
+        duration: DEFAULT_NOTIFICATION_DURATION, // will be overwritten by a duration passed in the payload
+        ...action.payload
+      })
+    );
 
 export const createNotificationEpic = (action$, store) =>
   action$

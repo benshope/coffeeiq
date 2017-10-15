@@ -18,6 +18,10 @@ export const orgActionTypes = {
   DELETE_GROUP_FAILED: "DELETE_GROUP_FAILED",
   DELETE_GROUP_SUCCESS: "DELETE_GROUP_SUCCESS",
 
+  UPDATE_CALENDAR_ACCESS: "UPDATE_CALENDAR_ACCESS",
+  UPDATE_CALENDAR_ACCESS_FAILED: "UPDATE_CALENDAR_ACCESS_FAILED",
+  UPDATE_CALENDAR_ACCESS_SUCCESS: "UPDATE_CALENDAR_ACCESS_SUCCESS",
+
   UPDATE_GROUP: "UPDATE_GROUP",
   UPDATE_GROUP_FAILED: "UPDATE_GROUP_FAILED",
   UPDATE_GROUP_SUCCESS: "UPDATE_GROUP_SUCCESS",
@@ -43,6 +47,9 @@ export const orgActions = {
   updateGroup: action(orgActionTypes.UPDATE_GROUP),
   updateGroupFailed: action(orgActionTypes.UPDATE_GROUP_FAILED),
   updateGroupSuccess: action(orgActionTypes.UPDATE_GROUP_SUCCESS),
+  updateCalendarAccess: action(orgActionTypes.UPDATE_CALENDAR_ACCESS),
+  updateCalendarAccessFailed: action(orgActionTypes.UPDATE_CALENDAR_ACCESS_FAILED),
+  updateCalendarAccessSuccess: action(orgActionTypes.UPDATE_CALENDAR_ACCESS_SUCCESS),
   toggleMembership: action(orgActionTypes.TOGGLE_GROUP_MEMBERSHIP)
 };
 

@@ -21,7 +21,10 @@ export const signInEpic = action$ =>
     });
     return firebaseAuth
       .signInWithPopup(provider)
-      .then(response => authActions.signInSuccess(userFromResponse(response)), x => authActions.signInFailed(x));
+      .then(
+        response => authActions.signInSuccess(userFromResponse(response, payload)),
+        x => authActions.signInFailed(x)
+      );
   });
 
 // TODO: this should be in a firebase function

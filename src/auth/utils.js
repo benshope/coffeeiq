@@ -1,12 +1,15 @@
-export const userFromResponse = payload => {
+export const userFromResponse = (payload, gaveCalendarAccess) => {
 	console.log(payload);
+	const domain = payload.user.email.split("@")[1];
 	return {
 		uid: payload.user.uid,
 		photoURL: payload.user.photoURL,
 		displayName: payload.user.displayName,
 		email: payload.user.email,
-		orgId: payload.user.email.split("@")[1].replace(".", "_"),
-		orgName: payload.user.email.split("@")[1].split(".")[0],
+		domain,
+		gaveCalendarAccess: !!gaveCalendarAccess,
+		orgId: domain.replace(".", "_"),
+		orgName: domain.split(".")[0],
 		refreshToken: payload.user.refreshToken
 	};
 };
