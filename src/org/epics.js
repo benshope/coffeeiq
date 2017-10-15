@@ -47,11 +47,12 @@ export const createInviteEpic = (action$, store) =>
     .flatMap(({ payload }) => {
       const state = store.getState();
       const orgId = state.auth.orgId;
+      const inviteKey = payload.split('@')[0].replace('.', '_');
       return new Promise((resolve, reject) =>
         firebaseDb
-          .ref(`orgs/${orgId}/invites`)
-          .push({ inviterName: state.auth.displayName, email: payload }, error => error && reject(error))
-          .then(snap => resolve(snap.key))
+          .ref(`orgs/${orgId}/invites/${inviteKey}`)
+          .update({ inviterName: state.auth.displayName, lastInviteTime: Date.now().getTime(), email: payload }
+            , error => (error ? reject(error) : resolve(payload)))
       );
     })
     .map(payload => orgActions.createInviteSuccess(payload))
