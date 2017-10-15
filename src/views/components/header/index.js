@@ -4,9 +4,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
 
-const Header = ({ auth, calendarToken, signOut, signIn }) => {
+const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, signOut, signIn }) => {
   const authenticated = auth.authenticated;
-  const headerTitle = <span className="header-title">CoffeeIQ</span>;
+  const headerTitle = <Link className="header-title" to="/">CoffeeIQ</Link>;
   return (
     <div className="header-container">
       <div className="stripes-container">
@@ -22,6 +22,16 @@ const Header = ({ auth, calendarToken, signOut, signIn }) => {
         {authenticated ? <Link to="/groups">{headerTitle}</Link> : headerTitle}
         {!authenticated ? (
           <div className="header-buttons">
+            <NavLink
+              activeClassName="selected"
+              to={'/how-it-works'}
+              onClick={HowItWorksPage}>How it works
+            </NavLink>
+            <NavLink
+              activeClassName="selected"
+              to={'/about'}
+              onClick={AboutPage}>About
+            </NavLink>
             <a onClick={signIn}>Log In</a>
           </div>
         ) : (
