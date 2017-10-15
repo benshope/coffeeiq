@@ -21,30 +21,36 @@ class UsersForm extends React.Component {
         }));
     };
 
-    onSubmit = event => {
-        event.preventDefault(); // stops page from refreshing
+    onSubmit = e => {
+        e.preventDefault(); // stops page from refreshing
         if (!this.state.isWrongDomain) {
             alert(`"${this.state.email}" must end with "@${this.props.auth.domain}"`);
+            // TODO: refocus
             return;
         }
         this.props.createInvite(this.state.email);
         this.setState(state => ({ ...newState }));
     };
 
+    onKeyDown = e => {
+        if (e.keyCode === 27) {
+            this.setState(state => ({ ...newState }));
+        }
+    };
+
     render() {
         return (
             <form onSubmit={this.onSubmit} className="users-form">
                 <input
+                    required={true}
                     className="users-input"
                     placeholder="Email..."
                     type="email"
                     value={this.state.email}
                     onChange={this.updateEmail}
+                    onKeyDown={this.onKeyDown}
                 />
-                <input style={{ display: "none" }} className="button invite-button" type="submit" value="Invite" />
-                <button className="invite-button" onClick={this.onSubmit}>
-                    Invite
-                </button>
+                <input className="button invite-button" type="submit" value="Invite" />
             </form>
         );
     }
