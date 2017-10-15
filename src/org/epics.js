@@ -14,13 +14,11 @@ export const orgFirebaseUpdatesEpic = action$ =>
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
     .flatMap(({ payload: { orgId } }) => Observable.from([orgId, false]))
     .flatMap(orgId => {
-      console.log("hello");
       const unwrap = (value, key) => ({
         path: [orgId, key].filter(x => x).join("."),
         value
       });
       const ref = firebaseDb.ref(["orgs", orgId].filter(x => x).join("/"));
-      console.log(ref);
       return Observable.create(observer => {
         ref.once("value", x => observer.next(orgActions.onValue(unwrap(x.val()))));
         ref.on("child_added", x => observer.next(orgActions.onChildAdded(unwrap(x.val(), x.key))));
