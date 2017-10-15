@@ -3,23 +3,23 @@
     "orgs": {
       "$org": {
         ".read":
-          "auth != null &&  (auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true || auth.token.isAdmin == true)",
+          "auth != null &&  (auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true || auth.uid === 'nFtN8V7w4JdUqMRS2CqW14GwMIv2')",
         ".write":
-          "auth != null &&  (auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true  || auth.token.isAdmin == true)",
+          "auth != null &&  (auth.token.email.replace('.', '_').endsWith($org) && auth.token.email_verified == true  || auth.uid === 'nFtN8V7w4JdUqMRS2CqW14GwMIv2')",
         "groups": {
           "$group": {
             "userIds": {
               "$userId": {
-                ".write": "$userId === auth.uid  || auth.token.isAdmin == true"
+                ".write": "$userId === auth.uid  || auth.uid === 'nFtN8V7w4JdUqMRS2CqW14GwMIv2'"
               }
             }
           }
         },
         "users": {
           "$userId": {
-            ".write": "$userId === auth.uid  || auth.token.isAdmin == true",
+            ".write": "$userId === auth.uid  || auth.uid === 'nFtN8V7w4JdUqMRS2CqW14GwMIv2'",
             "groupIds": {
-              ".read": "$userId === auth.uid  || auth.token.isAdmin == true"
+              ".read": "$userId === auth.uid  || auth.uid === 'nFtN8V7w4JdUqMRS2CqW14GwMIv2'"
             }
           }
         }
