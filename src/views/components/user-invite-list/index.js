@@ -1,27 +1,25 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
-const UserInviteList = ({invites}) => {
+const UserInviteList = ({ invites }) => {
 	if (invites) {
 		return (
 			<div>
 				<h3>Invited Users</h3>
-				<ul>
-					{Object.keys(invites).map(key => <li key={key}>{invites[key].email}</li>)}
-				</ul>
+				<ul>{Object.keys(invites).map(key => <li key={key}>{invites[key].email}</li>)}</ul>
 			</div>
-		)
+		);
 	}
 };
 
 UserInviteList.propTypes = {
 	invites: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => ({
 	auth: state.auth,
-	invites: state.org.invites || {}
+	invites: (state.org[state.auth.orgId] || {}).invites || {}
 });
 
 const mapDispatchToProps = {};

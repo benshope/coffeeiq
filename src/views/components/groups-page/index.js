@@ -67,8 +67,8 @@ GroupsPage.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  calendarToken: state.org.calendarToken,
-  groups: state.org.groups
+  calendarToken: (state.org[state.auth.orgId] || {}).calendarToken,
+  groups: (state.org[state.auth.orgId] || {}).groups
 });
 
 const mapDispatchToProps = {

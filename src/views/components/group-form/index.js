@@ -65,7 +65,7 @@ GroupForm.propTypes = {
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    groups: state.org.groups || {}
+    groups: (state.org[state.auth.orgId] || {}).groups || {}
 });
 
 const mapDispatchToProps = {

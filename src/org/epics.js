@@ -5,27 +5,36 @@ import { push } from "react-router-redux";
 
 import { authActions } from "src/auth";
 
-import { firebaseDb, firebaseUpdateActions$ } from "../firebase";
+import { firebaseDb } from "src/firebase";
 import { orgActions, orgActionTypes } from "./actions";
 import { notificationsActions } from "../notifications/actions";
 
 export const orgFirebaseUpdatesEpic = action$ =>
-  firebaseUpdateActions$(
-    action$
-      .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
-      .map(({ payload }) => firebaseDb.ref(`orgs/${payload.orgId}`)),
-    orgActions.onValue,
-    orgActions.onChildAdded,
-    orgActions.onChildChanged,
-    orgActions.onChildRemoved
-  );
+  action$
+    .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
+    .flatMap(({ payload: { orgId } }) => Observable.from([orgId, false]))
+    .flatMap(orgId => {
+      console.log("hello");
+      const unwrap = (value, key) => ({
+        path: [orgId, key].filter(x => x).join("."),
+        value
+      });
+      const ref = firebaseDb.ref(["orgs", orgId].filter(x => x).join("/"));
+      console.log(ref);
+      return Observable.create(observer => {
+        ref.once("value", x => observer.next(orgActions.onValue(unwrap(x.val()))));
+        ref.on("child_added", x => observer.next(orgActions.onChildAdded(unwrap(x.val(), x.key))));
+        ref.on("child_changed", x => observer.next(orgActions.onChildChanged(unwrap(x.val(), x.key))));
+        ref.on("child_removed", x => observer.next(orgActions.onChildRemoved(unwrap(x.val(), x.key))));
+      });
+    });
 
 export const toggleMembershipEpic = (action$, store) => {
   return action$
     .filter(action => action.type === orgActionTypes.TOGGLE_GROUP_MEMBERSHIP)
     .map(({ payload }) => {
       const state = store.getState();
-      const group = state.org.groups[payload.groupId];
+      const group = (state.org[state.auth.orgId] || {}).groups[payload.groupId];
       const toggleOn = !group.userIds || !group.userIds[payload.userId];
       var updates = {};
       updates[`groups/${payload.groupId}/userIds/${payload.userId}`] = toggleOn;
@@ -117,9 +126,12 @@ export const deleteGroupEpic = (action$, store) =>
       const groupId = payload;
       const state = store.getState();
       let updates = {};
-      updates[`groups`] = omit(state.org.groups, groupId);
-      Object.keys(state.org.groups[groupId].userIds || {}).forEach(userId => {
-        updates[`users/${userId}/groupIds`] = omit(state.org.users[userId].groupIds || {}, groupId);
+      updates[`groups`] = omit((state.org[state.auth.orgId] || {}).groups, groupId);
+      Object.keys((state.org[state.auth.orgId] || {}).groups[groupId].userIds || {}).forEach(userId => {
+        updates[`users/${userId}/groupIds`] = omit(
+          (state.org[state.auth.orgId] || {}).users[userId].groupIds || {},
+          groupId
+        );
       });
       return new Promise((resolve, reject) =>
         firebaseDb.ref(`orgs/${state.auth.orgId}`).update(updates, error => (error ? reject(error) : resolve(groupId)))

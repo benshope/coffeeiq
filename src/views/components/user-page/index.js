@@ -26,8 +26,8 @@ UserPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  users: state.org.users,
-  groups: state.org.groups,
+  users: (state.org[state.auth.orgId] || {}).users,
+  groups: (state.org[state.auth.orgId] || {}).groups,
   auth: state.auth
 });
 

@@ -73,8 +73,8 @@ GroupPage.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  groups: state.org.groups,
-  users: state.org.users
+  groups: (state.org[state.auth.orgId] || {}).groups,
+  users: (state.org[state.auth.orgId] || {}).users
 });
 
 const mapDispatchToProps = {

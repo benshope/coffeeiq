@@ -27,7 +27,7 @@ UserList.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  users: state.org.users || {}
+  users: (state.org[state.auth.orgId] || {}).users || {}
 });
 
 const mapDispatchToProps = {};
