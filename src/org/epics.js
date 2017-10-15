@@ -49,15 +49,18 @@ export const createInviteEpic = (action$, store) =>
       const orgId = state.auth.orgId;
       const inviteKey = payload.replace(".", "_");
       return new Promise((resolve, reject) =>
-        firebaseDb
-          .ref(`orgs/${orgId}/invites/${inviteKey}`)
-          .update(
-            { inviterName: state.auth.displayName, lastInviteTime: Date.now(), email: payload },
-            error =>
-              error
-                ? reject(orgActions.createInviteFailed({ error, email: payload }))
-                : resolve(orgActions.createInviteSuccess(payload))
-          )
+        firebaseDb.ref(`orgs/${orgId}/invites/${inviteKey}`).update(
+          {
+            inviterName: state.auth.displayName,
+            inviterUid: state.auth.uid,
+            lastInviteTime: Date.now(),
+            email: payload
+          },
+          error =>
+            error
+              ? reject(orgActions.createInviteFailed({ error, email: payload }))
+              : resolve(orgActions.createInviteSuccess(payload))
+        )
       );
     })
     .catch(error => Observable.of(orgActions.createInviteFailed({ error })));

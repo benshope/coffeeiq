@@ -4,54 +4,56 @@ import React from "react";
 import { connect } from "react-redux";
 // import { Link } from "react-router-dom";
 
+const newState = { email: "" };
+
 class UsersForm extends React.Component {
     constructor() {
         super();
-        this.state = {
-            email: ""
-        };
+        this.state = { ...newState };
     }
 
     updateEmail = e => {
         const value = e.target.value;
         this.setState(state => ({
             ...state,
-            email: value
+            isWrongDomain: value && value.toLowerCase().indexOf(this.props.auth.domain.toLowerCase()) > -1,
+            email: value.toLowerCase()
         }));
+    };
+
+    onSubmit = () => {
+        if (!this.state.isWrongDomain) {
+            alert(`"${this.state.email}" must end with "@${this.props.auth.domain}"`);
+            return;
+        }
+        this.props.createInvite(this.state.email);
+        this.setState(state => ({ ...newState }));
     };
 
     render() {
         return (
-            <div className="users-form">
+            <form onSubmit={this.onSubmit} className="users-form">
                 <input
                     className="users-input"
                     placeholder="Email..."
+                    type="email"
                     value={this.state.email}
                     onChange={this.updateEmail}
                 />
-                <button
-                    className="invite-button"
-                    onClick={() => {
-                        this.props.createInvite(this.state.email);
-                        this.setState(state => ({
-                            ...state,
-                            email: ""
-                        }));
-                    }}
-                    disabled={!this.state.email}
-                >
-                    Invite
-                </button>
-            </div>
+                <input className="button invite-button" type="submit" value="Invite" />
+            </form>
         );
     }
 }
 
 UsersForm.propTypes = {
+    auth: PropTypes.object.isRequired,
     createInvite: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    auth: state.auth
+});
 
 const mapDispatchToProps = {
     createInvite: orgActions.createInvite
