@@ -13,7 +13,14 @@ const Notifications = ({ notifications, deleteNotification }) => (
             <div className="loader">
               <svg className="progress" width="24" height="24" viewBox="0 0 24 24">
                 <circle className="progress__meter" cx="12" cy="12" r="6" strokeWidth="3" />
-                <circle className="progress__value" cx="12" cy="12" r="6" strokeWidth="3" />
+                <circle
+                  className="progress__value"
+                  style={{ animation: `countdown ${notification.duration / 1000}s linear reverse` }}
+                  cx="12"
+                  cy="12"
+                  r="6"
+                  strokeWidth="3"
+                />
               </svg>
             </div>
           </div>

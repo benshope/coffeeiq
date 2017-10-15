@@ -21,7 +21,8 @@ class UsersForm extends React.Component {
         }));
     };
 
-    onSubmit = () => {
+    onSubmit = event => {
+        event.preventDefault(); // stops page from refreshing
         if (!this.state.isWrongDomain) {
             alert(`"${this.state.email}" must end with "@${this.props.auth.domain}"`);
             return;
@@ -40,7 +41,10 @@ class UsersForm extends React.Component {
                     value={this.state.email}
                     onChange={this.updateEmail}
                 />
-                <input className="button invite-button" type="submit" value="Invite" />
+                <input style={{ display: "none" }} className="button invite-button" type="submit" value="Invite" />
+                <button className="invite-button" onClick={this.onSubmit}>
+                    Invite
+                </button>
             </form>
         );
     }

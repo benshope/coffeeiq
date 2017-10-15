@@ -46,12 +46,15 @@ input {
     transition: $iq-transition;
 }
 
-button {
+button,
+input[type="submit"] {
+    color: white;
     background: rgba(0, 0, 0, 0.2);
     &:hover {
         background: rgba(0, 0, 0, 0.4);
     }
-    &:active {
+    &:active,
+    &:focus {
         background: rgba(0, 0, 0, 0.6);
     }
 }

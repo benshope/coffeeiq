@@ -26,15 +26,19 @@ const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
         </div>
       </div>
     );
-  const welcomeMessage = () =>
-    groups && (
-      <div className="card info-card background-light">
-        <div className="body">
-          Hi {firstName}, welcome to CoffeeIQ for {orgName}. Begin by joining{" "}
-          {Object.keys(groups).length > 1 ? "a" : "the"} coffee group below or make a new group for your team.
+  const welcomeMessage = () => {
+    const pronoun = groups && Object.keys(groups).length > 1 ? "a" : "the";
+    return (
+      groups && (
+        <div className="card info-card background-light">
+          <div className="body">
+            {`Hi ${firstName}, welcome to CoffeeIQ for ${orgName}. Begin by joining ${pronoun} coffee group below or make a new group for your team.`}
+          </div>
         </div>
-      </div>
+      )
     );
+  };
+  // TODO: first user message (or flow?)
   const errorMessage = () => (
     <div className="card error-card">
       <div className="body">

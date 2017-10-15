@@ -77,12 +77,17 @@ $pi: 3.14159265358979;
   .progress__meter {
     stroke: rgba(0, 0, 0, 0.2);
   }
+  $circumference: 2 * $pi * 6;
   .progress__value {
     stroke: rgba(255, 255, 255, 1);
     stroke-linecap: round;
-    stroke-dasharray: 2 * $pi * 7;
-    stroke-dashoffset: 2 * $pi * 4;
-    // stroke-dasharray: 339.292;
-    // stroke-dashoffset: 135.717;
+    stroke-dasharray: $circumference;
+    stroke-dashoffset: -$circumference;
+  }
+}
+
+@keyframes countdown {
+  to {
+    stroke-dashoffset: 0;
   }
 }
