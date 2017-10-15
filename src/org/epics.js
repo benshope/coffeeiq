@@ -11,7 +11,9 @@ import { notificationsActions } from "../notifications/actions";
 
 export const orgFirebaseUpdatesEpic = action$ =>
   firebaseUpdateActions$(
-    action$.filter(action => action.type === authActions.SIGN_IN_SUCCESS).map(({ payload }) => firebaseDb.ref("orgs")),
+    action$
+      .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
+      .map(({ payload }) => firebaseDb.ref(`orgs/${payload.orgId}`)),
     orgActions.onValue,
     orgActions.onChildAdded,
     orgActions.onChildChanged,
