@@ -12,26 +12,34 @@ const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
   const orgName = capitalize(auth.orgName);
   const activateDomainMessage = () =>
     !calendarToken && (
-      <div className="inline-notification">
+      <div className="card warning-card">
         <h3 className="header">Required Setup</h3>
-        In order for this app to send calendar invites one user from {auth.email.split("@")[1] || orgName} must provide
-        access to their calendars.
+        <div className="body">
+          In order for this app to send calendar invites one user from {auth.email.split("@")[1] || orgName} must
+          provide access to their calendars.
+        </div>
         <div className="footer">
-          <a>Learn More</a>
+          <div>
+            <a>Learn More</a>
+          </div>
           <button onClick={() => signIn(true)}>Allow Calendar Access</button>
         </div>
       </div>
     );
   const welcomeMessage = () =>
     groups && (
-      <div className="inline-notification">
-        Hi {firstName}, welcome to CoffeeIQ for {orgName}. Begin by joining{" "}
-        {Object.keys(groups).length > 1 ? "a" : "the"} coffee group below or make a new group for your team.
+      <div className="card info-card background-light">
+        <div className="body">
+          Hi {firstName}, welcome to CoffeeIQ for {orgName}. Begin by joining{" "}
+          {Object.keys(groups).length > 1 ? "a" : "the"} coffee group below or make a new group for your team.
+        </div>
       </div>
     );
   const errorMessage = () => (
-    <div className="inline-notification">
-      Hi {firstName}, you have signed in with Gmail. Please sign in with your @yourcompany.com email address. Thanks!
+    <div className="card error-card">
+      <div className="body">
+        Hi {firstName}, you have signed in with Gmail. Please sign in with your @yourcompany.com email address. Thanks!
+      </div>
     </div>
   );
   return (
