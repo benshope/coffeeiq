@@ -11,26 +11,32 @@ const mailTransport = nodemailer.createTransport(
   `smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com`
 );
 
+const sendEmail = event => {
+  const snapshot = event.data;
+  const val = snapshot.val();
+
+  const mailOptions = {
+    from: '"CoffeeIQ" <noreply@coffeeiq.org>',
+    to: val.email
+  };
+
+  mailOptions.subject = val.inviterName + " has invited you to CoffeeIQ";
+  mailOptions.text = "To sign up, go to https://coffeeiq.org";
+  return mailTransport
+    .sendMail(mailOptions)
+    .then(() => {
+      console.log("Invite email sent to:", val.email);
+    })
+    .catch(error => {
+      console.error("Error sending invite email:", error);
+    });
+};
+
 // Sends an email confirmation when a user changes his mailing list subscription.
-exports.sendInviteEmail = functions.database
+exports.onCreateInvite = functions.database
   .ref("/orgs/{orgId}/invites/{inviteId}")
-  .onCreate(event => {
-    const snapshot = event.data;
-    const val = snapshot.val();
+  .onCreate(sendEmail);
 
-    const mailOptions = {
-      from: '"CoffeeIQ" <noreply@coffeeiq.org>',
-      to: val.email
-    };
-
-    mailOptions.subject = val.inviterName + " has invited you to CoffeeIQ";
-    mailOptions.text = "To sign up, go to https://coffeeiq.org";
-    return mailTransport
-      .sendMail(mailOptions)
-      .then(() => {
-        console.log("Invite email sent to:", val.email);
-      })
-      .catch(error => {
-        console.error("Error sending invite email:", error);
-      });
-  });
+exports.onUpdateInvite = functions.database
+    .ref("/orgs/{orgId}/invites/{inviteId}")
+    .onUpdate(sendEmail);

@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import UserInviteList from "../user-invite-list";
 import UserList from "../user-list/user-list.container";
 import UsersForm from "../users-form";
+
 
 const UsersPage = ({ auth }) => {
   return (
@@ -12,6 +14,7 @@ const UsersPage = ({ auth }) => {
       <h1>Users</h1>
       <UserList />
       <UsersForm />
+      <UserInviteList />
     </div>
   );
 };
