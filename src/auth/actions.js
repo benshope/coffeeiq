@@ -18,11 +18,7 @@ export const authActions = {
 
   updateUserSuccess: action(authActionTypes.UPDATE_USER_SUCCESS),
   updateUserFailed: action(authActionTypes.UPDATE_USER_FAILED),
-
-  signIn: ({ isAdmin }) => ({
-    type: authActionTypes.SIGN_IN,
-    payload: { isAdmin }
-  }),
+  signIn: action(authActionTypes.SIGN_IN),
 
   signInFailed: error => ({
     type: authActionTypes.SIGN_IN_FAILED,
