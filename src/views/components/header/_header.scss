@@ -1,11 +1,13 @@
 .header-container {
     display: flex;
-    height: 3rem;
-    line-height: 3rem;
+    height: 4rem;
+    line-height: 4rem;
     flex-basis: 100%;
     justify-content: center;
     margin-bottom: 2rem;
     .header {
+        line-height: 3em;
+        margin-top: 1em;
         display: flex;
         flex-grow: 0;
         flex-basis: 520px;
@@ -16,29 +18,31 @@
         .header-buttons {
             display: flex;
             a {
-                &.selected {
-                    background: rgba(0, 0, 0, 0.2);
+                &.login {
+                    border-radius: $iq-border-radius;
+                    background: rgba(0, 0, 0, 0.1);
+                    &:hover,
+                    &.selected {
+                        background: rgba(0, 0, 0, 0.2);
+                    }
+                    &:active {
+                        background: rgba(0, 0, 0, 0.4);
+                    }
                 }
-                border-radius: 0 0 $iq-border-radius $iq-border-radius;
+                &:not(.login):hover {
+                    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+                }
                 cursor: pointer;
                 padding: 0 1rem;
                 background: rgba(0, 0, 0, 0);
                 transition: background 0.1s ease-in-out 0s;
-                &:hover {
-                    background: rgba(0, 0, 0, 0.2);
-                }
-                &:active {
-                    background: rgba(0, 0, 0, 0.4);
-                }
             }
         }
     }
-
     .stripes-container {
         position: absolute;
         width: 100%;
         height: 700px;
-
         z-index: -1;
     }
 }

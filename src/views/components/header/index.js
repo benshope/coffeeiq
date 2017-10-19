@@ -29,7 +29,9 @@ const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, signOut, signI
             <NavLink activeClassName="selected" to={"/about"} onClick={AboutPage}>
               About
             </NavLink>
-            <a onClick={signIn}>Log In</a>
+            <a className="login" onClick={signIn}>
+              Log In
+            </a>
           </div>
         ) : (
           <div className="header-buttons">
