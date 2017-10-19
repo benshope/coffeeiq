@@ -29,29 +29,27 @@
                         background: rgba(0, 0, 0, 0.4);
                     }
                 }
-
                 &:not(.login) {
                     color: rgba(255, 255, 255, 0.8);
                     &:hover {
                         color: rgba(255, 255, 255, 1);
                     }
+                    &.selected {
+                        color: rgba(255, 255, 255, 1);
+                    }
                 }
                 &.my-profile {
-                    // opacity: 0.8;
                     img {
                         height: 2em;
                         border-radius: 50%;
-                        // border: 1px solid white;
                     }
                     &:hover {
-                        // opacity: 1;
                         img {
                             border: 2px solid rgba(255, 255, 255, 0.6);
                         }
                     }
                     &:active,
                     &.selected {
-                        // opacity: 1;
                         img {
                             border: 2px solid rgba(255, 255, 255, 1);
                         }
