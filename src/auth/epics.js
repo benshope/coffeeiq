@@ -1,15 +1,20 @@
 import firebase from "firebase";
 import { omit } from "lodash";
+import { push } from "react-router-redux";
 import { Observable } from "rxjs";
 import { firebaseAuth } from "src/firebase";
 import { firebaseDb } from "../firebase";
 import { authActions } from "./actions";
 import { userFromResponse } from "./utils";
 
+export const goToGroupsPage = (action$, store) =>
+  action$.filter(action => action.type === authActions.SIGN_IN_SUCCESS).map(() => push("/groups"));
+
 export const signInEpic = action$ =>
   action$.filter(action => action.type === authActions.SIGN_IN).flatMap(({ payload }) => {
     let provider = new firebase.auth.GoogleAuthProvider();
     // TODO: add admin login page
+    console.log(payload);
     if (payload) {
       provider.addScope("https://www.googleapis.com/auth/calendar");
     }

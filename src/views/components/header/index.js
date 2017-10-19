@@ -24,12 +24,12 @@ const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, signOut, signI
         {!authenticated ? (
           <div className="header-buttons">
             <NavLink activeClassName="selected" to={"/how-it-works"} onClick={HowItWorksPage}>
-              How it works
+              How it Works
             </NavLink>
             <NavLink activeClassName="selected" to={"/about"} onClick={AboutPage}>
               About
             </NavLink>
-            <a className="login" onClick={signIn}>
+            <a className="login" onClick={() => signIn(false)}>
               Log In
             </a>
           </div>

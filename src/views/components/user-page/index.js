@@ -10,14 +10,14 @@ const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => 
   return (
     (user && (
       <div className="user-page">
-        <div className="user-page-header">
-          <div className="user-page-title">
-            <h1>{user.displayName}</h1>
-          </div>
+        {user.photoURL && <img className="user-image" alt="user" src={user.photoURL} />}
+        <div className="user-page-title">
+          <h1>{user.displayName}</h1>
         </div>
-        <div>{user.email}</div>
-        {auth.uid === user.uid && <button onClick={signOut}>Sign Out</button>}
-        <img className="user-image" alt="user" src={user.photoURL} />
+        <div className="user-details">
+          <div className="user-email">{user.email}</div>
+          {auth.uid === user.uid && <button onClick={signOut}>Sign Out</button>}
+        </div>
         <h3>Groups</h3>
         <ul>{Object.keys(user.groupIds || {}).map(key => <li key={key}>{groups[key] && groups[key].name}</li>)}</ul>
       </div>

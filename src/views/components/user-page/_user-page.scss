@@ -1,7 +1,17 @@
 .user-page {
     .user-image {
-        width: 4em;
-        height: 4em;
+        transform: translate(-50%, 0);
+        margin-left: 50%;
+        // width: 8em;
+        height: 12em;
         border-radius: 50%;
+    }
+    .user-details {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1em;
+        .user-email {
+            flex-grow: 1;
+        }
     }
 }
