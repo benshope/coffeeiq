@@ -31,6 +31,8 @@ a {
     color: inherit;
     text-decoration: none;
     cursor: pointer;
+    &:active {
+    }
 }
 
 ul {
@@ -50,24 +52,28 @@ button,
 input[type="submit"] {
     color: white;
     background: rgba(0, 0, 0, 0.2);
-    &:hover {
-        background: rgba(0, 0, 0, 0.4);
-    }
-    &:active,
-    &:focus {
-        background: rgba(0, 0, 0, 0.6);
+    &:not([disabled]) {
+        &:hover {
+            background: rgba(0, 0, 0, 0.4);
+        }
+        &:active,
+        &:focus {
+            background: rgba(0, 0, 0, 0.6);
+        }
     }
 }
 
 input {
     background: rgba(255, 255, 255, 0.8);
     color: black;
-    &:hover {
-        background: rgba(255, 255, 255, 0.9);
-    }
-    &:active,
-    &:focus {
-        background: rgba(255, 255, 255, 1);
+    &:not([disabled]) {
+        &:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        &:active,
+        &:focus {
+            background: rgba(255, 255, 255, 1);
+        }
     }
 }
 
