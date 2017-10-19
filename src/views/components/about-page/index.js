@@ -30,10 +30,6 @@ const AboutPage = () => {
 
 AboutPage.propTypes = {};
 
-//=====================================
-//  CONNECT
-//-------------------------
-
 const mapDispatchToProps = {};
 
 export default connect(null, mapDispatchToProps)(AboutPage);

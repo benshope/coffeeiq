@@ -8,8 +8,11 @@ const HowItWorksPage = () => {
     <div className="">
       <div className="">
         <div className="">
-          <h1 className="">CoffeeIQ randomly schedules you with a teammate for a coffee break.</h1>
-          <div className="description" />
+          <h1 className="">How it Works</h1>
+          <div className="description">
+            CoffeeIQ is about bringing people together. Our algorithm regularly pairs up team members who don’t know
+            each other well to spread trust and collaboration across your organization.
+          </div>
           <p style={{ marginTop: 10 }}>
             Katie works in Sales. Marcus works in Engineering. They've worked at the same company together for a year,
             but they've never had a conversation. Sales doesn't talk to Engineering. HR doesn't talk to Marketing.
@@ -26,7 +29,6 @@ const HowItWorksPage = () => {
             love CofeeIQ because they can meet with people they normally wouldn't talk to, better understand a person's
             role, or find ways to help each other.
           </p>
-
           {/* Would be neat to have graphic to describe each step here... */}
           <ul style={{ marginTop: 10 }}>
             <li>1) Invite your team to sign up to CoffeeIQ</li>
