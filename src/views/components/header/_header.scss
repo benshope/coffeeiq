@@ -29,8 +29,12 @@
                         background: rgba(0, 0, 0, 0.4);
                     }
                 }
-                &:not(.login):hover {
-                    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+                &:not(.login) {
+                    color: rgba(255, 255, 255, 0.8);
+                    &:hover {
+                        color: rgba(255, 255, 255, 1);
+                    }
                 }
                 cursor: pointer;
                 padding: 0 1rem;
