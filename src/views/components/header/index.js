@@ -41,7 +41,12 @@ const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, signOut, signI
             <NavLink activeClassName="selected" to="/users">
               Users
             </NavLink>
-            <NavLink className="my-profile" activeClassName="selected" to={`/user/${auth.uid}`}>
+            <NavLink
+              title={(auth && auth.displayName) || "Profile"}
+              className="my-profile"
+              activeClassName="selected"
+              to={`/user/${auth.uid}`}
+            >
               <img alt="user" src={auth && auth.photoURL} />
             </NavLink>
             {false && (
