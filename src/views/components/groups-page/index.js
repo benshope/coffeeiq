@@ -48,9 +48,9 @@ const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
   );
   return (
     <div className="groups-page">
-      {auth.orgId === "gmail_com" && errorMessage()}
-      {welcomeMessage()}
-      {activateDomainMessage()}
+      {false && auth.orgId === "gmail_com" && errorMessage()}
+      {false && welcomeMessage()}
+      {false && activateDomainMessage()}
       <h1>Groups</h1>
       <GroupList />
       <GroupForm />
