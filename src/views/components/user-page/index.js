@@ -19,7 +19,7 @@ const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => 
         {auth.uid === user.uid && <button onClick={signOut}>Sign Out</button>}
         <img className="user-image" alt="user" src={user.photoURL} />
         <h3>Groups</h3>
-        <ul>{Object.keys(user.groupIds || {}).map(key => <li>{groups[key] && groups[key].name}</li>)}</ul>
+        <ul>{Object.keys(user.groupIds || {}).map(key => <li key={key}>{groups[key] && groups[key].name}</li>)}</ul>
       </div>
     )) || <div>Loading...</div>
   );
