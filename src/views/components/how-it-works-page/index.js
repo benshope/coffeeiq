@@ -1,7 +1,5 @@
-// import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
-// import { withRouter } from "react-router-dom";
 
 const HowItWorksPage = () => {
   return (
@@ -43,10 +41,6 @@ const HowItWorksPage = () => {
 };
 
 HowItWorksPage.propTypes = {};
-
-//=====================================
-//  CONNECT
-//-------------------------
 
 const mapDispatchToProps = {};
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-// import { withRouter } from "react-router-dom";
 import Ben from "src/assets/images/Ben.png";
 import Lexis from "src/assets/images/Lexis.png";
 

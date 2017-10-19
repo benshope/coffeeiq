@@ -41,17 +41,16 @@ const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, signOut, signI
             <NavLink activeClassName="selected" to="/users">
               Users
             </NavLink>
-            <NavLink activeClassName="selected" to={`/user/${auth.uid}`}>
-              <span role="img" aria-label="ghost">
-                👻
-              </span>
+            <NavLink className="my-profile" activeClassName="selected" to={`/user/${auth.uid}`}>
+              <img alt="user" src={auth && auth.photoURL} />
             </NavLink>
-            <a onClick={signOut}>
-              <span role="img" aria-label="door">
-                🚪
-              </span>{" "}
-              Log Out
-            </a>
+            {false && (
+              <a title="Sign Out" onClick={signOut}>
+                <span role="img" aria-label="Sign Out">
+                  🚪
+                </span>
+              </a>
+            )}
           </div>
         )}
       </div>
