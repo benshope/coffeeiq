@@ -54,4 +54,4 @@ export const signOutEpic = action$ =>
     .filter(action => action && action.type === authActions.SIGN_OUT)
     .flatMap(() => firebaseAuth.signOut().then(x => authActions.signOutSuccess(x), x => authActions.signOutFailed(x)));
 
-export const authEpics = [signInEpic, signOutEpic, updateUserEpic];
+export const authEpics = [signOutEpic, signInEpic, updateUserEpic];
