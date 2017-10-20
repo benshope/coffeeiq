@@ -3,6 +3,11 @@ import { authActions } from "src/auth";
 import React from "react";
 import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
+// import LogoSVG from "src/assets/icons/noun_984665_cc.svg";
+// import LogoSVG from "src/assets/icons/noun_1178431_cc.svg";
+// import LogoSVG from "src/assets/icons/noun_934882_cc.svg";
+// import LogoSVG from "src/assets/icons/noun_1228401_cc.svg";
+import LogoSVG from "src/assets/icons/cup_and_saucer.svg";
 
 const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, signOut, signIn }) => {
   const authenticated = auth.authenticated;
@@ -18,8 +23,8 @@ const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, signOut, signI
         </div>
       </div>
       <div className="header">
-        <Link className="header-title" to={authenticated ? "/groups" : "/"}>
-          CoffeeIQ
+        <Link className="header-title" style={{ fontSize: "20px" }} to={authenticated ? "/groups" : "/"}>
+          <img src={LogoSVG} alt="CoffeeIQ" style={{ height: 25, marginRight: "5px" }} /> CoffeeIQ
         </Link>
         {!authenticated ? (
           <div className="header-buttons">

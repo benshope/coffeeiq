@@ -3,8 +3,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { orgActions } from "src/org";
+import { groupFormActions } from "src/group-form";
+import GroupForm from "../group-form";
 
-const GroupPage = ({ auth, deleteGroup, match, groups, users, toggleMembership }) => {
+const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembership, updateGroupForm, users }) => {
   const group = groups && groups[match.params.groupId];
   const userIds = (group && group.userIds) || {};
   const realUserIds = Object.keys(userIds).filter(userId => userIds[userId]);
@@ -12,36 +14,40 @@ const GroupPage = ({ auth, deleteGroup, match, groups, users, toggleMembership }
     (group &&
       users && (
         <div className="group-page">
-          <div className="group-page-header">
-            <div className="group-page-title">
-              <h1>{group.name}</h1>
-            </div>
-            <button
-              className="membership-button"
-              onClick={e => {
-                e.preventDefault();
-                e.stopPropagation();
-                toggleMembership({
-                  groupId: match.params.groupId,
-                  userId: auth.uid
-                });
-              }}
-            >
-              {(userIds || {})[auth.uid] ? "Leave" : "Join"}
-            </button>
-            <Link to="/groups">
-              <button
-                className="delete-group-button"
-                onClick={e =>
-                  window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
-                  deleteGroup(match.params.groupId)}
-              >
-                <span role="img" aria-label="trash">
-                  🗑️
-                </span>
+          {groupForm.uid && group.uid !== groupForm.uid ? (
+            <div className="group-page-header">
+              <div className="group-page-title">
+                <h1>{group.name}</h1>
+              </div>
+              <button className="edit-button" onClick={e => updateGroupForm(group)}>
+                Edit
               </button>
-            </Link>
-          </div>
+              <button
+                className="membership-button"
+                onClick={e =>
+                  toggleMembership({
+                    groupId: match.params.groupId,
+                    userId: auth.uid
+                  })}
+              >
+                {(userIds || {})[auth.uid] ? "Leave" : "Join"}
+              </button>
+              <Link to="/groups">
+                <button
+                  className="delete-group-button"
+                  onClick={e =>
+                    window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
+                    deleteGroup(match.params.groupId)}
+                >
+                  <span role="img" aria-label="trash">
+                    🗑️
+                  </span>
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <GroupForm />
+          )}
           <div>Meeting at {group.location}</div>
           <h3>{realUserIds.length} Members</h3>
           <ul className="user-list">
@@ -72,12 +78,14 @@ GroupPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  groupForm: state.groupForm,
   auth: state.auth,
   groups: (state.org[state.auth.orgId] || {}).groups,
   users: (state.org[state.auth.orgId] || {}).users
 });
 
 const mapDispatchToProps = {
+  updateGroupForm: groupFormActions.updateGroupForm,
   deleteGroup: orgActions.deleteGroup,
   toggleMembership: orgActions.toggleMembership
 };
