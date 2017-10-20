@@ -7,7 +7,7 @@ export const userFromResponse = (payload, gaveCalendarAccess) => {
         email: payload.user.email,
         domain,
         gaveCalendarAccess: !!gaveCalendarAccess,
-        orgId: domain.replace(".", "_"),
+        orgId: domain.split(".").join("_"),
         orgName: domain.split(".")[0],
         refreshToken: payload.user.refreshToken
     };

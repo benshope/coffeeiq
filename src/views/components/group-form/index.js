@@ -18,23 +18,27 @@ const GroupForm = ({
     return (
         <div className="group-form">
             <input
+                disabled={groupForm.sending}
                 className="group-input"
                 placeholder="Name..."
-                value={group.name}
+                value={(!groupForm.sending && group.name) || ""}
                 onChange={e => updateGroupFormName(e.target.value)}
             />
             <input
+                disabled={groupForm.sending}
                 className="group-input"
                 placeholder="Location..."
-                value={group.location}
+                value={(!groupForm.sending && group.location) || ""}
                 onChange={e => updateGroupFormLocation(e.target.value)}
             />
             <button
                 className="create-or-update-button"
-                onClick={() => (group.key ? updateGroup : createGroup)(this.state.group)}
-                disabled={!group.name || !group.location || isEqual(this.state.group, groups[groupForm.key] || {})}
+                onClick={() => (group.key ? updateGroup : createGroup)(group)}
+                disabled={
+                    groupForm.sending || !group.name || !group.location || isEqual(group, groups[groupForm.key] || {})
+                }
             >
-                {groupForm.key ? `Update` : `Create`}
+                {groupForm.key ? "Update" : "Create"}
             </button>
         </div>
     );

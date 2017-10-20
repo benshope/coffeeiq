@@ -48,7 +48,7 @@ export const createInviteEpic = (action$, store) =>
     .flatMap(({ payload }) => {
       const state = store.getState();
       const orgId = state.auth.orgId;
-      const inviteKey = payload.replace(".", "_");
+      const inviteKey = payload.split(".").join("_");
       return new Promise((resolve, reject) =>
         firebaseDb.ref(`orgs/${orgId}/invites/${inviteKey}`).update(
           {

@@ -15,7 +15,7 @@ const UsersPage = ({ auth }) => {
         <UsersForm />
       </div>
       <UserList />
-      <h2>Invited</h2>
+      <h1>Invited</h1>
       <UserInviteList />
     </div>
   );

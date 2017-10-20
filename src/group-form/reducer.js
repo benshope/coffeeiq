@@ -4,7 +4,8 @@ import { orgActions } from "../org/actions";
 
 const newState = {
     key: undefined, // group key
-    value: {} // group value
+    value: {}, // group value
+    sending: false
 };
 
 const stateFunctions = {
@@ -23,7 +24,10 @@ const stateFunctions = {
             location: payload
         }
     }),
+    [orgActions.UPDATE_GROUP]: state => ({ ...state, sending: true }),
+    [orgActions.CREATE_GROUP]: state => ({ ...state, sending: true }),
     [orgActions.UPDATE_GROUP_SUCCESS]: () => ({ ...newState }),
+    [orgActions.CREATE_GROUP_SUCCESS]: () => ({ ...newState }),
     [authActions.SIGN_OUT_SUCCESS]: () => ({ ...newState })
 };
 
