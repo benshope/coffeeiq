@@ -14,7 +14,7 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
     (group &&
       users && (
         <div className="group-page">
-          {groupForm.uid && group.uid !== groupForm.uid ? (
+          {!groupForm.key || match.params.groupId !== groupForm.key ? (
             <div className="group-page-header">
               <div className="group-page-title">
                 <h1>{group.name}</h1>
