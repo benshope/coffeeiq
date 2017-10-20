@@ -13,8 +13,6 @@ export const goToGroupsPage = (action$, store) =>
 export const signInEpic = action$ =>
   action$.filter(action => action.type === authActions.SIGN_IN).flatMap(({ payload }) => {
     let provider = new firebase.auth.GoogleAuthProvider();
-    // TODO: add admin login page
-    console.log(payload);
     if (payload) {
       provider.addScope("https://www.googleapis.com/auth/calendar");
     }
