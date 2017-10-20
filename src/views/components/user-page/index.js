@@ -21,7 +21,12 @@ const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => 
         <h2>Groups</h2>
         <ul>{Object.keys(user.groupIds || {}).map(key => <li key={key}>{groups[key] && groups[key].name}</li>)}</ul>
       </div>
-    )) || <div>Loading...</div>
+    )) || (
+      <div className="user-page-loading display-flex align-items-center">
+        <div className="loading-message flex-grow">Loading user...</div>
+        <button onClick={signOut}>Sign Out</button>
+      </div>
+    )
   );
 };
 
