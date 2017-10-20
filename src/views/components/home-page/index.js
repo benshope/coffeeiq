@@ -10,7 +10,7 @@ const HomePage = ({ signIn }) => {
     <div className="home-page">
       <div className="hero">
         <h1>Meet your team</h1>
-        <div className="description">CoffeeIQ schedules a coffee break with one new coworker each week</div>
+        <div className="description">CoffeeIQ schedules a coffee break with a new coworker each week</div>
         <button className="signup-button" onClick={() => signIn(false)}>
           <img alt="google-logo" width="25" height="25" src={googleLogo} />
           Sign Up
