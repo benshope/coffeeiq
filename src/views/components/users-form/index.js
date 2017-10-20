@@ -50,7 +50,7 @@ class UsersForm extends React.Component {
                     onChange={this.updateEmail}
                     onKeyDown={this.onKeyDown}
                 />
-                <input className="button invite-button" type="submit" value="Invite" />
+                <input disabled={!this.state.email} className="button invite-button" type="submit" value="Invite" />
             </form>
         );
     }

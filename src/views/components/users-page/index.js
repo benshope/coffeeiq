@@ -7,13 +7,15 @@ import UserInviteList from "../user-invite-list";
 import UserList from "../user-list/user-list.container";
 import UsersForm from "../users-form";
 
-
 const UsersPage = ({ auth }) => {
   return (
     <div className="users-page">
-      <h1>Users</h1>
+      <div className="header">
+        <h1>Users</h1>
+        <UsersForm />
+      </div>
       <UserList />
-      <UsersForm />
+      <h2>Invited</h2>
       <UserInviteList />
     </div>
   );
@@ -29,6 +31,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {};
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(UsersPage)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UsersPage));
