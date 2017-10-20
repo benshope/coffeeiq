@@ -97,12 +97,12 @@ export const createGroupEpic = (action$, store) =>
     .catch(error => Observable.of(orgActions.createGroupFailed(error)));
 
 export const createGroupSuccessEpic = (action$, store) =>
-  action$.filter(action => action.type === orgActionTypes.CREATE_GROUP_SUCCESS).flatMap(({ payload }) =>
+  action$.filter(action => action.type === orgActionTypes.CREATE_GROUP_SUCCESS).flatMap(() =>
     Observable.from([
       notificationsActions.requestCreateSuccessNotification({
         message: "Group created"
-      }),
-      push(`/group/${payload}`)
+      })
+      // , push(`/group/${payload}`)
     ])
   );
 
