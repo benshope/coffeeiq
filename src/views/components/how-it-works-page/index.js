@@ -3,14 +3,15 @@ import { connect } from "react-redux";
 
 const HowItWorksPage = () => {
   return (
-    <div className="">
-      <div className="">
-        <div className="">
-          <h1 className="">How it Works</h1>
-          <div className="description">
-            CoffeeIQ is about bringing people together. Our algorithm regularly pairs up team members who don’t know
-            each other well to spread trust and collaboration across your organization.
-          </div>
+    <div className="how-it-works-page">
+      <h1 className="">How it Works</h1>
+      <div className="description">
+        CoffeeIQ is about bringing people together. Our algorithm regularly pairs up team members who don’t know each
+        other well to spread trust and collaboration across your organization.
+      </div>
+      {true && (
+        <div>
+          <h2>User Story</h2>
           <p style={{ marginTop: 10 }}>
             Katie works in Sales. Marcus works in Engineering. They've worked at the same company together for a year,
             but they've never had a conversation. Sales doesn't talk to Engineering. HR doesn't talk to Marketing.
@@ -35,7 +36,7 @@ const HowItWorksPage = () => {
             <li>4) That’s it - accept and caffeinate together!</li>
           </ul>
         </div>
-      </div>
+      )}
     </div>
   );
 };

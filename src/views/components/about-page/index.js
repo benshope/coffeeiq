@@ -18,10 +18,14 @@ const AboutPage = () => {
           great for everyone — and we are building a company that embodies these ideals while also instilling them in
           others.
         </div>
-        <h3>Ben</h3>
-        <img src={Ben} alt="ben" style={{ height: 200, width: 200 }} />
-        <h3>Lexis</h3>
-        <img src={Lexis} alt="lexis" style={{ height: 200, width: 200 }} />
+        {false && (
+          <div>
+            <h3>Ben</h3>
+            <img src={Ben} alt="ben" style={{ height: 200, width: 200 }} />
+            <h3>Lexis</h3>
+            <img src={Lexis} alt="lexis" style={{ height: 200, width: 200 }} />
+          </div>
+        )}
       </div>
     </div>
   );
