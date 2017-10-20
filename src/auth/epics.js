@@ -12,9 +12,8 @@ import { userFromResponse } from "./utils";
 //     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
 //     .map(() => push("/groups"));
 
-export const signInEpic = action$ => {
-  console.log(action$);
-  return action$.filter(action => action.type === authActions.SIGN_IN).flatMap(({ payload }) => {
+export const signInEpic = action$ =>
+  action$.filter(action => action.type === authActions.SIGN_IN).flatMap(({ payload }) => {
     let provider = new firebase.auth.GoogleAuthProvider();
     if (payload) {
       provider.addScope("https://www.googleapis.com/auth/calendar");
@@ -32,7 +31,6 @@ export const signInEpic = action$ => {
         x => authActions.signInFailed(x)
       );
   });
-};
 
 // TODO: this should be in a firebase function
 export const updateUserEpic = action$ =>
