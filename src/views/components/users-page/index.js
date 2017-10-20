@@ -12,11 +12,10 @@ const UsersPage = ({ auth }) => {
     <div className="users-page">
       <div className="header">
         <h1>Users</h1>
-        <UsersForm />
       </div>
       <UserList />
-      <h1>Invited</h1>
       <UserInviteList />
+      <UsersForm />
     </div>
   );
 };

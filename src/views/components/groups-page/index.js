@@ -53,7 +53,6 @@ const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
       {false && activateDomainMessage()}
       <h1>Groups</h1>
       <GroupList />
-      <h2>Create a Group</h2>
       <GroupForm />
     </div>
   );

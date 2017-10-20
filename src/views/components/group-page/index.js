@@ -52,8 +52,6 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
           <div>Meeting at {group.location}</div>
           <div className="members-header">
             <h2>{realUserIds.length} Members</h2>
-
-            <UsersForm />
           </div>
           <ul className="user-list">
             {realUserIds.map((userId, i) => {
@@ -69,6 +67,7 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
               );
             })}
           </ul>
+          <UsersForm />
         </div>
       )) || <div>Loading...</div>
   );
