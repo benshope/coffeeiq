@@ -15,6 +15,13 @@
         flex-direction: column;
     }
 
+    .members-header {
+        h2 {
+            flex-grow: 1;
+        }
+        display: flex;
+    }
+
     .user-item {
         padding: 0.5em 0;
         transition: all 0.1s ease-in-out 0s;

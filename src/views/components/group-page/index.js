@@ -5,6 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import { orgActions } from "src/org";
 import { groupFormActions } from "src/group-form";
 import GroupForm from "../group-form";
+import UsersForm from "../users-form";
 
 const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembership, updateGroupForm, users }) => {
   const group = groups && groups[match.params.groupId];
@@ -49,7 +50,11 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
             <GroupForm />
           )}
           <div>Meeting at {group.location}</div>
-          <h3>{realUserIds.length} Members</h3>
+          <div className="members-header">
+            <h2>{realUserIds.length} Members</h2>
+
+            <UsersForm />
+          </div>
           <ul className="user-list">
             {realUserIds.map((userId, i) => {
               const user = users[userId] || {};
