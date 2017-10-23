@@ -18,7 +18,7 @@ import UsersPage from "./components/users-page";
 import "./styles/styles.css";
 
 const App = ({ authenticated, signOut }) => (
-  <div className="app-container">
+  <div className={["app-container", authenticated && "authenticated"].join(" ")}>
     <Notifications />
     <Header authenticated={authenticated} signOut={signOut} about={HowItWorksPage} />
     <main className="page-container">
@@ -30,7 +30,6 @@ const App = ({ authenticated, signOut }) => (
       <Route path="/how-it-works" component={HowItWorksPage} />
       <Route path="/about" component={AboutPage} />
     </main>
-
   </div>
 );
 

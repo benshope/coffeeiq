@@ -5,19 +5,11 @@ import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
 import LogoSVG from "src/assets/graphics/coffeeiq_logo.svg";
 
-const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, signOut, signIn }) => {
+const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, match, signOut, signIn }) => {
   const authenticated = auth.authenticated;
+  console.log("HEADER MATCH", match);
   return (
     <div className="header-container">
-      <div className="stripes-container">
-        <div id="stripes">
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-      </div>
       <div className="header">
         <Link className="header-title" style={{ fontSize: "20px" }} to={authenticated ? "/groups" : "/"}>
           <img src={LogoSVG} alt="CoffeeIQ" style={{ height: 25, marginRight: "5px" }} /> CoffeeIQ
