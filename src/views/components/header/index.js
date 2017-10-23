@@ -5,21 +5,42 @@ import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
 import LogoSVG from "src/assets/graphics/coffeeiq_logo.svg";
 
-const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, match, signOut, signIn }) => {
+const Header = ({
+  auth,
+  AboutPage,
+  HowItWorksPage,
+  calendarToken,
+  match,
+  signOut,
+  signIn
+}) => {
   const authenticated = auth.authenticated;
   console.log("HEADER MATCH", match);
   return (
     <div className="header-container">
       <div className="header">
-        <Link className="header-title" style={{ fontSize: "20px" }} to={authenticated ? "/groups" : "/"}>
-          <img src={LogoSVG} alt="CoffeeIQ" style={{ height: 25, marginRight: "5px" }} /> CoffeeIQ
+        <Link className="header-title" to={authenticated ? "/groups" : "/"}>
+          <img
+            src={LogoSVG}
+            alt="CoffeeIQ"
+            style={{ height: 50, marginRight: "5px" }}
+          />{" "}
+          CoffeeIQ
         </Link>
         {!authenticated ? (
           <div className="header-buttons">
-            <NavLink activeClassName="selected" to={"/how-it-works"} onClick={HowItWorksPage}>
+            <NavLink
+              activeClassName="selected"
+              to={"/how-it-works"}
+              onClick={HowItWorksPage}
+            >
               How it Works
             </NavLink>
-            <NavLink activeClassName="selected" to={"/about"} onClick={AboutPage}>
+            <NavLink
+              activeClassName="selected"
+              to={"/about"}
+              onClick={AboutPage}
+            >
               About
             </NavLink>
             <a className="login" onClick={() => signIn(false)}>
