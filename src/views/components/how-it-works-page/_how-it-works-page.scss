@@ -8,7 +8,13 @@
 			top: 0;
 			grid: repeat(5, 200px)/repeat(10, 1fr);
 			transform-origin: 0;
-			background: linear-gradient(#507eb1, #709dc7 10%, #dde9f5 38%, #eaf2f9 48%, #f6f9fc 62%);
+			background: linear-gradient(
+				#507eb1,
+				#709dc7 10%,
+				#dde9f5 38%,
+				#eaf2f9 48%,
+				#f6f9fc 62%
+			);
 		}
 		.stripes :nth-child(1) {
 			grid-column: span 3;
@@ -46,7 +52,11 @@
 				background: linear-gradient(100grad, #fff 50%, hsla(0, 0%, 100%, 0));
 			}
 			.stripes :nth-child(4) {
-				background: linear-gradient(100grad, rgba(0, 119, 204, 0) 10%, rgba(0, 119, 204, 0.05));
+				background: linear-gradient(
+					100grad,
+					rgba(0, 119, 204, 0) 10%,
+					rgba(0, 119, 204, 0.05)
+				);
 			}
 		}
 	}

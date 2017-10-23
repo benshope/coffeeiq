@@ -15,7 +15,6 @@ const Header = ({
   signIn
 }) => {
   const authenticated = auth.authenticated;
-  console.log("HEADER MATCH", match);
   return (
     <div className="header-container">
       <div className="header">
