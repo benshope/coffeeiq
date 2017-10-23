@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { authActions } from "src/auth";
-import googleLogo from "src/assets/images/google.svg";
+import googleLogo from "src/assets/graphics/google_logo.svg";
 
 const HomePage = ({ signIn }) => {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import Ben from "src/assets/images/Ben.png";
-import Lexis from "src/assets/images/Lexis.png";
+import Ben from "src/assets/images/ben.png";
+import Lexis from "src/assets/images/lexis.png";
 
 const AboutPage = () => {
   return (

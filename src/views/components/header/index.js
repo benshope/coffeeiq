@@ -3,11 +3,7 @@ import { authActions } from "src/auth";
 import React from "react";
 import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
-// import LogoSVG from "src/assets/icons/noun_984665_cc.svg";
-// import LogoSVG from "src/assets/icons/noun_1178431_cc.svg";
-// import LogoSVG from "src/assets/icons/noun_934882_cc.svg";
-// import LogoSVG from "src/assets/icons/noun_1228401_cc.svg";
-import LogoSVG from "src/assets/icons/cup_and_saucer.svg";
+import LogoSVG from "src/assets/graphics/coffeeiq_logo.svg";
 
 const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, signOut, signIn }) => {
   const authenticated = auth.authenticated;
