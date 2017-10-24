@@ -1,116 +1,14 @@
 .home-page {
   color: white;
   margin-top: 3em;
-
   .hero {
-    min-height: 700px;
+    height: 750px;
   }
-
-  h1 {
-    font-size: 30px;
-    // font-weight: 300;
-  }
-
   .description {
     margin-bottom: 1em;
   }
-
-  .stripes-container {
-    .stripes,
-    .stripes span {
-      position: absolute;
-    }
-    .stripes {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      transform: skewY(-12deg);
-      transform-origin: 0;
-      background: linear-gradient(150deg, #53f 15%, #05d5ff 70%, #a6ffcb 94%);
-    }
-    .stripes span {
-      height: 40px;
-    }
-    .stripes :nth-child(1) {
-      width: 50%;
-      left: 50%;
-      top: 40px;
-      background: #4c29ff;
-    }
-    .stripes :nth-child(2) {
-      width: 14%;
-      right: 0;
-      bottom: 40px;
-      background: #2be7ff;
-    }
-    .stripes :nth-child(3) {
-      width: 25%;
-      bottom: 0;
-      right: 0;
-      background: #a1ffc8;
-    }
-    @media (min-width: 670px) {
-      .stripes span {
-        height: 150px;
-      }
-      .stripes :nth-child(1) {
-        top: 0;
-        background: #4750ff;
-      }
-      .stripes :nth-child(2) {
-        width: 16.66667%;
-        top: 300px;
-        bottom: auto;
-        background: #0dcfff;
-      }
-      .stripes :nth-child(3) {
-        width: 33.33333%;
-        right: auto;
-        background: #11bdff;
-      }
-    }
-    @media (min-width: 880px) {
-      .stripes span {
-        height: 190px;
-      }
-      .stripes :nth-child(1) {
-        width: 33.33333%;
-        left: -16.66666%;
-        background: #53f;
-      }
-      .stripes :nth-child(2) {
-        width: 33.33333%;
-        top: 0;
-        left: 16.66666%;
-        right: auto;
-        background: #4553ff;
-      }
-      .stripes :nth-child(3) {
-        width: 33.33333%;
-        left: 49.99999%;
-        bottom: auto;
-        background: #4f40ff;
-      }
-      .stripes :nth-child(4) {
-        width: 33.33333%;
-        top: 380px;
-        right: -16.66666%;
-        background: #25ddf5;
-      }
-      .stripes :nth-child(5) {
-        width: 33.33333%;
-        bottom: 0;
-        background: #1fa2ff;
-      }
-    }
-  }
-
   .signup-button {
     padding: 0.75em 1em;
-    // &:hover {
-    //   background: rgba(255, 255, 255, 0.8);
-    //   color: #707070;
-    // }
     padding-right: 1.2em;
     font-weight: 500;
     img {
@@ -124,16 +22,95 @@
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
         0 10px 10px rgba(0, 0, 0, 0.22);
       background: white;
-      // color: #343434;
-      // background-color: #f2f2f2;
     }
     &:active {
       background: white;
-      // background: rgba(0, 0, 0, 0.4);
-      // color: #343434;
-      // color: white;
-      // box-shadow: none;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+  }
+  .stripes {
+    transform: skewY(-12deg);
+    transform-origin: 0;
+    background: linear-gradient(150deg, #53f 15%, #05d5ff 70%, #a6ffcb 94%);
+    span {
+      position: absolute;
+      height: 40px;
+    }
+    :nth-child(1) {
+      width: 50%;
+      left: 50%;
+      top: 40px;
+      background: #4c29ff;
+    }
+    :nth-child(2) {
+      width: 14%;
+      right: 0;
+      bottom: 40px;
+      background: #2be7ff;
+    }
+    :nth-child(3) {
+      width: 25%;
+      bottom: 0;
+      right: 0;
+      background: #a1ffc8;
+    }
+  }
+  @media (min-width: 670px) {
+    .stripes {
+      span {
+        height: 150px;
+      }
+      :nth-child(1) {
+        top: 0;
+        background: #4750ff;
+      }
+      :nth-child(2) {
+        width: 16.66667%;
+        top: 300px;
+        bottom: auto;
+        background: #0dcfff;
+      }
+      :nth-child(3) {
+        width: 33.33333%;
+        right: auto;
+        background: #11bdff;
+      }
+    }
+  }
+  @media (min-width: 880px) {
+    .stripes {
+      span {
+        height: 190px;
+      }
+      :nth-child(1) {
+        width: 33.33333%;
+        left: -16.66666%;
+        background: #53f;
+      }
+      :nth-child(2) {
+        width: 33.33333%;
+        top: 0;
+        left: 16.66666%;
+        right: auto;
+        background: #4553ff;
+      }
+      :nth-child(3) {
+        width: 33.33333%;
+        left: 49.99999%;
+        bottom: auto;
+        background: #4f40ff;
+      }
+      :nth-child(4) {
+        width: 33.33333%;
+        top: 380px;
+        right: -16.66666%;
+        background: #25ddf5;
+      }
+      :nth-child(5) {
+        width: 33.33333%;
+        bottom: 0;
+        background: #1fa2ff;
+      }
     }
   }
 }

@@ -2,28 +2,23 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding-bottom: 2em;
-    min-height: 100%;
     .page-container {
         flex-basis: 520px;
     }
-    .background {
-        width: 100%;
+    .background,
+    .stripes {
         z-index: -1;
-        position: absolute;
-        min-height: 100%;
-    }
-    .background {
+        width: 100%;
         left: 0;
         top: 0;
+        position: absolute;
+        height: 750px;
+    }
+    .background {
+        height: 100%;
         background: rgba(0, 0, 0, 0.2);
     }
-    .stripes-container {
-        left: 0;
-        top: 0;
-        z-index: -1;
-        position: absolute;
-        width: 100%;
-        height: 750px;
+    .page {
+        position: relative;
     }
 }
