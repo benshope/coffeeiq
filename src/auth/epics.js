@@ -4,7 +4,6 @@ import { push } from "react-router-redux";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/filter";
-import "rxjs/add/operator/flatMap";
 import "rxjs/add/operator/map";
 import { firebaseAuth } from "src/firebase";
 import { firebaseDb } from "../firebase";
