@@ -2,18 +2,22 @@ import firebase from "firebase";
 import { omit } from "lodash";
 import { push } from "react-router-redux";
 import { Observable } from "rxjs";
+import "rxjs/add/observable/of";
+import "rxjs/add/operator/filter";
+import "rxjs/add/operator/map";
 import { firebaseAuth } from "src/firebase";
 import { firebaseDb } from "../firebase";
 import { authActions } from "./actions";
 import { userFromResponse } from "./utils";
 
-export const goToGroupsPageEpic = (action$, store) =>
-  action$
+export const goToGroupsPageEpic = (action$, store) => {
+  console.log("About to fail", action$);
+  return action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
     .map(() => push("/groups"));
+};
 
 export const signInEpic = action$ =>
-  action$ &&
   action$
     .filter(action => action.type === authActions.SIGN_IN)
     .flatMap(({ payload }) => {
