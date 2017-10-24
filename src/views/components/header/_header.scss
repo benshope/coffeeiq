@@ -2,18 +2,20 @@
     display: flex;
     height: 4rem;
     line-height: 4rem;
-    flex-basis: 100%;
+    width: 100%;
     justify-content: center;
     margin-bottom: 2rem;
     .header {
-        line-height: 3em;
-        margin-top: 1em;
+        line-height: 4em;
         display: flex;
         flex-grow: 0;
         flex-basis: 520px;
         justify-content: space-between;
         .header-title {
             font-weight: 500;
+        }
+        .header-logo {
+            height: 3em;
         }
         .header-buttons {
             display: flex;
@@ -22,26 +24,15 @@
                 padding: 0 1rem;
                 background: rgba(0, 0, 0, 0);
                 transition: background 0.1s ease-in-out 0s;
-                &.login {
-                    border-radius: $iq-border-radius;
-                    background: rgba(0, 0, 0, 0.1);
-                    &:hover,
-                    &.selected {
-                        background: rgba(0, 0, 0, 0.2);
-                    }
-                    &:active {
-                        background: rgba(0, 0, 0, 0.4);
-                    }
-                }
-                &:not(.login) {
-                    color: rgba(255, 255, 255, 0.8);
-                    &:hover {
-                        color: rgba(255, 255, 255, 1);
-                    }
-                    &.selected {
-                        color: rgba(255, 255, 255, 1);
-                    }
-                }
+                // &:not(.login) {
+                //     color: rgba(255, 255, 255, 0.8);
+                //     &:hover {
+                //         color: rgba(255, 255, 255, 1);
+                //     }
+                //     &.selected {
+                //         color: rgba(255, 255, 255, 1);
+                //     }
+                // }
                 &.my-profile {
                     img {
                         height: 2em;
@@ -58,6 +49,30 @@
                             border: 2px solid rgba(255, 255, 255, 1);
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+.authenticated .header-container {
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    .header {
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        .header-title {
+        }
+        .header-buttons {
+            a {
+                border-left: 1px solid rgba(0, 0, 0, 0.2);
+                &:hover {
+                    background: rgba(0, 0, 0, 0.4);
+                    color: white;
+                }
+                &:active,
+                &.selected {
+                    color: white;
+                    background: rgba(0, 0, 0, 0.6);
                 }
             }
         }

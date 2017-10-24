@@ -18,7 +18,7 @@ import UsersPage from "./components/users-page";
 import "./styles/styles.css";
 
 const App = ({ authenticated, signOut }) => (
-  <div className={["app-container", authenticated && "authenticated"].join(" ")}>
+  <div className={["app-container", authenticated ? "authenticated" : ""].join(" ")}>
     <Notifications />
     <Header authenticated={authenticated} signOut={signOut} about={HowItWorksPage} />
     <main className="page-container">

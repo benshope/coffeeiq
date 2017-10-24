@@ -2,8 +2,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    &.authenticated {
+        background: rgba(0, 0, 0, 0.2);
+    }
     .page-container {
-        flex-basis: 520px;
+        width: 520px;
+        padding-bottom: 2em;
+        flex-grow: 1;
     }
     .page {
         position: relative;
