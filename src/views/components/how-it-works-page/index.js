@@ -14,7 +14,7 @@ const HowItWorksPage = () => {
           and collaboration across your organization.
         </div>
       </div>
-      {true && (
+      {false && (
         <div>
           <h2>User Story</h2>
           <p style={{ marginTop: 10 }}>
