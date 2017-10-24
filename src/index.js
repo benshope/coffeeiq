@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "react-router-redux";
-import "rxjs";
+// import "rxjs";
 import "rxjs/Rx";
 import { initAuth } from "./auth";
 import history from "./history";
