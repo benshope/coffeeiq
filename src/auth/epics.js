@@ -7,10 +7,8 @@ import { firebaseDb } from "../firebase";
 import { authActions } from "./actions";
 import { userFromResponse } from "./utils";
 
-export const goToGroupsPageEpic = (action$, store) => {
-  console.log("About to fail", action$);
-  return action$.filter(action => action.type === authActions.SIGN_IN_SUCCESS).map(() => push("/groups"));
-};
+export const goToGroupsPageEpic = (action$, store) =>
+  action$.filter(action => action.type === authActions.SIGN_IN_SUCCESS).map(() => push("/groups"));
 
 export const signInEpic = action$ =>
   action$.filter(action => action.type === authActions.SIGN_IN).flatMap(({ payload }) => {
