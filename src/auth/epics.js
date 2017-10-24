@@ -8,7 +8,6 @@ import { authActions } from "./actions";
 import { userFromResponse } from "./utils";
 
 export const goToGroupsPageEpic = (action$, store) =>
-  action$ &&
   action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
     .map(() => push("/groups"));
@@ -39,7 +38,6 @@ export const signInEpic = action$ =>
 
 // TODO: this should be in a firebase function
 export const updateUserEpic = action$ =>
-  action$ &&
   action$
     .filter(action => action && action.type === authActions.SIGN_IN_SUCCESS)
     .map(
@@ -57,7 +55,6 @@ export const updateUserEpic = action$ =>
     .catch(error => Observable.of(authActions.updateUserFailed(error)));
 
 export const signOutEpic = action$ =>
-  action$ &&
   action$
     .filter(action => action && action.type === authActions.SIGN_OUT)
     .flatMap(() =>
