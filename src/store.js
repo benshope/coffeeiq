@@ -7,7 +7,7 @@ import reducers from "./reducers";
 
 export default function configureStore() {
   let epicMiddleware = createEpicMiddleware(epics);
-  let middleware = applyMiddleware(routerMiddleware(history), epicMiddleware);
+  let middleware = applyMiddleware(epicMiddleware, routerMiddleware(history));
 
   if (process.env.NODE_ENV !== "production") {
     const devToolsExtension = window.devToolsExtension;
