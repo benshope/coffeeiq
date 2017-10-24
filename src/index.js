@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "react-router-redux";
 import "rxjs";
-import Rx from "rxjs/Rx";
+import "rxjs/Rx";
 import { initAuth } from "./auth";
 import history from "./history";
 import configureStore from "./store";
