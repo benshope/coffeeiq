@@ -7,7 +7,7 @@ import { firebaseDb } from "../firebase";
 import { authActions } from "./actions";
 import { userFromResponse } from "./utils";
 
-export const goToGroupsPage = (action$, store) =>
+export const goToGroupsPageEpic = (action$, store) =>
   action$ &&
   action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
