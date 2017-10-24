@@ -5,19 +5,6 @@
     .page-container {
         flex-basis: 520px;
     }
-    .background,
-    .stripes {
-        z-index: -1;
-        width: 100%;
-        left: 0;
-        top: 0;
-        position: absolute;
-        height: 750px;
-    }
-    .background {
-        height: 100%;
-        background: rgba(0, 0, 0, 0.2);
-    }
     .page {
         position: relative;
     }

@@ -1,16 +1,16 @@
-import { range } from "lodash";
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { authActions } from "src/auth";
 import googleLogo from "src/assets/graphics/google_logo.svg";
+import { BlueStripes } from "../stripes";
 
 const HomePage = ({ signIn }) => {
   return (
     <div className="home-page">
       <div className="hero">
-        <div className="stripes">{range(5).map(i => <span key={i} />)}</div>
+        <BlueStripes />
         <h1>Meet your team</h1>
         <div className="description">
           CoffeeIQ schedules a coffee break with a new coworker each week

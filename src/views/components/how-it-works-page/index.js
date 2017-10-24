@@ -1,12 +1,12 @@
-import { range } from "lodash";
 import React from "react";
 import { connect } from "react-redux";
+import { BlueStripes } from "../stripes";
 
 const HowItWorksPage = () => {
   return (
     <div className="how-it-works-page">
       <div className="hero">
-        <div className="stripes">{range(5).map(i => <span key={i} />)}</div>
+        <BlueStripes />
         <h1 className="">How it Works</h1>
         <div className="description">
           CoffeeIQ is about bringing people together. Our algorithm regularly
