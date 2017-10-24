@@ -5,8 +5,8 @@ import { BlueStripes } from "../stripes";
 const HowItWorksPage = () => {
   return (
     <div className="how-it-works-page">
+      <BlueStripes />
       <div className="hero">
-        <BlueStripes />
         <h1 className="">How it Works</h1>
         <div className="description">
           CoffeeIQ is about bringing people together. Our algorithm regularly
