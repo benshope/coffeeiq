@@ -174,7 +174,6 @@
   top: 0;
   position: absolute;
   height: 750px;
-
   .StripeBackground .s2:after {
     background: url(/img/v3/pricing/header/background-pattern.svg);
     opacity: 0.25;
@@ -218,13 +217,13 @@
   }
   .StripeBackground .s1 {
     bottom: 465px;
-    right: 80%;
+    right: 90%;
     background: linear-gradient(90deg, #bfd4ff, #d2f0f9);
     opacity: 0.2;
   }
   .StripeBackground .s2 {
     bottom: 310px;
-    right: calc(50% + 260px);
+    right: calc(50% + 320px);
     left: auto;
     width: 30%;
     min-width: 450px;
@@ -233,7 +232,7 @@
   }
   .StripeBackground .s3 {
     bottom: 155px;
-    left: 75%;
+    left: 80%;
     background: linear-gradient(90deg, #b6e3a8, #dbf0af);
   }
   .StripeBackground .s4 {
