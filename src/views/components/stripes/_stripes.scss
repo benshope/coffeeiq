@@ -1,14 +1,11 @@
-.stripes {
-  z-index: -1;
-  width: 100%;
-  left: 0;
-  top: 0;
-  position: absolute;
-  height: 750px;
-}
-
 .blue-stripes {
   .stripes {
+    z-index: -1;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    height: 750px;
     transform: skewY(-12deg);
     transform-origin: 0;
     background: linear-gradient(150deg, #53f 15%, #05d5ff 70%, #a6ffcb 94%);
@@ -92,5 +89,80 @@
         background: #1fa2ff;
       }
     }
+  }
+}
+
+.purple-stripes {
+  z-index: -1;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  height: 750px;
+  .stripes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 260px;
+    transform: skewY(-12deg);
+  }
+  @media (min-width: 670px) {
+    .stripes {
+      bottom: 290px;
+    }
+  }
+  @media (min-width: 880px) {
+    .stripes {
+      bottom: 440px;
+    }
+  }
+  .stripes .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #895cf2, #ffabf4);
+  }
+  .stripes .stripe {
+    position: absolute;
+    height: 190px;
+  }
+  .stripes .s1 {
+    bottom: 380px;
+    left: 16%;
+    width: 41%;
+    background: linear-gradient(90deg, rgba(67, 67, 141, 0.05), rgba(67, 67, 141, 0.1));
+  }
+  .stripes .s2 {
+    bottom: 0;
+    left: 0;
+    width: 27%;
+    background: linear-gradient(90deg, #c76eff, #b778ff);
+  }
+  .stripes .s3 {
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    background: linear-gradient(90deg, #f4a3ea, #ffbe8a);
+  }
+  .stripes .s4 {
+    height: 191px;
+    bottom: -189px;
+    left: 0;
+    right: 60%;
+    min-width: 0;
+    background: linear-gradient(90deg, #f783c3, #f399ff);
+  }
+  @media (min-width: 880px) {
+    .stripes .s4 {
+      right: calc(50% + 90px);
+      min-width: 430px;
+    }
+  }
+  .stripes .s5 {
+    height: 191px;
+    bottom: -189px;
+    right: 0;
+    width: 26%;
+    background: linear-gradient(90deg, #fff, #f5f5ff);
   }
 }
