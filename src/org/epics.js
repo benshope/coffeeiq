@@ -59,8 +59,8 @@ export const toggleMembershipSuccessEpic = (action$, store) =>
   action$.filter(action => action.type === orgActions.TOGGLE_GROUP_MEMBERSHIP_SUCCESS).map(({ payload }) =>
     notificationsActions.requestCreateSuccessNotification({
       message: payload.toggleOn
-        ? `You are scheduled for coffee with ${payload.groupName}`
-        : `You are removed from coffee group ${payload.groupName}`
+        ? `You will be scheduled for coffee with ${payload.groupName}`
+        : `You are removed from ${payload.groupName}`
     })
   );
 
