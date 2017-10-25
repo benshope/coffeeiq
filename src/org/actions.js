@@ -26,7 +26,9 @@ export const orgActionTypes = {
   UPDATE_GROUP_FAILED: "UPDATE_GROUP_FAILED",
   UPDATE_GROUP_SUCCESS: "UPDATE_GROUP_SUCCESS",
 
-  TOGGLE_GROUP_MEMBERSHIP: "TOGGLE_GROUP_MEMBERSHIP"
+  TOGGLE_GROUP_MEMBERSHIP: "TOGGLE_GROUP_MEMBERSHIP",
+  TOGGLE_GROUP_MEMBERSHIP_FAILED: "TOGGLE_GROUP_MEMBERSHIP_FAILED",
+  TOGGLE_GROUP_MEMBERSHIP_SUCCESS: "TOGGLE_GROUP_MEMBERSHIP_SUCCESS"
 };
 
 export const orgActions = {
@@ -50,7 +52,9 @@ export const orgActions = {
   updateCalendarAccess: action(orgActionTypes.UPDATE_CALENDAR_ACCESS),
   updateCalendarAccessFailed: action(orgActionTypes.UPDATE_CALENDAR_ACCESS_FAILED),
   updateCalendarAccessSuccess: action(orgActionTypes.UPDATE_CALENDAR_ACCESS_SUCCESS),
-  toggleMembership: action(orgActionTypes.TOGGLE_GROUP_MEMBERSHIP)
+  toggleMembership: action(orgActionTypes.TOGGLE_GROUP_MEMBERSHIP),
+  toggleMembershipSuccess: action(orgActionTypes.TOGGLE_GROUP_MEMBERSHIP_SUCCESS),
+  toggleMembershipFailed: action(orgActionTypes.TOGGLE_GROUP_MEMBERSHIP_FAILED)
 };
 
 export default orgActions;

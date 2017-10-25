@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { orgActions } from "src/org";
+import Toggle from "../toggle";
 
 // const numUserIds = group => {
 //   const userIds = group.userIds || {};
@@ -17,26 +18,22 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
         const group = groups[groupId];
         const userIds = group.userIds || {};
         return (
-          <Link key={groupId} to={`/group/${groupId}`}>
-            <li className="item">
-              <div className="item-title">
-                {group.name} @ {group.location}{" "}
-                <div className="member-count">{Object.keys(userIds).filter(userId => userIds[userId]).length}</div>
-              </div>
-              <div className="join-leave-button-wrapper">
-                <button
-                  className="join-leave-button"
-                  onClick={e => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleMembership({ groupId, userId: auth.uid });
-                  }}
-                >
-                  {userIds[auth.uid] ? "Leave" : "Join"}
-                </button>
-              </div>
-            </li>
-          </Link>
+          <li key={groupId} className="item">
+            <Link to={`/group/${groupId}`} className="item-title">
+              {group.name} @ {group.location}{" "}
+              <div className="member-count">{Object.keys(userIds).filter(userId => userIds[userId]).length}</div>
+            </Link>
+            <div className="join-leave-button-wrapper">
+              <Toggle
+                id={groupId}
+                value={!!userIds[auth.uid] ? "Leave" : "Join"}
+                checked={!!userIds[auth.uid]}
+                onChange={e => {
+                  toggleMembership({ groupId, userId: auth.uid });
+                }}
+              />
+            </div>
+          </li>
         );
       })}
   </ul>
