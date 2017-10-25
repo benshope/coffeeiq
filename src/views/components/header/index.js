@@ -10,7 +10,7 @@ const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, match, signOut
   return (
     <div className={["header-container", authenticated ? "background-light" : ""].join(" ")}>
       <div className="header">
-        <NavLink activeClassName="selected" className="header-title" to={authenticated ? "/groups" : "/"}>
+        <NavLink exact activeClassName="selected" className="header-title" to={authenticated ? "/groups" : "/"}>
           <img className="header-logo" src={LogoSVG} alt="CoffeeIQ" />
           <span className="header-title-text">CoffeeIQ</span>
         </NavLink>

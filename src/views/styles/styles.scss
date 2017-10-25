@@ -35,6 +35,9 @@ a {
     cursor: pointer;
     &:active {
     }
+    &.selected {
+        cursor: default;
+    }
 }
 
 h1,
@@ -125,7 +128,6 @@ input {
             color: rgba(0, 0, 0, 0.5);
         }
         &.selected {
-            cursor: default;
             &:hover {
                 color: rgba(0, 0, 0, 0.6);
             }
