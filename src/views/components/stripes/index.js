@@ -19,3 +19,15 @@ export const PurpleStripes = () => (
         </div>
     </div>
 );
+
+export const GreenStripes = () => (
+    <div className="stripes-container green-stripes">
+        <div className="StripeBackground">
+            <div className="stripe s0" />
+            <div className="stripe s1" />
+            <div className="stripe s2" />
+            <div className="stripe s3" />
+            <div className="stripe s4" />
+        </div>
+    </div>
+);
