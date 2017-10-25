@@ -117,12 +117,18 @@ input {
     color: rgba(0, 0, 0, 0.8);
     a {
         transition: $iq-transition;
-        color: rgba(0, 0, 0, 0.5);
+        color: rgba(0, 0, 0, 0.6);
         &:hover {
             color: rgba(0, 0, 0, 1);
         }
         &:active {
             color: rgba(0, 0, 0, 0.5);
+        }
+        &.selected {
+            cursor: default;
+            &:hover {
+                color: rgba(0, 0, 0, 0.6);
+            }
         }
     }
 }

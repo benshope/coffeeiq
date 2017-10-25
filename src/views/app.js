@@ -19,6 +19,7 @@ import "./styles/styles.css";
 
 const App = ({ authenticated, signOut }) => (
   <div className={["app-container", authenticated ? "authenticated" : ""].join(" ")}>
+    <div className="background" />
     <Notifications />
     <Header authenticated={authenticated} signOut={signOut} about={HowItWorksPage} />
     <main className="page-container">

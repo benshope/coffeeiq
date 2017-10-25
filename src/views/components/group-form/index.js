@@ -16,7 +16,14 @@ const GroupForm = ({
 }) => {
     const group = groupForm.value;
     return (
-        <div className="group-form">
+        <form
+            className="group-form"
+            onSubmit={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                return (group.key ? updateGroup : createGroup)(group);
+            }}
+        >
             <input
                 disabled={groupForm.sending}
                 className="group-input"
@@ -31,16 +38,16 @@ const GroupForm = ({
                 value={(!groupForm.sending && group.location) || ""}
                 onChange={e => updateGroupFormLocation(e.target.value)}
             />
-            <button
+            <input
                 className="create-or-update-button"
                 onClick={() => (group.key ? updateGroup : createGroup)(group)}
+                type="submit"
                 disabled={
                     groupForm.sending || !group.name || !group.location || isEqual(group, groups[groupForm.key] || {})
                 }
-            >
-                {groupForm.key ? "Update" : "Create"}
-            </button>
-        </div>
+                value={groupForm.key ? "Update" : "Create"}
+            />
+        </form>
     );
 };
 

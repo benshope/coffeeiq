@@ -15,12 +15,14 @@
             font-weight: 500;
         }
         .header-logo {
-            height: 3em;
+            height: 2.8em;
+            margin-top: -0.4em;
+            margin-right: 0.5em;
         }
         .header-buttons {
             display: flex;
             a {
-                cursor: pointer;
+                // cursor: pointer;
                 padding: 0 1rem;
                 background: rgba(0, 0, 0, 0);
                 transition: background 0.1s ease-in-out 0s;

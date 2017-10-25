@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { authActions } from "src/auth";
 import React from "react";
 import { connect } from "react-redux";
-import { Link, NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import LogoSVG from "src/assets/graphics/coffeeiq_logo.svg";
 
 const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, match, signOut, signIn }) => {
@@ -10,10 +10,10 @@ const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, match, signOut
   return (
     <div className={["header-container", authenticated ? "background-light" : ""].join(" ")}>
       <div className="header">
-        <Link className="header-title" to={authenticated ? "/groups" : "/"}>
+        <NavLink activeClassName="selected" className="header-title" to={authenticated ? "/groups" : "/"}>
           <img className="header-logo" src={LogoSVG} alt="CoffeeIQ" />
           <span className="header-title-text">CoffeeIQ</span>
-        </Link>
+        </NavLink>
         {!authenticated ? (
           <div className="header-buttons">
             <NavLink activeClassName="selected" to={"/how-it-works"} onClick={HowItWorksPage}>
