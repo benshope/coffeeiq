@@ -16,10 +16,15 @@ const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, match, signOut
         </NavLink>
         {!authenticated ? (
           <div className="header-buttons">
-            <NavLink activeClassName="selected" to={"/how-it-works"} onClick={HowItWorksPage}>
+            <NavLink
+              activeClassName="selected"
+              className="unauth-header-link"
+              to={"/how-it-works"}
+              onClick={HowItWorksPage}
+            >
               How it Works
             </NavLink>
-            <NavLink activeClassName="selected" to={"/about"} onClick={AboutPage}>
+            <NavLink activeClassName="selected" className="unauth-header-link" to={"/about"} onClick={AboutPage}>
               About
             </NavLink>
             <a className="login" onClick={() => signIn(false)}>

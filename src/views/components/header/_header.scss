@@ -21,35 +21,47 @@
         }
         .header-buttons {
             display: flex;
+            align-items: center;
             a {
-                // cursor: pointer;
                 padding: 0 1rem;
+                transition: all 0.1s ease-in-out 0s;
+            }
+            .login {
+                line-height: 3em;
+                border-radius: $iq-border-radius;
+                background: rgba(0, 0, 0, 0.1);
+                &:hover {
+                    background: rgba(0, 0, 0, 0.2);
+                }
+                &:active {
+                    background: rgba(0, 0, 0, 0.4);
+                }
+            }
+
+            .unauth-header-link {
                 background: rgba(0, 0, 0, 0);
-                transition: background 0.1s ease-in-out 0s;
-                // &:not(.login) {
-                //     color: rgba(255, 255, 255, 0.8);
-                //     &:hover {
-                //         color: rgba(255, 255, 255, 1);
-                //     }
-                //     &.selected {
-                //         color: rgba(255, 255, 255, 1);
-                //     }
-                // }
-                &.my-profile {
+                color: rgba(255, 255, 255, 0.8);
+                &:hover {
+                    color: rgba(255, 255, 255, 1);
+                }
+                &.selected {
+                    color: rgba(255, 255, 255, 1);
+                }
+            }
+            .my-profile {
+                img {
+                    height: 2em;
+                    border-radius: 50%;
+                }
+                &:hover {
                     img {
-                        height: 2em;
-                        border-radius: 50%;
+                        border: 2px solid rgba(255, 255, 255, 0.6);
                     }
-                    &:hover {
-                        img {
-                            border: 2px solid rgba(255, 255, 255, 0.6);
-                        }
-                    }
-                    &:active,
-                    &.selected {
-                        img {
-                            border: 2px solid rgba(255, 255, 255, 1);
-                        }
+                }
+                &:active,
+                &.selected {
+                    img {
+                        border: 2px solid rgba(255, 255, 255, 1);
                     }
                 }
             }
