@@ -25,6 +25,7 @@ const GroupForm = ({
             }}
         >
             <input
+                autofocus={!!groupForm.key}
                 disabled={groupForm.sending}
                 className="group-input"
                 placeholder="Name..."
@@ -40,7 +41,7 @@ const GroupForm = ({
             />
             <input
                 className="create-or-update-button"
-                onClick={() => (group.key ? updateGroup : createGroup)(group)}
+                onClick={() => (groupForm.key ? updateGroup : createGroup)(groupForm)}
                 type="submit"
                 disabled={
                     groupForm.sending || !group.name || !group.location || isEqual(group, groups[groupForm.key] || {})

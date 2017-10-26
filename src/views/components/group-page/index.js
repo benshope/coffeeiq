@@ -20,7 +20,10 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
               <div className="group-page-title">
                 <h1>{group.name}</h1>
               </div>
-              <button className="edit-button" onClick={e => updateGroupForm(group)}>
+              <button
+                className="edit-button"
+                onClick={e => updateGroupForm({ key: match.params.groupId, value: group })}
+              >
                 Edit
               </button>
               <button
