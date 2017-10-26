@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 
 const newState = { email: "" };
 
-class UsersForm extends React.Component {
+// TODO: make stateless
+class InviteForm extends React.Component {
     constructor() {
         super();
         this.state = { ...newState };
@@ -28,7 +29,7 @@ class UsersForm extends React.Component {
             // TODO: refocus
             return;
         }
-        this.props.createInvite(this.state.email);
+        this.props.createInvite({ email: this.state.email, groupId: this.props.groupId });
         this.setState(state => ({ ...newState }));
     };
 
@@ -56,12 +57,14 @@ class UsersForm extends React.Component {
     }
 }
 
-UsersForm.propTypes = {
+InviteForm.propTypes = {
     auth: PropTypes.object.isRequired,
-    createInvite: PropTypes.func.isRequired
+    createInvite: PropTypes.func.isRequired,
+    groupId: PropTypes.string
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, passedProps) => ({
+    ...passedProps,
     auth: state.auth
 });
 
@@ -69,4 +72,4 @@ const mapDispatchToProps = {
     createInvite: orgActions.createInvite
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersForm);
+export default connect(mapStateToProps, mapDispatchToProps)(InviteForm);

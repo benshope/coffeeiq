@@ -5,7 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import { orgActions } from "src/org";
 import { groupFormActions } from "src/group-form";
 import GroupForm from "../group-form";
-import UsersForm from "../users-form";
+import InviteForm from "../invite-form";
 
 const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembership, updateGroupForm, users }) => {
   const group = groups && groups[match.params.groupId];
@@ -67,7 +67,7 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
               );
             })}
           </ul>
-          <UsersForm />
+          <InviteForm groupId={match.params.groupId} />
         </div>
       )) || <div>Loading...</div>
   );

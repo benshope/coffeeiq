@@ -1,5 +1,4 @@
 /* eslint-disable no-constant-condition */
-import { omit } from "lodash";
 import { Observable } from "rxjs";
 import { push } from "react-router-redux";
 
@@ -70,20 +69,26 @@ export const createInviteEpic = (action$, store) =>
     .flatMap(({ payload }) => {
       const state = store.getState();
       const orgId = state.auth.orgId;
-      const inviteKey = payload.split(".").join("_");
+      const inviteKey = payload.email.split(".").join("_");
       return new Promise((resolve, reject) =>
-        firebaseDb.ref(`orgs/${orgId}/invites/${inviteKey}`).update(
-          {
-            inviterName: state.auth.displayName,
-            inviterUid: state.auth.uid,
-            lastInviteTime: Date.now(),
-            email: payload
-          },
-          error =>
-            error
-              ? reject(orgActions.createInviteFailed({ error, email: payload }))
-              : resolve(orgActions.createInviteSuccess(payload))
-        )
+        firebaseDb
+          .ref(
+            payload.groupId
+              ? `orgs/${orgId}/groups/${payload.groupId}/invites/${inviteKey}`
+              : `orgs/${orgId}/invites/${inviteKey}`
+          )
+          .update(
+            {
+              inviterName: state.auth.displayName,
+              inviterUid: state.auth.uid,
+              lastInviteTime: Date.now(),
+              email: payload.email
+            },
+            error =>
+              error
+                ? reject(orgActions.createInviteFailed({ error, email: payload.email }))
+                : resolve(orgActions.createInviteSuccess(payload.email))
+          )
       );
     })
     .catch(error => Observable.of(orgActions.createInviteFailed({ error })));
@@ -146,12 +151,9 @@ export const deleteGroupEpic = (action$, store) =>
       const groupId = payload;
       const state = store.getState();
       let updates = {};
-      updates[`groups`] = omit((state.org[state.auth.orgId] || {}).groups, groupId);
+      updates[`groups/${groupId}`] = null;
       Object.keys((state.org[state.auth.orgId] || {}).groups[groupId].userIds || {}).forEach(userId => {
-        updates[`users/${userId}/groupIds`] = omit(
-          (state.org[state.auth.orgId] || {}).users[userId].groupIds || {},
-          groupId
-        );
+        updates[`users/${userId}/groupIds/${groupId}`] = null;
       });
       return new Promise((resolve, reject) =>
         firebaseDb.ref(`orgs/${state.auth.orgId}`).update(updates, error => (error ? reject(error) : resolve(groupId)))

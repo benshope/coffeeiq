@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import UserInviteList from "../user-invite-list";
 import UserList from "../user-list/user-list.container";
-import UsersForm from "../users-form";
+import InviteForm from "../invite-form";
 
 const UsersPage = ({ auth }) => {
   return (
@@ -15,7 +15,7 @@ const UsersPage = ({ auth }) => {
       </div>
       <UserList />
       <UserInviteList />
-      <UsersForm />
+      <InviteForm />
     </div>
   );
 };
