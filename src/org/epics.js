@@ -113,10 +113,11 @@ export const createGroupEpic = (action$, store) =>
     .flatMap(({ payload }) => {
       const state = store.getState();
       const orgId = state.auth.orgId;
+      console.log(payload);
       return new Promise((resolve, reject) =>
         firebaseDb
           .ref(`orgs/${orgId}/groups`)
-          .push(payload, error => error && reject(error))
+          .push(payload.value, error => error && reject(error))
           .then(snap => resolve(snap.key))
       );
     })
@@ -131,6 +132,13 @@ export const createGroupSuccessEpic = (action$, store) =>
       })
       // , push(`/group/${payload}`)
     ])
+  );
+
+export const createGroupFailedEpic = (action$, store) =>
+  action$.filter(action => action.type === orgActionTypes.CREATE_GROUP_FAILED).map(({ payload }) =>
+    notificationsActions.requestCreateErrorNotification({
+      message: `Error creating group: ${payload.error} `
+    })
   );
 
 export const updateGroupEpic = (action$, store) =>
@@ -159,7 +167,7 @@ export const updateGroupSuccessEpic = (action$, store) =>
 
 export const updateGroupFailedEpic = (action$, store) =>
   action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP_FAILED).map(({ payload }) =>
-    notificationsActions.requestCreateSuccessNotification({
+    notificationsActions.requestCreateErrorNotification({
       message: `Group update error: ${payload.error} `
     })
   );
@@ -230,6 +238,7 @@ export const updateCalendarAccessSuccessEpic = (action$, store) =>
 export const orgEpics = [
   createGroupEpic,
   createGroupSuccessEpic,
+  createGroupFailedEpic,
   createInviteEpic,
   createInviteErrorEpic,
   createInviteSuccessEpic,

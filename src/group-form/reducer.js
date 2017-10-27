@@ -28,6 +28,8 @@ const stateFunctions = {
     [orgActions.CREATE_GROUP]: state => ({ ...state, sending: true }),
     [orgActions.UPDATE_GROUP_SUCCESS]: () => ({ ...newState }),
     [orgActions.CREATE_GROUP_SUCCESS]: () => ({ ...newState }),
+    [orgActions.UPDATE_GROUP_FAILURE]: () => ({ ...newState, sending: false }),
+    [orgActions.CREATE_GROUP_FAILURE]: () => ({ ...newState, sending: false }),
     [authActions.SIGN_OUT_SUCCESS]: () => ({ ...newState })
 };
 
