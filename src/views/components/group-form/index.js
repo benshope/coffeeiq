@@ -25,7 +25,7 @@ const GroupForm = ({
             }}
         >
             <input
-                autofocus={!!groupForm.key}
+                autoFocus={!!groupForm.key}
                 disabled={groupForm.sending}
                 className="group-input"
                 placeholder="Name..."

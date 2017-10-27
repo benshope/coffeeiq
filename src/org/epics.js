@@ -133,16 +133,36 @@ export const createGroupSuccessEpic = (action$, store) =>
     ])
   );
 
-// export const updateGroupEpic = (action$, store) =>
-//   action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP).flatMap(({ payload }) => {
-//     const orgId = store.getState().auth.orgId;
-//     return new Promise((resolve, reject) =>
-//       firebaseDb
-//         .ref(`orgs/${orgId}/groups/${payload.key}`)
-//         .update(payload.value, error => (error ? reject(error) : resolve(payload)))
-//         .then((() => orgActions.updateGroupSuccess(payload), error => orgActions.updateGroupFailed(error)))
-//     );
-//   });
+export const updateGroupEpic = (action$, store) =>
+  action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP).flatMap(({ payload }) => {
+    const orgId = store.getState().auth.orgId;
+    return new Promise((resolve, reject) =>
+      firebaseDb.ref(`orgs/${orgId}/groups/${payload.key}`).update(
+        {
+          name: payload.value.name,
+          location: payload.value.location
+        },
+        error =>
+          error
+            ? reject(orgActions.updateGroupFailed({ groupId: payload.key, error }))
+            : resolve(orgActions.updateGroupSuccess(payload.key))
+      )
+    );
+  });
+
+export const updateGroupSuccessEpic = (action$, store) =>
+  action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP_SUCCESS).map(() =>
+    notificationsActions.requestCreateSuccessNotification({
+      message: "Group updated"
+    })
+  );
+
+export const updateGroupFailedEpic = (action$, store) =>
+  action$.filter(action => action.type === orgActionTypes.UPDATE_GROUP_FAILED).map(({ payload }) =>
+    notificationsActions.requestCreateSuccessNotification({
+      message: `Group update error: ${payload.error} `
+    })
+  );
 
 export const deleteGroupEpic = (action$, store) =>
   action$
@@ -216,6 +236,9 @@ export const orgEpics = [
   deleteGroupEpic,
   deleteGroupSuccessEpic,
   orgFirebaseUpdatesEpic,
+  updateGroupEpic,
+  updateGroupSuccessEpic,
+  updateGroupFailedEpic,
   updateCalendarAccess,
   updateCalendarAccessErrorEpic,
   updateCalendarAccessSuccessEpic,
