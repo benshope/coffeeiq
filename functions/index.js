@@ -9,8 +9,9 @@ const gmailEmail = encodeURIComponent(functions.config().gmail.email);
 const gmailPassword = encodeURIComponent(functions.config().gmail.password);
 const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com`);
 
-const sendInvite = event => {
+const sendInvite = toGroup => event => {
   const snapshot = event.data;
+  console.log(snapshot);
   const val = snapshot.val();
 
   const mailOptions = {
@@ -18,8 +19,10 @@ const sendInvite = event => {
     to: val.email
   };
 
-  mailOptions.subject = val.inviterName + ` has invited you to CoffeeIQ`;
-  mailOptions.text = `To sign up, go to <a href="//coffeeiq.org">coffeeiq.org</a>`;
+  mailOptions.subject = toGroup
+    ? val.inviterName + ` has invited you to ___ group in CoffeeIQ`
+    : val.inviterName + ` has invited you to CoffeeIQ`;
+  mailOptions.text = toGroup ? `To sign up go to TODO INVITE LINK` : `To sign up, go to coffeeiq.org`;
   return mailTransport
     .sendMail(mailOptions)
     .then(() => {
@@ -30,34 +33,14 @@ const sendInvite = event => {
     });
 };
 
-// Sends an email confirmation when a user changes his mailing list subscription.
-// exports.onCreateInvite = functions.database
-//   .ref("/orgs/{orgId}/invites/{inviteId}")
-//   .onCreate(sendInvite);
+exports.onCreateInvite = functions.database.ref("/orgs/{orgId}/invites/{inviteId}").onCreate(sendInvite());
 
-exports.onUpdateInvite = functions.database.ref("/orgs/{orgId}/invites/{inviteId}").onUpdate(sendInvite);
+exports.onUpdateInvite = functions.database.ref("/orgs/{orgId}/invites/{inviteId}").onUpdate(sendInvite());
 
-// const sendInviteToGroup = event => {
-//   const snapshot = event.data;
-//   const val = snapshot.val();
+exports.onCreateInviteToGroup = functions.database
+  .ref("/orgs/{orgId}/groups/{groupId}/invites/{inviteId}")
+  .onCreate(sendInvite(true));
 
-//   const mailOptions = {
-//     from: '"CoffeeIQ" <noreply@coffeeiq.org>',
-//     to: val.email
-//   };
-
-//   mailOptions.subject = val.inviterName + ` has invited you to the group ____ in CoffeeIQ`;
-//   mailOptions.text = `To sign up, go to <a href="//coffeeiq.org/join/SOME_NUMBER">coffeeiq.org/join/SOME_NUMBER</a>`;
-//   return mailTransport
-//     .sendMail(mailOptions)
-//     .then(() => {
-//       console.log("Invite email sent to:", val.email);
-//     })
-//     .catch(error => {
-//       console.error("Error sending invite email:", error);
-//     });
-// };
-
-// exports.onUpdateInviteToGroup = functions.database
-//   .ref("/orgs/{orgId}/groups/{groupId}/invites/{inviteId}")
-//   .onUpdate(sendInviteToGroup);
+exports.onUpdateInviteToGroup = functions.database
+  .ref("/orgs/{orgId}/groups/{groupId}/invites/{inviteId}")
+  .onUpdate(sendInvite(true));
