@@ -18,14 +18,16 @@ const AboutPage = () => (
       At CoffeeIQ we believe people should be engaged and happy at work, and we are building tools to help every company
       make that a reality.
     </p>
-    <div>
-      <h1>Team</h1>
+    {false && (
       <div>
-        CoffeeIQ’s founders came together over a shared passion for great company culture and a desire to make work
-        great for everyone — and we are building a company that embodies these ideals while also instilling them in
-        others.
+        <h1>Team</h1>
+        <div>
+          CoffeeIQ’s founders came together over a shared passion for great company culture and a desire to make work
+          great for everyone — and we are building a company that embodies these ideals while also instilling them in
+          others.
+        </div>
       </div>
-    </div>
+    )}
   </div>
 );
 
