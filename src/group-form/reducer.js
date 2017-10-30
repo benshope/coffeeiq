@@ -2,6 +2,7 @@ import { groupFormActions } from "./actions";
 import { authActions } from "../auth/actions";
 import { orgActions } from "../org/actions";
 
+const LOCATION_CHANGE = "@@router/LOCATION_CHANGE";
 const newState = {
     key: undefined, // group key
     value: {}, // group value
@@ -30,7 +31,8 @@ const stateFunctions = {
     [orgActions.CREATE_GROUP_SUCCESS]: () => ({ ...newState }),
     [orgActions.UPDATE_GROUP_FAILURE]: () => ({ ...newState, sending: false }),
     [orgActions.CREATE_GROUP_FAILURE]: () => ({ ...newState, sending: false }),
-    [authActions.SIGN_OUT_SUCCESS]: () => ({ ...newState })
+    [authActions.SIGN_OUT_SUCCESS]: () => ({ ...newState }),
+    [LOCATION_CHANGE]: () => ({ ...newState })
 };
 
 export const groupFormReducer = (state = { ...newState }, { payload, type }) =>
