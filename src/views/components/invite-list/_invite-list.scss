@@ -8,6 +8,14 @@
 			font-weight: 800;
 			margin-left: 1em;
 			font-size: 2em;
+			transition: $iq-transition;
+			opacity: 0.7;
+			&:hover {
+				opacity: 1;
+			}
+			&:active {
+				color: black;
+			}
 		}
 	}
 }

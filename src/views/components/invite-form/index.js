@@ -41,10 +41,10 @@ class InviteForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit} className="users-form">
+            <form onSubmit={this.onSubmit} className="invite-form">
                 <input
                     required={true}
-                    className="users-input"
+                    className="invite-input"
                     placeholder="Email..."
                     type="email"
                     value={this.state.email}
