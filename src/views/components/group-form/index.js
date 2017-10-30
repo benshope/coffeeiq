@@ -15,11 +15,11 @@ const GroupForm = ({
     updateGroupFormLocation
 }) => {
     const group = groupForm.value;
+    // TODO: allow enter press on inputs and make this not a form
     return (
         <form
             className="group-form"
             onSubmit={e => {
-                console.log("Submitting");
                 e.preventDefault();
                 e.stopPropagation();
                 return (group.key ? updateGroup : createGroup)(group);
