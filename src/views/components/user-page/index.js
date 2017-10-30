@@ -4,8 +4,17 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { authActions } from "src/auth";
 import { orgActions } from "src/org";
+import GroupItem from "../group-item";
+import Toggle from "../toggle";
 
-const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => {
+const UserPage = ({
+  auth,
+  users,
+  groups,
+  match,
+  signOut,
+  toggleMembership
+}) => {
   const user = users && users[match.params.userId];
   return (
     (user && (
@@ -15,11 +24,37 @@ const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => 
           {auth.uid === user.uid && <button onClick={signOut}>Sign Out</button>}
         </div>
         <div className="user-details">
-          {user.photoURL && <img className="user-image" alt="user" src={user.photoURL} />}
+          {user.photoURL && (
+            <img className="user-image" alt="user" src={user.photoURL} />
+          )}
           <div className="user-email">{user.email}</div>
         </div>
         <h2>Groups</h2>
-        <ul>{Object.keys(user.groupIds || {}).map(key => <li key={key}>{groups[key] && groups[key].name}</li>)}</ul>
+        <ul>
+          {Object.keys(user.groupIds || {}).map(groupId => {
+            const group = groups[groupId];
+            const userIds = group.userIds || {};
+            return (
+              <GroupItem
+                hideMemberCount={true}
+                group={group}
+                groupId={groupId}
+                rightContent={
+                  <a
+                    id={`delete-membership-in-${groupId}`}
+                    className="delete-membership-link"
+                    title="Leave Group"
+                    onClick={() => {
+                      toggleMembership({ groupId, userId: auth.uid });
+                    }}
+                  >
+                    ×
+                  </a>
+                }
+              />
+            );
+          })}
+        </ul>
       </div>
     )) || (
       <div className="user-page-loading display-flex align-items-center">
@@ -49,4 +84,6 @@ const mapDispatchToProps = {
   toggleMembership: orgActions.toggleMembership
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserPage));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserPage)
+);

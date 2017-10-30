@@ -4,7 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { authActions } from "src/auth";
-import GroupList from "../group-list/group-list.container";
+import GroupList from "../group-list";
 import GroupForm from "../group-form";
 
 const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
@@ -15,8 +15,9 @@ const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
       <div className="card warning-card">
         <h3 className="header">Required Setup</h3>
         <div className="body">
-          In order for this app to send calendar invites one user from {auth.email.split("@")[1] || orgName} must
-          provide access to their calendars.
+          In order for this app to send calendar invites one user from{" "}
+          {auth.email.split("@")[1] || orgName} must provide access to their
+          calendars.
         </div>
         <div className="footer">
           <div>
@@ -42,7 +43,8 @@ const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
   const errorMessage = () => (
     <div className="card error-card">
       <div className="body">
-        Hi {firstName}, you have signed in with Gmail. Please sign in with your @yourcompany.com email address. Thanks!
+        Hi {firstName}, you have signed in with Gmail. Please sign in with your
+        @yourcompany.com email address. Thanks!
       </div>
     </div>
   );
@@ -75,4 +77,6 @@ const mapDispatchToProps = {
   signIn: authActions.signIn
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GroupsPage));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(GroupsPage)
+);

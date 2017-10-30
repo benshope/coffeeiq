@@ -47,8 +47,10 @@ export const toggleMembershipEpic = (action$, store) =>
       const group = (state.org[state.auth.orgId] || {}).groups[payload.groupId];
       const toggleOn = !group.userIds || !group.userIds[payload.userId];
       var updates = {};
-      updates[`groups/${payload.groupId}/userIds/${payload.userId}`] = toggleOn;
-      updates[`users/${payload.userId}/groupIds/${payload.groupId}`] = toggleOn;
+      updates[`groups/${payload.groupId}/userIds/${payload.userId}`] =
+        toggleOn || null;
+      updates[`users/${payload.userId}/groupIds/${payload.groupId}`] =
+        toggleOn || null;
       return new Promise((resolve, reject) =>
         firebaseDb.ref(`orgs/${state.auth.orgId}`).update(
           updates,

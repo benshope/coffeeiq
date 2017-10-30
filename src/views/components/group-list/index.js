@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { orgActions } from "src/org";
 import Toggle from "../toggle";
+import GroupItem from "../group-item";
 
 // const numUserIds = group => {
 //   const userIds = group.userIds || {};
@@ -14,16 +15,14 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
   <ul className="item-list group-list">
     {Object.keys(groups)
       // .sort((x, y) => numUserIds(groups[y]) - numUserIds(groups[x]))
-      .map((groupId, i) => {
+      .map(groupId => {
         const group = groups[groupId];
         const userIds = group.userIds || {};
         return (
-          <li key={groupId} className="item">
-            <Link to={`/group/${groupId}`} className="item-title">
-              {group.name} @ {group.location}{" "}
-              <div className="member-count">{Object.keys(userIds).filter(userId => userIds[userId]).length}</div>
-            </Link>
-            <div className="join-leave-button-wrapper">
+          <GroupItem
+            group={group}
+            groupId={groupId}
+            rightContent={
               <Toggle
                 id={groupId}
                 value={!!userIds[auth.uid] ? "Leave" : "Join"}
@@ -32,8 +31,8 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
                   toggleMembership({ groupId, userId: auth.uid });
                 }}
               />
-            </div>
-          </li>
+            }
+          />
         );
       })}
   </ul>
@@ -47,7 +46,8 @@ GroupList.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  groups: (state.org[state.auth.orgId] && state.org[state.auth.orgId].groups) || {}
+  groups:
+    (state.org[state.auth.orgId] && state.org[state.auth.orgId].groups) || {}
 });
 
 const mapDispatchToProps = {
