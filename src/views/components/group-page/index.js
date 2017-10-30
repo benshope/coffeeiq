@@ -36,18 +36,16 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
               >
                 {(userIds || {})[auth.uid] ? "Leave" : "Join"}
               </button>
-              <Link to="/groups">
-                <button
-                  className="delete-group-button"
-                  onClick={e =>
-                    window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
-                    deleteGroup(match.params.groupId)}
-                >
-                  <span role="img" aria-label="trash">
-                    🗑️
-                  </span>
-                </button>
-              </Link>
+              <button
+                className="delete-group-button"
+                onClick={e =>
+                  window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
+                  deleteGroup(match.params.groupId)}
+              >
+                <span role="img" aria-label="trash">
+                  🗑️
+                </span>
+              </button>
             </div>
           ) : (
             <GroupForm />
