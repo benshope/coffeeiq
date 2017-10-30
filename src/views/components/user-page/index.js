@@ -16,12 +16,13 @@ const UserPage = ({
   toggleMembership
 }) => {
   const user = users && users[match.params.userId];
+  const isMyUserPage = auth.uid === user.uid;
   return (
     (user && (
       <div className="user-page">
         <div className="user-page-title">
           <h1>{user.displayName}</h1>
-          {auth.uid === user.uid && <button onClick={signOut}>Sign Out</button>}
+          {isMyUserPage && <button onClick={signOut}>Sign Out</button>}
         </div>
         <div className="user-details">
           {user.photoURL && (
@@ -40,16 +41,20 @@ const UserPage = ({
                 group={group}
                 groupId={groupId}
                 rightContent={
-                  <a
-                    id={`delete-membership-in-${groupId}`}
-                    className="delete-membership-link"
-                    title="Leave Group"
-                    onClick={() => {
-                      toggleMembership({ groupId, userId: auth.uid });
-                    }}
-                  >
-                    ×
-                  </a>
+                  isMyUserPage ? (
+                    <a
+                      id={`delete-membership-in-${groupId}`}
+                      className="delete-membership-link"
+                      title="Leave Group"
+                      onClick={() => {
+                        toggleMembership({ groupId, userId: auth.uid });
+                      }}
+                    >
+                      ×
+                    </a>
+                  ) : (
+                    undefined
+                  )
                 }
               />
             );
