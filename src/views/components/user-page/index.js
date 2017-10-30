@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 import { authActions } from "src/auth";
 import { orgActions } from "src/org";
 import GroupItem from "../group-item";
-import Toggle from "../toggle";
 
 const UserPage = ({
   auth,
@@ -34,9 +33,9 @@ const UserPage = ({
         <ul>
           {Object.keys(user.groupIds || {}).map(groupId => {
             const group = groups[groupId];
-            const userIds = group.userIds || {};
             return (
               <GroupItem
+                key={groupId}
                 hideMemberCount={true}
                 group={group}
                 groupId={groupId}

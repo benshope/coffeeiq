@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { orgActions } from "src/org";
 import Toggle from "../toggle";
 import GroupItem from "../group-item";
@@ -20,6 +19,7 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
         const userIds = group.userIds || {};
         return (
           <GroupItem
+            key={groupId}
             group={group}
             groupId={groupId}
             rightContent={

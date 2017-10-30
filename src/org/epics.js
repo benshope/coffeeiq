@@ -8,10 +8,10 @@ import { firebaseDb } from "src/firebase";
 import { orgActions, orgActionTypes } from "./actions";
 import { notificationsActions } from "../notifications/actions";
 
-const invitesRefPath = (groupId, orgId, inviteKey) =>
+const invitesRefPath = (groupId, state) =>
   groupId
-    ? `orgs/${orgId}/groups/${groupId}/invites/${inviteKey}`
-    : `orgs/${orgId}/invites/${inviteKey}`;
+    ? `orgs/${state.auth.orgId}/groups/${groupId}/invites`
+    : `orgs/${state.auth.orgId}/invites`;
 
 export const orgFirebaseUpdatesEpic = action$ =>
   action$
@@ -94,11 +94,10 @@ export const createInviteEpic = (action$, store) =>
     .filter(action => action.type === orgActionTypes.CREATE_INVITE)
     .flatMap(({ payload }) => {
       const state = store.getState();
-      const orgId = state.auth.orgId;
-      const inviteKey = payload.email.split(".").join("_");
+      const inviteId = payload.email.split(".").join("_");
       return new Promise((resolve, reject) =>
         firebaseDb
-          .ref(invitesRefPath(payload.groupId, orgId, inviteKey))
+          .ref(invitesRefPath(payload.groupId, state) + "/" + inviteId)
           .update(
             {
               inviterName: state.auth.displayName,
@@ -141,14 +140,15 @@ export const createInviteSuccessEpic = (action$, store) =>
 export const deleteInviteEpic = (action$, store) =>
   action$
     .filter(action => action.type === orgActionTypes.DELETE_INVITE)
-    .flatMap(({ payload }) => {
+    .flatMap(({ payload: { groupId, inviteId } }) => {
       const state = store.getState();
       return new Promise((resolve, reject) =>
         firebaseDb
-          .ref(
-            invitesRefPath(payload.groupId, state.auth.orgId, payload.inviteKey)
+          .ref(invitesRefPath(groupId, state))
+          .update(
+            { [inviteId]: null },
+            error => (error ? reject(error) : resolve(inviteId))
           )
-          .update(null, error => (error ? reject(error) : resolve(payload)))
       );
     })
     .map(inviteId => orgActions.deleteInviteSuccess(inviteId))
@@ -179,9 +179,7 @@ export const resendInviteEpic = (action$, store) =>
       const state = store.getState();
       return new Promise((resolve, reject) =>
         firebaseDb
-          .ref(
-            invitesRefPath(payload.groupId, state.auth.orgId, payload.inviteKey)
-          )
+          .ref(invitesRefPath(payload.groupId, state) + "/" + payload.inviteId)
           .update(
             {
               inviterName: state.auth.displayName,

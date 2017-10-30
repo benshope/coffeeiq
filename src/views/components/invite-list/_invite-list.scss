@@ -1,0 +1,8 @@
+.invite-list {
+    .invite-item {
+        display: flex;
+        .item-title {
+            flex-grow: 1;
+        }
+    }
+}

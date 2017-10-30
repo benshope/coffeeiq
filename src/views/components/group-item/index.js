@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const GroupList = ({ group, groupId, rightContent, hideMemberCount }) => (
+const GroupItem = ({ group, groupId, rightContent, hideMemberCount }) => (
   <li key={groupId} className="item group-item">
     <Link to={`/group/${groupId}`} className="item-title">
       {group.name} @ {group.location}{" "}
@@ -17,7 +17,7 @@ const GroupList = ({ group, groupId, rightContent, hideMemberCount }) => (
   </li>
 );
 
-GroupList.propTypes = {
+GroupItem.propTypes = {
   hideMemberCount: PropTypes.bool,
   group: PropTypes.object.isRequired,
   groupId: PropTypes.string.isRequired,
@@ -28,4 +28,4 @@ const mapStateToProps = (state, passedProps) => ({ ...passedProps });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupList);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupItem);
