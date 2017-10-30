@@ -3,18 +3,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { orgActions } from "src/org";
 
-const InviteItem = ({
-  groupId,
-  invite,
-  inviteId,
-  deleteInvite,
-  resendInvite
-}) => (
+const InviteItem = ({ groupId, invite, inviteId, deleteInvite, resendInvite }) => (
   <li className="item invite-item">
-    {invite.email}
+    <div className="item-title">{invite.email}</div>
     <div className="right-content">
-      <a onClick={() => resendInvite({ groupId, inviteId })}>Resend</a>
-      <a onClick={() => deleteInvite({ groupId, inviteId })}>Delete</a>
+      {undefined && (
+        <a title="Resend Invite" onClick={() => resendInvite({ groupId, inviteId })}>
+          ↻
+        </a>
+      )}
+      <a className="delete" title="Delete Invite" onClick={() => deleteInvite({ groupId, inviteId })}>
+        ×
+      </a>
     </div>
   </li>
 );

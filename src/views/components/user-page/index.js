@@ -6,14 +6,7 @@ import { authActions } from "src/auth";
 import { orgActions } from "src/org";
 import GroupItem from "../group-item";
 
-const UserPage = ({
-  auth,
-  users,
-  groups,
-  match,
-  signOut,
-  toggleMembership
-}) => {
+const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => {
   const user = users && users[match.params.userId];
   const isMyUserPage = auth.uid === user.uid;
   return (
@@ -24,16 +17,14 @@ const UserPage = ({
           {isMyUserPage && <button onClick={signOut}>Sign Out</button>}
         </div>
         <div className="user-details">
-          {user.photoURL && (
-            <img className="user-image" alt="user" src={user.photoURL} />
-          )}
+          {user.photoURL && <img className="user-image" alt="user" src={user.photoURL} />}
           <div className="user-email">{user.email}</div>
         </div>
         <h2>Groups</h2>
         <ul>
           {Object.keys(user.groupIds || {}).map(groupId => {
             const group = groups[groupId];
-            return (
+            return group ? (
               <GroupItem
                 key={groupId}
                 hideMemberCount={true}
@@ -56,6 +47,8 @@ const UserPage = ({
                   )
                 }
               />
+            ) : (
+              undefined
             );
           })}
         </ul>
@@ -88,6 +81,4 @@ const mapDispatchToProps = {
   toggleMembership: orgActions.toggleMembership
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(UserPage)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserPage));
