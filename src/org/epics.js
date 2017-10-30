@@ -63,6 +63,39 @@ export const toggleMembershipSuccessEpic = (action$, store) =>
     })
   );
 
+export const resendOrgInviteEpic = (action$, store) =>
+  action$
+    .filter(action => action.type === orgActionTypes.DELETE_GROUP)
+    .flatMap(({ payload }) => {
+      const state = store.getState();
+      return new Promise((resolve, reject) =>
+        firebaseDb.ref(`orgs/${state.auth.orgId}/invites/${payload}`).update(
+          {
+            inviterName: state.auth.displayName,
+            inviterUid: state.auth.uid,
+            lastInviteTime: Date.now()
+          },
+          error => (error ? reject(error) : resolve(payload))
+        )
+      );
+    })
+    .map(inviteId => orgActions.resendOrgInviteSuccess(inviteId))
+    .catch(error => Observable.of(orgActions.resendOrgInviteFailed(error)));
+
+export const deleteOrgInviteEpic = (action$, store) =>
+  action$
+    .filter(action => action.type === orgActionTypes.DELETE_GROUP)
+    .flatMap(({ payload }) => {
+      const state = store.getState();
+      return new Promise((resolve, reject) =>
+        firebaseDb
+          .ref(`orgs/${state.auth.orgId}/invites/${payload}`)
+          .update(null, error => (error ? reject(error) : resolve(payload)))
+      );
+    })
+    .map(inviteId => orgActions.deleteOrgInviteSuccess(inviteId))
+    .catch(error => Observable.of(orgActions.deleteOrgInviteFailed(error)));
+
 export const createInviteEpic = (action$, store) =>
   action$
     .filter(action => action.type === orgActionTypes.CREATE_INVITE)
@@ -121,7 +154,7 @@ export const createGroupEpic = (action$, store) =>
           .then(snap => resolve(snap.key))
       );
     })
-    .map(payload => orgActions.createGroupSuccess(payload))
+    .map(key => orgActions.createGroupSuccess(key))
     .catch(error => Observable.of(orgActions.createGroupFailed(error)));
 
 export const createGroupSuccessEpic = (action$, store) =>
