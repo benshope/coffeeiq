@@ -28,7 +28,6 @@
     }
 
     .user-item {
-        padding: 0.5em 0;
         transition: all 0.1s ease-in-out 0s;
         .user-description {
             color: rgba(255, 255, 255, 0.8);
@@ -40,7 +39,6 @@
             color: rgba(255, 255, 255, 1);
         }
     }
-
     .group-form {
         margin-bottom: 1em;
     }

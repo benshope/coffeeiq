@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 // import { orgActions } from "src/org";
 
 const UserList = ({ auth, uids, users }) => (
-  <ul className="user-list">
+  <ul className="user-list item-list">
     {(uids || Object.keys(users)).map((uid, i) => {
       const user = users[uid];
       return (
         <Link key={uid} to={`/user/${uid}`}>
-          <li className="user-item">
+          <li className="user-item item">
             <b>{user.displayName}</b> - {user.email}
           </li>
         </Link>

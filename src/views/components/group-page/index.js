@@ -17,7 +17,7 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
     (group &&
       users && (
         <div className="group-page">
-          {!groupForm.key || match.params.groupId !== groupForm.key ? (
+          {!groupForm.key || match.params.groupId !== groupForm.key || groupForm.sending ? (
             <div className="group-page-header">
               <div className="group-page-title">
                 <h1>{group.name}</h1>
@@ -58,12 +58,12 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
               }}
             />
           </div>
-          <ul className="user-list">
+          <ul className="user-list item-list">
             {realUserIds.map((userId, i) => {
               const user = users[userId] || {};
               return (
                 <Link key={userId} to={`/user/${userId}`}>
-                  <li className="user-item">
+                  <li className="user-item item">
                     <span className="user-description">
                       {user.displayName} - {user.email}
                     </span>

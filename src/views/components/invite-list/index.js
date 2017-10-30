@@ -4,14 +4,9 @@ import { connect } from "react-redux";
 import InviteItem from "./invite-item";
 
 const InviteList = ({ invites, groupId }) => (
-  <ul className="invite-list">
+  <ul className="invite-list item-list">
     {Object.keys(invites || {}).map(inviteId => (
-      <InviteItem
-        key={inviteId}
-        inviteId={inviteId}
-        invite={invites[inviteId]}
-        groupId={groupId}
-      />
+      <InviteItem key={inviteId} inviteId={inviteId} invite={invites[inviteId]} groupId={groupId} />
     ))}
   </ul>
 );
