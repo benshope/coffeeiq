@@ -8,6 +8,7 @@
 
     // Background:
     .toggle-label {
+        transition: $iq-transition;
         background: red;
         position: relative;
         display: block;
@@ -16,6 +17,9 @@
         cursor: pointer;
         border-radius: 1em;
         transition: 0.1s ease-in-out;
+        &:hover {
+            background: #e50000;
+        }
     }
 
     // Switch:
@@ -33,6 +37,9 @@
 
     input:checked + .toggle-label {
         background: green;
+        &:hover {
+            background: #007300;
+        }
     }
 
     input:checked + .toggle-label::before {
