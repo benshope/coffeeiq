@@ -6,8 +6,10 @@ import { orgActions } from "src/org";
 import { groupFormActions } from "src/group-form";
 import GroupForm from "../group-form";
 import InviteForm from "../invite-form";
+import InviteList from "../invite-list";
+import Toggle from "../toggle";
 
-const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembership, updateGroupForm, users }) => {
+const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembership, setGroupForm, users }) => {
   const group = groups && groups[match.params.groupId];
   const userIds = (group && group.userIds) || {};
   const realUserIds = Object.keys(userIds).filter(userId => userIds[userId]);
@@ -21,28 +23,22 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
                 <h1>{group.name}</h1>
               </div>
               <button
+                title="Edit Group"
                 className="edit-button"
-                onClick={e => updateGroupForm({ key: match.params.groupId, value: group })}
+                onClick={e => setGroupForm({ key: match.params.groupId, value: group })}
               >
-                Edit
-              </button>
-              <button
-                className="membership-button"
-                onClick={e =>
-                  toggleMembership({
-                    groupId: match.params.groupId,
-                    userId: auth.uid
-                  })}
-              >
-                {(userIds || {})[auth.uid] ? "Leave" : "Join"}
+                <span role="img" aria-label="edit">
+                  ✏️
+                </span>
               </button>
               <button
                 className="delete-group-button"
+                title="Delete Group"
                 onClick={e =>
                   window.confirm(`Are you sure you want to delete group ${group.name}?`) &&
                   deleteGroup(match.params.groupId)}
               >
-                <span role="img" aria-label="trash">
+                <span role="img" aria-label="delete">
                   🗑️
                 </span>
               </button>
@@ -52,7 +48,15 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
           )}
           <div>Meeting at {group.location}</div>
           <div className="members-header">
-            <h2>{realUserIds.length} Members</h2>
+            <h2>{realUserIds.length} Members</h2>{" "}
+            <Toggle
+              id={match.params.groupId}
+              value={!!userIds[auth.uid] ? "Leave" : "Join"}
+              checked={!!userIds[auth.uid]}
+              onChange={e => {
+                toggleMembership({ groupId: match.params.groupId, userId: auth.uid });
+              }}
+            />
           </div>
           <ul className="user-list">
             {realUserIds.map((userId, i) => {
@@ -68,6 +72,7 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
               );
             })}
           </ul>
+          <InviteList invites={group.invites || {}} groupId={match.params.groupId} />
           <InviteForm groupId={match.params.groupId} />
         </div>
       )) || <div>Loading...</div>
@@ -90,7 +95,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  updateGroupForm: groupFormActions.updateGroupForm,
+  setGroupForm: groupFormActions.setGroupForm,
   deleteGroup: orgActions.deleteGroup,
   toggleMembership: orgActions.toggleMembership
 };

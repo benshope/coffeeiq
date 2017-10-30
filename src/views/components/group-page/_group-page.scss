@@ -4,9 +4,13 @@
         align-items: center;
     }
 
-    .membership-button,
+    .edit-button,
     .delete-group-button {
         margin-left: 0.5em;
+        width: 2.5em;
+        text-align: center;
+        padding: 0;
+        line-height: 2.5em;
     }
 
     .group-page-title {
@@ -16,10 +20,11 @@
     }
 
     .members-header {
+        display: flex;
+        align-items: center;
         h2 {
             flex-grow: 1;
         }
-        display: flex;
     }
 
     .user-item {

@@ -9,7 +9,7 @@ const newState = {
 };
 
 const stateFunctions = {
-    [groupFormActions.UPDATE_GROUP_FORM]: (state, payload) => ({ ...state, ...payload }),
+    [groupFormActions.SET_GROUP_FORM]: (state, payload) => payload,
     [groupFormActions.UPDATE_GROUP_FORM_NAME]: (state, payload) => ({
         ...state,
         value: {

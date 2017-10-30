@@ -10,7 +10,7 @@ const GroupForm = ({
     groupForm,
     groups,
     updateGroup,
-    updateGroupForm,
+    setGroupForm,
     updateGroupFormName,
     updateGroupFormLocation
 }) => {
@@ -19,11 +19,25 @@ const GroupForm = ({
         <form
             className="group-form"
             onSubmit={e => {
+                console.log("Submitting");
                 e.preventDefault();
                 e.stopPropagation();
                 return (group.key ? updateGroup : createGroup)(group);
             }}
         >
+            {!!groupForm.key && (
+                <button
+                    className="cancel-update-group"
+                    title="Cancel Editing"
+                    onClick={e => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setGroupForm({ value: {} });
+                    }}
+                >
+                    <span>◀</span>
+                </button>
+            )}
             <input
                 autoFocus={!!groupForm.key}
                 disabled={groupForm.sending}
@@ -56,7 +70,7 @@ GroupForm.propTypes = {
     createGroup: PropTypes.func.isRequired,
     group: PropTypes.object,
     updateGroup: PropTypes.func.isRequired,
-    updateGroupForm: PropTypes.func.isRequired,
+    setGroupForm: PropTypes.func.isRequired,
     updateGroupFormName: PropTypes.func.isRequired,
     updateGroupFormLocation: PropTypes.func.isRequired
 };
@@ -70,7 +84,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     createGroup: orgActions.createGroup,
     updateGroup: orgActions.updateGroup,
-    updateGroupForm: groupFormActions.updateGroupForm,
+    setGroupForm: groupFormActions.setGroupForm,
     updateGroupFormName: groupFormActions.updateGroupFormName,
     updateGroupFormLocation: groupFormActions.updateGroupFormLocation
 };
