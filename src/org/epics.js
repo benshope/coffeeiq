@@ -65,7 +65,7 @@ export const toggleMembershipSuccessEpic = (action$, store) =>
     notificationsActions.requestCreateSuccessNotification({
       message: payload.toggleOn
         ? `You will be scheduled for coffee with ${payload.groupName}`
-        : `You are removed from ${payload.groupName}`
+        : `You are removed from group ${payload.groupName}`
     })
   );
 
