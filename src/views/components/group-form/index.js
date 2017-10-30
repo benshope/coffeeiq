@@ -15,7 +15,6 @@ const GroupForm = ({
     updateGroupFormLocation
 }) => {
     const group = groupForm.value;
-    // TODO: allow enter press on inputs and make this not a form
     return (
         <form
             className="group-form"
