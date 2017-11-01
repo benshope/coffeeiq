@@ -2,17 +2,18 @@
 
 # CoffeeIQ
 
+ CoffeeIQ is a simple app that schedules a coffee break with a new coworker each week.  It regularly pairs up team members who don’t know each other well to spread trust and collaboration across your organization.
+
+
 ## TODO
-### [Trello Board](https://trello.com/b/HSWaybK6/coffeeiq)
-- Move logo from Ping to this project
+- Make "your org needs to input an auth token" notification work
 - Create calendar invite send script
-- Add favicon
-- Create logo
 - Add contact/support page
-- Add billing page
-- Should keep a record of historical meetings sent to create schedule priority so that users do not get matched again?
-- It should have a way to automatically run the calendar script at regular intervals
-- Should have a way for admin/(self) user to remove user from group
-- Should have a way to view all the users and the group(s) they are in
-- Should have a modal/new page to view the users currently a part of each group.
-- Write home page copy, group page copy (describe what a group is/that calendar invites are sent within a group).
+- Keep a record of historical meetings sent to create schedule priority so that users do not get matched again?
+- Add CRON endpoint to trigger calendar invites
+- Set up CRON job to trigger calendar send endpoint
+- Org admin functionality
+- Site admin functionality
+- Improve home page copy, group page copy (describe what a group is/that calendar invites are sent within a group).
+
+### [Trello Board](https://trello.com/b/HSWaybK6/coffeeiq)
