@@ -84,9 +84,8 @@ export const createInviteEpic = (action$, store) =>
       };
       if (payload.groupId) {
         updates[`users/${emailId}/groupIds/${payload.groupId}`] = false;
-        updates[`groups/${payload.groupId}/userIds/${emailId}`] = false;
+        updates[`groups/${payload.groupId}/emailIds/${emailId}`] = false;
       }
-
       return new Promise((resolve, reject) =>
         firebaseDb.ref(`orgs/${state.auth.orgId}`).update(
           updates,
