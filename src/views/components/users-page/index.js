@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import UserInviteList from "../user-invite-list";
 import UserList from "../user-list";
 import InviteForm from "../invite-form";
 
@@ -14,7 +13,6 @@ const UsersPage = ({ auth }) => {
         <h1>Users</h1>
       </div>
       <UserList />
-      <UserInviteList />
       <InviteForm />
     </div>
   );
@@ -30,6 +28,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {};
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(UsersPage)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UsersPage));

@@ -6,7 +6,6 @@ import { orgActions } from "src/org";
 import { groupFormActions } from "src/group-form";
 import GroupForm from "../group-form";
 import InviteForm from "../invite-form";
-import InviteList from "../invite-list";
 import Toggle from "../toggle";
 
 const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembership, setGroupForm, users }) => {
@@ -71,7 +70,6 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
               );
             })}
           </ul>
-          <InviteList invites={group.invites || {}} groupId={match.params.groupId} />
           <InviteForm groupId={match.params.groupId} />
         </div>
       )) || <div>Loading...</div>
