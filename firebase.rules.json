@@ -6,13 +6,13 @@
     "orgs": {
       "$org": {
         ".read":
-          "auth != null && auth.token.email.replace('.', '_').endsWith($org) || root.child('admins/' + $uid).exists()",
+          "auth != null && auth.token.email.replace('.', '_').endsWith($org) || root.child('admins/' + auth.uid).exists()",
         ".write":
-          "auth != null && auth.token.email.replace('.', '_').endsWith($org) || root.child('admins/' + $uid).exists()",
+          "auth != null && auth.token.email.replace('.', '_').endsWith($org) || root.child('admins/' + auth.uid).exists()",
         "users": {
           "$emailId": {
             "isAdmin": {
-              ".write": "root.child('admins/' + $uid).exists()"
+              ".write": "root.child('admins/' + auth.uid).exists()"
             }
           }
         }

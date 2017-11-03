@@ -19,17 +19,20 @@ const sendInvite = event => {
     to: val.email
   };
 
-  mailOptions.subject = val.groupId
-    ? val.inviterName + ` has invited you to ___ group in CoffeeIQ`
-    : val.inviterName + ` has invited you to CoffeeIQ`;
-  mailOptions.text = val.groupId ? `To sign up go to TODO INVITE LINK` : `To sign up, go to coffeeiq.org`;
+  mailOptions.subject = val.inviterName + ` has invited you to CoffeeIQ`;
+  mailOptions.text = `To sign up, go to coffeeiq.org`;
+  if (val.groupId) {
+    const group = event.data.ref.parent.parent.groups[val.groupId];
+    mailOptions.subject = val.inviterName + ` has invited you to ${group.name} in CoffeeIQ\n\n`;
+    mailOptions.text = `To accept this invite: coffeeiq.org/accept/${val.groupId}/${snapshot.key}\n\n`;
+  }
   return mailTransport
     .sendMail(mailOptions)
     .then(() => {
-      console.log("Invite email sent to:", val.email);
+      console.log("Invite email sent to: ", val.email);
     })
     .catch(error => {
-      console.error("Error sending invite email:", error);
+      console.error("Error sending invite email: ", error);
     });
 };
 
