@@ -9,7 +9,7 @@ const gmailEmail = encodeURIComponent(functions.config().gmail.email);
 const gmailPassword = encodeURIComponent(functions.config().gmail.password);
 const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com`);
 
-const sendInvite = toGroup => event => {
+const sendInvite = event => {
   const snapshot = event.data;
   console.log(snapshot);
   const val = snapshot.val();
@@ -19,10 +19,10 @@ const sendInvite = toGroup => event => {
     to: val.email
   };
 
-  mailOptions.subject = toGroup
+  mailOptions.subject = val.groupId
     ? val.inviterName + ` has invited you to ___ group in CoffeeIQ`
     : val.inviterName + ` has invited you to CoffeeIQ`;
-  mailOptions.text = toGroup ? `To sign up go to TODO INVITE LINK` : `To sign up, go to coffeeiq.org`;
+  mailOptions.text = val.groupId ? `To sign up go to TODO INVITE LINK` : `To sign up, go to coffeeiq.org`;
   return mailTransport
     .sendMail(mailOptions)
     .then(() => {
@@ -33,14 +33,6 @@ const sendInvite = toGroup => event => {
     });
 };
 
-exports.onCreateInvite = functions.database.ref("/orgs/{orgId}/invites/{inviteId}").onCreate(sendInvite());
+exports.onCreateInvite = functions.database.ref("/orgs/{orgId}/users/{emailId}/invite").onCreate(sendInvite);
 
-exports.onUpdateInvite = functions.database.ref("/orgs/{orgId}/invites/{inviteId}").onUpdate(sendInvite());
-
-exports.onCreateInviteToGroup = functions.database
-  .ref("/orgs/{orgId}/groups/{groupId}/invites/{inviteId}")
-  .onCreate(sendInvite(true));
-
-exports.onUpdateInviteToGroup = functions.database
-  .ref("/orgs/{orgId}/groups/{groupId}/invites/{inviteId}")
-  .onUpdate(sendInvite(true));
+exports.onUpdateInvite = functions.database.ref("/orgs/{orgId}/users/{emailId}/invite").onUpdate(sendInvite);

@@ -69,7 +69,7 @@ export const toggleMembershipSuccessEpic = (action$, store) =>
 
 export const createInviteEpic = (action$, store) =>
   action$
-    .filter(action => action.type === orgActionTypes.CREATE_ORG_INVITE)
+    .filter(action => action.type === orgActionTypes.CREATE_INVITE)
     .flatMap(({ payload }) => {
       const state = store.getState();
       const emailId = payload.email.split(".").join("_");
@@ -86,6 +86,7 @@ export const createInviteEpic = (action$, store) =>
         updates[`users/${emailId}/groupIds/${payload.groupId}`] = false;
         updates[`groups/${payload.groupId}/userIds/${emailId}`] = false;
       }
+
       return new Promise((resolve, reject) =>
         firebaseDb.ref(`orgs/${state.auth.orgId}`).update(
           updates,
