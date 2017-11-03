@@ -8,9 +8,6 @@ import { firebaseDb } from "src/firebase";
 import { orgActions, orgActionTypes } from "./actions";
 import { notificationsActions } from "../notifications/actions";
 
-const invitesRefPath = (groupId, state) =>
-  groupId ? `orgs/${state.auth.orgId}/groups/${groupId}/invites` : `orgs/${state.auth.orgId}/invites`;
-
 export const orgFirebaseUpdatesEpic = action$ =>
   action$
     .filter(action => action.type === authActions.SIGN_IN_SUCCESS)
@@ -31,12 +28,13 @@ export const orgFirebaseUpdatesEpic = action$ =>
 
 export const toggleMembershipEpic = (action$, store) =>
   action$.filter(action => action.type === orgActionTypes.TOGGLE_GROUP_MEMBERSHIP).flatMap(({ payload }) => {
+    const emailId = payload.email.split(".").join("_");
     const state = store.getState();
     const group = (state.org[state.auth.orgId] || {}).groups[payload.groupId];
-    const toggleOn = !group.userIds || !group.userIds[payload.userId];
+    const toggleOn = !group.emailIds || !group.emailIds[emailId];
     var updates = {};
-    updates[`groups/${payload.groupId}/userIds/${payload.userId}`] = toggleOn || null;
-    updates[`users/${payload.userId}/groupIds/${payload.groupId}`] = toggleOn || null;
+    updates[`groups/${payload.groupId}/emailIds/${emailId}`] = toggleOn ? payload.email : null;
+    updates[`users/${emailId}/groupIds/${payload.groupId}`] = toggleOn || null;
     return new Promise((resolve, reject) =>
       firebaseDb.ref(`orgs/${state.auth.orgId}`).update(
         updates,
@@ -71,18 +69,26 @@ export const toggleMembershipSuccessEpic = (action$, store) =>
 
 export const createInviteEpic = (action$, store) =>
   action$
-    .filter(action => action.type === orgActionTypes.CREATE_INVITE)
+    .filter(action => action.type === orgActionTypes.CREATE_ORG_INVITE)
     .flatMap(({ payload }) => {
       const state = store.getState();
-      const inviteId = payload.email.split(".").join("_");
+      const emailId = payload.email.split(".").join("_");
+      let updates = {
+        [`users/${emailId}/invite`]: {
+          inviterName: state.auth.displayName,
+          inviterEmail: state.auth.email,
+          groupId: payload.groupId || null,
+          time: Date.now()
+        },
+        [`users/${emailId}/email`]: payload.email
+      };
+      if (payload.groupId) {
+        updates[`users/${emailId}/groupIds/${payload.groupId}`] = false;
+        updates[`groups/${payload.groupId}/userIds/${emailId}`] = false;
+      }
       return new Promise((resolve, reject) =>
-        firebaseDb.ref(invitesRefPath(payload.groupId, state) + "/" + inviteId).update(
-          {
-            inviterName: state.auth.displayName,
-            inviterUid: state.auth.uid,
-            lastInviteTime: Date.now(),
-            email: payload.email
-          },
+        firebaseDb.ref(`orgs/${state.auth.orgId}`).update(
+          updates,
           error =>
             error
               ? reject(
@@ -111,52 +117,53 @@ export const createInviteSuccessEpic = (action$, store) =>
     })
   );
 
-export const deleteInviteEpic = (action$, store) =>
-  action$
-    .filter(action => action.type === orgActionTypes.DELETE_INVITE)
-    .flatMap(({ payload: { groupId, inviteId } }) => {
-      const state = store.getState();
-      return new Promise((resolve, reject) =>
-        firebaseDb
-          .ref(invitesRefPath(groupId, state))
-          .update({ [inviteId]: null }, error => (error ? reject(error) : resolve(inviteId)))
-      );
-    })
-    .map(inviteId => orgActions.deleteInviteSuccess(inviteId))
-    .catch(error => Observable.of(orgActions.deleteInviteFailed({ error })));
+// export const deleteInviteEpic = (action$, store) =>
+//   action$
+//     .filter(action => action.type === orgActionTypes.DELETE_INVITE)
+//     .flatMap(({ payload: { groupId, inviteId } }) => {
+//       const state = store.getState();
+//       return new Promise((resolve, reject) =>
+//         firebaseDb
+//           .ref(invitesRefPath(groupId, state))
+//           .update({ [inviteId]: null }, error => (error ? reject(error) : resolve(inviteId)))
+//       );
+//     })
+//     .map(inviteId => orgActions.deleteInviteSuccess(inviteId))
+//     .catch(error => Observable.of(orgActions.deleteInviteFailed({ error })));
 
-export const deleteInviteFailedEpic = (action$, store) =>
-  action$.filter(action => action.type === orgActions.DELETE_INVITE_FAILED).map(({ payload }) =>
-    notificationsActions.requestCreateErrorNotification({
-      message: `Error deleting invite: ${payload.error}`
-    })
-  );
+// export const deleteInviteFailedEpic = (action$, store) =>
+//   action$.filter(action => action.type === orgActions.DELETE_INVITE_FAILED).map(({ payload }) =>
+//     notificationsActions.requestCreateErrorNotification({
+//       message: `Error deleting invite: ${payload.error}`
+//     })
+//   );
 
-export const deleteInviteSuccessEpic = (action$, store) =>
-  action$.filter(action => action.type === orgActions.DELETE_INVITE_SUCCESS).map(() =>
-    notificationsActions.requestCreateSuccessNotification({
-      message: "Invite deleted"
-    })
-  );
+// export const deleteInviteSuccessEpic = (action$, store) =>
+//   action$.filter(action => action.type === orgActions.DELETE_INVITE_SUCCESS).map(() =>
+//     notificationsActions.requestCreateSuccessNotification({
+//       message: "Invite deleted"
+//     })
+//   );
 
-export const resendInviteEpic = (action$, store) =>
-  action$
-    .filter(action => action.type === orgActionTypes.RESEND_INVITE)
-    .flatMap(({ payload }) => {
-      const state = store.getState();
-      return new Promise((resolve, reject) =>
-        firebaseDb.ref(invitesRefPath(payload.groupId, state) + "/" + payload.inviteId).update(
-          {
-            inviterName: state.auth.displayName,
-            inviterUid: state.auth.uid,
-            lastInviteTime: Date.now()
-          },
-          error => (error ? reject(error) : resolve(payload))
-        )
-      );
-    })
-    .map(inviteId => orgActions.resendInviteSuccess(inviteId))
-    .catch(error => Observable.of(orgActions.resendInviteFailed({ error })));
+// export const resendInviteEpic = (action$, store) =>
+//   action$
+//     .filter(action => action.type === orgActionTypes.RESEND_INVITE)
+//     .flatMap(({ payload }) => {
+//       const state = store.getState();
+//       return new Promise((resolve, reject) =>
+//         firebaseDb.ref(invitesRefPath(payload.groupId, state) + "/" + payload.inviteId).update(
+//           {
+//             inviterName: state.auth.displayName,
+//             inviterUid: state.auth.uid,
+//             inviterEmail: state.auth.email,
+//             lastInviteTime: Date.now()
+//           },
+//           error => (error ? reject(error) : resolve(payload))
+//         )
+//       );
+//     })
+//     .map(inviteId => orgActions.resendInviteSuccess(inviteId))
+//     .catch(error => Observable.of(orgActions.resendInviteFailed({ error })));
 
 export const resendInviteFailedEpic = (action$, store) =>
   action$.filter(action => action.type === orgActions.RESEND_INVITE_FAILED).map(({ payload }) =>
@@ -244,8 +251,8 @@ export const deleteGroupEpic = (action$, store) =>
       const state = store.getState();
       let updates = {};
       updates[`groups/${groupId}`] = null;
-      Object.keys((state.org[state.auth.orgId] || {}).groups[groupId].userIds || {}).forEach(userId => {
-        updates[`users/${userId}/groupIds/${groupId}`] = null;
+      Object.keys(((state.org[state.auth.orgId] || {}).groups || {})[groupId].emailIds || {}).forEach(emailId => {
+        updates[`users/${emailId}/groupIds/${groupId}`] = null;
       });
       return new Promise((resolve, reject) =>
         firebaseDb.ref(`orgs/${state.auth.orgId}`).update(updates, error => (error ? reject(error) : resolve(groupId)))
@@ -306,10 +313,10 @@ export const orgEpics = [
   createInviteEpic,
   createInviteFailedEpic,
   createInviteSuccessEpic,
-  deleteInviteEpic,
-  deleteInviteFailedEpic,
-  deleteInviteSuccessEpic,
-  resendInviteEpic,
+  // deleteInviteEpic,
+  // deleteInviteFailedEpic,
+  // deleteInviteSuccessEpic,
+  // resendInviteEpic,
   resendInviteFailedEpic,
   resendInviteSuccessEpic,
   deleteGroupEpic,

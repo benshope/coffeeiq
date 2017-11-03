@@ -37,9 +37,13 @@ export const updateUserEpic = action$ =>
     .map(
       ({ payload }) =>
         new Promise((resolve, reject) =>
-          firebaseDb
-            .ref(`orgs/${payload.orgId}/users/${payload.uid}`)
-            .update(omit(payload, "refreshToken"), error => (error ? reject(error) : resolve(payload)))
+          firebaseDb.ref(`orgs/${payload.orgId}/users/${payload.emailId}`).update(
+            {
+              ...omit(payload, "refreshToken"),
+              invite: null
+            },
+            error => (error ? reject(error) : resolve(payload))
+          )
         )
     )
     .map(payload => authActions.updateUserSuccess(payload))

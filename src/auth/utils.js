@@ -2,6 +2,9 @@ export const userFromResponse = (payload, gaveCalendarAccess) => {
     const domain = payload.user.email.split("@")[1];
     return {
         uid: payload.user.uid,
+        emailId: payload.user.email
+            .split(".")
+            .join("_"),
         photoURL: payload.user.photoURL,
         displayName: payload.user.displayName,
         email: payload.user.email,

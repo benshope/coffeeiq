@@ -1,25 +1,18 @@
 {
   "rules": {
+    "admins": {
+      ".write": false
+    },
     "orgs": {
       "$org": {
         ".read":
-          "auth != null && auth.token.email.replace('.', '_').endsWith($org)",
+          "auth != null && auth.token.email.replace('.', '_').endsWith($org) || root.child('admins/' + $uid).exists()",
         ".write":
-          "auth != null && auth.token.email.replace('.', '_').endsWith($org)",
-        "groups": {
-          "$group": {
-            "userIds": {
-              "$userId": {
-                ".write": "$userId === auth.uid "
-              }
-            }
-          }
-        },
+          "auth != null && auth.token.email.replace('.', '_').endsWith($org) || root.child('admins/' + $uid).exists()",
         "users": {
-          "$userId": {
-            ".write": "$userId === auth.uid ",
-            "groupIds": {
-              ".read": "$userId === auth.uid "
+          "$emailId": {
+            "isAdmin": {
+              ".write": "root.child('admins/' + $uid).exists()"
             }
           }
         }

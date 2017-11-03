@@ -7,8 +7,8 @@ import { orgActions } from "src/org";
 import GroupItem from "../group-item";
 
 const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => {
-  const user = users && users[match.params.userId];
-  const isMyUserPage = auth.uid === user.uid;
+  const user = users && users[match.params.emailId];
+  const isMyUserPage = auth.emailId === user.emailId;
   return (
     (user && (
       <div className="user-page">
@@ -37,7 +37,7 @@ const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => 
                       className="delete-membership-link"
                       title="Leave Group"
                       onClick={() => {
-                        toggleMembership({ groupId, userId: auth.uid });
+                        toggleMembership({ groupId, emailId: auth.emailId });
                       }}
                     >
                       ×

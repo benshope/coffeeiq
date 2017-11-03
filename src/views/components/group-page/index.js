@@ -11,8 +11,7 @@ import Toggle from "../toggle";
 
 const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembership, setGroupForm, users }) => {
   const group = groups && groups[match.params.groupId];
-  const userIds = (group && group.userIds) || {};
-  const realUserIds = Object.keys(userIds).filter(userId => userIds[userId]);
+  const emailIds = (group && group.emailIds) || {};
   return (
     (group &&
       users && (
@@ -48,21 +47,21 @@ const GroupPage = ({ auth, deleteGroup, groupForm, groups, match, toggleMembersh
           )}
           <div>Meeting at {group.location}</div>
           <div className="members-header">
-            <h2>{realUserIds.length} Members</h2>{" "}
+            <h2>{Object.keys(emailIds).length} Members</h2>{" "}
             <Toggle
               id={match.params.groupId}
-              value={!!userIds[auth.uid] ? "Leave" : "Join"}
-              checked={!!userIds[auth.uid]}
+              value={!!emailIds[auth.emailId] ? "Leave" : "Join"}
+              checked={!!emailIds[auth.emailId]}
               onChange={e => {
-                toggleMembership({ groupId: match.params.groupId, userId: auth.uid });
+                toggleMembership({ groupId: match.params.groupId, email: auth.email });
               }}
             />
           </div>
           <ul className="user-list item-list">
-            {realUserIds.map((userId, i) => {
-              const user = users[userId] || {};
+            {Object.keys(emailIds).map(emailId => {
+              const user = users[emailId] || {};
               return (
-                <Link key={userId} to={`/user/${userId}`}>
+                <Link key={emailId} to={`/user/${emailId}`}>
                   <li className="user-item item">
                     <span className="user-description">
                       {user.displayName} - {user.email}

@@ -27,7 +27,7 @@ const App = ({ authenticated, signOut }) => (
       <RequireAuthRoute authenticated={authenticated} path="/groups" component={GroupsPage} />
       <RequireAuthRoute authenticated={authenticated} path="/group/:groupId" component={GroupPage} />
       <RequireAuthRoute authenticated={authenticated} path="/users" component={UsersPage} />
-      <RequireAuthRoute authenticated={authenticated} path="/user/:userId" component={UserPage} />
+      <RequireAuthRoute authenticated={authenticated} path="/user/:emailId" component={UserPage} />
       <Route path="/how-it-works" component={HowItWorksPage} />
       <Route path="/about" component={AboutPage} />
     </main>
