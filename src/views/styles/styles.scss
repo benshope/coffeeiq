@@ -18,7 +18,7 @@ $iq-transition: all 0.1s ease-in-out 0s;
     "./../components/notifications/notifications",
     "./../components/user-list/user-list",
     "./../components/invite-form/invite-form",
-    "./../components/user-invite-item/user-invite-item",
+    "./../components/user-item/user-item",
     "./../components/how-it-works-page/how-it-works-page",
     "./../components/users-page/users-page",
     "./../components/stripes/stripes",
@@ -36,7 +36,12 @@ a {
     color: inherit;
     text-decoration: none;
     cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    &:hover {
+        color: rgba(255, 255, 255, 1);
+    }
     &:active {
+        color: black;
     }
     &.selected {
         cursor: default;
@@ -124,13 +129,6 @@ input {
     }
     .item-title {
         flex-grow: 1;
-        color: rgba(255, 255, 255, 0.8);
-        &:hover {
-            color: rgba(255, 255, 255, 1);
-        }
-        &:active {
-            color: black;
-        }
     }
 }
 

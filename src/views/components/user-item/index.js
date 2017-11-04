@@ -7,12 +7,12 @@ import { orgActions } from "src/org";
 const UserItem = ({ deleteInvite, emailId, groupId, resendInvite, user }) =>
   !user.invite ? (
     <li className="item user-item">
-      <Link to={`/user/${emailId}`}>
+      <Link className="item-title" to={`/user/${emailId}`}>
         <b>{user.displayName}</b> - {user.email}
       </Link>
     </li>
   ) : (
-    <li className="item invite-item">
+    <li className="item user-item">
       <div className="item-title">{user.email}</div>
       <div className="right-content">
         {undefined && (

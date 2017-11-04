@@ -21,7 +21,7 @@ const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => 
           <div className="user-email">{user.email}</div>
         </div>
         <h2>Groups</h2>
-        <ul>
+        <ul className="item-list">
           {Object.keys(user.groupIds || {}).map(groupId => {
             const group = groups[groupId];
             return group ? (

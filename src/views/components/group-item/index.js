@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const GroupItem = ({ group, groupId, rightContent, hideMemberCount }) => (
   <li key={groupId} className="item group-item">
     <Link to={`/group/${groupId}`} className="item-title">
-      {group.name} @ {group.location}{" "}
+      <b>{group.name}</b> @ {group.location}{" "}
       {!hideMemberCount && <div className="member-count">{Object.keys(group.emailIds || {}).length}</div>}
     </Link>
     <div className="right-content">{rightContent}</div>
