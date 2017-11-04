@@ -10,11 +10,11 @@ const JoinedGroupPage = ({ match }) => {
   return (
     <div className="joined-group-page">
       <BlueStripes />
-      <h1>Congrats {email}</h1>
-      <div>
-        You are now a member of the {match.params.groupName} coffee group. It meets each week at
-        {match.params.groupLocation}. <br />
-        <b>Sign up to join more groups at {orgName}:</b>
+      <h1>Congrats {email}!</h1>
+      <div className="message">
+        You are now a member of{match.params.groupName}.{" "}
+        <b>You will receive weekly calendar invites to meet for coffee at {match.params.groupLocation}.</b> Sign up to
+        join more groups at {orgName}.
       </div>
       <SignUpButton />
     </div>
