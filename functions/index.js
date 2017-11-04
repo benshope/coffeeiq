@@ -47,14 +47,16 @@ const cors = require("cors")({ origin: true });
 const app = express();
 app.use(cors);
 app.get("/accept/:orgId/:groupId/:emailId/:groupName/:groupLocation", (req, res) => {
+  let updates = {};
+  updates[`groups/${req.params.groupId}/emailIds/${req.params.emailId}`] = true;
+  updates[`users/${req.params.emailId}/groupIds/${req.params.groupId}`] = true;
   admin
     .database()
     .ref(`/orgs/${req.params.orgId}`)
-    .update();
-
+    .update(updates);
   res.redirect(
-    `https://coffeeiq.org/accept?email=${req.params.emailId}&name=${req.params.groupName}&location=${req.params
-      .groupLocation}`
+    `https://coffeeiq.org/accept?email=${req.params.emailId}&groupName=${req.params.groupName}&groupLocation=${req
+      .params.groupLocation}`
   );
 });
 exports.app = functions.https.onRequest(app);
