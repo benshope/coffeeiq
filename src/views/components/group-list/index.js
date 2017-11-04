@@ -21,7 +21,7 @@ const GroupList = ({ auth, groups, toggleMembership }) => (
               value={!!emailIds[auth.emailId] ? "Leave" : "Join"}
               checked={!!emailIds[auth.emailId]}
               onChange={e => {
-                toggleMembership({ groupId, email: auth.email });
+                toggleMembership({ groupId, emailId: auth.emailId });
               }}
             />
           }

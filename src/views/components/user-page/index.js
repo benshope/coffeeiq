@@ -8,7 +8,7 @@ import GroupItem from "../group-item";
 
 const UserPage = ({ auth, users, groups, match, signOut, toggleMembership }) => {
   const user = users && users[match.params.emailId];
-  const isMyUserPage = auth.emailId === user.emailId;
+  const isMyUserPage = auth.emailId === (user && user.emailId);
   return (
     (user && (
       <div className="user-page">

@@ -43,7 +43,7 @@ const Header = ({ auth, AboutPage, HowItWorksPage, calendarToken, match, signOut
               title={(auth && auth.displayName) || "Profile"}
               className="my-profile"
               activeClassName="selected"
-              to={`/user/${auth.uid}`}
+              to={`/user/${auth.emailId}`}
             >
               <img alt="user" src={auth && auth.photoURL} />
             </NavLink>

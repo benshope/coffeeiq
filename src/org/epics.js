@@ -28,13 +28,12 @@ export const orgFirebaseUpdatesEpic = action$ =>
 
 export const toggleMembershipEpic = (action$, store) =>
   action$.filter(action => action.type === orgActionTypes.TOGGLE_GROUP_MEMBERSHIP).flatMap(({ payload }) => {
-    const emailId = payload.email.split(".").join("_");
     const state = store.getState();
-    const group = (state.org[state.auth.orgId] || {}).groups[payload.groupId];
-    const toggleOn = !group.emailIds || !group.emailIds[emailId];
+    const group = (state.org[state.auth.orgId] || {}).groups[payload.groupId] || {};
+    const toggleOn = !(group.emailIds || {})[payload.emailId];
     var updates = {};
-    updates[`groups/${payload.groupId}/emailIds/${emailId}`] = toggleOn ? payload.email : null;
-    updates[`users/${emailId}/groupIds/${payload.groupId}`] = toggleOn || null;
+    updates[`groups/${payload.groupId}/emailIds/${payload.emailId}`] = toggleOn || null;
+    updates[`users/${payload.emailId}/groupIds/${payload.groupId}`] = toggleOn || null;
     return new Promise((resolve, reject) =>
       firebaseDb.ref(`orgs/${state.auth.orgId}`).update(
         updates,
