@@ -9,7 +9,7 @@ import Notifications from "./components/notifications";
 import RequireAuthRoute from "./components/require-auth-route";
 import RequireUnauthRoute from "./components/require-unauth-route";
 import AboutPage from "./components/about-page";
-import JoinedPage from "./components/accept-invite-page";
+import JoinedGroupPage from "./components/joined-group-page";
 import HomePage from "./components/home-page";
 import HowItWorksPage from "./components/how-it-works-page";
 import GroupPage from "./components/group-page";
@@ -31,8 +31,8 @@ const App = ({ authenticated, signOut }) => (
       <RequireAuthRoute authenticated={authenticated} path="/user/:emailId" component={UserPage} />
       <Route path="/how-it-works" component={HowItWorksPage} />
       <Route path="/about" component={AboutPage} />
-      <Route path="/joined/:emailId/:groupName/:groupLocation" component={JoinedPage} />
-      <Route path="/left/:emailId/:groupName/:groupLocation" component={JoinedPage} />
+      <Route path="/joined/:emailId/:groupName/:groupLocation" component={JoinedGroupPage} />
+      <Route path="/left/:emailId/:groupName/:groupLocation" component={JoinedGroupPage} />
     </main>
   </div>
 );
