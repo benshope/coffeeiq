@@ -24,7 +24,7 @@ const sendInvite = event => {
   mailOptions.text = `To sign up, go to coffeeiq.org`;
   if (val.groupId) {
     mailOptions.subject = val.inviterName + ` invites you to coffee with ${val.groupName}\n\n`;
-    mailOptions.text = `To begin getting weekly scheduled coffee meetings with ${val.groupName} click this link: https://us-central1-coffeeiq-228b6.cloudfunctions.net/app/join/${event
+    mailOptions.text = `To begin weekly scheduled coffee meetings with ${val.groupName} click this link: https://us-central1-coffeeiq-228b6.cloudfunctions.net/app/join/${event
       .params.orgId}/${val.groupId}/${val.emailId}/${encodeURIComponent(val.groupName)}/${encodeURIComponent(
       val.groupLocation
     )}\n\n`;
@@ -57,8 +57,7 @@ const joinOrLeaveGroup = (value, redirect) => (req, res) => {
     .ref(`/orgs/${req.params.orgId}`)
     .update(updates);
   res.redirect(
-    `https://coffeeiq.org/${redirect}?email=${req.params.emailId}&groupName=${req.params.groupName}&groupLocation=${req
-      .params.groupLocation}`
+    `https://coffeeiq.org/${redirect}/${req.params.emailId}/${req.params.groupName}/${req.params.groupLocation}`
   );
 };
 app.get("/join/:orgId/:groupId/:emailId/:groupName/:groupLocation", joinOrLeaveGroup(true, "joined"));

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { GreenStripes } from "../stripes";
 
 const AcceptInvitePage = ({ match }) => {
-  console.log("TRIGGER ACCEPT INVITE", match.params);
+  console.log("TRIGGER ACCEPT INVITE", match);
   return (
     <div className="about-page">
       <GreenStripes />
