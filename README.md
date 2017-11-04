@@ -5,6 +5,7 @@
  CoffeeIQ is a simple app that schedules a coffee break with a new coworker each week.  It regularly pairs up team members who don’t know each other well to spread trust and collaboration across your organization.
 
 ## To Do
+- Sort users by invite or not
 - Refocus invite input
 - Allow users to accept invites without signing in
 - Make "your org needs to input an auth token" notification work
