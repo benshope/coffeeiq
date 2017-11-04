@@ -24,8 +24,7 @@ const sendInvite = event => {
   mailOptions.subject = val.inviterName + ` has invited you to CoffeeIQ`;
   mailOptions.text = `To sign up, go to coffeeiq.org`;
   if (val.groupId) {
-    const group = functions.database.ref("/orgs/{orgId}/groups")[val.groupId];
-    mailOptions.subject = val.inviterName + ` has invited you to ${group.name} in CoffeeIQ\n\n`;
+    mailOptions.subject = val.inviterName + ` has invited you to ${val.groupId} in CoffeeIQ\n\n`;
     mailOptions.text = `To accept this invite: https://us-central1-coffeeiq-228b6.cloudfunctions.net/accept/${val.groupId}/${snapshot.key}\n\n`;
   }
   return mailTransport
