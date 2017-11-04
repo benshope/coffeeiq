@@ -31,7 +31,8 @@ const App = ({ authenticated, signOut }) => (
       <RequireAuthRoute authenticated={authenticated} path="/user/:emailId" component={UserPage} />
       <Route path="/how-it-works" component={HowItWorksPage} />
       <Route path="/about" component={AboutPage} />
-      <Route path="/accept" component={AcceptInvitePage} />
+      <Route path="/joined" component={AcceptInvitePage} />
+      <Route path="/left" component={AcceptInvitePage} />
     </main>
   </div>
 );

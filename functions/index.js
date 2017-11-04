@@ -24,7 +24,7 @@ const sendInvite = event => {
   mailOptions.text = `To sign up, go to coffeeiq.org`;
   if (val.groupId) {
     mailOptions.subject = val.inviterName + ` invites you to coffee with ${val.groupName}\n\n`;
-    mailOptions.text = `To begin getting weekly scheduled coffee meetings with ${val.groupName} click this link: https://us-central1-coffeeiq-228b6.cloudfunctions.net/app/accept/${event
+    mailOptions.text = `To begin getting weekly scheduled coffee meetings with ${val.groupName} click this link: https://us-central1-coffeeiq-228b6.cloudfunctions.net/app/join/${event
       .params.orgId}/${val.groupId}/${val.emailId}/${encodeURIComponent(val.groupName)}/${encodeURIComponent(
       val.groupLocation
     )}\n\n`;
@@ -48,17 +48,19 @@ const express = require("express");
 const cors = require("cors")({ origin: true });
 const app = express();
 app.use(cors);
-app.get("/accept/:orgId/:groupId/:emailId/:groupName/:groupLocation", (req, res) => {
+const joinOrLeaveGroup = (value, redirect) => (req, res) => {
   let updates = {};
-  updates[`groups/${req.params.groupId}/emailIds/${req.params.emailId}`] = true;
-  updates[`users/${req.params.emailId}/groupIds/${req.params.groupId}`] = true;
+  updates[`groups/${req.params.groupId}/emailIds/${req.params.emailId}`] = value;
+  updates[`users/${req.params.emailId}/groupIds/${req.params.groupId}`] = value;
   admin
     .database()
     .ref(`/orgs/${req.params.orgId}`)
     .update(updates);
   res.redirect(
-    `https://coffeeiq.org/accept?email=${req.params.emailId}&groupName=${req.params.groupName}&groupLocation=${req
+    `https://coffeeiq.org/${redirect}?email=${req.params.emailId}&groupName=${req.params.groupName}&groupLocation=${req
       .params.groupLocation}`
   );
-});
+};
+app.get("/join/:orgId/:groupId/:emailId/:groupName/:groupLocation", joinOrLeaveGroup(true, "joined"));
+app.get("/leave/:orgId/:groupId/:emailId/:groupName/:groupLocation", joinOrLeaveGroup(null, "left"));
 exports.app = functions.https.onRequest(app);
