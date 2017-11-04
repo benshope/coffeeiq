@@ -25,7 +25,9 @@ const sendInvite = event => {
   if (val.groupId) {
     mailOptions.subject = val.inviterName + ` invites you to coffee with ${val.groupName}\n\n`;
     mailOptions.text = `To begin getting weekly scheduled coffee meetings with ${val.groupName} click this link: https://us-central1-coffeeiq-228b6.cloudfunctions.net/app/accept/${event
-      .params.orgId}/${val.groupId}/${val.emailId}/${val.groupName}/${val.groupLocation}\n\n`;
+      .params.orgId}/${val.groupId}/${val.emailId}/${encodeURIComponent(val.groupName)}/${encodeURIComponent(
+      val.groupLocation
+    )}\n\n`;
   }
   return mailTransport
     .sendMail(mailOptions)
