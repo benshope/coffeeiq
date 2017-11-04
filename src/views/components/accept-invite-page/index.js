@@ -1,82 +1,20 @@
-import { capitalize } from "lodash";
-import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { authActions } from "src/auth";
-import GroupList from "../group-list";
-import GroupForm from "../group-form";
+import { GreenStripes } from "../stripes";
 
-const GroupsPage = ({ auth, calendarToken, groups, signIn }) => {
-  const firstName = capitalize(auth.displayName.split(" ")[0]) || auth.email;
-  const orgName = capitalize(auth.orgName);
-  const activateDomainMessage = () =>
-    !calendarToken && (
-      <div className="card warning-card">
-        <h3 className="header">Required Setup</h3>
-        <div className="body">
-          In order for this app to send calendar invites one user from{" "}
-          {auth.email.split("@")[1] || orgName} must provide access to their
-          calendars.
-        </div>
-        <div className="footer">
-          <div>
-            <a>Learn More</a>
-          </div>
-          <button onClick={() => signIn(true)}>Allow Calendar Access</button>
-        </div>
-      </div>
-    );
-  const welcomeMessage = () => {
-    const pronoun = groups && Object.keys(groups).length > 1 ? "a" : "the";
-    return (
-      groups && (
-        <div className="card info-card background-light">
-          <div className="body">
-            {`Hi ${firstName}, welcome to CoffeeIQ for ${orgName}. Begin by joining ${pronoun} coffee group below or make a new group for your team.`}
-          </div>
-        </div>
-      )
-    );
-  };
-  // TODO: first user message (or flow?)
-  const errorMessage = () => (
-    <div className="card error-card">
-      <div className="body">
-        Hi {firstName}, you have signed in with Gmail. Please sign in with your
-        @yourcompany.com email address. Thanks!
-      </div>
-    </div>
-  );
+const AcceptInvitePage = ({ match }) => {
+  console.log("TRIGGER ACCEPT INVITE", match.params);
   return (
-    <div className="groups-page">
-      {false && auth.orgId === "gmail_com" && errorMessage()}
-      {false && welcomeMessage()}
-      {false && activateDomainMessage()}
-      <h1>Groups</h1>
-      <GroupList />
-      <GroupForm />
+    <div className="about-page">
+      <GreenStripes />
+      <h1>Invite Accepted</h1>
+      <p>You are now a member of ___ group. Sign up to join more groups ___</p>
     </div>
   );
 };
 
-GroupsPage.propTypes = {
-  auth: PropTypes.object.isRequired,
-  calendarToken: PropTypes.string,
-  groups: PropTypes.object,
-  signIn: PropTypes.func.isRequired
-};
+AcceptInvitePage.propTypes = {};
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  calendarToken: (state.org[state.auth.orgId] || {}).calendarToken,
-  groups: (state.org[state.auth.orgId] || {}).groups
-});
+const mapDispatchToProps = {};
 
-const mapDispatchToProps = {
-  signIn: authActions.signIn
-};
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(GroupsPage)
-);
+export default connect(null, mapDispatchToProps)(AcceptInvitePage);
