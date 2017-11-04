@@ -20,7 +20,6 @@ const sendInvite = event => {
     from: '"CoffeeIQ" <noreply@coffeeiq.org>',
     to: val.email
   };
-
   mailOptions.subject = val.inviterName + ` has invited you to CoffeeIQ`;
   mailOptions.text = `To sign up, go to coffeeiq.org`;
   if (val.groupId) {
@@ -41,16 +40,14 @@ exports.onCreateInvite = functions.database.ref("/orgs/{orgId}/users/{emailId}/i
 
 exports.onUpdateInvite = functions.database.ref("/orgs/{orgId}/users/{emailId}/invite").onUpdate(sendInvite);
 
+// unauthenticated http cloud functions
 const express = require("express");
-const cors = require("cors")({ origin: false });
-let app = express();
-// Automatically allow cross-origin requests
+const cors = require("cors")({ origin: true });
+const app = express();
 app.use(cors);
-// build multiple CRUD interfaces:
 app.get("/accept/:groupId/:emailId", (req, res) => {
   const groupName = "getTheGroupName";
   const groupLocation = "getTheGroupLocation";
   res.redirect(`https://coffeeiq.org/accept?groupName="${groupName}"&groupLocation="${groupLocation}"`);
 });
-// Expose Express API as a single Cloud Function:
-exports.widgets = functions.https.onRequest(app);
+exports.app = functions.https.onRequest(app);
