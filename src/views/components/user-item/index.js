@@ -20,9 +20,11 @@ const UserItem = ({ deleteInvite, emailId, groupId, resendInvite, user }) =>
             ↻
           </a>
         )}
-        <a className="delete" title="Delete Invite" onClick={() => deleteInvite({ emailId, groupId })}>
-          ×
-        </a>
+        {undefined && (
+          <a className="delete" title="Delete Invite" onClick={() => deleteInvite({ emailId, groupId })}>
+            ×
+          </a>
+        )}
       </div>
     </li>
   );
