@@ -43,9 +43,10 @@ exports.onCreateInvite = functions.database.ref("/orgs/{orgId}/users/{emailId}/i
 exports.onUpdateInvite = functions.database.ref("/orgs/{orgId}/users/{emailId}/invite").onUpdate(sendInvite);
 
 const express = require("express");
+const cors = require("cors")({ origin: false });
 let app = express();
 // Automatically allow cross-origin requests
-app.use(express.cors());
+app.use(cors);
 // build multiple CRUD interfaces:
 app.get("/accept/:groupId/:emailId", (req, res) => {
   const groupName = "getTheGroupName";
