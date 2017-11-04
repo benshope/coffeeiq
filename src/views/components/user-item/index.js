@@ -40,7 +40,7 @@ UserItem.propTypes = {
 const mapStateToProps = (state, props) => ({
   emailId: props.emailId,
   groupId: props.groupId,
-  user: ((state.org[state.auth.orgId] || {}).users || {})[props.emailId]
+  user: ((state.org[state.auth.orgId] || {}).users || {})[props.emailId] || {}
 });
 
 const mapDispatchToProps = {

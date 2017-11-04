@@ -81,6 +81,7 @@ export const createInviteEpic = (action$, store) =>
           groupName: group.name || null,
           groupLocation: group.location || null,
           email: payload.email,
+          emailId,
           time: Date.now()
         },
         [`users/${emailId}/email`]: payload.email
