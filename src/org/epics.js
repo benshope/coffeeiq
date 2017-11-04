@@ -78,8 +78,8 @@ export const createInviteEpic = (action$, store) =>
           inviterName: state.auth.displayName,
           inviterEmail: state.auth.email,
           groupId: payload.groupId || null,
-          groupName: group.name || null,
-          groupLocation: group.location || null,
+          groupName: group ? group.name : null,
+          groupLocation: group ? group.location : null,
           email: payload.email,
           emailId,
           time: Date.now()
