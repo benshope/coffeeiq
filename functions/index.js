@@ -46,8 +46,6 @@ const cors = require("cors")({ origin: true });
 const app = express();
 app.use(cors);
 app.get("/accept/:groupId/:emailId", (req, res) => {
-  const groupName = "getTheGroupName";
-  const groupLocation = "getTheGroupLocation";
-  res.redirect(`https://coffeeiq.org/accept?groupName="${groupName}"&groupLocation="${groupLocation}"`);
+  res.redirect(`https://coffeeiq.org/accept?groupName="${req.params.groupId}"&groupLocation="${req.params.emailId}"`);
 });
 exports.app = functions.https.onRequest(app);
