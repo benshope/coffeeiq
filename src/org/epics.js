@@ -72,12 +72,14 @@ export const createInviteEpic = (action$, store) =>
     .flatMap(({ payload }) => {
       const state = store.getState();
       const emailId = payload.email.split(".").join("_");
+      const group = payload.groupId && ((state.org[state.auth.orgId] || {}).groups || {})[payload.groupId];
       let updates = {
         [`users/${emailId}/invite`]: {
           inviterName: state.auth.displayName,
           inviterEmail: state.auth.email,
           groupId: payload.groupId || null,
-          groupName: payload.groupId ? "TEST GROUP NAME" : null,
+          groupName: group.name || null,
+          groupLocation: group.location || null,
           email: payload.email,
           time: Date.now()
         },

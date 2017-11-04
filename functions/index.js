@@ -13,7 +13,7 @@ const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailP
 
 const sendInvite = event => {
   const snapshot = event.data;
-  console.log(snapshot);
+  console.log(snapshot, event);
   const val = snapshot.val();
 
   const mailOptions = {
@@ -24,7 +24,8 @@ const sendInvite = event => {
   mailOptions.text = `To sign up, go to coffeeiq.org`;
   if (val.groupId) {
     mailOptions.subject = val.inviterName + ` has invited you to ${val.groupId} in CoffeeIQ\n\n`;
-    mailOptions.text = `To accept this invite: https://us-central1-coffeeiq-228b6.cloudfunctions.net/app/accept/${val.groupId}/${snapshot.key}\n\n`;
+    mailOptions.text = `To accept this invite: https://us-central1-coffeeiq-228b6.cloudfunctions.net/app/accept/${event
+      .params.orgId}/${val.groupId}/${snapshot.key}/${snapshot.groupLocation}/${snapshot.groupLocation}\n\n`;
   }
   return mailTransport
     .sendMail(mailOptions)
@@ -45,7 +46,15 @@ const express = require("express");
 const cors = require("cors")({ origin: true });
 const app = express();
 app.use(cors);
-app.get("/accept/:groupId/:emailId", (req, res) => {
-  res.redirect(`https://coffeeiq.org/accept?groupName="${req.params.groupId}"&groupLocation="${req.params.emailId}"`);
+app.get("/accept/:orgId/:groupId/:emailId/:groupName/:groupLocation", (req, res) => {
+  admin
+    .database()
+    .ref(`/orgs/${req.params.orgId}`)
+    .update();
+
+  res.redirect(
+    `https://coffeeiq.org/accept?email=${req.params.emailId}&name=${req.params.groupName}&location=${req.params
+      .groupLocation}`
+  );
 });
 exports.app = functions.https.onRequest(app);
