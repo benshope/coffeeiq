@@ -18,16 +18,16 @@ const sendInvite = event => {
 
   const mailOptions = {
     from: '"CoffeeIQ" <noreply@coffeeiq.org>',
-    to: val.email
+    to: val.email,
+    subject: val.inviterName + ` has invited you to CoffeeIQ`,
+    text: `CoffeeIQ is an app that schedules a coffee break with a new coworker each week.\n\nTo sign up or learn more, visit coffeeiq.org`
   };
-  mailOptions.subject = val.inviterName + ` has invited you to CoffeeIQ`;
-  mailOptions.text = `To sign up, go to coffeeiq.org`;
   if (val.groupId) {
     mailOptions.subject = val.inviterName + ` invites you to coffee with ${val.groupName}\n\n`;
     mailOptions.text = `To begin weekly scheduled coffee meetings with ${val.groupName} click this link: https://us-central1-coffeeiq-228b6.cloudfunctions.net/app/join/${event
       .params.orgId}/${val.groupId}/${val.emailId}/${encodeURIComponent(val.groupName)}/${encodeURIComponent(
       val.groupLocation
-    )}\n\n`;
+    )}\n\nTo learn more, visit coffeeiq.org`;
   }
   return mailTransport
     .sendMail(mailOptions)
