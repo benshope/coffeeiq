@@ -13,31 +13,41 @@ class InviteForm extends React.Component {
         this.state = { ...newState };
     }
 
-    updateEmail = e => {
+    updateEmail(e) {
         const value = e.target.value;
         this.setState(state => ({
             ...state,
-            isWrongDomain: value && value.toLowerCase().indexOf(this.props.auth.domain.toLowerCase()) > -1,
+            isWrongDomain:
+                value &&
+                value
+                    .toLowerCase()
+                    .indexOf(this.props.auth.domain.toLowerCase()) > -1,
             email: value.toLowerCase()
         }));
-    };
+    }
 
-    onSubmit = e => {
+    onSubmit(e) {
         e.preventDefault(); // stops page from refreshing
         if (!this.state.isWrongDomain) {
-            alert(`"${this.state.email}" must end with "@${this.props.auth.domain}"`);
+            alert(
+                `"${this.state.email}" must end with "@${this.props.auth
+                    .domain}"`
+            );
             // TODO: refocus
             return;
         }
-        this.props.createInvite({ email: this.state.email, groupId: this.props.groupId });
+        this.props.createInvite({
+            email: this.state.email,
+            groupId: this.props.groupId
+        });
         this.setState(state => ({ ...newState }));
-    };
+    }
 
-    onKeyDown = e => {
+    onKeyDown(e) {
         if (e.keyCode === 27) {
             this.setState(state => ({ ...newState }));
         }
-    };
+    }
 
     render() {
         return (
@@ -51,7 +61,12 @@ class InviteForm extends React.Component {
                     onChange={this.updateEmail}
                     onKeyDown={this.onKeyDown}
                 />
-                <input disabled={!this.state.email} className="button invite-button" type="submit" value="Invite" />
+                <input
+                    disabled={!this.state.email}
+                    className="button invite-button"
+                    type="submit"
+                    value="Invite"
+                />
             </form>
         );
     }
