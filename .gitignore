@@ -5,6 +5,7 @@ build/
 dist/
 coverage/
 node_modules/
+functions/node_modules/
 tmp/
 
 
@@ -23,6 +24,7 @@ tmp/
 #======================================
 # IDE generated
 #--------------------------------------
+functions/package-lock.json
 package-lock.json
 .package-lock.json
 .idea/
